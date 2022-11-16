@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.*?>
-
 <BorderPane id="sceneStartupMainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="121.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.javafx.controller.ControllerSceneStartup">
    <bottom>
-      <Button fx:id="connectDBButton" mnemonicParsing="false" onAction="#attemptConnectionToDB" prefHeight="20.0" prefWidth="350.0" text="Connettiti al Database" BorderPane.alignment="CENTER" />
+      <Button mnemonicParsing="false" onAction="#attemptConnectionToDB" prefHeight="20.0" prefWidth="350.0" text="Connettiti al Database" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
       <BorderPane prefHeight="75.0" prefWidth="350.0" BorderPane.alignment="CENTER">

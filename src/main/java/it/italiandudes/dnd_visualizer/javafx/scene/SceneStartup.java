@@ -2,14 +2,8 @@ package it.italiandudes.dnd_visualizer.javafx.scene;
 
 import it.italiandudes.dnd_visualizer.DnD_Visualizer;
 import it.italiandudes.idl.common.Logger;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.util.Objects;

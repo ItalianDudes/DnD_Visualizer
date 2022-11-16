@@ -3,9 +3,7 @@ package it.italiandudes.dnd_visualizer;
 import it.italiandudes.dnd_visualizer.javafx.scene.SceneStartup;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -14,6 +12,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public final class DnD_Visualizer extends Application {
 
     //Attributes
@@ -23,6 +22,8 @@ public final class DnD_Visualizer extends Application {
     @Override
     public void start(Stage stage) {
         DnD_Visualizer.stage = stage;
+        stage.setTitle("D&D Visualizer");
+        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResource("/icons/dnd-logo.png")).toString()));
         stage.setScene(SceneStartup.getScene());
         stage.show();
     }
