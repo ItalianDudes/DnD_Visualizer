@@ -17,13 +17,13 @@ public final class DnD_Visualizer extends Application {
 
     //Attributes
     private static Stage stage;
-    private static Connection dbConnection;
+    private static Connection dbConnection = null;
 
     @Override
     public void start(Stage stage) {
         DnD_Visualizer.stage = stage;
         stage.setTitle("D&D Visualizer");
-        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResource("/icons/dnd-logo.png")).toString()));
+        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResource("/icon/dnd-logo.png")).toString()));
         stage.setScene(SceneStartup.getScene());
         stage.show();
     }
@@ -40,6 +40,19 @@ public final class DnD_Visualizer extends Application {
             return true;
         }
         return false;
+    }
+    public static void closeAndClearDBConnection(){
+        try{
+            if(dbConnection!=null && !dbConnection.isClosed())
+                dbConnection.close();
+        }catch (SQLException e){
+            if(Logger.isInitialized()){
+                Logger.log(e);
+            }else{
+                e.printStackTrace();
+            }
+        }
+        dbConnection = null;
     }
 
     //Main Method
