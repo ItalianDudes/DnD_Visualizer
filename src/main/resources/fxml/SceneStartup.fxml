@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 <BorderPane id="sceneStartupMainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="121.0" prefWidth="344.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.javafx.controller.ControllerSceneStartup">
    <bottom>
       <Button mnemonicParsing="false" onAction="#attemptConnectionToDB" prefHeight="20.0" prefWidth="350.0" text="Connettiti al Database" BorderPane.alignment="CENTER" />
@@ -18,7 +19,10 @@
             <TextField fx:id="pathDBTextField" prefHeight="20.0" BorderPane.alignment="CENTER" />
          </center>
          <top>
-            <Label text="Inserisci il percorso al DB" BorderPane.alignment="CENTER" />
+            <Label text="Inserisci il percorso al DB" wrapText="true" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font></Label>
          </top></BorderPane>
    </center>
    <padding>

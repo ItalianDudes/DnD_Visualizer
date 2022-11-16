@@ -13,9 +13,8 @@ public final class ControllerSceneLoading {
     private ImageView loadingView;
 
     //Initialize
-    public void initialize(){
+    public void initialize() {
         loadingView.setImage(new Image(Objects.requireNonNull(getClass().getResource("/gif/loading.gif")).toString()));
     }
-
 
 }

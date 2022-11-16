@@ -18,13 +18,15 @@ public final class DnD_Visualizer extends Application {
     //Attributes
     private static Stage stage;
     private static Connection dbConnection = null;
+    public static final Image appImage = new Image(Objects.requireNonNull(DnD_Visualizer.class.getResource("/icon/dnd-logo.png")).toString());
 
     @Override
     public void start(Stage stage) {
         DnD_Visualizer.stage = stage;
         stage.setTitle("D&D Visualizer");
-        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResource("/icon/dnd-logo.png")).toString()));
+        stage.getIcons().add(appImage);
         stage.setScene(SceneStartup.getScene());
+        stage.setResizable(false);
         stage.show();
     }
 
