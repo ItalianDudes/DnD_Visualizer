@@ -5,7 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 @SuppressWarnings("unused")
-public class ErrorAlert extends Alert {
+public final class ErrorAlert extends Alert {
 
     public ErrorAlert(String title, String header, String content){
         super(AlertType.ERROR);
