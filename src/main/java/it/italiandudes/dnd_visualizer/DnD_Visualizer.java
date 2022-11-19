@@ -88,10 +88,14 @@ public final class DnD_Visualizer extends Application {
         public static final class MenuChoices {
             private static final String fxmlPrefix = "/fxml/menu/";
             private static final String[] choiceName = {
-                    "Oggetto"
+                    "Oggetto",
+                    "Lingua",
+                    "Specie"
             };
             private static final String[] associatedFXML = {
-                    fxmlPrefix+"SceneMenuItem.fxml"
+                    fxmlPrefix+"SceneMenuItem.fxml",
+                    null,
+                    null
             };
             public static String[] getChoiceNames(){
                 return choiceName;
