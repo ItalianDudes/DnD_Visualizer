@@ -26,7 +26,6 @@ public final class DnD_Visualizer extends Application {
         stage.setTitle("D&D Visualizer");
         stage.getIcons().add(appImage);
         stage.setScene(SceneStartup.getScene());
-        stage.setResizable(false);
         stage.show();
     }
 
@@ -85,6 +84,22 @@ public final class DnD_Visualizer extends Application {
 
     //Constants
     public static final class Defs {
+
+        public static final class MenuChoices {
+            private static final String fxmlPrefix = "/fxml/menu/";
+            private static final String[] choiceName = {
+                    "Oggetto"
+            };
+            private static final String[] associatedFXML = {
+                    fxmlPrefix+"SceneMenuItem.fxml"
+            };
+            public static String[] getChoiceNames(){
+                return choiceName;
+            }
+            public static String[] getFxmlPrefix() {
+                return associatedFXML;
+            }
+        }
 
         //This Jar Executable Location
         public static final File jarExecutablePath = new File(DnD_Visualizer.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile();
