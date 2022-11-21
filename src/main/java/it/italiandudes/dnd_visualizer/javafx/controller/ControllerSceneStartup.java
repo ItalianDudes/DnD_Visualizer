@@ -12,7 +12,6 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -74,22 +73,14 @@ public final class ControllerSceneStartup {
                         if(!fileChecker.exists() || !fileChecker.isFile()){
                             Platform.runLater(() -> {
                                 DnD_Visualizer.getStage().setScene(thisScene);
-                                Alert alert = new Alert(Alert.AlertType.ERROR);
-                                alert.setTitle("ERRORE");
-                                alert.setHeaderText("Errore inserimento DB");
-                                alert.setContentText("Il percorso inserito non esiste oppure non e' un file! Inserire un percorso a un file valido");
-                                alert.show();
+                                new ErrorAlert("ERRORE", "Errore inserimento DB", "Il percorso inserito non esiste oppure non e' un file! Inserire un percorso a un file valido");
                             });
                             return null;
                         }
                         if(!FileHandler.getFileExtension(dbPath).equals("db3")){
                             Platform.runLater(() -> {
                                 DnD_Visualizer.getStage().setScene(thisScene);
-                                Alert alert = new Alert(Alert.AlertType.ERROR);
-                                alert.setTitle("ERRORE");
-                                alert.setHeaderText("Errore inserimento DB");
-                                alert.setContentText("Il file inserito non e' di formato .db3! Inserire un percorso a un file valido");
-                                alert.show();
+                                new ErrorAlert("ERRORE", "Errore inserimento DB", "Il file inserito non e' di formato .db3! Inserire un percorso a un file valido");
                             });
                             return null;
                         }
@@ -98,11 +89,7 @@ public final class ControllerSceneStartup {
                         if(dbConnection==null){
                             Platform.runLater(() -> {
                                 DnD_Visualizer.getStage().setScene(thisScene);
-                                Alert alert = new Alert(Alert.AlertType.ERROR);
-                                alert.setTitle("ERRORE");
-                                alert.setHeaderText("Errore connessione DB");
-                                alert.setContentText("Si e' verificato un errore durante la connessione al database");
-                                alert.show();
+                                new ErrorAlert("ERRORE", "Errore connessione DB", "Si e' verificato un errore durante la connessione al database");
                             });
                             return null;
                         }

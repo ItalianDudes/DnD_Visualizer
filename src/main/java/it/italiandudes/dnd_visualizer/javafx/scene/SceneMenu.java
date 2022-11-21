@@ -13,7 +13,7 @@ public final class SceneMenu {
     //Methods
     public static Scene getScene(){
         try {
-            return new Scene(FXMLLoader.load(Objects.requireNonNull(DnD_Visualizer.class.getResource("/fxml/SceneMen.fxml"))));
+            return new Scene(FXMLLoader.load(Objects.requireNonNull(DnD_Visualizer.class.getResource("/fxml/SceneMenu.fxml"))));
         }catch (IOException e){
             if(Logger.isInitialized()){
                 Logger.log(e);
