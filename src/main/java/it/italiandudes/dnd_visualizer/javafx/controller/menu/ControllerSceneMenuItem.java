@@ -37,7 +37,7 @@ public final class ControllerSceneMenuItem {
     //Handler
     @FXML
     private void changeShowedPane(ActionEvent event){
-
+        //TODO: Estensione dell'oggetto generico (esempio: Ammunition, Melee Weapon)
     }
 
 }

@@ -94,8 +94,8 @@ public final class DnD_Visualizer extends Application {
             };
             private static final String[] associatedFXML = {
                     fxmlPrefix+"SceneMenuItem.fxml",
-                    null,
-                    null
+                    null, //TODO: Lingua FXML
+                    null //TODO: Specie FXML
             };
             public static String[] getChoiceNames(){
                 return choiceName;
