@@ -41,15 +41,15 @@ public final class ControllerSceneMenu {
 
     //Handler
     @FXML
-    private void changeShowedPane(ActionEvent event){
+    private void changeShowedPane(ActionEvent event) {
         String item = choiceComboBox.getValue();
         try {
             nestedFXMLPanel.getChildren().clear();
             nestedFXMLPanel.getChildren().add(FXMLLoader.load(Objects.requireNonNull(getClass().getResource(choiceDictionary.get(item)))));
-        }catch (IOException e){
-            if(Logger.isInitialized()){
+        } catch (IOException e) {
+            if (Logger.isInitialized()) {
                 Logger.log(e);
-            }else{
+            } else {
                 e.printStackTrace();
             }
         }

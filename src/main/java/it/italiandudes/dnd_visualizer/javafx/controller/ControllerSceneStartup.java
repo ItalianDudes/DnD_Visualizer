@@ -15,6 +15,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -25,6 +28,8 @@ import java.util.Objects;
 public final class ControllerSceneStartup {
 
     //Attributes
+    @FXML
+    private BorderPane mainPane;
     @FXML
     private TextField pathDBTextField;
     @FXML
@@ -40,6 +45,21 @@ public final class ControllerSceneStartup {
     }
 
     //Listeners
+    @FXML
+    private void handleOnDragOver(DragEvent event){
+        if(event.getDragboard().hasFiles()){
+            event.acceptTransferModes(TransferMode.COPY);
+        }
+    }
+    @FXML
+    private void handleOnDragDropped(DragEvent event){
+        if(event.getDragboard().hasFiles()){
+            pathDBTextField.setText(event.getDragboard().getFiles().get(0).getAbsolutePath());
+            event.setDropCompleted(true);
+        }else{
+            event.setDropCompleted(false);
+        }
+    }
     @FXML
     private void openDBFileChooser(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
