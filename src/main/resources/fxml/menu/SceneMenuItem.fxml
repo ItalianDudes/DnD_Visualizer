@@ -3,11 +3,12 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<BorderPane fx:id="mainPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.javafx.controller.menu.ControllerSceneMenuItem">
+
+<BorderPane fx:id="mainPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.javafx.controller.menu.ControllerSceneMenuItem">
    <top>
       <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <center>
-            <TextField BorderPane.alignment="CENTER" />
+            <TextField fx:id="nameField" BorderPane.alignment="CENTER" />
          </center>
          <left>
             <Label text="Nome:" BorderPane.alignment="CENTER" />
@@ -37,7 +38,7 @@
                    </GridPane.margin>
                    <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                        <center>
-                           <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
+                           <TextField fx:id="levelField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
                        </center>
                        <top>
                            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Livello Richiesto" BorderPane.alignment="CENTER" />
@@ -45,7 +46,7 @@
                    </BorderPane>
                    <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                        <center>
-                           <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
+                           <TextField fx:id="weightField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
                        </center>
                        <top>
                            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Peso" BorderPane.alignment="CENTER" />
@@ -53,7 +54,7 @@
                    </BorderPane>
                    <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                        <center>
-                           <TextField BorderPane.alignment="CENTER" />
+                           <TextField fx:id="costField" BorderPane.alignment="CENTER" />
                        </center>
                        <top>
                            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Valore" BorderPane.alignment="CENTER" />
@@ -61,7 +62,7 @@
                    </BorderPane>
                    <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                        <center>
-                           <TextField maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
+                           <TextField fx:id="rarityField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
                        </center>
                        <top>
                            <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Rarità" BorderPane.alignment="CENTER" />
@@ -82,12 +83,12 @@
                            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Descrizione" BorderPane.alignment="CENTER" />
                        </top>
                        <center>
-                           <TextArea maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" wrapText="true" BorderPane.alignment="CENTER" />
+                           <TextArea fx:id="loreField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" wrapText="true" BorderPane.alignment="CENTER" />
                        </center>
                    </BorderPane>
                    <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1">
                        <center>
-                           <TextArea maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" wrapText="true" BorderPane.alignment="CENTER" />
+                           <TextArea fx:id="reqKnowledgeField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" wrapText="true" BorderPane.alignment="CENTER" />
                        </center>
                        <top>
                            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Conoscenze Richieste" BorderPane.alignment="CENTER" />
@@ -98,7 +99,7 @@
                            <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Proprietà" BorderPane.alignment="CENTER" />
                        </top>
                        <center>
-                           <TextArea maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" wrapText="true" BorderPane.alignment="CENTER" />
+                           <TextArea fx:id="propertiesField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" wrapText="true" BorderPane.alignment="CENTER" />
                        </center>
                    </BorderPane>
                <GridPane.margin>
@@ -124,7 +125,7 @@
                   </BorderPane>
               </top>
               <center>
-                  <Pane fx:id="nestedFXMLPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
+                  <Pane fx:id="nestedFXMLPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER" />
               </center>
             <GridPane.margin>
                <Insets left="5.0" />

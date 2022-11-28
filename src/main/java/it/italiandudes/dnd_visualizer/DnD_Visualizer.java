@@ -85,26 +85,6 @@ public final class DnD_Visualizer extends Application {
     //Constants
     public static final class Defs {
 
-        public static final class MenuChoices {
-            private static final String fxmlPrefix = "/fxml/menu/";
-            private static final String[] choiceName = {
-                    "Oggetto",
-                    "Lingua",
-                    "Specie"
-            };
-            private static final String[] associatedFXML = {
-                    fxmlPrefix+"SceneMenuItem.fxml",
-                    fxmlPrefix+"SceneMenuLanguage.fxml",
-                    null //TODO: Specie FXML
-            };
-            public static String[] getChoiceNames(){
-                return choiceName;
-            }
-            public static String[] getFxmlPrefix() {
-                return associatedFXML;
-            }
-        }
-
         //This Jar Executable Location
         public static final File jarExecutablePath = new File(DnD_Visualizer.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile();
 
