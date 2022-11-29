@@ -15,7 +15,8 @@ public final class ControllerSceneLoading {
     private static final Image loadingImage = new Image(Objects.requireNonNull(DnD_Visualizer.class.getResource("/gif/loading.gif")).toString());
 
     //Initialize
-    public void initialize() {
+    @FXML
+    private void initialize() {
         loadingView.setImage(loadingImage);
     }
 

@@ -36,7 +36,8 @@ public final class ControllerSceneStartup {
     private Button dbChooserButton;
 
     //Initialize
-    public void initialize() {
+    @FXML
+    private void initialize() {
         ImageView fileChooserView = new ImageView(Objects.requireNonNull(getClass().getResource("/icon/file-explorer.png")).toString());
         fileChooserView.setFitWidth(dbChooserButton.getPrefWidth());
         fileChooserView.setFitHeight(dbChooserButton.getHeight());

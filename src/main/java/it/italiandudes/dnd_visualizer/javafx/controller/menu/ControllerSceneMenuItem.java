@@ -61,7 +61,8 @@ public final class ControllerSceneMenuItem {
     private TextArea propertiesField;
 
     //Initialize
-    public void initialize() {
+    @FXML
+    private void initialize() {
         AnchorPane.setTopAnchor(mainPane, 0.0);
         AnchorPane.setBottomAnchor(mainPane, 0.0);
         AnchorPane.setRightAnchor(mainPane, 0.0);

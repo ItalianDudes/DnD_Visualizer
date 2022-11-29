@@ -34,7 +34,8 @@ public final class ControllerSceneMenu {
     private FXMLLoader nestedFXML;
 
     //Initialize
-    public void initialize() {
+    @FXML
+    private void initialize() {
         if(nestedFXMLPanel == null){
             nestedFXMLPanel = new AnchorPane();
         }
