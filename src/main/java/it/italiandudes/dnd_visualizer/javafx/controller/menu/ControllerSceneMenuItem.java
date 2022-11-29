@@ -76,28 +76,6 @@ public final class ControllerSceneMenuItem {
         }
         if(choiceComboBox == null) choiceComboBox = new ComboBox<>();
         choiceComboBox.setItems(FXCollections.observableArrayList(JFXDefs.MenuChoices.ItemMenuChoices.getChoiceNames()));
-        Service<Void> service = new Service<Void>() {
-            @Override
-            protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override
-                    protected Void call() {
-                        String query = "SELECT * FROM "+ DBDefs.DB_TABLE_ITEMS + " WHERE name LIKE 'PANINO'";
-                        ResultSet s = SQLiteHandler.readDataFromDB(DnD_Visualizer.getDbConnection(), query);
-                        Platform.runLater(() -> {
-                            try {
-                                nameField.setText(s.getString(2));
-                                loreField.setText(s.getString(3));
-                            }catch (SQLException e){
-                                Logger.log(e);
-                            }
-                        });
-                        return null;
-                    }
-                };
-            }
-        };
-        service.start();
     }
 
     //Handler
