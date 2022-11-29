@@ -17,12 +17,14 @@ public final class JFXDefs {
         private static final String[] CHOICE_NAME = {
                 "Oggetto",
                 "Lingua",
-                "Specie"
+                "Specie",
+                "--VISUALIZZA--"
         };
         private static final String[] ASSOCIATED_FXML = {
                 FXML_PREFIX +"SceneMenuItem.fxml",
                 FXML_PREFIX +"SceneMenuLanguage.fxml",
-                null //TODO: Specie FXML
+                FXML_PREFIX+"SceneMenuSpecie.fxml",
+                FXML_PREFIX +"SceneMenuViewer.fxml"
         };
         public static String[] getChoiceNames(){
             return CHOICE_NAME;
