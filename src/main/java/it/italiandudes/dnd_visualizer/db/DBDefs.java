@@ -15,4 +15,16 @@ public final class DBDefs {
     public static final String DB_TABLE_SPECIES_AND_LANGUAGES_BRIDGE = "species_and_languages";
     public static final String DB_TABLE_SPELLS = "spells";
 
+    public static final String[] DB_TABLE_LIST = {
+            DB_TABLE_ITEMS,
+            DB_TABLE_LANGUAGES,
+            DB_TABLE_SPECIES,
+            DB_TABLE_CLASSES,
+            DB_TABLE_ARMORS,
+            DB_TABLE_AMMUNITIONS,
+            DB_TABLE_MELEE_WEAPONS,
+            DB_TABLE_RANGED_WEAPONS,
+            DB_TABLE_SPELLS
+    };
+
 }

@@ -32,10 +32,10 @@
       <bottom>
          <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
             <left>
-               <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancella" BorderPane.alignment="CENTER" />
+               <Button fx:id="clearButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleClearButton" text="Svuota Campi" BorderPane.alignment="CENTER" />
             </left>
             <right>
-               <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleSaveButton" text="Salva" BorderPane.alignment="CENTER" />
+               <Button fx:id="saveButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleSaveButton" text="Salva" BorderPane.alignment="CENTER" />
             </right>
             <padding>
                <Insets left="20.0" right="20.0" />

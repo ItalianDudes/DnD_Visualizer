@@ -9,7 +9,6 @@ import it.italiandudes.idl.common.SQLiteHandler;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,19 +16,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.sql.Connection;
 import java.util.Objects;
 
-@SuppressWarnings("unused")
 public final class ControllerSceneStartup {
 
     //Attributes
-    @FXML
-    private BorderPane mainPane;
     @FXML
     private TextField pathDBTextField;
     @FXML
@@ -62,7 +57,7 @@ public final class ControllerSceneStartup {
         }
     }
     @FXML
-    private void openDBFileChooser(ActionEvent event) {
+    private void openDBFileChooser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleziona il DB");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SQLite3 Database", "*.db3"));
@@ -72,7 +67,7 @@ public final class ControllerSceneStartup {
             pathDBTextField.setText(fileDB.getAbsolutePath());
     }
     @FXML
-    private void attemptConnectionToDB(ActionEvent event){
+    private void attemptConnectionToDB(){
 
         Scene thisScene = pathDBTextField.getScene();
         DnD_Visualizer.getStage().setScene(SceneLoading.getScene());

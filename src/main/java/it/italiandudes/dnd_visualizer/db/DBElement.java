@@ -52,7 +52,7 @@ public abstract class DBElement implements Serializable {
         this.rarity = rarity;
     }
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    public abstract boolean writeIntoDB(@NotNull Connection dbConnection, boolean genID);
+    public abstract boolean writeIntoDB(@NotNull Connection dbConnection);
     public abstract String getBase64();
     @Override
     public boolean equals(Object o) {

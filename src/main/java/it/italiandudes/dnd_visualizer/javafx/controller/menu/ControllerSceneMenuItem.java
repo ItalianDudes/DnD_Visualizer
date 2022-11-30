@@ -1,48 +1,24 @@
 package it.italiandudes.dnd_visualizer.javafx.controller.menu;
 
-import it.italiandudes.dnd_visualizer.DnD_Visualizer;
-import it.italiandudes.dnd_visualizer.db.DBDefs;
 import it.italiandudes.dnd_visualizer.db.classes.Cost;
 import it.italiandudes.dnd_visualizer.db.classes.Item;
 import it.italiandudes.dnd_visualizer.db.enums.Coin;
 import it.italiandudes.dnd_visualizer.db.enums.Rarity;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
-import it.italiandudes.idl.common.Logger;
-import it.italiandudes.idl.common.SQLiteHandler;
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Objects;
 
 @SuppressWarnings("unused")
 public final class ControllerSceneMenuItem {
 
     //Attributes
-    private static HashMap<String, String> choiceDictionary = null;
     @FXML
     private BorderPane mainPane;
-    @FXML
-    private Pane nestedFXMLPanel;
-    @SuppressWarnings("FieldCanBeLocal")
-    private FXMLLoader nestedFXML;
-    @FXML
-    private ComboBox<String> choiceComboBox;
     @FXML
     private TextField nameField;
     @FXML
@@ -52,13 +28,14 @@ public final class ControllerSceneMenuItem {
     @FXML
     private TextField costField;
     @FXML
-    private TextField rarityField;
+    private ComboBox<String> rarityField;
     @FXML
     private TextArea loreField;
     @FXML
     private TextArea reqKnowledgeField;
     @FXML
     private TextArea propertiesField;
+    private int itemID;
 
     //Initialize
     @FXML
@@ -67,18 +44,22 @@ public final class ControllerSceneMenuItem {
         AnchorPane.setBottomAnchor(mainPane, 0.0);
         AnchorPane.setRightAnchor(mainPane, 0.0);
         AnchorPane.setLeftAnchor(mainPane, 0.0);
-        if(nestedFXMLPanel == null) nestedFXMLPanel = new Pane();
-        if(choiceDictionary == null){
-            choiceDictionary = new HashMap<>();
-            for(int i = 0; i< JFXDefs.MenuChoices.ItemMenuChoices.getChoiceNames().length; i++){
-                choiceDictionary.put(JFXDefs.MenuChoices.ItemMenuChoices.getChoiceNames()[i], JFXDefs.MenuChoices.ItemMenuChoices.getFxmlPrefix()[i]);
-            }
-        }
-        if(choiceComboBox == null) choiceComboBox = new ComboBox<>();
-        choiceComboBox.setItems(FXCollections.observableArrayList(JFXDefs.MenuChoices.ItemMenuChoices.getChoiceNames()));
+        rarityField.setItems(JFXDefs.MenuChoices.getRarityComboBox());
+        rarityField.getSelectionModel().selectFirst();
     }
 
     //Handler
+    public void setDescripedItem(Item item){
+        nameField.setText(item.getName());
+        loreField.setText(item.getLore());
+        reqKnowledgeField.setText(item.getRequiredKnowledge());
+        levelField.setText(String.valueOf(item.getRequiredLevel()));
+        propertiesField.setText(item.getProperties());
+        rarityField.getSelectionModel().select(item.getRarity().name());
+        costField.setText(String.valueOf(item.getCost().getCostByCoinType(Coin.COPPER)));
+        weightField.setText(String.valueOf(item.getWeight()));
+        itemID = item.getItemID();
+    }
     public Item getDescribedItem(){
         String name = nameField.getText();
         if(name==null || name.equals("")){
@@ -87,7 +68,7 @@ public final class ControllerSceneMenuItem {
         }
         Rarity rarity;
         try {
-            rarity = Rarity.valueOf(rarityField.getText());
+            rarity = Rarity.valueOf(rarityField.getValue());
         }catch (IllegalArgumentException e){
             new ErrorAlert("ERRORE", "Errore durante la lettura dell'oggetto", "Il campo \"Rarita'\" deve contenere una rarita' valida");
             return null;
@@ -116,6 +97,7 @@ public final class ControllerSceneMenuItem {
             return null;
         }
         return new Item(
+                itemID,
                 name,
                 loreField.getText(),
                 rarity,
@@ -129,26 +111,11 @@ public final class ControllerSceneMenuItem {
     public void clearAllFields(){
         nameField.clear();
         loreField.clear();
-        rarityField.clear();
+        rarityField.getSelectionModel().selectFirst();
         levelField.clear();
         reqKnowledgeField.clear();
         costField.clear();
         weightField.clear();
         propertiesField.clear();
-    }
-    @FXML
-    private void changeShowedPane(ActionEvent event){
-        String item = choiceComboBox.getValue();
-        try {
-            nestedFXMLPanel.getChildren().clear();
-            nestedFXML = new FXMLLoader(Objects.requireNonNull(getClass().getResource(choiceDictionary.get(item))));
-            nestedFXMLPanel.getChildren().add(nestedFXML.load());
-        } catch (IOException e) {
-            if (Logger.isInitialized()) {
-                Logger.log(e);
-            } else {
-                e.printStackTrace();
-            }
-        }
     }
 }

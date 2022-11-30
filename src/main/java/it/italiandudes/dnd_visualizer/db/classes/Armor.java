@@ -54,8 +54,8 @@ public final class Armor extends Item {
 
     //Methods
     @Override
-    public boolean writeIntoDB(@NotNull Connection dbConnection, boolean genID) {
-        boolean esito = super.writeIntoDB(dbConnection, genID);
+    public boolean writeIntoDB(@NotNull Connection dbConnection) {
+        boolean esito = super.writeIntoDB(dbConnection);
         String query = "INSERT INTO "+ DBDefs.DB_TABLE_ARMORS +"(ap, ca_against_cut, ca_against_impact, ca_against_thrust, body_part, itemID) VALUES(?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = SQLiteHandler.prepareDataWriteIntoDB(dbConnection, query);
         try {

@@ -1,5 +1,10 @@
 package it.italiandudes.dnd_visualizer.javafx;
 
+import it.italiandudes.dnd_visualizer.db.DBDefs;
+import it.italiandudes.dnd_visualizer.db.enums.Rarity;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 @SuppressWarnings("unused")
 public final class JFXDefs {
 
@@ -8,6 +13,7 @@ public final class JFXDefs {
     public static final String STARTUP_FXML = FXML_DIR+"SceneStartup.fxml";
     public static final String LOADING_FXML = FXML_DIR+"SceneLoading.fxml";
     public static final String MENU_FXML = FXML_DIR+"SceneMenu.fxml";
+    public static final String ELEMENT_EDITOR_FXML = FXML_DIR+"SceneElementEditor.fxml";
     public static final String FXML_MENU_DIR = FXML_DIR+"menu/";
     public static final String MENU_ITEM_FXML = FXML_MENU_DIR+"SceneMenuItem.fxml";
     public static final String MENU_LANGUAGE_FXML = FXML_MENU_DIR+"SceneMenuLanguage.fxml";
@@ -19,36 +25,50 @@ public final class JFXDefs {
         private static final String[] CHOICE_NAME = {
                 "Oggetto",
                 "Lingua",
-                "Specie"
+                "Specie",
+                "Classe",
+                "Armatura",
+                "Munizioni",
+                "Arma Corpo a Corpo",
+                "Arma a Distanza",
+                "Magia",
         };
         private static final String[] ASSOCIATED_FXML = {
                 FXML_PREFIX +"SceneMenuItem.fxml",
                 FXML_PREFIX +"SceneMenuLanguage.fxml",
-                FXML_PREFIX+"SceneMenuSpecie.fxml"
+                FXML_PREFIX+"SceneMenuSpecie.fxml",
+                FXML_PREFIX+"SceneMenuClass.fxml",
+                FXML_PREFIX+"SceneMenuArmor.fxml",
+                FXML_PREFIX+"SceneMenuAmmunition.fxml",
+                FXML_PREFIX+"SceneMenuMeleeWeapon.fxml",
+                FXML_PREFIX+"SceneMenuRangedWeapon.fxml",
+                FXML_PREFIX+"SceneMenuSpell.fxml"
         };
+        public static String getFXMLbyChoiceName(String choiceName){
+            int i = getPosByChoiceName(choiceName);
+            if(i==-1) return null;
+            return ASSOCIATED_FXML[i];
+        }
+        public static String getDBTableNameFromChoiceName(String choiceName){
+            int i = getPosByChoiceName(choiceName);
+            if(i==-1) return null;
+            return DBDefs.DB_TABLE_LIST[i];
+        }
+        private static int getPosByChoiceName(String choiceName){
+            for(int i=0;i<CHOICE_NAME.length;i++){
+                if(CHOICE_NAME[i].equals(choiceName))
+                    return i;
+            }
+            return -1;
+        }
         public static String[] getChoiceNames(){
             return CHOICE_NAME;
         }
         public static String[] getFxmlPrefix() {
             return ASSOCIATED_FXML;
         }
-
-        public static final class ItemMenuChoices {
-
-            private static final String FXML_PREFIX = "/fxml/menu/item/";
-            private static final String[] CHOICE_NAME = {
-                    "Armatura"
-            };
-            private static final String[] ASSOCIATED_FXML = {
-                    FXML_PREFIX+"SceneMenuItemArmor.fxml"
-            };
-            public static String[] getChoiceNames(){
-                return CHOICE_NAME;
-            }
-            public static String[] getFxmlPrefix(){
-                return ASSOCIATED_FXML;
-            }
-
+        public static ObservableList<String> getRarityComboBox(){
+            return FXCollections.observableArrayList(Rarity.RARITY_STRING);
         }
 
     }

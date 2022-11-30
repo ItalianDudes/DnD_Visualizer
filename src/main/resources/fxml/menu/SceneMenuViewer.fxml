@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="it.italiandudes.dnd_visualizer.javafx.controller.menu.ControllerSceneMenuViewer" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="mainPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.javafx.controller.menu.ControllerSceneMenuViewer">
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
    <center>
       <VBox fx:id="elementPane" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
    </center>
+   <bottom>
+      <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshFromButton" text="Aggiorna" BorderPane.alignment="CENTER" />
+   </bottom>
 </BorderPane>

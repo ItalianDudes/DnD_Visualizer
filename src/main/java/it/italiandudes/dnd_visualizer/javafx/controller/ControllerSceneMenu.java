@@ -13,10 +13,9 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
@@ -25,7 +24,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Objects;
 
-@SuppressWarnings("unused")
 public final class ControllerSceneMenu {
 
     //Attributes
@@ -35,6 +33,10 @@ public final class ControllerSceneMenu {
     @FXML
     private CheckBox viewOpt;
     private boolean viewMode;
+    @FXML
+    private Button clearButton;
+    @FXML
+    private Button saveButton;
     @FXML
     private AnchorPane nestedFXMLPanel;
     private FXMLLoader nestedFXML;
@@ -59,19 +61,23 @@ public final class ControllerSceneMenu {
 
     //Handler
     @FXML
-    private void changeViewMode(ActionEvent event){
+    private void changeViewMode(){
         viewMode = viewOpt.isSelected();
-        changeShowedPane(event);
+        changeShowedPane();
     }
     @FXML
-    private void changeShowedPane(ActionEvent event) {
+    private void changeShowedPane() {
         viewOpt.setDisable(false);
         String item = choiceComboBox.getValue();
         try {
             nestedFXMLPanel.getChildren().clear();
             if(!viewMode) {
+                saveButton.setDisable(false);
+                clearButton.setDisable(false);
                 nestedFXML = new FXMLLoader(Objects.requireNonNull(getClass().getResource(choiceDictionary.get(item))));
             }else{
+                saveButton.setDisable(true);
+                clearButton.setDisable(true);
                 ControllerSceneMenuViewer.setElementType(item);
                 nestedFXML = new FXMLLoader(Objects.requireNonNull(getClass().getResource(JFXDefs.MenuChoices.FXML_VIEW)));
             }
@@ -85,7 +91,7 @@ public final class ControllerSceneMenu {
         }
     }
     @FXML
-    private void handleSaveButton(ActionEvent event){
+    private void handleSaveButton(){
         String choice = choiceComboBox.getValue();
         System.out.println(choice);
         if(choice==null || choice.equals("")) return;
@@ -99,7 +105,7 @@ public final class ControllerSceneMenu {
                     return new Task<Void>() {
                         @Override
                         protected Void call() {
-                            if(!describedItem.writeIntoDB(DnD_Visualizer.getDbConnection(), true)){
+                            if(!describedItem.writeIntoDB(DnD_Visualizer.getDbConnection())){
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore DB", "Si e' verificato un errore durante la scrittura nel DB"));
                             }
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Scrittura DB", "Oggetto salvato con successo"));
@@ -111,12 +117,13 @@ public final class ControllerSceneMenu {
             dbWriterService.start();
         }else if(nestedFXML.getController() instanceof ControllerSceneMenuLanguage){
             ControllerSceneMenuLanguage langMenu = nestedFXML.getController();
+            //TODO: Continue Language
         }else{
             throw new RuntimeException("Controller not recognized!");
         }
     }
     @FXML
-    private void handleCancelButton(ActionEvent event){
+    private void handleClearButton(){
         String choice = choiceComboBox.getValue();
         if(choice==null || choice.equals("")) return;
         if(nestedFXML.getController() instanceof ControllerSceneMenuItem){
@@ -124,6 +131,7 @@ public final class ControllerSceneMenu {
             itemMenu.clearAllFields();
         }else if(nestedFXML.getController() instanceof ControllerSceneMenuLanguage){
             ControllerSceneMenuLanguage langMenu = nestedFXML.getController();
+            //TODO: Continue Lang Cancel Button
         }else{
             throw new RuntimeException("Controller not recognized!");
         }

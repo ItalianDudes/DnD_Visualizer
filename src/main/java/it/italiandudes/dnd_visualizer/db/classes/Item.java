@@ -1,5 +1,6 @@
 package it.italiandudes.dnd_visualizer.db.classes;
 
+import it.italiandudes.dnd_visualizer.DnD_Visualizer;
 import it.italiandudes.dnd_visualizer.db.DBDefs;
 import it.italiandudes.dnd_visualizer.db.DBElement;
 import it.italiandudes.dnd_visualizer.db.enums.Coin;
@@ -32,6 +33,17 @@ public class Item extends DBElement {
     //Constructors
     public Item(@NotNull String name, @Nullable String lore, @NotNull Rarity rarity, int requiredLevel, @Nullable String requiredKnowledge, @NotNull Cost cost, double weight, @Nullable String properties) {
         super(name, lore, rarity);
+        itemID = -1;
+        if(requiredLevel<1) throw new RuntimeException("\"Required Level\" must be equal or greater than 1");
+        this.requiredLevel = requiredLevel;
+        this.requiredKnowledge = requiredKnowledge;
+        this.cost = cost;
+        this.weight = weight;
+        this.properties = properties;
+    }
+    public Item(int itemID, @NotNull String name, @Nullable String lore, @NotNull Rarity rarity, int requiredLevel, @Nullable String requiredKnowledge, @NotNull Cost cost, double weight, @Nullable String properties) {
+        super(name, lore, rarity);
+        this.itemID = itemID;
         if(requiredLevel<1) throw new RuntimeException("\"Required Level\" must be equal or greater than 1");
         this.requiredLevel = requiredLevel;
         this.requiredKnowledge = requiredKnowledge;
@@ -41,6 +53,7 @@ public class Item extends DBElement {
     }
     public Item(@NotNull Connection dbConnection, String name) throws SQLException {
         super(name);
+        itemID = -1;
         String query = "SELECT * FROM " + DBDefs.DB_TABLE_ITEMS + " WHERE name LIKE '"+name+"'";
         ResultSet resultSet = SQLiteHandler.readDataFromDB(dbConnection, query);
         itemID = resultSet.getInt(1);
@@ -53,38 +66,58 @@ public class Item extends DBElement {
         weight = resultSet.getDouble(8);
         properties = resultSet.getString(9);
     }
+    public Item(@NotNull ResultSet set) throws SQLException {
+        super(set.getString(2));
+        itemID = -1;
+        itemID = set.getInt(1);
+        setLore(set.getString(3));
+        requiredLevel = set.getInt(4);
+        requiredKnowledge = set.getString(5);
+        setRarity(Rarity.valueOf(set.getString(6)));
+        cost = new Cost(Coin.COPPER, Integer.parseInt(set.getString(7)));
+        weight = set.getDouble(8);
+        properties = set.getString(9);
+
+    }
 
     //Methods
+    public boolean updateIntoDB(@NotNull Connection dbConnection){
+        String query = "UPDATE "+ DBDefs.DB_TABLE_ITEMS +" SET name = ? , lore = ?, required_level = ?, required_knowledge = ?, rarity = ?, cost = ?, weight = ?, properties = ? WHERE id = ?";
+        try{
+            PreparedStatement statement = DnD_Visualizer.getDbConnection().prepareStatement(query);
+            statement.setString(1, getName());
+            statement.setString(2, getLore());
+            statement.setInt(3, requiredLevel);
+            statement.setString(4, requiredKnowledge);
+            statement.setString(5, getRarity().name());
+            statement.setString(6, cost.toString());
+            statement.setDouble(7, weight);
+            statement.setString(8, properties);
+            statement.setInt(9, itemID);
+            statement.executeUpdate();
+        }catch (SQLException e){
+            Logger.log(e);
+            return false;
+        }
+        return true;
+    }
     @Override
-    public boolean writeIntoDB(@NotNull Connection dbConnection, boolean genID) {
-        String query;
-        if(genID) query = "INSERT INTO "+ DBDefs.DB_TABLE_ITEMS +"(name, lore, required_level, required_knowledge, rarity, cost, weight, properties) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-        else query = "INSERT INTO "+ DBDefs.DB_TABLE_ITEMS +"(id, name, lore, required_level, required_knowledge, rarity, cost, weight, properties) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+    public boolean writeIntoDB(@NotNull Connection dbConnection) {
+        if(itemID==-1) return false;
+        String query = "INSERT INTO "+ DBDefs.DB_TABLE_ITEMS +"(name, lore, required_level, required_knowledge, rarity, cost, weight, properties) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = SQLiteHandler.prepareDataWriteIntoDB(dbConnection, query);
         try {
-            if(genID) {
-                statement.setString(1, getName());
-                statement.setString(2, getLore());
-                statement.setInt(3, requiredLevel);
-                statement.setString(4, requiredKnowledge);
-                statement.setString(5, getRarity().name());
-                statement.setString(6, cost.toString());
-                statement.setDouble(7, weight);
-                statement.setString(8, properties);
-                statement.execute();
-                itemID = statement.getGeneratedKeys().getRow();
-            }else{
-                statement.setInt(1, getItemID());
-                statement.setString(2, getName());
-                statement.setString(3, getLore());
-                statement.setInt(4, requiredLevel);
-                statement.setString(5, requiredKnowledge);
-                statement.setString(6, getRarity().name());
-                statement.setString(7, cost.toString());
-                statement.setDouble(8, weight);
-                statement.setString(9, properties);
-                statement.execute();
-            }
+            statement.setString(1, getName());
+            statement.setString(2, getLore());
+            statement.setInt(3, requiredLevel);
+            statement.setString(4, requiredKnowledge);
+            statement.setString(5, getRarity().name());
+            statement.setString(6, cost.toString());
+            statement.setDouble(7, weight);
+            statement.setString(8, properties);
+            statement.execute();
+            itemID = statement.getGeneratedKeys().getInt(1);
+            System.out.println("Generated Key: "+itemID);
             return true;
         }catch (SQLException e){
             Logger.log(e);
