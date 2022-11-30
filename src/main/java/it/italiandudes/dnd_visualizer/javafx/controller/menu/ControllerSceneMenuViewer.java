@@ -1,6 +1,7 @@
 package it.italiandudes.dnd_visualizer.javafx.controller.menu;
 
 import it.italiandudes.dnd_visualizer.javafx.alert.InformationAlert;
+import it.italiandudes.dnd_visualizer.javafx.controller.ControllerSceneMenu;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,15 +13,22 @@ public final class ControllerSceneMenuViewer {
     //Attributes
     @FXML
     private VBox elementPane;
-    private String elementName;
+    private static String elementType = null;
 
     //Initialize
     @FXML
     private void initialize(){
-        elementName = (String) elementPane.getScene().getWindow().getUserData(); //FIXME
-        System.out.println(elementName);
+        System.out.println(elementType);
     }
 
     //EDT
+
+    //Methods
+    public static void setElementType(String elementType){
+        ControllerSceneMenuViewer.elementType = elementType;
+    }
+    public static String getElementType(){
+        return elementType;
+    }
 
 }

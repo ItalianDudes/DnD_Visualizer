@@ -7,6 +7,7 @@ import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.alert.InformationAlert;
 import it.italiandudes.dnd_visualizer.javafx.controller.menu.ControllerSceneMenuItem;
 import it.italiandudes.dnd_visualizer.javafx.controller.menu.ControllerSceneMenuLanguage;
+import it.italiandudes.dnd_visualizer.javafx.controller.menu.ControllerSceneMenuViewer;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -15,6 +16,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
@@ -41,6 +43,7 @@ public final class ControllerSceneMenu {
     @FXML
     private void initialize() {
         viewOpt.setSelected(false);
+        viewOpt.setDisable(true);
         if(nestedFXMLPanel == null){
             nestedFXMLPanel = new AnchorPane();
         }
@@ -62,18 +65,17 @@ public final class ControllerSceneMenu {
     }
     @FXML
     private void changeShowedPane(ActionEvent event) {
+        viewOpt.setDisable(false);
         String item = choiceComboBox.getValue();
         try {
             nestedFXMLPanel.getChildren().clear();
             if(!viewMode) {
                 nestedFXML = new FXMLLoader(Objects.requireNonNull(getClass().getResource(choiceDictionary.get(item))));
             }else{
+                ControllerSceneMenuViewer.setElementType(item);
                 nestedFXML = new FXMLLoader(Objects.requireNonNull(getClass().getResource(JFXDefs.MenuChoices.FXML_VIEW)));
             }
             nestedFXMLPanel.getChildren().add(nestedFXML.load());
-            if(viewMode){
-                nestedFXMLPanel.setUserData(item);
-            }
         } catch (IOException e) {
             if (Logger.isInitialized()) {
                 Logger.log(e);
