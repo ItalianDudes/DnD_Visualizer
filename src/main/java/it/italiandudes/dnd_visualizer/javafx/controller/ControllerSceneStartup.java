@@ -40,7 +40,7 @@ public final class ControllerSceneStartup {
         dbChooserButton.setGraphic(fileChooserView);
     }
 
-    //Listeners
+    //EDT & Methods
     @FXML
     private void handleOnDragOver(DragEvent event){
         if(event.getDragboard().hasFiles()){

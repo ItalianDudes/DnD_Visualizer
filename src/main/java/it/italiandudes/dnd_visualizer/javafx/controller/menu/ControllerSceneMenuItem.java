@@ -48,7 +48,7 @@ public final class ControllerSceneMenuItem {
         rarityField.getSelectionModel().selectFirst();
     }
 
-    //Handler
+    //EDT & Methods
     public void setDescripedItem(Item item){
         nameField.setText(item.getName());
         loreField.setText(item.getLore());

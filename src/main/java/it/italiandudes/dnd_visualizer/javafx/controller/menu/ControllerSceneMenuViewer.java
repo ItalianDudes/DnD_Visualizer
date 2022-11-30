@@ -9,7 +9,6 @@ import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -25,8 +24,6 @@ public final class ControllerSceneMenuViewer {
     private BorderPane mainPane;
     @FXML
     private VBox elementPane;
-    @FXML
-    private Button refreshButton;
     private boolean startBound = true;
     private static String elementType = null;
 
@@ -53,8 +50,7 @@ public final class ControllerSceneMenuViewer {
                             String elemName = set.getString(2);
                             Label elementLabel = new Label(elemName);
                             elementLabel.setOnMouseClicked(event -> {
-                                refreshButton.setDisable(true);
-                                elementPane.setDisable(true);
+                                DnD_Visualizer.getStage().hide();
                                 ControllerSceneElementEditor.setElement(elementType, elemName);
                                 Stage stage = new Stage();
                                 stage.setTitle("D&D Visualizer");
@@ -62,7 +58,11 @@ public final class ControllerSceneMenuViewer {
                                 stage.setScene(SceneElementEditor.getScene());
                                 stage.getScene().setUserData(this);
                                 stage.show();
-                                stage.setOnCloseRequest(closeEvent -> refresh());
+                                stage.setOnCloseRequest(closeEvent -> Platform.runLater(() -> {
+                                    DnD_Visualizer.getStage().show();
+                                    elementPane.getChildren().clear();
+                                    initialize();
+                                }));
                             });
                             Platform.runLater(() -> elementPane.getChildren().add(elementLabel));
                         }
@@ -74,21 +74,11 @@ public final class ControllerSceneMenuViewer {
         dbCaller.start();
     }
 
-    //EDT
+    //EDT & Methods
     @FXML
     private void refreshFromButton(){
         elementPane.getChildren().clear();
         initialize();
-    }
-
-    //Methods
-    private void refresh(){
-        Platform.runLater(() -> {
-            refreshButton.setDisable(false);
-            elementPane.setDisable(false);
-            elementPane.getChildren().clear();
-            initialize();
-        });
     }
     public static void setElementType(String elementType){
         ControllerSceneMenuViewer.elementType = elementType;

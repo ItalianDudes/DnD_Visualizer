@@ -47,7 +47,7 @@ public final class ControllerSceneElementEditor {
         }
     }
 
-    //EDT
+    //EDT & Methods
     private void fillPane(){
         Service<Void> dbCaller = new Service<Void>() {
             @Override
@@ -114,8 +114,6 @@ public final class ControllerSceneElementEditor {
             throw new RuntimeException("Controller not recognized!");
         }
     }
-
-    //Methods
     public static void setElement(String elementType, String elementName) {
         ControllerSceneElementEditor.elementType = elementType;
         ControllerSceneElementEditor.elementName = elementName;

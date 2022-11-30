@@ -12,6 +12,6 @@ public final class ControllerSceneMenuSpecie {
 
     }
 
-    //EDT
+    //EDT & Methods
 
 }

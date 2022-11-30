@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public final class SceneElementEditor {
 
-    //Methods
+    //Scene Generator
     public static Scene getScene(){
         try {
             return new Scene(FXMLLoader.load(Objects.requireNonNull(DnD_Visualizer.class.getResource(JFXDefs.ELEMENT_EDITOR_FXML))));
@@ -24,5 +24,4 @@ public final class SceneElementEditor {
             return null;
         }
     }
-
 }

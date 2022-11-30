@@ -59,7 +59,7 @@ public final class ControllerSceneMenu {
         choiceComboBox.setItems(FXCollections.observableArrayList(JFXDefs.MenuChoices.getChoiceNames()));
     }
 
-    //Handler
+    //EDT & Methods
     @FXML
     private void changeViewMode(){
         viewMode = viewOpt.isSelected();

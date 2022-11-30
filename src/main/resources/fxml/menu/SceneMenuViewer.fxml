@@ -13,6 +13,6 @@
       <VBox fx:id="elementPane" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <Button fx:id="refreshButton" mnemonicParsing="false" onAction="#refreshFromButton" text="Aggiorna" BorderPane.alignment="CENTER" />
+      <Button mnemonicParsing="false" onAction="#refreshFromButton" text="Aggiorna" BorderPane.alignment="CENTER" />
    </bottom>
 </BorderPane>

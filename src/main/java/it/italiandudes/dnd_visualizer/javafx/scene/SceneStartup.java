@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public final class SceneStartup {
 
-    //Methods
+    //Scene Generator
     public static Scene getScene(){
         try {
             return new Scene(FXMLLoader.load(Objects.requireNonNull(DnD_Visualizer.class.getResource(JFXDefs.STARTUP_FXML))));

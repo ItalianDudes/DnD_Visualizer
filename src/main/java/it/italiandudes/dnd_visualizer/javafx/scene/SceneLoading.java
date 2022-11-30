@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public final class SceneLoading {
 
-    //Methods
+    //Scene Generator
     public static Scene getScene(){
         try {
             return new Scene(FXMLLoader.load(Objects.requireNonNull(DnD_Visualizer.class.getResource(JFXDefs.LOADING_FXML))));
@@ -24,5 +24,4 @@ public final class SceneLoading {
             return null;
         }
     }
-
 }
