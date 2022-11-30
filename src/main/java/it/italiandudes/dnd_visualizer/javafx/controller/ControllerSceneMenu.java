@@ -15,6 +15,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 
@@ -30,12 +31,16 @@ public final class ControllerSceneMenu {
     @FXML
     private ComboBox<String> choiceComboBox;
     @FXML
+    private CheckBox viewOpt;
+    private boolean viewMode;
+    @FXML
     private AnchorPane nestedFXMLPanel;
     private FXMLLoader nestedFXML;
 
     //Initialize
     @FXML
     private void initialize() {
+        viewOpt.setSelected(false);
         if(nestedFXMLPanel == null){
             nestedFXMLPanel = new AnchorPane();
         }
@@ -51,12 +56,24 @@ public final class ControllerSceneMenu {
 
     //Handler
     @FXML
+    private void changeViewMode(ActionEvent event){
+        viewMode = viewOpt.isSelected();
+        changeShowedPane(event);
+    }
+    @FXML
     private void changeShowedPane(ActionEvent event) {
         String item = choiceComboBox.getValue();
         try {
             nestedFXMLPanel.getChildren().clear();
-            nestedFXML = new FXMLLoader(Objects.requireNonNull(getClass().getResource(choiceDictionary.get(item))));
+            if(!viewMode) {
+                nestedFXML = new FXMLLoader(Objects.requireNonNull(getClass().getResource(choiceDictionary.get(item))));
+            }else{
+                nestedFXML = new FXMLLoader(Objects.requireNonNull(getClass().getResource(JFXDefs.MenuChoices.FXML_VIEW)));
+            }
             nestedFXMLPanel.getChildren().add(nestedFXML.load());
+            if(viewMode){
+                nestedFXMLPanel.setUserData(item);
+            }
         } catch (IOException e) {
             if (Logger.isInitialized()) {
                 Logger.log(e);

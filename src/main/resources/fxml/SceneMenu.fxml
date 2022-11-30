@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="it.italiandudes.dnd_visualizer.javafx.controller.ControllerSceneMenu">
-   <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0"
-               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.javafx.controller.ControllerSceneMenu">
+   <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <top>
          <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
             <left>
-               <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Tipo:"
-                      BorderPane.alignment="CENTER"/>
+               <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Tipo:" BorderPane.alignment="CENTER" />
             </left>
             <center>
-               <ComboBox fx:id="choiceComboBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                         onAction="#changeShowedPane" promptText="Scegli un tipo" BorderPane.alignment="CENTER"/>
+               <ComboBox fx:id="choiceComboBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#changeShowedPane" promptText="Scegli un tipo" BorderPane.alignment="CENTER" />
             </center>
+            <right>
+               <CheckBox fx:id="viewOpt" mnemonicParsing="false" onAction="#changeViewMode" text="View Mode" BorderPane.alignment="CENTER">
+                  <BorderPane.margin>
+                     <Insets left="10.0" />
+                  </BorderPane.margin>
+               </CheckBox>
+            </right>
+            <BorderPane.margin>
+               <Insets />
+            </BorderPane.margin>
          </BorderPane>
       </top>
       <padding>
-         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0"/>
+         <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
       </padding>
       <bottom>
          <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
             <left>
-               <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                       onAction="#handleCancelButton" text="Cancella" BorderPane.alignment="CENTER"/>
+               <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancella" BorderPane.alignment="CENTER" />
             </left>
             <right>
-               <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                       onAction="#handleSaveButton" text="Salva" BorderPane.alignment="CENTER"/>
+               <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleSaveButton" text="Salva" BorderPane.alignment="CENTER" />
             </right>
             <padding>
-               <Insets left="20.0" right="20.0"/>
+               <Insets left="20.0" right="20.0" />
             </padding>
          </BorderPane>
       </bottom>
       <center>
-         <AnchorPane fx:id="nestedFXMLPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                     minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0"
-                     BorderPane.alignment="CENTER"/>
+         <AnchorPane fx:id="nestedFXMLPanel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="300.0" BorderPane.alignment="CENTER" />
       </center>
    </BorderPane>
 </AnchorPane>

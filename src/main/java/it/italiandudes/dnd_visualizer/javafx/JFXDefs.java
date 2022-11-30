@@ -13,18 +13,18 @@ public final class JFXDefs {
     public static final String MENU_LANGUAGE_FXML = FXML_MENU_DIR+"SceneMenuLanguage.fxml";
 
     public static final class MenuChoices {
+
         private static final String FXML_PREFIX = "/fxml/menu/";
+        public static final String FXML_VIEW = FXML_PREFIX+"SceneMenuViewer.fxml";
         private static final String[] CHOICE_NAME = {
                 "Oggetto",
                 "Lingua",
-                "Specie",
-                "--VISUALIZZA--"
+                "Specie"
         };
         private static final String[] ASSOCIATED_FXML = {
                 FXML_PREFIX +"SceneMenuItem.fxml",
                 FXML_PREFIX +"SceneMenuLanguage.fxml",
-                FXML_PREFIX+"SceneMenuSpecie.fxml",
-                FXML_PREFIX +"SceneMenuViewer.fxml"
+                FXML_PREFIX+"SceneMenuSpecie.fxml"
         };
         public static String[] getChoiceNames(){
             return CHOICE_NAME;

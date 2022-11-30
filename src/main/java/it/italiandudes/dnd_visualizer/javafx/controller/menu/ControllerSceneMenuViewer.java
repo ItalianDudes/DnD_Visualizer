@@ -12,17 +12,13 @@ public final class ControllerSceneMenuViewer {
     //Attributes
     @FXML
     private VBox elementPane;
+    private String elementName;
 
     //Initialize
     @FXML
     private void initialize(){
-        Label label = new Label("MAN");
-        label.setOnMouseClicked(event -> {
-            new InformationAlert("CIAO", "CIAO", "CIAO");
-        });
-        elementPane.getChildren().add(label);
-        elementPane.getChildren().add(new Label("PANE"));
-        elementPane.getChildren().add(new Label("MARCONI"));
+        elementName = (String) elementPane.getScene().getWindow().getUserData(); //FIXME
+        System.out.println(elementName);
     }
 
     //EDT
