@@ -31,7 +31,6 @@ public final class ControllerSceneMenuViewer {
     @FXML
     private void initialize(){
         if(startBound) {
-            System.out.println("start bound");
             AnchorPane.setTopAnchor(mainPane, 0.0);
             AnchorPane.setRightAnchor(mainPane, 0.0);
             AnchorPane.setLeftAnchor(mainPane, 0.0);

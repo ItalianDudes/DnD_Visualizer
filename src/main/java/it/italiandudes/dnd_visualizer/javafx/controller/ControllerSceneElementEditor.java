@@ -72,6 +72,7 @@ public final class ControllerSceneElementEditor {
     }
     @FXML
     private void deleteElement() {
+        //TODO: chiedi conferma per l'eliminazione, se va a buon fine spara un alert di conferma e alla chiusura dell'alert chiudi lo stage dell'editor e rivisualizza il viewer
         String query = "DELETE FROM "+tableName+" WHERE name LIKE '"+element.getName()+"'";
         PreparedStatement deleteElement = SQLiteHandler.prepareDataWriteIntoDB(DnD_Visualizer.getDbConnection(), query);
         try {
