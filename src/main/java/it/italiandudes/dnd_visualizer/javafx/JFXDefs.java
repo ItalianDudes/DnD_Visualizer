@@ -1,6 +1,7 @@
 package it.italiandudes.dnd_visualizer.javafx;
 
 import it.italiandudes.dnd_visualizer.db.DBDefs;
+import it.italiandudes.dnd_visualizer.db.enums.BodyPart;
 import it.italiandudes.dnd_visualizer.db.enums.Rarity;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -67,8 +68,11 @@ public final class JFXDefs {
         public static String[] getFxmlPrefix() {
             return ASSOCIATED_FXML;
         }
-        public static ObservableList<String> getRarityComboBox(){
+        public static ObservableList<String> getRarityComboBoxList(){
             return FXCollections.observableArrayList(Rarity.RARITY_STRING);
+        }
+        public static ObservableList<String> getBodyPartComboBoxList(){
+            return FXCollections.observableArrayList(BodyPart.BODY_PART_STRING);
         }
 
     }

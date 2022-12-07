@@ -14,7 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 @SuppressWarnings("unused")
-public final class ControllerSceneMenuItem {
+public class ControllerSceneMenuItem {
 
     //Attributes
     @FXML
@@ -39,12 +39,12 @@ public final class ControllerSceneMenuItem {
 
     //Initialize
     @FXML
-    private void initialize() {
+    public void initialize() {
         AnchorPane.setTopAnchor(mainPane, 0.0);
         AnchorPane.setBottomAnchor(mainPane, 0.0);
         AnchorPane.setRightAnchor(mainPane, 0.0);
         AnchorPane.setLeftAnchor(mainPane, 0.0);
-        rarityField.setItems(JFXDefs.MenuChoices.getRarityComboBox());
+        rarityField.setItems(JFXDefs.MenuChoices.getRarityComboBoxList());
         rarityField.getSelectionModel().selectFirst();
     }
 

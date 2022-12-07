@@ -1,11 +1,16 @@
 package it.italiandudes.dnd_visualizer.db;
 
 import it.italiandudes.dnd_visualizer.db.enums.Rarity;
+import it.italiandudes.idl.common.Logger;
+import it.italiandudes.idl.common.RawSerializer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Connection;
+import java.util.Base64;
 
 @SuppressWarnings("unused")
 public abstract class DBElement implements Serializable {
@@ -53,7 +58,16 @@ public abstract class DBElement implements Serializable {
     }
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public abstract boolean writeIntoDB(@NotNull Connection dbConnection);
-    public abstract String getBase64();
+    public String getBase64() {
+        ByteArrayOutputStream objByte = new ByteArrayOutputStream();
+        try {
+            RawSerializer.sendObject(objByte, this);
+        }catch (IOException e){
+            Logger.log(e);
+            return null;
+        }
+        return Base64.getEncoder().encodeToString(objByte.toByteArray());
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

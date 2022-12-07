@@ -6,18 +6,14 @@ import it.italiandudes.dnd_visualizer.db.DBElement;
 import it.italiandudes.dnd_visualizer.db.enums.Coin;
 import it.italiandudes.dnd_visualizer.db.enums.Rarity;
 import it.italiandudes.idl.common.Logger;
-import it.italiandudes.idl.common.RawSerializer;
 import it.italiandudes.idl.common.SQLiteHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Base64;
 
 @SuppressWarnings("unused")
 public class Item extends DBElement {
@@ -50,6 +46,15 @@ public class Item extends DBElement {
         this.cost = cost;
         this.weight = weight;
         this.properties = properties;
+    }
+    public Item(@NotNull Item item){
+        super(item.getName(), item.getLore(), item.getRarity());
+        itemID = item.getItemID();
+        requiredLevel = item.requiredLevel;
+        requiredKnowledge = item.requiredKnowledge;
+        cost = item.cost;
+        weight = item.weight;
+        properties = item.properties;
     }
     public Item(@NotNull Connection dbConnection, String name) throws SQLException {
         super(name);
@@ -123,17 +128,6 @@ public class Item extends DBElement {
             Logger.log(e);
             return false;
         }
-    }
-    @Override
-    public String getBase64() {
-        ByteArrayOutputStream objByte = new ByteArrayOutputStream();
-        try {
-            RawSerializer.sendObject(objByte, this);
-        }catch (IOException e){
-            Logger.log(e);
-            return null;
-        }
-        return Base64.getEncoder().encodeToString(objByte.toByteArray());
     }
     public int getRequiredLevel() {
         return requiredLevel;

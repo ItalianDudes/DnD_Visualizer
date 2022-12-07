@@ -3,18 +3,13 @@ package it.italiandudes.dnd_visualizer.db.classes;
 import it.italiandudes.dnd_visualizer.db.DBDefs;
 import it.italiandudes.dnd_visualizer.db.enums.Rarity;
 import it.italiandudes.idl.common.Logger;
-import it.italiandudes.idl.common.RawSerializer;
 import it.italiandudes.idl.common.SQLiteHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Base64;
 
 @SuppressWarnings("unused")
 public final class Armor extends Item {
@@ -31,6 +26,18 @@ public final class Armor extends Item {
                  int requiredLevel, @Nullable String requiredKnowledge, @NotNull Cost cost, double weight, @Nullable String properties,
                  int AP, int cutCA, int impactCA, int thrustCA, @NotNull String bodyPart) {
         super(name, lore, rarity, requiredLevel, requiredKnowledge, cost, weight, properties);
+        if(AP<0) throw new RuntimeException("\"AP\" must be equal or greater than 0");
+        this.AP = AP;
+        if(cutCA<1) throw new RuntimeException("\"CA against Cut\" must be equal or greater than 1");
+        this.cutCA = cutCA;
+        if(impactCA<1) throw new RuntimeException("\"CA against Impact\" must be equal or greater than 1");
+        this.impactCA = impactCA;
+        if(thrustCA<1) throw new RuntimeException("\"CA against Thrust\" must be equal or greater than 1");
+        this.thrustCA = thrustCA;
+        this.bodyPart = bodyPart;
+    }
+    public Armor(@NotNull Item item, int AP, int cutCA, int impactCA, int thrustCA, @NotNull String bodyPart){
+        super(item);
         if(AP<0) throw new RuntimeException("\"AP\" must be equal or greater than 0");
         this.AP = AP;
         if(cutCA<1) throw new RuntimeException("\"CA against Cut\" must be equal or greater than 1");
@@ -71,17 +78,6 @@ public final class Armor extends Item {
             Logger.log(e);
             return false;
         }
-    }
-    @Override
-    public String getBase64() {
-        ByteArrayOutputStream objByte = new ByteArrayOutputStream();
-        try {
-            RawSerializer.sendObject(objByte, this);
-        }catch (IOException e){
-            Logger.log(e);
-            return null;
-        }
-        return Base64.getEncoder().encodeToString(objByte.toByteArray());
     }
     public int getAP() {
         return AP;
