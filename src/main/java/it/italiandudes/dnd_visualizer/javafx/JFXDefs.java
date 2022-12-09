@@ -3,8 +3,16 @@ package it.italiandudes.dnd_visualizer.javafx;
 import it.italiandudes.dnd_visualizer.db.DBDefs;
 import it.italiandudes.dnd_visualizer.db.enums.BodyPart;
 import it.italiandudes.dnd_visualizer.db.enums.Rarity;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.StackPane;
 
 @SuppressWarnings("unused")
 public final class JFXDefs {
@@ -70,6 +78,24 @@ public final class JFXDefs {
         }
         public static ObservableList<String> getRarityComboBoxList(){
             return FXCollections.observableArrayList(Rarity.RARITY_STRING);
+        }
+        public static void setRarityComboBox(ComboBox<String> rarityComboBox){
+            rarityComboBox.setItems(getRarityComboBoxList());
+            rarityComboBox.getSelectionModel().selectFirst();
+            rarityComboBox.buttonCellProperty().bind(Bindings.createObjectBinding(() -> new ListCell<String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setBackground(Background.EMPTY);
+                        setText("");
+                    } else {
+                        setBackground(new Background(new BackgroundFill(Rarity.valueOf(item).getColor(), CornerRadii.EMPTY, Insets.EMPTY)));
+                        setText(item);
+                    }
+                    ((StackPane) rarityComboBox.lookup(".arrow-button")).setBackground(getBackground());
+                }
+            }));
         }
         public static ObservableList<String> getBodyPartComboBoxList(){
             return FXCollections.observableArrayList(BodyPart.BODY_PART_STRING);

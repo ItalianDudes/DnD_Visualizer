@@ -4,6 +4,7 @@ import it.italiandudes.dnd_visualizer.DnD_Visualizer;
 import it.italiandudes.dnd_visualizer.db.DBElement;
 import it.italiandudes.dnd_visualizer.db.classes.Item;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
+import it.italiandudes.dnd_visualizer.javafx.alert.ConfirmationAlert;
 import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.alert.InformationAlert;
 import it.italiandudes.dnd_visualizer.javafx.controller.menu.ControllerSceneMenuItem;
@@ -14,7 +15,10 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
@@ -25,9 +29,11 @@ import java.util.Objects;
 public final class ControllerSceneElementEditor {
 
     //Attributes
+    @FXML private AnchorPane mainPane;
     @FXML private Pane nestedPane;
     private FXMLLoader nestedFXML;
     private String tableName;
+    private static Stage thisStage;
     private static String elementType;
     private static String elementName;
     private static DBElement element;
@@ -36,6 +42,10 @@ public final class ControllerSceneElementEditor {
     @FXML
     private void initialize(){
         try {
+            AnchorPane.setBottomAnchor(mainPane, 0.0);
+            AnchorPane.setLeftAnchor(mainPane, 0.0);
+            AnchorPane.setRightAnchor(mainPane, 0.0);
+            AnchorPane.setTopAnchor(mainPane, 0.0);
             String fxmlFile = JFXDefs.MenuChoices.getFXMLbyChoiceName(elementType);
             tableName = JFXDefs.MenuChoices.getDBTableNameFromChoiceName(elementType);
             if(fxmlFile==null) throw new RuntimeException("Element Type not found!");
@@ -72,14 +82,19 @@ public final class ControllerSceneElementEditor {
     }
     @FXML
     private void deleteElement() {
-        //TODO: chiedi conferma per l'eliminazione, se va a buon fine spara un alert di conferma e alla chiusura dell'alert chiudi lo stage dell'editor e rivisualizza il viewer
-        String query = "DELETE FROM "+tableName+" WHERE name LIKE '"+element.getName()+"'";
-        PreparedStatement deleteElement = SQLiteHandler.prepareDataWriteIntoDB(DnD_Visualizer.getDbConnection(), query);
-        try {
-            deleteElement.execute();
-        }catch (SQLException e){
-            Logger.log(e);
-            new ErrorAlert("ERRORE", "Errore di scrittura nel DB", "C'è stato un errore durante la rimozione dell'elemento");
+        if(new ConfirmationAlert("CONFERMA RIMOZIONE", "Rimozione Elemento", "Sei sicuro di rimuovere questo elemento dal DB?").result) {
+            //TODO: chiedi conferma per l'eliminazione, se va a buon fine spara un alert di conferma e alla chiusura dell'alert chiudi lo stage dell'editor e rivisualizza il viewer
+            String query = "DELETE FROM " + tableName + " WHERE name LIKE '" + element.getName() + "'";
+            PreparedStatement deleteElement = SQLiteHandler.prepareDataWriteIntoDB(DnD_Visualizer.getDbConnection(), query);
+            try {
+                deleteElement.execute();
+            } catch (SQLException e) {
+                Logger.log(e);
+                new ErrorAlert("ERRORE", "Errore di scrittura nel DB", "C'è stato un errore durante la rimozione dell'elemento");
+                return;
+            }
+            new InformationAlert("CONFERMA", "Conferma Rimozione", "Rimozione dell'elemento dal database completata con successo!", true);
+            thisStage.fireEvent(new WindowEvent(thisStage, WindowEvent.WINDOW_CLOSE_REQUEST));
         }
     }
     @FXML
@@ -115,9 +130,10 @@ public final class ControllerSceneElementEditor {
             throw new RuntimeException("Controller not recognized!");
         }
     }
-    public static void setElement(String elementType, String elementName) {
+    public static void setElement(String elementType, String elementName, Stage stage) {
         ControllerSceneElementEditor.elementType = elementType;
         ControllerSceneElementEditor.elementName = elementName;
+        thisStage = stage;
     }
 
 }

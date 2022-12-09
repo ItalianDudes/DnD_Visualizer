@@ -50,18 +50,17 @@ public final class ControllerSceneMenuViewer {
                             Label elementLabel = new Label(elemName);
                             elementLabel.setOnMouseClicked(event -> {
                                 DnD_Visualizer.getStage().hide();
-                                ControllerSceneElementEditor.setElement(elementType, elemName);
                                 Stage stage = new Stage();
+                                ControllerSceneElementEditor.setElement(elementType, elemName, stage);
                                 stage.setTitle("D&D Visualizer");
                                 stage.getIcons().add(DnD_Visualizer.appImage);
                                 stage.setScene(SceneElementEditor.getScene());
-                                stage.getScene().setUserData(this);
-                                stage.show();
                                 stage.setOnCloseRequest(closeEvent -> Platform.runLater(() -> {
                                     DnD_Visualizer.getStage().show();
                                     elementPane.getChildren().clear();
                                     initialize();
                                 }));
+                                stage.show();
                             });
                             Platform.runLater(() -> elementPane.getChildren().add(elementLabel));
                         }
