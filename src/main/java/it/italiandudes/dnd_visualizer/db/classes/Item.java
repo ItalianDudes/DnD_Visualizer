@@ -56,6 +56,20 @@ public class Item extends DBElement {
         weight = item.weight;
         properties = item.properties;
     }
+    public Item(@NotNull Connection dbConnection, int itemID) throws SQLException {
+        super("");
+        this.itemID = itemID;
+        String query = "SELECT * FROM " + DBDefs.DB_TABLE_ARMORS + " WHERE id = "+itemID;
+        ResultSet resultSet = SQLiteHandler.readDataFromDB(dbConnection, query);
+        setName(resultSet.getString(2));
+        setLore(resultSet.getString(3));
+        requiredLevel = resultSet.getInt(4);
+        requiredKnowledge = resultSet.getString(5);
+        setRarity(Rarity.valueOf(resultSet.getString(6)));
+        cost = new Cost(Coin.COPPER, Integer.parseInt(resultSet.getString(7)));
+        weight = resultSet.getDouble(8);
+        properties = resultSet.getString(9);
+    }
     public Item(@NotNull Connection dbConnection, String name) throws SQLException {
         super(name);
         itemID = -1;
@@ -108,7 +122,7 @@ public class Item extends DBElement {
     }
     @Override
     public boolean writeIntoDB(@NotNull Connection dbConnection) {
-        if(itemID==-1) return false;
+        if(itemID!=-1) return false;
         String query = "INSERT INTO "+ DBDefs.DB_TABLE_ITEMS +"(name, lore, required_level, required_knowledge, rarity, cost, weight, properties) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = SQLiteHandler.prepareDataWriteIntoDB(dbConnection, query);
         try {
@@ -122,7 +136,6 @@ public class Item extends DBElement {
             statement.setString(8, properties);
             statement.execute();
             itemID = statement.getGeneratedKeys().getInt(1);
-            System.out.println("Generated Key: "+itemID);
             return true;
         }catch (SQLException e){
             Logger.log(e);

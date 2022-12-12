@@ -1,5 +1,6 @@
 package it.italiandudes.dnd_visualizer.db.classes;
 
+import it.italiandudes.dnd_visualizer.DnD_Visualizer;
 import it.italiandudes.dnd_visualizer.db.DBDefs;
 import it.italiandudes.dnd_visualizer.db.enums.Rarity;
 import it.italiandudes.idl.common.Logger;
@@ -15,6 +16,7 @@ import java.sql.SQLException;
 public final class Armor extends Item {
 
     //Attributes
+    private int armorID;
     private int AP;
     private int cutCA;
     private int impactCA;
@@ -26,6 +28,7 @@ public final class Armor extends Item {
                  int requiredLevel, @Nullable String requiredKnowledge, @NotNull Cost cost, double weight, @Nullable String properties,
                  int AP, int cutCA, int impactCA, int thrustCA, @NotNull String bodyPart) {
         super(name, lore, rarity, requiredLevel, requiredKnowledge, cost, weight, properties);
+        armorID = -1;
         if(AP<0) throw new RuntimeException("\"AP\" must be equal or greater than 0");
         this.AP = AP;
         if(cutCA<1) throw new RuntimeException("\"CA against Cut\" must be equal or greater than 1");
@@ -36,8 +39,11 @@ public final class Armor extends Item {
         this.thrustCA = thrustCA;
         this.bodyPart = bodyPart;
     }
-    public Armor(@NotNull Item item, int AP, int cutCA, int impactCA, int thrustCA, @NotNull String bodyPart){
-        super(item);
+    public Armor(int itemID, int armorID, @NotNull String name, @Nullable String lore, @NotNull Rarity rarity,
+                 int requiredLevel, @Nullable String requiredKnowledge, @NotNull Cost cost, double weight, @Nullable String properties,
+                 int AP, int cutCA, int impactCA, int thrustCA, @NotNull String bodyPart) {
+        super(itemID, name, lore, rarity, requiredLevel, requiredKnowledge, cost, weight, properties);
+        this.armorID = armorID;
         if(AP<0) throw new RuntimeException("\"AP\" must be equal or greater than 0");
         this.AP = AP;
         if(cutCA<1) throw new RuntimeException("\"CA against Cut\" must be equal or greater than 1");
@@ -47,22 +53,47 @@ public final class Armor extends Item {
         if(thrustCA<1) throw new RuntimeException("\"CA against Thrust\" must be equal or greater than 1");
         this.thrustCA = thrustCA;
         this.bodyPart = bodyPart;
+    }
+    public Armor(@NotNull Item item, int armorID, int AP, int cutCA, int impactCA, int thrustCA, @NotNull String bodyPart){
+        super(item);
+        this.armorID = armorID;
+        if(AP<0) throw new RuntimeException("\"AP\" must be equal or greater than 0");
+        this.AP = AP;
+        if(cutCA<1) throw new RuntimeException("\"CA against Cut\" must be equal or greater than 1");
+        this.cutCA = cutCA;
+        if(impactCA<1) throw new RuntimeException("\"CA against Impact\" must be equal or greater than 1");
+        this.impactCA = impactCA;
+        if(thrustCA<1) throw new RuntimeException("\"CA against Thrust\" must be equal or greater than 1");
+        this.thrustCA = thrustCA;
+        this.bodyPart = bodyPart;
+    }
+    public Armor(@NotNull Connection dbConnection, @NotNull ResultSet set) throws SQLException {
+        super(dbConnection, set.getInt(7));
+        armorID = set.getInt(1);
+        AP = set.getInt(2);
+        cutCA = set.getInt(3);
+        impactCA = set.getInt(4);
+        thrustCA = set.getInt(5);
+        bodyPart = set.getString(6);
     }
     public Armor(@NotNull Connection dbConnection, String name) throws SQLException {
         super(dbConnection, name);
         String query = "SELECT * FROM "+DBDefs.DB_TABLE_ARMORS+" WHERE name LIKE '"+name+"'";
         ResultSet resultSet = SQLiteHandler.readDataFromDB(dbConnection, query);
-        AP = resultSet.getInt(1);
-        cutCA = resultSet.getInt(2);
-        impactCA = resultSet.getInt(3);
-        thrustCA = resultSet.getInt(4);
-        bodyPart = resultSet.getString(5);
+        armorID = resultSet.getInt(1);
+        AP = resultSet.getInt(2);
+        cutCA = resultSet.getInt(3);
+        impactCA = resultSet.getInt(4);
+        thrustCA = resultSet.getInt(5);
+        bodyPart = resultSet.getString(6);
     }
 
     //Methods
     @Override
     public boolean writeIntoDB(@NotNull Connection dbConnection) {
+        if(armorID!=-1) return false;
         boolean esito = super.writeIntoDB(dbConnection);
+        if(!esito) return false;
         String query = "INSERT INTO "+ DBDefs.DB_TABLE_ARMORS +"(ap, ca_against_cut, ca_against_impact, ca_against_thrust, body_part, itemID) VALUES(?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = SQLiteHandler.prepareDataWriteIntoDB(dbConnection, query);
         try {
@@ -73,6 +104,26 @@ public final class Armor extends Item {
             statement.setString(5, bodyPart);
             statement.setInt(6, getItemID());
             statement.execute();
+            armorID = statement.getGeneratedKeys().getInt(1);
+            return true;
+        }catch (SQLException e){
+            Logger.log(e);
+            return false;
+        }
+    }
+    public boolean updateIntoDB(@NotNull Connection dbConnection){
+        boolean esito = super.updateIntoDB(dbConnection);
+        String query = "UPDATE "+ DBDefs.DB_TABLE_ARMORS +" SET ap = ? , ca_against_cut = ?, ca_against_impact = ?, ca_against_thrust = ?, body_part = ?, itemID = ? WHERE id = ?";
+        try{
+            PreparedStatement statement = DnD_Visualizer.getDbConnection().prepareStatement(query);
+
+            statement.setInt(1, AP);
+            statement.setInt(2, cutCA);
+            statement.setInt(3, impactCA);
+            statement.setInt(4, thrustCA);
+            statement.setString(5, bodyPart);
+            statement.setInt(6, getItemID());
+            statement.executeUpdate();
             return esito;
         }catch (SQLException e){
             Logger.log(e);
@@ -109,6 +160,9 @@ public final class Armor extends Item {
     public void setBodyPart(@NotNull String bodyPart) {
         this.bodyPart = bodyPart;
     }
+    public int getArmorID(){
+        return armorID;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -117,6 +171,7 @@ public final class Armor extends Item {
 
         Armor armor = (Armor) o;
 
+        if (getArmorID() != armor.getArmorID()) return false;
         if (getAP() != armor.getAP()) return false;
         if (getCutCA() != armor.getCutCA()) return false;
         if (getImpactCA() != armor.getImpactCA()) return false;
@@ -126,6 +181,7 @@ public final class Armor extends Item {
     @Override
     public int hashCode() {
         int result = super.hashCode();
+        result = 31 * result + getArmorID();
         result = 31 * result + getAP();
         result = 31 * result + getCutCA();
         result = 31 * result + getImpactCA();
@@ -136,7 +192,8 @@ public final class Armor extends Item {
     @Override
     public String toString() {
         return "Armor{" +
-                "AP=" + AP +
+                "armorID=" + armorID +
+                ", AP=" + AP +
                 ", cutCA=" + cutCA +
                 ", impactCA=" + impactCA +
                 ", thrustCA=" + thrustCA +

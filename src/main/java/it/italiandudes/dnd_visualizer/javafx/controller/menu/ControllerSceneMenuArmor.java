@@ -1,7 +1,6 @@
 package it.italiandudes.dnd_visualizer.javafx.controller.menu;
 
 import it.italiandudes.dnd_visualizer.db.classes.Armor;
-import it.italiandudes.dnd_visualizer.db.enums.BodyPart;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
 import javafx.fxml.FXML;
@@ -16,6 +15,7 @@ public final class ControllerSceneMenuArmor extends ControllerSceneMenuItem {
     @FXML private TextField cutCAField;
     @FXML private TextField thrustCAField;
     @FXML private ComboBox<String> bodyPartField;
+    private int armorID;
 
     //Initialize
     @FXML @Override
@@ -23,11 +23,13 @@ public final class ControllerSceneMenuArmor extends ControllerSceneMenuItem {
         super.initialize();
         bodyPartField.setItems(JFXDefs.MenuChoices.getBodyPartComboBoxList());
         bodyPartField.getSelectionModel().selectFirst();
+        armorID = -1;
     }
 
     //EDT & Methods
     public void setDescribedArmor(Armor armor){
         super.setDescripedItem(armor);
+        armorID = armor.getArmorID();
         apField.setText(String.valueOf(armor.getAP()));
         impactCAField.setText(String.valueOf(armor.getImpactCA()));
         thrustCAField.setText(String.valueOf(armor.getThrustCA()));
@@ -64,7 +66,7 @@ public final class ControllerSceneMenuArmor extends ControllerSceneMenuItem {
             return null;
         }
         String bodyPart = bodyPartField.getSelectionModel().getSelectedItem();
-        return new Armor(super.getDescribedItem(), ap, cutCA, impactCA, thrustCA, bodyPart);
+        return new Armor(super.getDescribedItem(), armorID, ap, cutCA, impactCA, thrustCA, bodyPart);
     }
     @Override
     public void clearAllFields() {

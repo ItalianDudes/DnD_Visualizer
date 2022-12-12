@@ -45,6 +45,7 @@ public class ControllerSceneMenuItem {
         AnchorPane.setRightAnchor(mainPane, 0.0);
         AnchorPane.setLeftAnchor(mainPane, 0.0);
         JFXDefs.MenuChoices.setRarityComboBox(rarityField);
+        itemID = -1;
     }
 
     //EDT & Methods

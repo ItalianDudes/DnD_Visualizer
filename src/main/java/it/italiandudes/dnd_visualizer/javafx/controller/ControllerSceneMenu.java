@@ -1,10 +1,12 @@
 package it.italiandudes.dnd_visualizer.javafx.controller;
 
 import it.italiandudes.dnd_visualizer.DnD_Visualizer;
+import it.italiandudes.dnd_visualizer.db.classes.Armor;
 import it.italiandudes.dnd_visualizer.db.classes.Item;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.alert.InformationAlert;
+import it.italiandudes.dnd_visualizer.javafx.controller.menu.ControllerSceneMenuArmor;
 import it.italiandudes.dnd_visualizer.javafx.controller.menu.ControllerSceneMenuItem;
 import it.italiandudes.dnd_visualizer.javafx.controller.menu.ControllerSceneMenuLanguage;
 import it.italiandudes.dnd_visualizer.javafx.controller.menu.ControllerSceneMenuViewer;
@@ -95,7 +97,27 @@ public final class ControllerSceneMenu {
         String choice = choiceComboBox.getValue();
         System.out.println(choice);
         if(choice==null || choice.equals("")) return;
-        if(nestedFXML.getController() instanceof ControllerSceneMenuItem){
+        if(nestedFXML.getController() instanceof ControllerSceneMenuArmor){
+            ControllerSceneMenuArmor armorMenu = nestedFXML.getController();
+            Armor describedArmor = armorMenu.getDescribedArmor();
+            if(describedArmor==null) return;
+            Service<Void> dbWriterService = new Service<Void>() {
+                @Override
+                protected Task<Void> createTask() {
+                    return new Task<Void>() {
+                        @Override
+                        protected Void call() {
+                            if(!describedArmor.writeIntoDB(DnD_Visualizer.getDbConnection())){
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore DB", "Si e' verificato un errore durante la scrittura nel DB"));
+                            }
+                            Platform.runLater(() -> new InformationAlert("SUCCESSO", "Scrittura DB", "Armatura salvata con successo"));
+                            return null;
+                        }
+                    };
+                }
+            };
+            dbWriterService.start();
+        }else if(nestedFXML.getController() instanceof ControllerSceneMenuItem){ //DEVE ESSERE L'ULTIMO TRA GLI OGGETTI CHE ESTENDONO ITEM, ALTRIMENTI SOVRASCRIVE IL RESTO
             ControllerSceneMenuItem itemMenu = nestedFXML.getController();
             Item describedItem = itemMenu.getDescribedItem();
             if(describedItem==null) return;
@@ -129,6 +151,9 @@ public final class ControllerSceneMenu {
         if(nestedFXML.getController() instanceof ControllerSceneMenuItem){
             ControllerSceneMenuItem itemMenu = nestedFXML.getController();
             itemMenu.clearAllFields();
+        }else if(nestedFXML.getController() instanceof ControllerSceneMenuArmor){
+            ControllerSceneMenuArmor armorMenu = nestedFXML.getController();
+            armorMenu.clearAllFields();
         }else if(nestedFXML.getController() instanceof ControllerSceneMenuLanguage){
             ControllerSceneMenuLanguage langMenu = nestedFXML.getController();
             //TODO: Continue Lang Cancel Button

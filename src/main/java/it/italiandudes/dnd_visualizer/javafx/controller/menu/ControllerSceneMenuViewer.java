@@ -46,12 +46,24 @@ public final class ControllerSceneMenuViewer {
                         String query = "SELECT * FROM "+ JFXDefs.MenuChoices.getDBTableNameFromChoiceName(elementType);
                         ResultSet set = SQLiteHandler.readDataFromDB(DnD_Visualizer.getDbConnection(), query);
                         while(set.next()) {
-                            String elemName = set.getString(2);
+                            String elemName;
+                            int elementID;
+                            if(elementType.equals(JFXDefs.MenuChoices.getChoiceNames()[0])){ //ITEM
+                                elementID = set.getInt(1);
+                                elemName = set.getString(2);
+                            }else if(elementType.equals(JFXDefs.MenuChoices.getChoiceNames()[4])){ //ARMOR
+                                query = "SELECT * FROM "+JFXDefs.MenuChoices.getDBTableNameFromChoiceName(JFXDefs.MenuChoices.getChoiceNames()[0])+" WHERE id = "+set.getInt(7);
+                                ResultSet nameSet = SQLiteHandler.readDataFromDB(DnD_Visualizer.getDbConnection(), query);
+                                elemName = nameSet.getString(2);
+                                elementID = set.getInt(7);
+                            }else{
+                                throw new RuntimeException("Choice not supported!");
+                            }
                             Label elementLabel = new Label(elemName);
                             elementLabel.setOnMouseClicked(event -> {
                                 DnD_Visualizer.getStage().hide();
                                 Stage stage = new Stage();
-                                ControllerSceneElementEditor.setElement(elementType, elemName, stage);
+                                ControllerSceneElementEditor.setElement(elementType, elementID, stage);
                                 stage.setTitle("D&D Visualizer");
                                 stage.getIcons().add(DnD_Visualizer.appImage);
                                 stage.setScene(SceneElementEditor.getScene());

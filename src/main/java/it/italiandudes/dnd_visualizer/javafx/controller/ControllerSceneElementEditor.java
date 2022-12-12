@@ -2,11 +2,13 @@ package it.italiandudes.dnd_visualizer.javafx.controller;
 
 import it.italiandudes.dnd_visualizer.DnD_Visualizer;
 import it.italiandudes.dnd_visualizer.db.DBElement;
+import it.italiandudes.dnd_visualizer.db.classes.Armor;
 import it.italiandudes.dnd_visualizer.db.classes.Item;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.javafx.alert.ConfirmationAlert;
 import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.alert.InformationAlert;
+import it.italiandudes.dnd_visualizer.javafx.controller.menu.ControllerSceneMenuArmor;
 import it.italiandudes.dnd_visualizer.javafx.controller.menu.ControllerSceneMenuItem;
 import it.italiandudes.idl.common.Logger;
 import it.italiandudes.idl.common.SQLiteHandler;
@@ -35,7 +37,7 @@ public final class ControllerSceneElementEditor {
     private String tableName;
     private static Stage thisStage;
     private static String elementType;
-    private static String elementName;
+    private static int elementID;
     private static DBElement element;
 
     //Initialize
@@ -64,11 +66,17 @@ public final class ControllerSceneElementEditor {
             protected Task<Void> createTask() {
                 return new Task<Void>() {
                     @Override
-                    protected Void call() throws Exception {
-                        String query = "SELECT * FROM "+tableName+" WHERE name = '"+elementName+"'";
+                    protected Void call() throws Exception { //FIXME: Armor won't show up on fields
+                        System.out.println("OPENING EDITOR...");
+                        String query = "SELECT * FROM "+tableName+" WHERE id = "+elementID;
                         ResultSet set = SQLiteHandler.readDataFromDB(DnD_Visualizer.getDbConnection(), query);
-                        if(nestedFXML.getController() instanceof ControllerSceneMenuItem){
+                        if(nestedFXML.getController() instanceof ControllerSceneMenuArmor){
+                            element = new Armor(DnD_Visualizer.getDbConnection(), set);
+                            Platform.runLater(() -> ((ControllerSceneMenuArmor) nestedFXML.getController()).setDescribedArmor((Armor) element));
+                        }else if(nestedFXML.getController() instanceof ControllerSceneMenuItem){ //DEVE ESSERE L'ULTIMO TRA GLI OGGETTI CHE ESTENDONO ITEM, ALTRIMENTI SOVRASCRIVE IL RESTO
+                            System.out.println("ITEM");
                             element = new Item(set);
+                            System.out.println(element);
                             Platform.runLater(() -> ((ControllerSceneMenuItem) nestedFXML.getController()).setDescripedItem((Item) element));
                         }else{
                             throw new RuntimeException("Controller not recognized!");
@@ -83,7 +91,6 @@ public final class ControllerSceneElementEditor {
     @FXML
     private void deleteElement() {
         if(new ConfirmationAlert("CONFERMA RIMOZIONE", "Rimozione Elemento", "Sei sicuro di rimuovere questo elemento dal DB?").result) {
-            //TODO: chiedi conferma per l'eliminazione, se va a buon fine spara un alert di conferma e alla chiusura dell'alert chiudi lo stage dell'editor e rivisualizza il viewer
             String query = "DELETE FROM " + tableName + " WHERE name LIKE '" + element.getName() + "'";
             PreparedStatement deleteElement = SQLiteHandler.prepareDataWriteIntoDB(DnD_Visualizer.getDbConnection(), query);
             try {
@@ -105,10 +112,17 @@ public final class ControllerSceneElementEditor {
                 return new Task<Void>() {
                     @Override
                     protected Void call() {
-                        if(nestedFXML.getController() instanceof ControllerSceneMenuItem){
+                        if(nestedFXML.getController() instanceof ControllerSceneMenuArmor) {
+                            Armor armor = ((ControllerSceneMenuArmor) nestedFXML.getController()).getDescribedArmor();
+                            assert armor != null;
+                            if (!armor.updateIntoDB(DnD_Visualizer.getDbConnection())) {
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore DB", "Si e' verificato un errore durante l'aggiornamento del DB"));
+                            }
+                            Platform.runLater(() -> new InformationAlert("SUCCESSO", "Scrittura DB", "Armatura aggiornata con successo"));
+                        }else if (nestedFXML.getController() instanceof ControllerSceneMenuItem) { //DEVE ESSERE L'ULTIMO TRA GLI OGGETTI CHE ESTENDONO ITEM, ALTRIMENTI SOVRASCRIVE IL RESTO
                             Item item = ((ControllerSceneMenuItem) nestedFXML.getController()).getDescribedItem();
                             assert item != null;
-                            if(!item.updateIntoDB(DnD_Visualizer.getDbConnection())){
+                            if (!item.updateIntoDB(DnD_Visualizer.getDbConnection())) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore DB", "Si e' verificato un errore durante l'aggiornamento del DB"));
                             }
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Scrittura DB", "Oggetto aggiornato con successo"));
@@ -130,9 +144,9 @@ public final class ControllerSceneElementEditor {
             throw new RuntimeException("Controller not recognized!");
         }
     }
-    public static void setElement(String elementType, String elementName, Stage stage) {
+    public static void setElement(String elementType, int elementID, Stage stage) {
         ControllerSceneElementEditor.elementType = elementType;
-        ControllerSceneElementEditor.elementName = elementName;
+        ControllerSceneElementEditor.elementID = elementID;
         thisStage = stage;
     }
 
