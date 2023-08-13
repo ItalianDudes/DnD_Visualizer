@@ -43,3 +43,8 @@ CREATE TABLE IF NOT EXISTS spells (
     spell_name VARCHAR(32) NOT NULL PRIMARY KEY,
     spell_value TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS notes (
+    title VARCHAR(64) NOT NULL PRIMARY KEY,
+    content TEXT NOT NULL
+);

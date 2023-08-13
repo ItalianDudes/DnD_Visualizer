@@ -18,4 +18,5 @@
 .text-input {
     -fx-background-color: #282828;
     -fx-text-fill: white;
+    -fx-prompt-text-fill: darkgray;
 }
