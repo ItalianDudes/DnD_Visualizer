@@ -1,4 +1,4 @@
-package it.italiandudes.dnd_visualizer.javafx;
+package it.italiandudes.dnd_visualizer.client.javafx;
 
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Application;

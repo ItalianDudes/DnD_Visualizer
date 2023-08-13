@@ -1,4 +1,4 @@
-package it.italiandudes.dnd_visualizer.javafx;
+package it.italiandudes.dnd_visualizer.client.javafx;
 
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import javafx.geometry.Rectangle2D;

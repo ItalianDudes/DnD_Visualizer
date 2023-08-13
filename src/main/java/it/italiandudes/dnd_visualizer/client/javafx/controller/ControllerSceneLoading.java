@@ -1,6 +1,6 @@
-package it.italiandudes.dnd_visualizer.javafx.controller;
+package it.italiandudes.dnd_visualizer.client.javafx.controller;
 
-import it.italiandudes.dnd_visualizer.javafx.Client;
+import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import javafx.fxml.FXML;
 
 @SuppressWarnings("unused")

@@ -1,15 +1,15 @@
-package it.italiandudes.dnd_visualizer.javafx.alert;
+package it.italiandudes.dnd_visualizer.client.javafx.alert;
 
-import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
+import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 @SuppressWarnings("unused")
-public final class InformationAlert extends Alert {
+public final class ErrorAlert extends Alert {
 
     //Constructors
-    public InformationAlert(String title, String header, String content){
-        super(AlertType.INFORMATION);
+    public ErrorAlert(String title, String header, String content){
+        super(AlertType.ERROR);
         this.setResizable(true);
         ((Stage) getDialogPane().getScene().getWindow()).getIcons().add(JFXDefs.AppInfo.LOGO);
         if(title!=null) setTitle(title);
@@ -17,10 +17,11 @@ public final class InformationAlert extends Alert {
         if(content!=null) setContentText(content);
         showAndWait();
     }
-    public InformationAlert(String header, String content){
+    public ErrorAlert(String header, String content){
         this(null, header, content);
     }
-    public InformationAlert(){
+    public ErrorAlert(){
         this(null,null,null);
     }
+
 }

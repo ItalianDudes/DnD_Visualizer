@@ -1,6 +1,6 @@
 package it.italiandudes.dnd_visualizer;
 
-import it.italiandudes.dnd_visualizer.javafx.Client;
+import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.idl.common.Logger;
 
 import java.io.IOException;

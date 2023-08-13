@@ -1,6 +1,6 @@
-package it.italiandudes.dnd_visualizer.javafx.alert;
+package it.italiandudes.dnd_visualizer.client.javafx.alert;
 
-import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
+import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
