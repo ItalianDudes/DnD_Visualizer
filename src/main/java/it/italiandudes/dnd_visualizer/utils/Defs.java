@@ -25,6 +25,12 @@ public final class Defs {
             return Objects.requireNonNull(DnD_Visualizer.class.getResourceAsStream(resourceConst));
         }
 
+        // JSON
+        public static final class JSON {
+            public static final String JSON_CLIENT_SETTINGS = "client_settings.json";
+            public static final String DEFAULT_JSON_CLIENT_SETTINGS = "/json/" + JSON_CLIENT_SETTINGS;
+        }
+
         // SQL
         public static final class SQL {
             private static final String SQL_DIR = "/sql/";

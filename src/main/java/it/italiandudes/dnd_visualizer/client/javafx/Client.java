@@ -1,11 +1,22 @@
 package it.italiandudes.dnd_visualizer.client.javafx;
 
+import it.italiandudes.dnd_visualizer.DnD_Visualizer;
+import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneMainMenu;
+import it.italiandudes.dnd_visualizer.client.javafx.util.ThemeHandler;
+import it.italiandudes.dnd_visualizer.utils.Defs;
+import it.italiandudes.idl.common.JarHandler;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.jetbrains.annotations.NotNull;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
+
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 @SuppressWarnings("unused")
 public final class Client extends Application {
@@ -13,13 +24,14 @@ public final class Client extends Application {
     //Attributes
     private static Stage stage;
     private static Image DEFAULT_IMAGE = null;
+    private static JSONObject SETTINGS = null;
 
     @Override
     public void start(Stage stage) {
         Client.stage = stage;
         stage.setTitle(JFXDefs.AppInfo.NAME);
         stage.getIcons().add(JFXDefs.AppInfo.LOGO);
-        // stage.setScene(SceneMenu.getScene());
+        stage.setScene(SceneMainMenu.getScene());
         stage.show();
         stage.setX((JFXDefs.SystemGraphicInfo.SCREEN_WIDTH - stage.getWidth()) / 2);
         stage.setY((JFXDefs.SystemGraphicInfo.SCREEN_HEIGHT - stage.getHeight()) / 2);
@@ -35,7 +47,23 @@ public final class Client extends Application {
     }
 
     //Start Methods
-    public static void start(String[] args){
+    public static void start(String[] args) {
+        File settingsFile = new File(Defs.Resources.JSON.JSON_CLIENT_SETTINGS);
+        if (!settingsFile.exists() || !settingsFile.isFile()) {
+            try {
+                JarHandler.copyFileFromJar(new File(Defs.JAR_POSITION), Defs.Resources.JSON.DEFAULT_JSON_CLIENT_SETTINGS, settingsFile, true);
+            } catch (IOException e) {
+                Logger.log(e);
+                return;
+            }
+        }
+        try {
+            SETTINGS = (JSONObject) DnD_Visualizer.JSON_PARSER.parse(new FileReader(settingsFile));
+        } catch (IOException | ParseException e) {
+            Logger.log(e);
+            return;
+        }
+        ThemeHandler.setConfigTheme();
         launch(args);
     }
 
@@ -47,6 +75,10 @@ public final class Client extends Application {
     @NotNull
     public static Image getDefaultImage() {
         return DEFAULT_IMAGE;
+    }
+    @NotNull
+    public static JSONObject getSettings() {
+        return SETTINGS;
     }
 
 }

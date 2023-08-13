@@ -1,0 +1,17 @@
+.root {
+    -fx-base: #343434;
+    -fx-background: #282828;
+    -fx-control-inner-background: #282828;
+    -fx-text-fill: white;
+    -fx-accent: #0096C9;
+}
+
+.button {
+    -fx-background-color: linear-gradient(#686868 0%, #232723 25%, #373837 75%, #757575 100%);
+    -fx-text-fill: white;
+}
+
+.text-input {
+    -fx-background-color: #282828;
+    -fx-text-fill: white;
+}

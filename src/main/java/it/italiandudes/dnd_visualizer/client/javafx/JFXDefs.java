@@ -28,12 +28,20 @@ public final class JFXDefs {
         public static final class FXML {
             private static final String FXML_DIR = "/fxml/";
             public static final String FXML_LOADING = FXML_DIR + "SceneLoading.fxml";
+            public static final String FXML_MAIN_MENU = FXML_DIR + "SceneMainMenu.fxml";
         }
 
         //GIF Location
         public static final class GIF {
             private static final String GIF_DIR = "/gif/";
             public static final String GIF_LOADING = GIF_DIR+"loading.gif";
+        }
+
+        // CSS Location
+        public static final class CSS {
+            private static final String CSS_DIR = "/css/";
+            public static final String CSS_LIGHT_THEME = CSS_DIR + "light_theme.css";
+            public static final String CSS_DARK_THEME = CSS_DIR + "dark_theme.css";
         }
 
         //Image Location
