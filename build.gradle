@@ -23,7 +23,7 @@ dependencies {
 
 shadowJar {
     manifest {
-        attributes "Main-Class" : "it.italiandudes.damodelsimporter.DAModelsImporter"
+        attributes "Main-Class" : "it.italiandudes.dnd_visualizer.DnD_Visualizer"
     }
     archiveFileName = getRootDir().getName()+"-"+archiveVersion.get()+".jar"
 }
