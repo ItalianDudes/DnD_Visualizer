@@ -10,12 +10,12 @@ import javafx.scene.Scene;
 import java.io.IOException;
 
 @SuppressWarnings("unused")
-public final class SceneLoading {
+public final class SceneSheetViewer {
 
     //Scene Generator
     public static Scene getScene(){
         try {
-            Scene scene = new Scene(FXMLLoader.load(Defs.Resources.get(JFXDefs.Resources.FXML.FXML_LOADING)));
+            Scene scene = new Scene(FXMLLoader.load(Defs.Resources.get(JFXDefs.Resources.FXML.FXML_SHEET_VIEWER)));
             ThemeHandler.loadConfigTheme(scene);
             return scene;
         }catch (IOException e){

@@ -25,6 +25,9 @@ public final class Defs {
             return Objects.requireNonNull(DnD_Visualizer.class.getResourceAsStream(resourceConst));
         }
 
+        // Sheet Extension
+        public static final String SHEET_EXTENSION = "dnd5e.sheet";
+
         // JSON
         public static final class JSON {
             public static final String JSON_CLIENT_SETTINGS = "client_settings.json";
