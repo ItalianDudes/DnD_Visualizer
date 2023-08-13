@@ -11,6 +11,10 @@
     -fx-text-fill: white;
 }
 
+.button:hover {
+    -fx-background-color: linear-gradient(#757575 0%, #373837 25%, #232723 75%, #686868 100%);
+}
+
 .text-input {
     -fx-background-color: #282828;
     -fx-text-fill: white;

@@ -3,7 +3,6 @@ package it.italiandudes.dnd_visualizer.client.javafx.util;
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.utils.Defs;
-import it.italiandudes.idl.common.Logger;
 import javafx.scene.Scene;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +20,6 @@ public final class ThemeHandler {
         } else {
             configTheme = Defs.Resources.get(JFXDefs.Resources.CSS.CSS_LIGHT_THEME).toExternalForm();
         }
-        Logger.log(configTheme);
     }
 
     // Config Theme

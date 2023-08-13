@@ -11,6 +11,10 @@
     -fx-text-fill: black;
 }
 
+.button:hover {
+    -fx-background-color: linear-gradient(#a9a9a9 0%, #c8c8c8 25%, #d3d3d3 75%, #f0f0f0 100%);
+}
+
 .text-input {
     -fx-background-color: #f4f4f4;
     -fx-text-fill: black;
