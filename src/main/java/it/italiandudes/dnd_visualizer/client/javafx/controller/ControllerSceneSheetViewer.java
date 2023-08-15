@@ -1,85 +1,43 @@
 package it.italiandudes.dnd_visualizer.client.javafx.controller;
 
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
-import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
-import it.italiandudes.dnd_visualizer.client.javafx.util.StatsCalculator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 
 public final class ControllerSceneSheetViewer {
 
+    // Attributes
+    private Rectangle hpRemoverRectangle;
+
     //Graphic Elements
-    @FXML private TextField textFieldStrength;
-    @FXML private TextField textFieldDexterity;
-    @FXML private TextField textFieldConstitution;
-    @FXML private TextField textFieldIntelligence;
-    @FXML private TextField textFieldWisdom;
-    @FXML private TextField textFieldCharisma;
-    @FXML private Label labelStrengthModifier;
-    @FXML private Label labelDexterityModifier;
-    @FXML private Label labelConstitutionModifier;
-    @FXML private Label labelIntelligenceModifier;
-    @FXML private Label labelWisdomModifier;
-    @FXML private Label labelCharismaModifier;
+    @FXML private ImageView imageViewCurrentHP;
+    @FXML private StackPane stackPaneCurrentHP;
+    @FXML private Label labelHPLeftPercentage;
+    @FXML private TextField textFieldMaxHP;
+    @FXML private TextField textFieldCurrentHP;
 
     //Initialize
     @FXML
     private void initialize() {
-        Client.getStage().setResizable(false);
+        Client.getStage().setResizable(true);
+        hpRemoverRectangle = new Rectangle(imageViewCurrentHP.getFitWidth(), 0, Client.getBackgroundThemeColor());
     }
 
     // EDT
     @FXML
-    private void removeFocus() {
-        Client.getStage().getScene().getRoot().requestFocus();
-    }
-    @FXML
-    private void changeStrengthModifier() {
+    private void recalculateHealthPercentage() {
         try {
-            labelStrengthModifier.setText(String.valueOf(StatsCalculator.calculateModifier(textFieldStrength.getText())));
-        } catch (NumberFormatException e){
-            new ErrorAlert("ERROR", "INPUT ERROR", "This field allows only numbers");
-        }
-    }
-    @FXML
-    private void changeDexterityModifier() {
-        try {
-            labelDexterityModifier.setText(String.valueOf(StatsCalculator.calculateModifier(textFieldDexterity.getText())));
-        } catch (NumberFormatException e){
-            new ErrorAlert("ERROR", "INPUT ERROR", "This field allows only numbers");
-        }
-    }
-    @FXML
-    private void changeConstitutionModifier() {
-        try {
-            labelConstitutionModifier.setText(String.valueOf(StatsCalculator.calculateModifier(textFieldConstitution.getText())));
-        } catch (NumberFormatException e){
-            new ErrorAlert("ERROR", "INPUT ERROR", "This field allows only numbers");
-        }
-    }
-    @FXML
-    private void changeIntelligenceModifier() {
-        try {
-            labelIntelligenceModifier.setText(String.valueOf(StatsCalculator.calculateModifier(textFieldIntelligence.getText())));
-        } catch (NumberFormatException e){
-            new ErrorAlert("ERROR", "INPUT ERROR", "This field allows only numbers");
-        }
-    }
-    @FXML
-    private void changeWisdomModifier() {
-        try {
-            labelWisdomModifier.setText(String.valueOf(StatsCalculator.calculateModifier(textFieldWisdom.getText())));
-        } catch (NumberFormatException e){
-            new ErrorAlert("ERROR", "INPUT ERROR", "This field allows only numbers");
-        }
-    }
-    @FXML
-    private void changeCharismaModifier() {
-        try {
-            labelCharismaModifier.setText(String.valueOf(StatsCalculator.calculateModifier(textFieldCharisma.getText())));
-        } catch (NumberFormatException e){
-            new ErrorAlert("ERROR", "INPUT ERROR", "This field allows only numbers");
-        }
+            int hpPercentage = (int) ((Double.parseDouble(textFieldCurrentHP.getText()) / Double.parseDouble(textFieldMaxHP.getText())) * 100.0);
+            double newHealthPercentage = (imageViewCurrentHP.getFitHeight()-25) - (imageViewCurrentHP.getFitHeight() * Double.parseDouble(textFieldCurrentHP.getText())) / Double.parseDouble(textFieldMaxHP.getText());
+            if (newHealthPercentage<0) newHealthPercentage = 0;
+            hpRemoverRectangle.setHeight(newHealthPercentage);
+            stackPaneCurrentHP.getChildren().remove(hpRemoverRectangle);
+            stackPaneCurrentHP.getChildren().add(hpRemoverRectangle);
+            labelHPLeftPercentage.setText(hpPercentage > 500?">500%":hpPercentage+"%");
+        } catch (NumberFormatException ignored) {}
     }
 }

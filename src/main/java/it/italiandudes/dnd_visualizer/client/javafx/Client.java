@@ -6,16 +6,12 @@ import it.italiandudes.dnd_visualizer.client.javafx.util.ThemeHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.JarHandler;
 import it.italiandudes.idl.common.Logger;
-import javafx.animation.TranslateTransition;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.util.Duration;
 import org.jetbrains.annotations.NotNull;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -31,6 +27,7 @@ public final class Client extends Application {
     private static Stage stage;
     private static Image DEFAULT_IMAGE = null;
     private static JSONObject SETTINGS = null;
+    private static Color COLOR_THEME_BACKGROUND;
 
     @Override
     public void start(Stage stage) {
@@ -47,6 +44,7 @@ public final class Client extends Application {
             System.exit(0);
         });
         DEFAULT_IMAGE = JFXDefs.AppInfo.LOGO;
+        COLOR_THEME_BACKGROUND = (Color) ((Region) Client.getStage().getScene().lookup(".root")).getBackground().getFills().get(0).getFill();
 
         // Notice into the logs that the application started Successfully
         Logger.log("Application started successfully!");
@@ -85,6 +83,10 @@ public final class Client extends Application {
     @NotNull
     public static JSONObject getSettings() {
         return SETTINGS;
+    }
+    @NotNull
+    public static Color getBackgroundThemeColor() {
+        return COLOR_THEME_BACKGROUND;
     }
 
 }

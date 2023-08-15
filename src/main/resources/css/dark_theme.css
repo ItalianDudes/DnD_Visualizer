@@ -4,6 +4,7 @@
     -fx-control-inner-background: #282828;
     -fx-text-fill: white;
     -fx-accent: #0096C9;
+    -fx-font-family: "Lucida Sans";
 }
 
 .button {
