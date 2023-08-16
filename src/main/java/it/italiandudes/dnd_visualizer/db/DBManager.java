@@ -1,5 +1,6 @@
-package it.italiandudes.dnd_visualizer.utils;
+package it.italiandudes.dnd_visualizer.db;
 
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;

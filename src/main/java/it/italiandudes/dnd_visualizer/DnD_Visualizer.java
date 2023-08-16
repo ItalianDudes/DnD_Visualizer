@@ -1,7 +1,7 @@
 package it.italiandudes.dnd_visualizer;
 
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
-import it.italiandudes.dnd_visualizer.utils.DBManager;
+import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.idl.common.Logger;
 import org.json.simple.parser.JSONParser;
 
