@@ -3,7 +3,6 @@ package it.italiandudes.dnd_visualizer.client.javafx;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 
 @SuppressWarnings("unused")
@@ -20,12 +19,6 @@ public final class JFXDefs {
         public static final Rectangle2D SCREEN_RESOLUTION = Screen.getPrimary().getBounds();
         public static final double SCREEN_WIDTH = SCREEN_RESOLUTION.getWidth();
         public static final double SCREEN_HEIGHT = SCREEN_RESOLUTION.getHeight();
-    }
-
-    // Colors
-    public static final class Colors {
-        public static final Color BACKGROUND_DARK_THEME = new Color(0.1568627450980392, 0.1568627450980392, 0.1568627450980392, 1);
-        public static final Color BACKGROUND_LIGHT_THEME = new Color(0.9568627450980392, 0.9568627450980392, 0.9568627450980392, 1);
     }
 
     //Resource Locations
