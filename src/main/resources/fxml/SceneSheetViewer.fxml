@@ -5,6 +5,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
@@ -18,7 +19,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer">
+<AnchorPane stylesheets="@../css/common.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer">
    <children>
       <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
@@ -49,20 +50,23 @@
                                        <children>
                                           <Label alignment="CENTER" contentDisplay="CENTER" text="NOME PERSONAGGIO">
                                              <font>
-                                                <Font name="Lucida Sans Regular" size="16.0" />
+                                                <Font name="Lucida Sans Regular" size="20.0" />
                                              </font>
                                              <padding>
                                                 <Insets left="5.0" right="5.0" />
                                              </padding>
                                           </Label>
-                                          <TextField GridPane.columnIndex="1">
+                                          <TextField fx:id="textFieldCharacterName" GridPane.columnIndex="1">
                                              <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
+                                                <Font name="Lucida Sans Demibold" size="20.0" />
                                              </font>
                                           </TextField>
                                        </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
                                     </GridPane>
-                                    <GridPane alignment="CENTER" style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.rowIndex="1">
+                                    <GridPane alignment="CENTER" hgap="5.0" style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.rowIndex="1">
                                       <columnConstraints>
                                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
                                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
@@ -83,7 +87,10 @@
                                               <RowConstraints valignment="TOP" vgrow="NEVER" />
                                             </rowConstraints>
                                              <children>
-                                                <TextField />
+                                                <TextField fx:id="textFieldClass">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font></TextField>
                                                 <Label text="CLASSE" GridPane.rowIndex="1">
                                                    <font>
                                                       <Font name="Lucida Sans Regular" size="16.0" />
@@ -94,7 +101,7 @@
                                                       <Font name="Lucida Sans Regular" size="16.0" />
                                                    </font>
                                                 </Label>
-                                                <TextField GridPane.columnIndex="1" />
+                                                <Spinner fx:id="spinnerLevel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
                                              </children>
                                           </GridPane>
                                           <GridPane GridPane.rowIndex="1">
@@ -106,7 +113,10 @@
                                               <RowConstraints valignment="TOP" vgrow="NEVER" />
                                             </rowConstraints>
                                              <children>
-                                                <TextField />
+                                                <TextField fx:id="textFieldRace">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font></TextField>
                                                 <Label text="RAZZA" GridPane.rowIndex="1">
                                                    <font>
                                                       <Font name="Lucida Sans Regular" size="16.0" />
@@ -123,7 +133,10 @@
                                                 <RowConstraints valignment="TOP" vgrow="NEVER" />
                                              </rowConstraints>
                                              <children>
-                                                <TextField />
+                                                <TextField fx:id="textFieldBackground">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font></TextField>
                                                 <Label text="BACKGROUND" GridPane.rowIndex="1">
                                                    <font>
                                                       <Font name="Lucida Sans Regular" size="16.0" />
@@ -140,7 +153,10 @@
                                                 <RowConstraints valignment="TOP" vgrow="NEVER" />
                                              </rowConstraints>
                                              <children>
-                                                <TextField />
+                                                <TextField fx:id="textFieldAlignment">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font></TextField>
                                                 <Label text="ALLINEAMENTO" GridPane.rowIndex="1">
                                                    <font>
                                                       <Font name="Lucida Sans Regular" size="16.0" />
@@ -157,7 +173,10 @@
                                                 <RowConstraints valignment="TOP" vgrow="NEVER" />
                                              </rowConstraints>
                                              <children>
-                                                <TextField />
+                                                <TextField fx:id="textFieldPlayerName">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font></TextField>
                                                 <Label text="NOME GIOCATORE" GridPane.rowIndex="1">
                                                    <font>
                                                       <Font name="Lucida Sans Regular" size="16.0" />
@@ -174,7 +193,10 @@
                                                 <RowConstraints valignment="TOP" vgrow="NEVER" />
                                              </rowConstraints>
                                              <children>
-                                                <TextField />
+                                                <TextField fx:id="textFieldExperience">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font></TextField>
                                                 <Label text="PUNTI ESPERIENZA" GridPane.rowIndex="1">
                                                    <font>
                                                       <Font name="Lucida Sans Regular" size="16.0" />
@@ -330,8 +352,8 @@
                                                                         <Font size="16.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Slider majorTickUnit="3.0" max="3.0" minorTickCount="1" showTickMarks="true" GridPane.columnIndex="1" />
-                                                                  <Slider majorTickUnit="3.0" max="3.0" minorTickCount="1" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                                  <Slider fx:id="sliderDSTSuccesses" majorTickUnit="3.0" max="3.0" minorTickCount="1" showTickMarks="true" GridPane.columnIndex="1" />
+                                                                  <Slider fx:id="sliderDSTFailures" majorTickUnit="3.0" max="3.0" minorTickCount="1" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                                </children>
                                                             </GridPane>
                                                          </graphic>
@@ -379,11 +401,72 @@
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="textFieldMaxHP" onAction="#recalculateHealthPercentage" GridPane.columnIndex="1" />
-                                                      <TextField fx:id="textFieldCurrentHP" onAction="#recalculateHealthPercentage" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                      <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                      <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                      <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                      <TextField fx:id="textFieldMaxHP" onAction="#recalculateHealthPercentage" GridPane.columnIndex="1">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font></TextField>
+                                                      <TextField fx:id="textFieldCurrentHP" onAction="#recalculateHealthPercentage" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font></TextField>
+                                                      <TextField fx:id="textFieldTempHP" onAction="#recalculateHealthPercentage" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font></TextField>
+                                                      <GridPane GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints hgrow="ALWAYS" />
+                                                            <ColumnConstraints hgrow="NEVER" />
+                                                          <ColumnConstraints hgrow="ALWAYS" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <TextField fx:id="textFieldTotalLifeDiceAmount" alignment="CENTER_RIGHT" editable="false" text="#">
+                                                               <font>
+                                                                  <Font name="Lucida Sans Regular" size="16.0" />
+                                                               </font>
+                                                            </TextField>
+                                                            <Label layoutX="187.0" layoutY="15.0" text="d" GridPane.columnIndex="1">
+                                                               <font>
+                                                                  <Font name="Lucida Sans Regular" size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="textFieldTotalLifeDiceFaces" onAction="#updateLifeDiceFaces" text="20" GridPane.columnIndex="2">
+                                                               <font>
+                                                                  <Font name="Lucida Sans Regular" size="16.0" />
+                                                               </font>
+                                                            </TextField>
+                                                         </children>
+                                                      </GridPane>
+                                                      <GridPane GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints hgrow="ALWAYS" />
+                                                            <ColumnConstraints hgrow="NEVER" />
+                                                            <ColumnConstraints hgrow="ALWAYS" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints vgrow="SOMETIMES" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <TextField fx:id="textFieldCurrentLifeDiceAmount" alignment="CENTER_RIGHT" text="#">
+                                                               <font>
+                                                                  <Font name="Lucida Sans Regular" size="16.0" />
+                                                               </font>
+                                                            </TextField>
+                                                            <Label text="d" GridPane.columnIndex="1">
+                                                               <font>
+                                                                  <Font name="Lucida Sans Regular" size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <TextField fx:id="textFieldCurrentLifeDiceFaces" editable="false" text="#" GridPane.columnIndex="2">
+                                                               <font>
+                                                                  <Font name="Lucida Sans Regular" size="16.0" />
+                                                               </font>
+                                                            </TextField>
+                                                         </children>
+                                                      </GridPane>
                                                    </children>
                                                    <padding>
                                                       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -430,10 +513,16 @@
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextField GridPane.columnIndex="1" />
-                                                            <TextField GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                            <TextField GridPane.columnIndex="3" />
+                                                            <TextField fx:id="textFieldSpeed" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                                               <font>
+                                                                  <Font name="Lucida Sans Regular" size="16.0" />
+                                                               </font></TextField>
+                                                            <TextField fx:id="textFieldInitiative" editable="false" GridPane.columnIndex="3">
+                                                               <font>
+                                                                  <Font name="Lucida Sans Regular" size="16.0" />
+                                                               </font></TextField>
+                                                            <Spinner fx:id="spinnerInspiration" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                            <Spinner fx:id="spinnerProficiencyBonus" GridPane.columnIndex="1" />
                                                          </children>
                                                          <padding>
                                                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -451,7 +540,7 @@
                                                           <RowConstraints vgrow="NEVER" />
                                                         </rowConstraints>
                                                          <children>
-                                                            <TextArea>
+                                                            <TextArea fx:id="textAreaPersonalityTraits">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="12.0" />
                                                                </font>
@@ -461,7 +550,7 @@
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextArea GridPane.rowIndex="2">
+                                                            <TextArea fx:id="textAreaIdeals" GridPane.rowIndex="2">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="12.0" />
                                                                </font>
@@ -471,7 +560,7 @@
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextArea GridPane.columnIndex="1">
+                                                            <TextArea fx:id="textAreaBonds" GridPane.columnIndex="1">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="12.0" />
                                                                </font>
@@ -481,7 +570,7 @@
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextArea GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                            <TextArea fx:id="textAreaFlaws" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="12.0" />
                                                                </font>
@@ -554,16 +643,12 @@
                                             </rowConstraints>
                                              <children>
                                                 <Label contentDisplay="BOTTOM" text="FORZA">
-                                                   <graphic>
-                                                      <TextField alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="FOR">
-                                                         <font>
-                                                            <Font name="Lucida Sans Regular" size="16.0" />
-                                                         </font>
-                                                      </TextField>
-                                                   </graphic>
                                                    <font>
                                                       <Font name="Lucida Sans Demibold" size="16.0" />
                                                    </font>
+                                                   <graphic>
+                                                      <Spinner fx:id="spinnerStrength" styleClass="parameter_spinner" />
+                                                   </graphic>
                                                 </Label>
                                                 <GridPane GridPane.rowIndex="1">
                                                    <columnConstraints>
@@ -578,7 +663,7 @@
                                                             <Font name="Lucida Sans Demibold" size="16.0" />
                                                          </font>
                                                          <graphic>
-                                                            <Label>
+                                                            <Label fx:id="labelModStrength" text="#">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
@@ -602,16 +687,12 @@
                                              </rowConstraints>
                                              <children>
                                                 <Label contentDisplay="BOTTOM" text="DESTREZZA">
-                                                   <graphic>
-                                                      <TextField alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="DES">
-                                                         <font>
-                                                            <Font name="Lucida Sans Regular" size="16.0" />
-                                                         </font>
-                                                      </TextField>
-                                                   </graphic>
                                                    <font>
                                                       <Font name="Lucida Sans Demibold" size="16.0" />
                                                    </font>
+                                                   <graphic>
+                                                      <Spinner fx:id="spinnerDexterity" styleClass="parameter_spinner" />
+                                                   </graphic>
                                                 </Label>
                                                 <GridPane GridPane.rowIndex="1">
                                                    <columnConstraints>
@@ -626,7 +707,7 @@
                                                             <Font name="Lucida Sans Demibold" size="16.0" />
                                                          </font>
                                                          <graphic>
-                                                            <Label>
+                                                            <Label fx:id="labelModDexterity" text="#">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
@@ -653,16 +734,12 @@
                                              </rowConstraints>
                                              <children>
                                                 <Label contentDisplay="BOTTOM" text="COSTITUZIONE">
-                                                   <graphic>
-                                                      <TextField alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="COS">
-                                                         <font>
-                                                            <Font name="Lucida Sans Regular" size="16.0" />
-                                                         </font>
-                                                      </TextField>
-                                                   </graphic>
                                                    <font>
                                                       <Font name="Lucida Sans Demibold" size="16.0" />
                                                    </font>
+                                                   <graphic>
+                                                      <Spinner fx:id="spinnerConstitution" styleClass="parameter_spinner" />
+                                                   </graphic>
                                                 </Label>
                                                 <GridPane GridPane.rowIndex="1">
                                                    <columnConstraints>
@@ -677,7 +754,7 @@
                                                             <Font name="Lucida Sans Demibold" size="16.0" />
                                                          </font>
                                                          <graphic>
-                                                            <Label>
+                                                            <Label fx:id="labelModConstitution" text="#">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
@@ -704,16 +781,12 @@
                                              </rowConstraints>
                                              <children>
                                                 <Label contentDisplay="BOTTOM" text="INTELLIGENZA">
-                                                   <graphic>
-                                                      <TextField alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="INT">
-                                                         <font>
-                                                            <Font name="Lucida Sans Regular" size="16.0" />
-                                                         </font>
-                                                      </TextField>
-                                                   </graphic>
                                                    <font>
                                                       <Font name="Lucida Sans Demibold" size="16.0" />
                                                    </font>
+                                                   <graphic>
+                                                      <Spinner fx:id="spinnerIntelligence" styleClass="parameter_spinner" />
+                                                   </graphic>
                                                 </Label>
                                                 <GridPane GridPane.rowIndex="1">
                                                    <columnConstraints>
@@ -728,7 +801,7 @@
                                                             <Font name="Lucida Sans Demibold" size="16.0" />
                                                          </font>
                                                          <graphic>
-                                                            <Label>
+                                                            <Label fx:id="labelModIntelligence" text="#">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
@@ -755,16 +828,12 @@
                                              </rowConstraints>
                                              <children>
                                                 <Label contentDisplay="BOTTOM" text="SAGGEZZA">
-                                                   <graphic>
-                                                      <TextField alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="SAG">
-                                                         <font>
-                                                            <Font name="Lucida Sans Regular" size="16.0" />
-                                                         </font>
-                                                      </TextField>
-                                                   </graphic>
                                                    <font>
                                                       <Font name="Lucida Sans Demibold" size="16.0" />
                                                    </font>
+                                                   <graphic>
+                                                      <Spinner fx:id="spinnerWisdom" styleClass="parameter_spinner" />
+                                                   </graphic>
                                                 </Label>
                                                 <GridPane vgap="5.0" GridPane.rowIndex="1">
                                                    <columnConstraints>
@@ -780,7 +849,7 @@
                                                             <Font name="Lucida Sans Demibold" size="16.0" />
                                                          </font>
                                                          <graphic>
-                                                            <Label>
+                                                            <Label fx:id="labelModWisdom" text="#">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
@@ -792,7 +861,7 @@
                                                             <Font name="Lucida Sans Demibold" size="16.0" />
                                                          </font>
                                                          <graphic>
-                                                            <Label>
+                                                            <Label fx:id="labelPassivePerception" text="#">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
@@ -816,16 +885,12 @@
                                              </rowConstraints>
                                              <children>
                                                 <Label contentDisplay="BOTTOM" text="CARISMA">
-                                                   <graphic>
-                                                      <TextField alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="150.0" promptText="CAR">
-                                                         <font>
-                                                            <Font name="Lucida Sans Regular" size="16.0" />
-                                                         </font>
-                                                      </TextField>
-                                                   </graphic>
                                                    <font>
                                                       <Font name="Lucida Sans Demibold" size="16.0" />
                                                    </font>
+                                                   <graphic>
+                                                      <Spinner fx:id="spinnerCharisma" styleClass="parameter_spinner" />
+                                                   </graphic>
                                                 </Label>
                                                 <GridPane GridPane.rowIndex="1">
                                                    <columnConstraints>
@@ -840,7 +905,7 @@
                                                             <Font name="Lucida Sans Demibold" size="16.0" />
                                                          </font>
                                                          <graphic>
-                                                            <Label>
+                                                            <Label fx:id="labelModCharisma" text="#">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
@@ -881,111 +946,96 @@
                                                 </Label>
                                                 <GridPane vgap="5.0" GridPane.rowIndex="1">
                                                    <columnConstraints>
-                                                      <ColumnConstraints hgrow="SOMETIMES" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" />
-                                                      <ColumnConstraints hgrow="SOMETIMES" />
+                                                      <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
+                                                      <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
+                                                      <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
+                                                      <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
+                                                      <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
+                                                      <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
                                                    </columnConstraints>
                                                    <rowConstraints>
                                                       <RowConstraints vgrow="SOMETIMES" />
                                                       <RowConstraints vgrow="SOMETIMES" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <RadioButton mnemonicParsing="false">
+                                                      <RadioButton fx:id="radioButtonSTStrengthProficiency" mnemonicParsing="false" onAction="#toggleSTStrengthProficiency" />
+                                                      <RadioButton fx:id="radioButtonSTDexterityProficiency" layoutX="10.0" layoutY="17.0" mnemonicParsing="false" onAction="#toggleSTDexterityProficiency" GridPane.rowIndex="1" />
+                                                      <Label text="Forza" GridPane.columnIndex="1">
                                                          <graphic>
-                                                            <Label text="Forza">
-                                                               <graphic>
-                                                                  <Label>
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                               </graphic>
+                                                            <Label fx:id="labelSTStrength" text="#">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Label>
                                                          </graphic>
-                                                      </RadioButton>
-                                                      <RadioButton layoutX="10.0" layoutY="17.0" mnemonicParsing="false" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label text="Destrezza" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                          <graphic>
-                                                            <Label text="Destrezza">
-                                                               <graphic>
-                                                                  <Label>
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                               </graphic>
+                                                            <Label fx:id="labelSTDexterity" text="#">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Label>
                                                          </graphic>
-                                                      </RadioButton>
-                                                      <RadioButton layoutX="10.0" layoutY="17.0" mnemonicParsing="false" GridPane.columnIndex="1">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <RadioButton fx:id="radioButtonSTConstitutionProficiency" layoutX="10.0" layoutY="17.0" mnemonicParsing="false" onAction="#toggleSTConstitutionProficiency" GridPane.columnIndex="2" />
+                                                      <RadioButton fx:id="radioButtonSTIntelligenceProficiency" layoutX="10.0" layoutY="17.0" mnemonicParsing="false" onAction="#toggleSTIntelligenceProficiency" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                                      <Label text="Costituzione" GridPane.columnIndex="3">
                                                          <graphic>
-                                                            <Label text="Costituzione">
-                                                               <graphic>
-                                                                  <Label>
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                               </graphic>
+                                                            <Label fx:id="labelSTConstitution" text="#">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Label>
                                                          </graphic>
-                                                      </RadioButton>
-                                                      <RadioButton layoutX="10.0" layoutY="17.0" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label text="Intelligenza" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                                          <graphic>
-                                                            <Label text="Intelligenza">
-                                                               <graphic>
-                                                                  <Label>
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                               </graphic>
+                                                            <Label fx:id="labelSTIntelligence" text="#">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Label>
                                                          </graphic>
-                                                      </RadioButton>
-                                                      <RadioButton layoutX="10.0" layoutY="17.0" mnemonicParsing="false" GridPane.columnIndex="2">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <RadioButton fx:id="radioButtonSTWisdomProficiency" layoutX="10.0" layoutY="17.0" mnemonicParsing="false" onAction="#toggleSTWisdomProficiency" GridPane.columnIndex="4" />
+                                                      <RadioButton fx:id="radioButtonSTCharismaProficiency" layoutX="10.0" layoutY="17.0" mnemonicParsing="false" onAction="#toggleSTCharismaProficiency" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                                      <Label text="Saggezza" GridPane.columnIndex="5">
                                                          <graphic>
-                                                            <Label text="Saggezza">
-                                                               <graphic>
-                                                                  <Label>
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                               </graphic>
+                                                            <Label fx:id="labelSTWisdom" text="#">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Label>
                                                          </graphic>
-                                                      </RadioButton>
-                                                      <RadioButton layoutX="10.0" layoutY="17.0" mnemonicParsing="false" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label text="Carisma" GridPane.columnIndex="5" GridPane.rowIndex="1">
                                                          <graphic>
-                                                            <Label text="Carisma">
-                                                               <graphic>
-                                                                  <Label>
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </Label>
-                                                               </graphic>
+                                                            <Label fx:id="labelSTCharisma" text="#">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Label>
                                                          </graphic>
-                                                      </RadioButton>
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
                                                    </children>
                                                 </GridPane>
                                              </children>
@@ -1049,11 +1099,11 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryAthletics" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyAthletics" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
-                                                                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1">
+                                                                  <Label fx:id="labelAthletics" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
@@ -1105,11 +1155,11 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryAcrobatics" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyAcrobatics" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
-                                                                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1">
+                                                                  <Label fx:id="labelAcrobatics" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
@@ -1128,11 +1178,11 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryStealth" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyStealth" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
-                                                                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                                  <Label fx:id="labelStealth" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
@@ -1151,11 +1201,11 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasterySleightOfHand" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencySleightOfHand" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
-                                                                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                                  <Label fx:id="labelSleightOfHand" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
@@ -1209,8 +1259,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryArcana" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyArcana" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <GridPane GridPane.rowIndex="1">
@@ -1222,8 +1272,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryInvestigation" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyInvestigation" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <GridPane GridPane.rowIndex="2">
@@ -1235,8 +1285,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryNature" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyNature" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <GridPane layoutX="15.0" layoutY="55.0" GridPane.rowIndex="3">
@@ -1248,8 +1298,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryReligion" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyReligion" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <GridPane layoutX="15.0" layoutY="75.0" GridPane.rowIndex="4">
@@ -1261,31 +1311,31 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryHistory" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyHistory" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
-                                                                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1">
+                                                                  <Label fx:id="labelArcana" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                                  <Label fx:id="labelInvestigation" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                                  <Label fx:id="labelNature" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label alignment="CENTER" layoutX="66.0" layoutY="15.0" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                                  <Label fx:id="labelReligion" alignment="CENTER" layoutX="66.0" layoutY="15.0" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label alignment="CENTER" layoutX="66.0" layoutY="80.0" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                                  <Label fx:id="labelHistory" alignment="CENTER" layoutX="66.0" layoutY="80.0" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
@@ -1359,8 +1409,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryAnimalHandling" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyAnimalHandling" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <GridPane GridPane.rowIndex="1">
@@ -1372,8 +1422,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryInsight" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyInsight" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <GridPane GridPane.rowIndex="2">
@@ -1385,8 +1435,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryMedicine" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyMedicine" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <GridPane layoutX="15.0" layoutY="15.0" GridPane.rowIndex="3">
@@ -1398,8 +1448,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryPerception" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyPerception" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <GridPane layoutX="15.0" layoutY="75.0" GridPane.rowIndex="4">
@@ -1411,31 +1461,31 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasterySurvival" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencySurvival" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
-                                                                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1">
+                                                                  <Label fx:id="labelAnimalHandling" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                                  <Label fx:id="labelInsight" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                                  <Label fx:id="labelMedicine" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label alignment="CENTER" layoutX="67.0" layoutY="55.0" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                                  <Label fx:id="labelPerception" alignment="CENTER" layoutX="67.0" layoutY="55.0" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label alignment="CENTER" layoutX="67.0" layoutY="80.0" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                                  <Label fx:id="labelSurvival" alignment="CENTER" layoutX="67.0" layoutY="80.0" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
@@ -1508,11 +1558,11 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryDeception" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyDeception" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
-                                                                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1">
+                                                                  <Label fx:id="labelDeception" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
@@ -1531,11 +1581,11 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryIntimidation" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyIntimidation" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
-                                                                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                                  <Label fx:id="labelIntimidation" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
@@ -1554,11 +1604,11 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryPerformance" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyPerformance" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
-                                                                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                                  <Label fx:id="labelPerformance" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
@@ -1568,7 +1618,7 @@
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="100" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                                  <Label fx:id="labelPersuasion" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
@@ -1587,8 +1637,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton mnemonicParsing="false" />
-                                                                        <RadioButton mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryPersuasion" mnemonicParsing="false" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyPersuasion" mnemonicParsing="false" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                </children>
