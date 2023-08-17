@@ -133,6 +133,9 @@ public final class ControllerSceneSheetViewer {
     }
 
     // Direct EDT Method Calls
+    @FXML private void validateNewCurrentLifeDiceAmount() {
+        TabCharacter.validateNewCurrentLifeDiceAmount(this);
+    }
     @FXML private void recalculateHealthPercentage() {
         TabCharacter.recalculateHealthPercentage(this);
     }

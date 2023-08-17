@@ -265,7 +265,7 @@
                                                                   <Image url="@../image/sheet/character/health.png" />
                                                                </image>
                                                             </ImageView>
-                                                            <Label fx:id="labelHPLeftPercentage">
+                                                            <Label fx:id="labelHPLeftPercentage" text="100%">
                                                                <font>
                                                                   <Font name="Lucida Sans Demibold" size="50.0" />
                                                                </font>
@@ -387,15 +387,15 @@
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <TextField fx:id="textFieldMaxHP" onAction="#recalculateHealthPercentage" GridPane.columnIndex="1">
+                                                      <TextField fx:id="textFieldMaxHP" onAction="#recalculateHealthPercentage" text="20" GridPane.columnIndex="1">
                                                          <font>
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font></TextField>
-                                                      <TextField fx:id="textFieldCurrentHP" onAction="#recalculateHealthPercentage" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                      <TextField fx:id="textFieldCurrentHP" onAction="#recalculateHealthPercentage" text="20" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                          <font>
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font></TextField>
-                                                      <TextField fx:id="textFieldTempHP" onAction="#recalculateHealthPercentage" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                      <TextField fx:id="textFieldTempHP" onAction="#recalculateHealthPercentage" text="0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                          <font>
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font></TextField>
@@ -419,7 +419,7 @@
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextField fx:id="textFieldTotalLifeDiceFaces" onAction="#updateLifeDiceFaces" text="20" GridPane.columnIndex="2">
+                                                            <TextField fx:id="textFieldTotalLifeDiceFaces" editable="false" text="#" GridPane.columnIndex="2">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
@@ -436,7 +436,7 @@
                                                             <RowConstraints vgrow="SOMETIMES" />
                                                          </rowConstraints>
                                                          <children>
-                                                            <TextField fx:id="textFieldCurrentLifeDiceAmount" alignment="CENTER_RIGHT" text="#">
+                                                            <TextField fx:id="textFieldCurrentLifeDiceAmount" alignment="CENTER_RIGHT" onAction="#validateNewCurrentLifeDiceAmount" text="#">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
@@ -446,7 +446,7 @@
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextField fx:id="textFieldCurrentLifeDiceFaces" editable="false" text="#" GridPane.columnIndex="2">
+                                                            <TextField fx:id="textFieldCurrentLifeDiceFaces" onAction="#updateLifeDiceFaces" text="20" GridPane.columnIndex="2">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
