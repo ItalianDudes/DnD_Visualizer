@@ -8,7 +8,7 @@ import it.italiandudes.idl.common.JarHandler;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Application;
 import javafx.scene.image.Image;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;

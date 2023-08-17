@@ -1,7 +1,7 @@
 package it.italiandudes.dnd_visualizer.data.misc;
 
-import it.italiandudes.dnd_visualizer.interfaces.ISavable;
 import it.italiandudes.dnd_visualizer.db.DBManager;
+import it.italiandudes.dnd_visualizer.interfaces.ISavable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
