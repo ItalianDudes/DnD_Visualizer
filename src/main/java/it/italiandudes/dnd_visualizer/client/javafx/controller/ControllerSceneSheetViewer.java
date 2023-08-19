@@ -3,6 +3,8 @@ package it.italiandudes.dnd_visualizer.client.javafx.controller;
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabAbility;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabCharacter;
+import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabEquipment;
+import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabInventory;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -130,7 +132,8 @@ public final class ControllerSceneSheetViewer {
         Client.getStage().setResizable(true);
         TabCharacter.initialize(this);
         TabAbility.initialize(this);
-        TabCharacter.initialize(this);
+        TabEquipment.initialize(this);
+        TabInventory.initialize(this);
     }
 
     // Direct EDT Method Calls
