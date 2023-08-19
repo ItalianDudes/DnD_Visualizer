@@ -130,6 +130,7 @@ public final class ControllerSceneSheetViewer {
         Client.getStage().setResizable(true);
         TabCharacter.initialize(this);
         TabAbility.initialize(this);
+        TabCharacter.initialize(this);
     }
 
     // Direct EDT Method Calls

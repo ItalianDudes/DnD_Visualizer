@@ -1,4 +1,4 @@
-package it.italiandudes.dnd_visualizer.data.item;
+package it.italiandudes.dnd_visualizer.data.enums;
 
 @SuppressWarnings("unused")
 public enum ItemTypes {

@@ -1,5 +1,7 @@
 package it.italiandudes.dnd_visualizer.data.item;
 
+import it.italiandudes.dnd_visualizer.data.enums.ItemTypes;
+import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.interfaces.ISavable;
 import javafx.embed.swing.SwingFXUtils;

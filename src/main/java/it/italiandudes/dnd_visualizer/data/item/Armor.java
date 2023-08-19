@@ -1,5 +1,6 @@
 package it.italiandudes.dnd_visualizer.data.item;
 
+import it.italiandudes.dnd_visualizer.data.enums.ItemTypes;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

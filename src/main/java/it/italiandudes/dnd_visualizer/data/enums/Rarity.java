@@ -1,4 +1,4 @@
-package it.italiandudes.dnd_visualizer.data.item;
+package it.italiandudes.dnd_visualizer.data.enums;
 
 import javafx.scene.paint.Color;
 import org.jetbrains.annotations.NotNull;

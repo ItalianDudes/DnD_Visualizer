@@ -1,6 +1,6 @@
 package it.italiandudes.dnd_visualizer.data;
 
-import it.italiandudes.dnd_visualizer.data.item.Rarity;
+import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
