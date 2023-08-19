@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS allies_and_organizations (
 );
 
 CREATE TABLE IF NOT EXISTS notes (
-    id INTEGER NOT NULL PRIMARY KEY
+    id INTEGER NOT NULL PRIMARY KEY,
     title VARCHAR(32) NOT NULL,
     content TEXT NOT NULL
 );
