@@ -1,6 +1,7 @@
 package it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer;
 
 import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer;
+import it.italiandudes.dnd_visualizer.client.javafx.util.StatsCalculator;
 import javafx.scene.control.SpinnerValueFactory;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,12 +43,14 @@ public final class TabAbility {
         int mod = (int) Math.floor((value-10)/2.0);
         controller.labelModStrength.setText(String.valueOf(mod));
         toggleSTStrengthProficiency(controller);
+        updateStrengthAbilities(controller, mod, controller.spinnerProficiencyBonus.getValue());
     }
     public static void updateDexterity(@NotNull final ControllerSceneSheetViewer controller) {
         int value = controller.spinnerDexterity.getValue();
         int mod = (int) Math.floor((value-10)/2.0);
         controller.labelModDexterity.setText(String.valueOf(mod));
         toggleSTDexterityProficiency(controller);
+        updateDexterityAbilities(controller, mod, controller.spinnerProficiencyBonus.getValue());
     }
     public static void updateConstitution(@NotNull final ControllerSceneSheetViewer controller) {
         int value = controller.spinnerConstitution.getValue();
@@ -60,18 +63,21 @@ public final class TabAbility {
         int mod = (int) Math.floor((value-10)/2.0);
         controller.labelModIntelligence.setText(String.valueOf(mod));
         toggleSTIntelligenceProficiency(controller);
+        updateIntelligenceAbilities(controller, mod, controller.spinnerProficiencyBonus.getValue());
     }
     public static void updateWisdom(@NotNull final ControllerSceneSheetViewer controller) {
         int value = controller.spinnerWisdom.getValue();
         int mod = (int) Math.floor((value-10)/2.0);
         controller.labelModWisdom.setText(String.valueOf(mod));
         toggleSTWisdomProficiency(controller);
+        updateWisdomAbilities(controller, mod, controller.spinnerProficiencyBonus.getValue());
     }
     public static void updateCharisma(@NotNull final ControllerSceneSheetViewer controller) {
         int value = controller.spinnerCharisma.getValue();
         int mod = (int) Math.floor((value-10)/2.0);
         controller.labelModCharisma.setText(String.valueOf(mod));
         toggleSTCharismaProficiency(controller);
+        updateCharismaAbilities(controller, mod, controller.spinnerProficiencyBonus.getValue());
     }
     public static void toggleSTStrengthProficiency(@NotNull final ControllerSceneSheetViewer controller) {
         int proficiencyBonus = controller.spinnerProficiencyBonus.getValue();
@@ -120,5 +126,107 @@ public final class TabAbility {
         } else {
             controller.labelSTCharisma.setText(controller.labelModCharisma.getText());
         }
+    }
+
+    // Ability
+    public static void updateStrengthAbilities(@NotNull final ControllerSceneSheetViewer controller, int mod, int proficiencyBonus) {
+        StatsCalculator.setNewAbilityValue(
+                controller.labelAthletics, mod, proficiencyBonus,
+                controller.radioButtonProficiencyAthletics,
+                controller.radioButtonMasteryAthletics
+        );
+    }
+    public static void updateDexterityAbilities(@NotNull final ControllerSceneSheetViewer controller, int mod, int proficiencyBonus) {
+        StatsCalculator.setNewAbilityValue(
+                controller.labelAcrobatics, mod, proficiencyBonus,
+                controller.radioButtonProficiencyAcrobatics,
+                controller.radioButtonMasteryAcrobatics
+        );
+        StatsCalculator.setNewAbilityValue(
+                controller.labelStealth, mod, proficiencyBonus,
+                controller.radioButtonProficiencyStealth,
+                controller.radioButtonMasteryStealth
+        );
+        StatsCalculator.setNewAbilityValue(
+                controller.labelSleightOfHand, mod, proficiencyBonus,
+                controller.radioButtonProficiencySleightOfHand,
+                controller.radioButtonMasterySleightOfHand
+        );
+    }
+    public static void updateIntelligenceAbilities(@NotNull final ControllerSceneSheetViewer controller, int mod, int proficiencyBonus) {
+        StatsCalculator.setNewAbilityValue(
+                controller.labelArcana, mod, proficiencyBonus,
+                controller.radioButtonProficiencyArcana,
+                controller.radioButtonMasteryArcana
+        );
+        StatsCalculator.setNewAbilityValue(
+                controller.labelInvestigation, mod, proficiencyBonus,
+                controller.radioButtonProficiencyInvestigation,
+                controller.radioButtonMasteryInvestigation
+        );
+        StatsCalculator.setNewAbilityValue(
+                controller.labelNature, mod, proficiencyBonus,
+                controller.radioButtonProficiencyNature,
+                controller.radioButtonMasteryNature
+        );
+        StatsCalculator.setNewAbilityValue(
+                controller.labelReligion, mod, proficiencyBonus,
+                controller.radioButtonProficiencyReligion,
+                controller.radioButtonMasteryReligion
+        );
+        StatsCalculator.setNewAbilityValue(
+                controller.labelHistory, mod, proficiencyBonus,
+                controller.radioButtonProficiencyHistory,
+                controller.radioButtonMasteryHistory
+        );
+    }
+    public static void updateWisdomAbilities(@NotNull final ControllerSceneSheetViewer controller, int mod, int proficiencyBonus) {
+        StatsCalculator.setNewAbilityValue(
+                controller.labelAnimalHandling, mod, proficiencyBonus,
+                controller.radioButtonProficiencyAnimalHandling,
+                controller.radioButtonMasteryAnimalHandling
+        );
+        StatsCalculator.setNewAbilityValue(
+                controller.labelInsight, mod, proficiencyBonus,
+                controller.radioButtonProficiencyInsight,
+                controller.radioButtonMasteryInsight
+        );
+        StatsCalculator.setNewAbilityValue(
+                controller.labelMedicine, mod, proficiencyBonus,
+                controller.radioButtonProficiencyMedicine,
+                controller.radioButtonMasteryMedicine
+        );
+        StatsCalculator.setNewAbilityValue(
+                controller.labelPerception, mod, proficiencyBonus,
+                controller.radioButtonProficiencyPerception,
+                controller.radioButtonMasteryPerception
+        );
+        StatsCalculator.setNewAbilityValue(
+                controller.labelSurvival, mod, proficiencyBonus,
+                controller.radioButtonProficiencySurvival,
+                controller.radioButtonMasterySurvival
+        );
+    }
+    public static void updateCharismaAbilities(@NotNull final ControllerSceneSheetViewer controller, int mod, int proficiencyBonus) {
+        StatsCalculator.setNewAbilityValue(
+                controller.labelDeception, mod, proficiencyBonus,
+                controller.radioButtonProficiencyDeception,
+                controller.radioButtonMasteryDeception
+        );
+        StatsCalculator.setNewAbilityValue(
+                controller.labelIntimidation, mod, proficiencyBonus,
+                controller.radioButtonProficiencyIntimidation,
+                controller.radioButtonMasteryIntimidation
+        );
+        StatsCalculator.setNewAbilityValue(
+                controller.labelPerformance, mod, proficiencyBonus,
+                controller.radioButtonProficiencyPerformance,
+                controller.radioButtonMasteryPerformance
+        );
+        StatsCalculator.setNewAbilityValue(
+                controller.labelPersuasion, mod, proficiencyBonus,
+                controller.radioButtonProficiencyPersuasion,
+                controller.radioButtonMasteryPersuasion
+        );
     }
 }

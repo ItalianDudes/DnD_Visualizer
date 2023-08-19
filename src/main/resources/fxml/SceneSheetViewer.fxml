@@ -1099,8 +1099,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasteryAthletics" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencyAthletics" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryAthletics" mnemonicParsing="false" onAction="#updateStrengthAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyAthletics" mnemonicParsing="false" onAction="#updateStrengthAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <Label fx:id="labelAthletics" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1">
@@ -1155,8 +1155,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasteryAcrobatics" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencyAcrobatics" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryAcrobatics" mnemonicParsing="false" onAction="#updateDexterityAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyAcrobatics" mnemonicParsing="false" onAction="#updateDexterityAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <Label fx:id="labelAcrobatics" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1">
@@ -1178,8 +1178,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasteryStealth" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencyStealth" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryStealth" mnemonicParsing="false" onAction="#updateDexterityAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyStealth" mnemonicParsing="false" onAction="#updateDexterityAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <Label fx:id="labelStealth" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -1201,8 +1201,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasterySleightOfHand" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencySleightOfHand" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasterySleightOfHand" mnemonicParsing="false" onAction="#updateDexterityAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencySleightOfHand" mnemonicParsing="false" onAction="#updateDexterityAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <Label fx:id="labelSleightOfHand" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -1259,8 +1259,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasteryArcana" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencyArcana" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryArcana" mnemonicParsing="false" onAction="#updateIntelligenceAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyArcana" mnemonicParsing="false" onAction="#updateIntelligenceAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <GridPane GridPane.rowIndex="1">
@@ -1272,8 +1272,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasteryInvestigation" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencyInvestigation" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryInvestigation" mnemonicParsing="false" onAction="#updateIntelligenceAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyInvestigation" mnemonicParsing="false" onAction="#updateIntelligenceAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <GridPane GridPane.rowIndex="2">
@@ -1285,8 +1285,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasteryNature" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencyNature" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryNature" mnemonicParsing="false" onAction="#updateIntelligenceAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyNature" mnemonicParsing="false" onAction="#updateIntelligenceAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <GridPane layoutX="15.0" layoutY="55.0" GridPane.rowIndex="3">
@@ -1298,8 +1298,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasteryReligion" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencyReligion" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryReligion" mnemonicParsing="false" onAction="#updateIntelligenceAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyReligion" mnemonicParsing="false" onAction="#updateIntelligenceAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <GridPane layoutX="15.0" layoutY="75.0" GridPane.rowIndex="4">
@@ -1311,8 +1311,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasteryHistory" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencyHistory" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryHistory" mnemonicParsing="false" onAction="#updateIntelligenceAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyHistory" mnemonicParsing="false" onAction="#updateIntelligenceAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <Label fx:id="labelArcana" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1">
@@ -1409,8 +1409,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasteryAnimalHandling" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencyAnimalHandling" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryAnimalHandling" mnemonicParsing="false" onAction="#updateWisdomAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyAnimalHandling" mnemonicParsing="false" onAction="#updateWisdomAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <GridPane GridPane.rowIndex="1">
@@ -1422,8 +1422,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasteryInsight" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencyInsight" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryInsight" mnemonicParsing="false" onAction="#updateWisdomAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyInsight" mnemonicParsing="false" onAction="#updateWisdomAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <GridPane GridPane.rowIndex="2">
@@ -1435,8 +1435,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasteryMedicine" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencyMedicine" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryMedicine" mnemonicParsing="false" onAction="#updateWisdomAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyMedicine" mnemonicParsing="false" onAction="#updateWisdomAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <GridPane layoutX="15.0" layoutY="15.0" GridPane.rowIndex="3">
@@ -1448,8 +1448,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasteryPerception" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencyPerception" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryPerception" mnemonicParsing="false" onAction="#updateWisdomAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyPerception" mnemonicParsing="false" onAction="#updateWisdomAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <GridPane layoutX="15.0" layoutY="75.0" GridPane.rowIndex="4">
@@ -1461,8 +1461,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasterySurvival" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencySurvival" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasterySurvival" mnemonicParsing="false" onAction="#updateWisdomAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencySurvival" mnemonicParsing="false" onAction="#updateWisdomAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <Label fx:id="labelAnimalHandling" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1">
@@ -1558,8 +1558,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasteryDeception" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencyDeception" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryDeception" mnemonicParsing="false" onAction="#updateCharismaAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyDeception" mnemonicParsing="false" onAction="#updateCharismaAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <Label fx:id="labelDeception" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1">
@@ -1581,8 +1581,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasteryIntimidation" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencyIntimidation" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryIntimidation" mnemonicParsing="false" onAction="#updateCharismaAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyIntimidation" mnemonicParsing="false" onAction="#updateCharismaAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <Label fx:id="labelIntimidation" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="1">
@@ -1604,8 +1604,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasteryPerformance" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencyPerformance" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryPerformance" mnemonicParsing="false" onAction="#updateCharismaAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyPerformance" mnemonicParsing="false" onAction="#updateCharismaAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                   <Label fx:id="labelPerformance" alignment="CENTER" maxWidth="1.7976931348623157E308" text="#" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -1637,8 +1637,8 @@
                                                                         <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                                                                      </rowConstraints>
                                                                      <children>
-                                                                        <RadioButton fx:id="radioButtonMasteryPersuasion" mnemonicParsing="false" />
-                                                                        <RadioButton fx:id="radioButtonProficiencyPersuasion" mnemonicParsing="false" GridPane.columnIndex="1" />
+                                                                        <RadioButton fx:id="radioButtonMasteryPersuasion" mnemonicParsing="false" onAction="#updateCharismaAbilities" />
+                                                                        <RadioButton fx:id="radioButtonProficiencyPersuasion" mnemonicParsing="false" onAction="#updateCharismaAbilities" GridPane.columnIndex="1" />
                                                                      </children>
                                                                   </GridPane>
                                                                </children>

@@ -164,4 +164,19 @@ public final class ControllerSceneSheetViewer {
     @FXML private void toggleSTCharismaProficiency() {
         TabAbility.toggleSTCharismaProficiency(this);
     }
+    @FXML private void updateStrengthAbilities() {
+        TabAbility.updateStrengthAbilities(this, Integer.parseInt(labelModStrength.getText()), spinnerProficiencyBonus.getValue());
+    }
+    @FXML private void updateDexterityAbilities() {
+        TabAbility.updateDexterityAbilities(this, Integer.parseInt(labelModDexterity.getText()), spinnerProficiencyBonus.getValue());
+    }
+    @FXML private void updateIntelligenceAbilities() {
+        TabAbility.updateIntelligenceAbilities(this, Integer.parseInt(labelModIntelligence.getText()), spinnerProficiencyBonus.getValue());
+    }
+    @FXML private void updateWisdomAbilities() {
+        TabAbility.updateWisdomAbilities(this, Integer.parseInt(labelModWisdom.getText()), spinnerProficiencyBonus.getValue());
+    }
+    @FXML private void updateCharismaAbilities() {
+        TabAbility.updateCharismaAbilities(this, Integer.parseInt(labelModCharisma.getText()), spinnerProficiencyBonus.getValue());
+    }
 }
