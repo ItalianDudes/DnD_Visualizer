@@ -5,10 +5,15 @@ import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabAb
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabCharacter;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabEquipment;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabInventory;
+import it.italiandudes.dnd_visualizer.data.ElementPreview;
+import it.italiandudes.dnd_visualizer.data.enums.Category;
+import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import org.jetbrains.annotations.NotNull;
 
 //@SuppressWarnings("unused")
 public final class ControllerSceneSheetViewer {
@@ -126,6 +131,16 @@ public final class ControllerSceneSheetViewer {
     @FXML public RadioButton radioButtonProficiencyPersuasion;
     @FXML public RadioButton radioButtonMasteryPersuasion;
 
+    // TabInventory
+    @FXML public TextField textFieldSearchBar;
+    @FXML public TableView<ElementPreview> tableViewInventory;
+    @FXML public TableColumn<ElementPreview, Integer> tableColumnID;
+    @FXML public TableColumn<ElementPreview, String> tableColumnName;
+    @FXML public TableColumn<ElementPreview, Category> tableColumnCategory;
+    @FXML public TableColumn<ElementPreview, Rarity> tableColumnRarity;
+    @FXML public TableColumn<ElementPreview, Double> tableColumnWeight;
+    @FXML public TableColumn<ElementPreview, Integer> tableColumnCostMR;
+
     //Initialize
     @FXML
     private void initialize() {
@@ -182,4 +197,11 @@ public final class ControllerSceneSheetViewer {
     @FXML private void updateCharismaAbilities() {
         TabAbility.updateCharismaAbilities(this, Integer.parseInt(labelModCharisma.getText()), spinnerProficiencyBonus.getValue());
     }
+    @FXML private void doubleClickEdit(@NotNull final MouseEvent event) {
+        if (event.getClickCount() >= 2) editElement();
+    }
+    @FXML private void search() {}
+    @FXML private void deleteElement() {}
+    @FXML private void editElement() {}
+    @FXML private void addElement() {}
 }

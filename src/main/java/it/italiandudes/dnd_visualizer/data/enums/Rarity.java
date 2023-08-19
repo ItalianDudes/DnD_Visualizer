@@ -39,4 +39,8 @@ public enum Rarity {
     public Color getColor() {
         return color;
     }
+    @Override
+    public String toString() {
+        return textedRarity;
+    }
 }

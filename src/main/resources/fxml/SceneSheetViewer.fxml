@@ -1741,19 +1741,6 @@
                                     <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
                                  </rowConstraints>
                                  <children>
-                                    <TableView GridPane.rowIndex="1">
-                                      <columns>
-                                        <TableColumn maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="#ID" />
-                                        <TableColumn maxWidth="1.7976931348623157E308" minWidth="500.0" prefWidth="-1.0" text="Nome" />
-                                          <TableColumn maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" text="Categoria" />
-                                          <TableColumn maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Rarità" />
-                                          <TableColumn maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Peso" />
-                                          <TableColumn maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Costo (MR)" />
-                                      </columns>
-                                       <columnResizePolicy>
-                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                       </columnResizePolicy>
-                                    </TableView>
                                     <GridPane hgap="5.0">
                                       <columnConstraints>
                                           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
@@ -1766,7 +1753,7 @@
                                         <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                       </rowConstraints>
                                        <children>
-                                          <TextField maxHeight="1.7976931348623157E308">
+                                          <TextField fx:id="textFieldSearchBar" maxHeight="1.7976931348623157E308" onAction="#search" style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;">
                                              <font>
                                                 <Font name="Lucida Sans Regular" size="16.0" />
                                              </font>
@@ -1780,7 +1767,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <Button mnemonicParsing="false" GridPane.columnIndex="2">
+                                          <Button mnemonicParsing="false" onAction="#deleteElement" GridPane.columnIndex="2">
                                              <graphic>
                                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -1789,7 +1776,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <Button mnemonicParsing="false" GridPane.columnIndex="3">
+                                          <Button mnemonicParsing="false" onAction="#editElement" GridPane.columnIndex="3">
                                              <graphic>
                                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -1798,7 +1785,7 @@
                                                 </ImageView>
                                              </graphic>
                                           </Button>
-                                          <Button mnemonicParsing="false" GridPane.columnIndex="4">
+                                          <Button mnemonicParsing="false" onAction="#addElement" GridPane.columnIndex="4">
                                              <graphic>
                                                 <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
@@ -1809,6 +1796,19 @@
                                           </Button>
                                        </children>
                                     </GridPane>
+                                    <TableView fx:id="tableViewInventory" onMouseClicked="#doubleClickEdit" GridPane.rowIndex="1">
+                                      <columns>
+                                        <TableColumn fx:id="tableColumnID" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="#ID" />
+                                        <TableColumn fx:id="tableColumnName" maxWidth="1.7976931348623157E308" minWidth="500.0" prefWidth="-1.0" text="Nome" />
+                                          <TableColumn fx:id="tableColumnCategory" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" text="Categoria" />
+                                          <TableColumn fx:id="tableColumnRarity" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Rarità" />
+                                          <TableColumn fx:id="tableColumnWeight" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Peso" />
+                                          <TableColumn fx:id="tableColumnCostMR" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Costo (MR)" />
+                                      </columns>
+                                       <columnResizePolicy>
+                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                       </columnResizePolicy>
+                                    </TableView>
                                  </children>
                               </GridPane>
                            </children>

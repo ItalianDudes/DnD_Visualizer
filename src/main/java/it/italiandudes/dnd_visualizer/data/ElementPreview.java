@@ -1,96 +1,70 @@
 package it.italiandudes.dnd_visualizer.data;
 
+import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import java.util.Objects;
 
 @SuppressWarnings("unused")
 public final class ElementPreview {
 
     // Attributes
-    @NotNull private final String name;
-    private final double costCopper;
-    @Nullable private final Rarity rarity;
-    @Nullable private final String rarityColor;
+    private final int id;
+    private final String name;
+    private final Category category;
+    private final Rarity rarity;
     private final double weight;
-    private final int type;
+    private final int costCopper;
 
     // Constructors
-    public ElementPreview(@NotNull final String name, final double costCopper, final int rarity, final double weight, final int type) {
-        @Nullable Rarity finalRarity;
+    public ElementPreview(final int id, @NotNull final String name, final Category category, final Rarity rarity, final double weight, final int costCopper) {
+        this.id = id;
         this.name = name;
+        this.category = category;
         this.costCopper = costCopper;
-        try {
-            finalRarity = Rarity.values()[rarity];
-        } catch (IndexOutOfBoundsException e) {
-            finalRarity = Rarity.COMMON;
-        }
-        this.rarity = finalRarity;
-        if (this.rarity != null) {
-            int red = (int)(this.rarity.getColor().getRed()*255);
-            int green = (int)(this.rarity.getColor().getGreen()*255);
-            int blue = (int)(this.rarity.getColor().getBlue()*255);
-            rarityColor = String.format("#%02X%02X%02X", red, green, blue);
-        } else {
-            this.rarityColor = null;
-        }
+        this.rarity = rarity;
         this.weight = weight;
-        this.type = type;
     }
 
     // Methods
-    @NotNull
+    public int getId() {
+        return id;
+    }
     public String getName() {
         return name;
     }
-    public double getCostCopper() {
-        return costCopper;
+    public Category getCategory() {
+        return category;
     }
-    @Nullable
     public Rarity getRarity() {
         return rarity;
+    }
+    public String getRarityColor() {
+        int red = (int)(this.rarity.getColor().getRed()*255);
+        int green = (int)(this.rarity.getColor().getGreen()*255);
+        int blue = (int)(this.rarity.getColor().getBlue()*255);
+        return String.format("#%02X%02X%02X", red, green, blue);
     }
     public double getWeight() {
         return weight;
     }
-    @Nullable
-    public String getRarityColor() {
-        return rarityColor;
-    }
-    public int getType() {
-        return type;
+    public int getCostCopper() {
+        return costCopper;
     }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ElementPreview)) return false;
-
+        if (o == null || getClass() != o.getClass()) return false;
         ElementPreview that = (ElementPreview) o;
-
-        if (Double.compare(that.getCostCopper(), getCostCopper()) != 0) return false;
-        if (Double.compare(that.getWeight(), getWeight()) != 0) return false;
-        if (getType() != that.getType()) return false;
-        if (!getName().equals(that.getName())) return false;
-        if (getRarity() != that.getRarity()) return false;
-        return getRarityColor() != null ? getRarityColor().equals(that.getRarityColor()) : that.getRarityColor() == null;
+        return id == that.id && Double.compare(weight, that.weight) == 0 && costCopper == that.costCopper && Objects.equals(name, that.name) && category == that.category && rarity == that.rarity;
     }
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = getName().hashCode();
-        temp = Double.doubleToLongBits(getCostCopper());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + (getRarity() != null ? getRarity().hashCode() : 0);
-        result = 31 * result + (getRarityColor() != null ? getRarityColor().hashCode() : 0);
-        temp = Double.doubleToLongBits(getWeight());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + getType();
-        return result;
+        return Objects.hash(id, name, category, rarity, weight, costCopper);
     }
-
     @Override
     public String toString() {
-        return getName();
+        return name;
     }
 }
