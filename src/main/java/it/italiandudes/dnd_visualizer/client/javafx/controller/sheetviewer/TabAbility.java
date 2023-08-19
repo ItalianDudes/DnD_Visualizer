@@ -206,6 +206,7 @@ public final class TabAbility {
                 controller.radioButtonProficiencySurvival,
                 controller.radioButtonMasterySurvival
         );
+        controller.labelPassivePerception.setText(String.valueOf(10 + Integer.parseInt(controller.labelPerception.getText())));
     }
     public static void updateCharismaAbilities(@NotNull final ControllerSceneSheetViewer controller, int mod, int proficiencyBonus) {
         StatsCalculator.setNewAbilityValue(
