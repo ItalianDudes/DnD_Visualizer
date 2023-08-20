@@ -1,10 +1,7 @@
 package it.italiandudes.dnd_visualizer.client.javafx.controller;
 
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
-import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabAbility;
-import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabCharacter;
-import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabEquipment;
-import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabInventory;
+import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.*;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
@@ -131,6 +128,13 @@ public final class ControllerSceneSheetViewer {
     @FXML public RadioButton radioButtonProficiencyPersuasion;
     @FXML public RadioButton radioButtonMasteryPersuasion;
 
+    // TabTraitsAndProficiencies
+    @FXML public TextArea textAreaPrivileges;
+    @FXML public TextArea textAreaLanguages;
+    @FXML public TextArea textAreaProficiencyWeapons;
+    @FXML public TextArea textAreaProficiencyArmors;
+    @FXML public TextArea textAreaProficiencyTools;
+
     // TabEquipment
     @FXML public Label labelCurrentWeight;
     @FXML public Label labelMaxWeight;
@@ -152,14 +156,33 @@ public final class ControllerSceneSheetViewer {
     @FXML public TableColumn<ElementPreview, Double> tableColumnWeight;
     @FXML public TableColumn<ElementPreview, Integer> tableColumnCostMR;
 
+    // TabPhysicalDescription
+    @FXML public TextField textFieldAge;
+    @FXML public TextField textFieldHeight;
+    @FXML public TextField textFieldWeight;
+    @FXML public TextField textFieldEyes;
+    @FXML public TextField textFieldSkin;
+    @FXML public TextField textFieldHair;
+    @FXML public ImageView imageViewCharacterBodyImage;
+    @FXML public TextArea textAreaPhysicalDescription;
+
+    // TabStory
+    @FXML public ImageView imageViewSymbolImage;
+    @FXML public TextArea textAreaBackstory;
+    @FXML public TextArea textAreaCult;
+    @FXML public TextArea textAreaAlliesAndOrganizations;
+
     //Initialize
     @FXML
     private void initialize() {
         Client.getStage().setResizable(true);
         TabCharacter.initialize(this);
         TabAbility.initialize(this);
+        TabTraitsAndProficiencies.initialize(this);
         TabEquipment.initialize(this);
         TabInventory.initialize(this);
+        TabPhysicalDescription.initialize(this);
+        TabStory.initialize(this);
     }
 
     // Direct EDT Method Calls
@@ -171,6 +194,12 @@ public final class ControllerSceneSheetViewer {
     }
     @FXML private void openCharacterImageFileChooser() {
         TabCharacter.openCharacterImageFileChooser(this);
+    }
+    @FXML private void openCharacterBodyImageFileChooser() {
+        TabPhysicalDescription.openCharacterBodyImageFileChooser(this);
+    }
+    @FXML private void openCultImageFileChooser() {
+        TabStory.openSymbolImageFileChooser(this);
     }
     @FXML private void updateLifeDiceFaces() {
         TabCharacter.updateLifeDiceFaces(this);

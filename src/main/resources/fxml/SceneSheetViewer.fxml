@@ -239,13 +239,16 @@
                                                       <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                   </rowConstraints>
                                                    <children>
+                                                      <ImageView fx:id="imageViewCharacterImage" fitHeight="480.0" fitWidth="270.0" onMouseClicked="#openCharacterImageFileChooser" pickOnBounds="true" preserveRatio="true" />
                                                       <Label contentDisplay="TOP" text="ASPETTO" GridPane.rowIndex="1">
                                                          <font>
                                                             <Font name="Lucida Sans Demibold" size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <ImageView fx:id="imageViewCharacterImage" fitHeight="480.0" fitWidth="270.0" onMouseClicked="#openCharacterImageFileChooser" pickOnBounds="true" preserveRatio="true" />
                                                    </children>
+                                                   <padding>
+                                                      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                                   </padding>
                                                 </GridPane>
                                              </children>
                                           </GridPane>
@@ -1675,6 +1678,164 @@
                   </ScrollPane>
             </content>
           </Tab>
+            <Tab text="Tratti &amp; Competenze">
+               <content>
+                  <ScrollPane fitToHeight="true" fitToWidth="true">
+                     <content>
+                        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <children>
+                              <GridPane hgap="5.0" layoutX="5.0" layoutY="98.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                 </rowConstraints>
+                                 <children>
+                                    <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;">
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints valignment="TOP" vgrow="ALWAYS" />
+                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                       </rowConstraints>
+                                       <children>
+                                          <TextArea fx:id="textAreaPrivileges">
+                                             <font>
+                                                <Font name="Lucida Sans Regular" size="16.0" />
+                                             </font>
+                                          </TextArea>
+                                          <Label text="PRIVILEGI &amp; TRATTI" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font name="Lucida Sans Demibold" size="16.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </GridPane>
+                                    <GridPane hgap="5.0" vgap="5.0" GridPane.columnIndex="1">
+                                      <columnConstraints>
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                        <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;">
+                                            <columnConstraints>
+                                              <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints valignment="TOP" vgrow="ALWAYS" />
+                                              <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                            </rowConstraints>
+                                             <children>
+                                                <TextArea fx:id="textAreaLanguages">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </TextArea>
+                                                <Label text="LINGUE" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.rowIndex="1">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints valignment="TOP" vgrow="ALWAYS" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                             </rowConstraints>
+                                             <children>
+                                                <TextArea fx:id="textAreaProficiencyWeapons">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </TextArea>
+                                                <Label text="ARMI" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.columnIndex="1">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints valignment="TOP" vgrow="ALWAYS" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                             </rowConstraints>
+                                             <children>
+                                                <TextArea fx:id="textAreaProficiencyArmors">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </TextArea>
+                                                <Label text="ARMATURE" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints valignment="TOP" vgrow="ALWAYS" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                             </rowConstraints>
+                                             <children>
+                                                <TextArea fx:id="textAreaProficiencyTools">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </TextArea>
+                                                <Label text="STRUMENTI" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+               </content>
+            </Tab>
             <Tab text="Equipaggiamento">
                <content>
                   <ScrollPane fitToHeight="true" fitToWidth="true">
@@ -2071,10 +2232,349 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
             </Tab>
+            <Tab text="Descrizione Fisica">
+               <content>
+                  <ScrollPane fitToHeight="true" fitToWidth="true">
+                     <content>
+                        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <children>
+                              <GridPane layoutX="490.0" layoutY="269.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                </rowConstraints>
+                                 <children>
+                                    <GridPane alignment="CENTER" hgap="5.0" style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;">
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                          <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <GridPane>
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints vgrow="ALWAYS" />
+                                                <RowConstraints valignment="TOP" vgrow="NEVER" />
+                                             </rowConstraints>
+                                             <children>
+                                                <TextField fx:id="textFieldAge">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </TextField>
+                                                <Label text="ETA'" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </GridPane>
+                                          <GridPane GridPane.rowIndex="1">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints vgrow="ALWAYS" />
+                                                <RowConstraints valignment="TOP" vgrow="NEVER" />
+                                             </rowConstraints>
+                                             <children>
+                                                <TextField fx:id="textFieldEyes">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </TextField>
+                                                <Label text="OCCHI" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </GridPane>
+                                          <GridPane GridPane.columnIndex="1">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints vgrow="ALWAYS" />
+                                                <RowConstraints valignment="TOP" vgrow="NEVER" />
+                                             </rowConstraints>
+                                             <children>
+                                                <TextField fx:id="textFieldHeight">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </TextField>
+                                                <Label text="ALTEZZA" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </GridPane>
+                                          <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints vgrow="ALWAYS" />
+                                                <RowConstraints valignment="TOP" vgrow="NEVER" />
+                                             </rowConstraints>
+                                             <children>
+                                                <TextField fx:id="textFieldSkin">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </TextField>
+                                                <Label text="PELLE" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </GridPane>
+                                          <GridPane GridPane.columnIndex="2">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints vgrow="ALWAYS" />
+                                                <RowConstraints valignment="TOP" vgrow="NEVER" />
+                                             </rowConstraints>
+                                             <children>
+                                                <TextField fx:id="textFieldWeight">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </TextField>
+                                                <Label text="PESO" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </GridPane>
+                                          <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints vgrow="ALWAYS" />
+                                                <RowConstraints valignment="TOP" vgrow="NEVER" />
+                                             </rowConstraints>
+                                             <children>
+                                                <TextField fx:id="textFieldHair">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </TextField>
+                                                <Label text="CAPELLI" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </GridPane>
+                                    <GridPane hgap="5.0" GridPane.rowIndex="1">
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                       </rowConstraints>
+                                       <children>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                             </rowConstraints>
+                                             <children>
+                                                <ImageView fx:id="imageViewCharacterBodyImage" fitHeight="480.0" fitWidth="270.0" onMouseClicked="#openCharacterBodyImageFileChooser" pickOnBounds="true" preserveRatio="true" />
+                                                <Label contentDisplay="TOP" text="ASPETTO" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.columnIndex="1">
+                                            <columnConstraints>
+                                              <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                              <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                            </rowConstraints>
+                                             <children>
+                                                <TextArea fx:id="textAreaPhysicalDescription">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </TextArea>
+                                                <Label text="DESCRIZIONE FISICA" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+               </content>
+            </Tab>
+            <Tab text="Storia">
+               <content>
+                  <ScrollPane fitToHeight="true" fitToWidth="true">
+                     <content>
+                        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <children>
+                              <GridPane hgap="5.0" layoutX="261.0" layoutY="186.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                </rowConstraints>
+                                 <children>
+                                    <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;">
+                                      <columnConstraints>
+                                        <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                        <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                      </rowConstraints>
+                                       <children>
+                                          <TextArea fx:id="textAreaBackstory">
+                                             <font>
+                                                <Font name="Lucida Sans Regular" size="16.0" />
+                                             </font>
+                                          </TextArea>
+                                          <Label text="STORIA" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font name="Lucida Sans Demibold" size="16.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </GridPane>
+                                    <GridPane vgap="5.0" GridPane.columnIndex="1">
+                                      <columnConstraints>
+                                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                        <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                      </rowConstraints>
+                                       <children>
+                                          <GridPane hgap="5.0" style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;">
+                                            <columnConstraints>
+                                              <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                              <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                            </rowConstraints>
+                                             <children>
+                                                <TextArea fx:id="textAreaCult">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </TextArea>
+                                                <Label text="CULTO" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ImageView fx:id="imageViewSymbolImage" fitHeight="300.0" fitWidth="300.0" onMouseClicked="#openCultImageFileChooser" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" />
+                                                <Label text="SIMBOLO" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.rowIndex="1">
+                                            <columnConstraints>
+                                              <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                              <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                            </rowConstraints>
+                                             <children>
+                                                <TextArea fx:id="textAreaAlliesAndOrganizations">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </TextArea>
+                                                <Label text="ALLEATI &amp; ORGANIZZAZIONI" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+               </content>
+            </Tab>
             <Tab text="Note">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+               </content>
             </Tab>
         </tabs>
       </TabPane>

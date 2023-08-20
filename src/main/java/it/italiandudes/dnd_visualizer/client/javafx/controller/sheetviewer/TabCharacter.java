@@ -10,6 +10,7 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import org.jetbrains.annotations.NotNull;
@@ -169,7 +170,11 @@ public final class TabCharacter {
                         protected Void call() {
                             try {
                                 BufferedImage img = ImageIO.read(finalImagePath);
-                                Platform.runLater(() -> controller.imageViewCharacterImage.setImage(SwingFXUtils.toFXImage(img, null)));
+                                Image fxImage = SwingFXUtils.toFXImage(img, null);
+                                Platform.runLater(() -> {
+                                    controller.imageViewCharacterImage.setImage(fxImage);
+                                    controller.imageViewCharacterBodyImage.setImage(fxImage);
+                                });
                                 characterImageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
                                 isCharacterImageSet = true;
                             }catch (IOException e) {
