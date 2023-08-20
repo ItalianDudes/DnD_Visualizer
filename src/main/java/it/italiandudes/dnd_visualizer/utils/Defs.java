@@ -38,6 +38,7 @@ public final class Defs {
         public static final class SQL {
             private static final String SQL_DIR = "/sql/";
             public static final String SQL_SHEET = SQL_DIR + "sheet.sql";
+            public static String[] SUPPORTED_IMAGE_EXTENSIONS = {"png", "jpg", "jpeg"};
         }
     }
 

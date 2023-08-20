@@ -241,8 +241,12 @@ public final class ControllerSceneSheetViewer {
     @FXML private void doubleClickEdit(@NotNull final MouseEvent event) {
         if (event.getClickCount() >= 2) editElement();
     }
-    @FXML private void search() {}
+    @FXML private void search() {
+        TabInventory.search(this);
+    }
     @FXML private void deleteElement() {}
     @FXML private void editElement() {}
-    @FXML private void addElement() {}
+    @FXML private void addElement() {
+        TabInventory.addElement(this);
+    }
 }

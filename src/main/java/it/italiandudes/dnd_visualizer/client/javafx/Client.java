@@ -7,9 +7,11 @@ import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.JarHandler;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.jetbrains.annotations.NotNull;
@@ -75,6 +77,16 @@ public final class Client extends Application {
     @NotNull
     public static Stage getStage(){
         return stage;
+    }
+    @NotNull
+    public static Stage initPopupStage(@NotNull final Scene scene) {
+        Stage popupStage = new Stage();
+        popupStage.getIcons().add(JFXDefs.AppInfo.LOGO);
+        popupStage.setTitle(JFXDefs.AppInfo.NAME);
+        popupStage.initOwner(getStage());
+        popupStage.initModality(Modality.WINDOW_MODAL);
+        popupStage.setScene(scene);
+        return popupStage;
     }
     @NotNull
     public static Image getDefaultImage() {

@@ -1,12 +1,30 @@
 package it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer;
 
+import it.italiandudes.dnd_visualizer.client.javafx.Client;
+import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer;
+import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneMainMenu;
+import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventoryItem;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
+import it.italiandudes.dnd_visualizer.data.enums.Category;
+import it.italiandudes.dnd_visualizer.data.enums.Rarity;
+import it.italiandudes.dnd_visualizer.db.DBManager;
+import it.italiandudes.idl.common.Logger;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public final class TabInventory {
 
@@ -123,5 +141,58 @@ public final class TabInventory {
             controller.spinnerMP.getEditor().setText(oldValueMP);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Le monete di platino devono essere un numero intero positivo");
         }
+    }
+    public static void search(@NotNull final ControllerSceneSheetViewer controller) {
+        Service<Void> searchService = new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() throws Exception {
+                        try {
+                            // TODO: search with searchBar content
+                            String query = "SELECT id, name, category, rarity, weight, cost_copper FROM items;";
+                            PreparedStatement ps = DBManager.preparedStatement(query);
+                            if (ps == null) {
+                                Platform.runLater(() -> {
+                                    new ErrorAlert("ERRORE", "Errore di Connessione al database", "Non e' stato possibile consultare il database");
+                                    Client.getStage().setScene(SceneMainMenu.getScene());
+                                });
+                                return null;
+                            }
+
+                            ResultSet result = ps.executeQuery();
+
+                            ArrayList<ElementPreview> resultList = new ArrayList<>();
+
+                            while (result.next()) {
+                                resultList.add(
+                                        new ElementPreview(
+                                                result.getInt("id"),
+                                                result.getString("name"),
+                                                Category.values()[result.getInt("category")],
+                                                Rarity.values()[result.getInt("rarity")],
+                                                result.getDouble("weight"),
+                                                result.getInt("cost_copper")
+                                        ));
+                            }
+
+                            ps.close();
+                            Platform.runLater(() -> controller.tableViewInventory.setItems(FXCollections.observableList(resultList)));
+                            return null;
+                        } catch (Exception e) {
+                            Logger.log(e);
+                            throw e;
+                        }
+                    }
+                };
+            }
+        };
+
+        searchService.start();
+    }
+    public static void addElement(@NotNull final ControllerSceneSheetViewer controller) {
+        Stage popupStage = Client.initPopupStage(SceneInventoryItem.getScene(controller));
+        popupStage.showAndWait();
     }
 }

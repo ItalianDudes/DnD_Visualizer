@@ -41,12 +41,6 @@ CREATE TABLE IF NOT EXISTS notes (
     content TEXT NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS inventory (
-    item_id INTEGER NOT NULL PRIMARY KEY,
-    item_type INTEGER NOT NULL,
-    item_name TEXT NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS items (
     id INTEGER NOT NULL PRIMARY KEY,
     base64image TEXT,
@@ -56,7 +50,7 @@ CREATE TABLE IF NOT EXISTS items (
     description TEXT,
     rarity INTEGER NOT NULL DEFAULT 0,
     weight REAL NOT NULL DEFAULT 0,
-    item_type INTEGER NOT NULL DEFAULT 0
+    category INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS spells (
