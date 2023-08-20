@@ -50,6 +50,7 @@ public final class TabAbility {
         int mod = (int) Math.floor((value-10)/2.0);
         controller.labelModDexterity.setText(String.valueOf(mod));
         toggleSTDexterityProficiency(controller);
+        controller.textFieldInitiative.setText(String.valueOf(mod));
         updateDexterityAbilities(controller, mod, controller.spinnerProficiencyBonus.getValue());
     }
     public static void updateConstitution(@NotNull final ControllerSceneSheetViewer controller) {

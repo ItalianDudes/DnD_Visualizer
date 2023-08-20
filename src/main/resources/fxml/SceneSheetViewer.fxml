@@ -1798,12 +1798,12 @@
                                     </GridPane>
                                     <TableView fx:id="tableViewInventory" onMouseClicked="#doubleClickEdit" GridPane.rowIndex="1">
                                       <columns>
-                                        <TableColumn fx:id="tableColumnID" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="#ID" />
+                                        <TableColumn fx:id="tableColumnID" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="#ID" />
                                         <TableColumn fx:id="tableColumnName" maxWidth="1.7976931348623157E308" minWidth="500.0" prefWidth="-1.0" text="Nome" />
-                                          <TableColumn fx:id="tableColumnCategory" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" text="Categoria" />
-                                          <TableColumn fx:id="tableColumnRarity" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Rarità" />
-                                          <TableColumn fx:id="tableColumnWeight" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Peso" />
-                                          <TableColumn fx:id="tableColumnCostMR" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" text="Costo (MR)" />
+                                          <TableColumn fx:id="tableColumnCategory" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" resizable="false" text="Categoria" />
+                                          <TableColumn fx:id="tableColumnRarity" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="Rarità" />
+                                          <TableColumn fx:id="tableColumnWeight" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="Peso" />
+                                          <TableColumn fx:id="tableColumnCostMR" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="Costo (MR)" />
                                       </columns>
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
