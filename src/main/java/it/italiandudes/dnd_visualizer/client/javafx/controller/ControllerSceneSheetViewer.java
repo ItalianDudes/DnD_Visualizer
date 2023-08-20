@@ -26,6 +26,7 @@ public final class ControllerSceneSheetViewer {
     @FXML public TextField textFieldAlignment;
     @FXML public TextField textFieldExperience;
     @FXML public ImageView imageViewCharacterImage;
+    @FXML public Label labelCA;
     @FXML public ImageView imageViewCurrentHP;
     @FXML public StackPane stackPaneCurrentHP;
     @FXML public Label labelHPLeftPercentage;
