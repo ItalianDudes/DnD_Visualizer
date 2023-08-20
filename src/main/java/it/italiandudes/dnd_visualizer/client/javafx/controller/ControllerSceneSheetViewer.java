@@ -132,6 +132,11 @@ public final class ControllerSceneSheetViewer {
     @FXML public RadioButton radioButtonMasteryPersuasion;
 
     // TabInventory
+    @FXML public Spinner<Integer> spinnerMR;
+    @FXML public Spinner<Integer> spinnerMA;
+    @FXML public Spinner<Integer> spinnerME;
+    @FXML public Spinner<Integer> spinnerMO;
+    @FXML public Spinner<Integer> spinnerMP;
     @FXML public TextField textFieldSearchBar;
     @FXML public TableView<ElementPreview> tableViewInventory;
     @FXML public TableColumn<ElementPreview, Integer> tableColumnID;
