@@ -10,6 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 public final class TabInventory {
 
+    // Attributes
+
     // Old Values
     private static String oldValueMR = "0";
     private static String oldValueMA = "0";

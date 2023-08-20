@@ -1982,7 +1982,7 @@
                                                       <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <Label text="MR">
+                                                      <Label text="RAME">
                                                          <font>
                                                             <Font name="Lucida Sans Demibold" size="16.0" />
                                                          </font>
@@ -2011,7 +2011,7 @@
                                                       <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <Label text="MA">
+                                                      <Label text="ARGENTO">
                                                          <font>
                                                             <Font name="Lucida Sans Demibold" size="16.0" />
                                                          </font>
@@ -2040,7 +2040,7 @@
                                                       <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <Label text="ME">
+                                                      <Label text="ELECTRUM">
                                                          <font>
                                                             <Font name="Lucida Sans Demibold" size="16.0" />
                                                          </font>
@@ -2069,7 +2069,7 @@
                                                       <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <Label text="MO">
+                                                      <Label text="ORO">
                                                          <font>
                                                             <Font name="Lucida Sans Demibold" size="16.0" />
                                                          </font>
@@ -2098,7 +2098,7 @@
                                                       <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <Label text="MP">
+                                                      <Label text="PLATINO">
                                                          <font>
                                                             <Font name="Lucida Sans Demibold" size="16.0" />
                                                          </font>
