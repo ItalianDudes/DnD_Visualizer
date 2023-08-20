@@ -1,3 +1,5 @@
 {
-  "enableDarkMode": true
+  "enableDarkMode": true,
+  "enableLoad": true,
+  "enablePassiveLoad": true
 }
