@@ -7,6 +7,8 @@ public final class TabEquipment {
 
     // Initialize
     public static void initialize(@NotNull final ControllerSceneSheetViewer controller) {
+        setOnChangeTriggers(controller);
+        onLostFocusFireActionEvent(controller);
     }
 
     // OnChange Triggers Setter

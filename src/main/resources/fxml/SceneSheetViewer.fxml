@@ -1684,23 +1684,81 @@
                               <GridPane layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columnConstraints>
                                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-                                    <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
-                                    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
                                  </columnConstraints>
                                  <rowConstraints>
-                                    <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                    <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                    <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
                                  </rowConstraints>
                                  <children>
-                                    <GridPane>
+                                    <GridPane hgap="5.0" style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" vgap="5.0">
                                       <columnConstraints>
-                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                        <ColumnConstraints halignment="LEFT" hgrow="NEVER" />
+                                        <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
                                       </columnConstraints>
                                       <rowConstraints>
-                                        <RowConstraints vgrow="NEVER" />
-                                        <RowConstraints vgrow="SOMETIMES" />
+                                        <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                          <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                          <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Carico">
+                                             <font>
+                                                <Font name="Lucida Sans Regular" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label text="Carico %" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font name="Lucida Sans Regular" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="labelWeightPercentage" text="#" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <font>
+                                                <Font name="Lucida Sans Regular" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label text="Stato" GridPane.rowIndex="2">
+                                             <font>
+                                                <Font name="Lucida Sans Regular" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <Label fx:id="labelWeightStatus" text="#" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                             <font>
+                                                <Font name="Lucida Sans Regular" size="16.0" />
+                                             </font>
+                                          </Label>
+                                          <GridPane hgap="5.0" GridPane.columnIndex="1">
+                                            <columnConstraints>
+                                              <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                              <ColumnConstraints halignment="LEFT" hgrow="NEVER" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label fx:id="labelCurrentWeight" text="#">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label text="/" GridPane.columnIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="labelMaxWeight" text="#" GridPane.columnIndex="2">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
                                     </GridPane>
-                                    <ImageView fitHeight="720.0" fitWidth="720.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                                    <ImageView fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
                                        <image>
                                           <Image url="@../image/sheet/equipment/body.png" />
                                        </image>
@@ -1708,14 +1766,6 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </GridPane.margin>
                                     </ImageView>
-                                    <GridPane GridPane.columnIndex="2">
-                                      <columnConstraints>
-                                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
-                                      </columnConstraints>
-                                      <rowConstraints>
-                                        <RowConstraints vgrow="SOMETIMES" />
-                                      </rowConstraints>
-                                    </GridPane>
                                  </children>
                               </GridPane>
                            </children>

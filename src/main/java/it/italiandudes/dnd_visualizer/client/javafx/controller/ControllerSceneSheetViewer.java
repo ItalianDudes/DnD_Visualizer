@@ -131,6 +131,12 @@ public final class ControllerSceneSheetViewer {
     @FXML public RadioButton radioButtonProficiencyPersuasion;
     @FXML public RadioButton radioButtonMasteryPersuasion;
 
+    // TabEquipment
+    @FXML public Label labelCurrentWeight;
+    @FXML public Label labelMaxWeight;
+    @FXML public Label labelWeightPercentage;
+    @FXML public Label labelWeightStatus;
+
     // TabInventory
     @FXML public Spinner<Integer> spinnerMR;
     @FXML public Spinner<Integer> spinnerMA;
