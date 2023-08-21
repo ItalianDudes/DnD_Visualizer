@@ -4,8 +4,10 @@ import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.InformationAlert;
-import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer;
+import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabInventory;
+import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
+import it.italiandudes.dnd_visualizer.data.item.Item;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.ImageHandler;
 import it.italiandudes.idl.common.Logger;
@@ -15,15 +17,12 @@ import javafx.collections.FXCollections;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -31,7 +30,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
@@ -43,18 +41,9 @@ import java.util.Base64;
 
 public final class ControllerSceneInventoryItem {
 
-    // Sheet Controller
-    private ControllerSceneSheetViewer sheetController = null;
-
     // Attributes
+    private Item item = null;
     private String imageExtension = null;
-    private boolean isImageSet = false;
-    private static final Image defaultImage = Client.getDefaultImage();
-
-    // Methods
-    public void setSheetController(ControllerSceneSheetViewer controller) {
-        this.sheetController = controller;
-    }
 
     // Graphic Elements
     @FXML private TextField textFieldName;
@@ -72,7 +61,7 @@ public final class ControllerSceneInventoryItem {
     @FXML
     private void initialize() {
         Client.getStage().setResizable(true);
-        imageViewItem.setImage(defaultImage);
+        imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
         comboBoxRarity.setItems(FXCollections.observableList(Rarity.colorNames));
         comboBoxRarity.getSelectionModel().selectFirst();
         comboBoxRarity.buttonCellProperty().bind(Bindings.createObjectBinding(() -> {
@@ -107,6 +96,8 @@ public final class ControllerSceneInventoryItem {
                 }
             };
         }, comboBoxRarity.valueProperty()));
+        String itemName = TabInventory.getElementName();
+        if (itemName != null) initExistingItem(itemName);
     }
 
     // EDT
@@ -114,7 +105,6 @@ public final class ControllerSceneInventoryItem {
     private void removeImage() {
         imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
         imageExtension = null;
-        isImageSet = false;
     }
     @FXML
     private void openFileChooser() {
@@ -143,7 +133,6 @@ public final class ControllerSceneInventoryItem {
                                 BufferedImage img = ImageIO.read(finalImagePath);
                                 Platform.runLater(() -> imageViewItem.setImage(SwingFXUtils.toFXImage(img, null)));
                                 imageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
-                                isImageSet = true;
                             }catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }
@@ -159,14 +148,13 @@ public final class ControllerSceneInventoryItem {
     private void backToSheet() {
         textFieldName.getScene().getWindow().hide();
     }
-    /*
     @FXML
     private void save() {
         if (textFieldName.getText().replace(" ", "").isEmpty()) {
             new ErrorAlert("ERRORE", "Errore di Inserimento", "Non e' stato assegnato un nome all'oggetto.");
             return;
         }
-        Service<Void> saveService = new Service<Void>() {
+        new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
                 return new Task<Void>() {
@@ -176,7 +164,7 @@ public final class ControllerSceneInventoryItem {
                             double weight;
                             try {
                                 String textWeight = textFieldWeight.getText();
-                                if (textWeight == null || textWeight.replace(" ", "").equals("")) {
+                                if (textWeight == null || textWeight.replace(" ", "").isEmpty()) {
                                     weight = 0;
                                 } else {
                                     weight = Double.parseDouble(textFieldWeight.getText());
@@ -192,31 +180,31 @@ public final class ControllerSceneInventoryItem {
                             int mr, ma, me, mo, mp;
                             try {
                                 String strMR = textFieldMR.getText();
-                                if (strMR == null || strMR.replace(" ", "").equals("")) {
+                                if (strMR == null || strMR.replace(" ", "").isEmpty()) {
                                     mr = 0;
                                 } else {
                                     mr = Integer.parseInt(strMR);
                                 }
                                 String strMA = textFieldMA.getText();
-                                if (strMA == null || strMA.replace(" ", "").equals("")) {
+                                if (strMA == null || strMA.replace(" ", "").isEmpty()) {
                                     ma = 0;
                                 } else {
                                     ma = Integer.parseInt(strMA);
                                 }
                                 String strME = textFieldME.getText();
-                                if (strME == null || strME.replace(" ", "").equals("")) {
+                                if (strME == null || strME.replace(" ", "").isEmpty()) {
                                     me = 0;
                                 } else {
                                     me = Integer.parseInt(strME);
                                 }
                                 String strMO = textFieldMO.getText();
-                                if (strMO == null || strMO.replace(" ", "").equals("")) {
+                                if (strMO == null || strMO.replace(" ", "").isEmpty()) {
                                     mo = 0;
                                 } else {
                                     mo = Integer.parseInt(strMO);
                                 }
                                 String strMP = textFieldMP.getText();
-                                if (strMP == null || strMP.replace(" ", "").equals("")) {
+                                if (strMP == null || strMP.replace(" ", "").isEmpty()) {
                                     mp = 0;
                                 } else {
                                     mp = Integer.parseInt(strMP);
@@ -244,7 +232,7 @@ public final class ControllerSceneInventoryItem {
                                         mp,
                                         textAreaDescription.getText(),
                                         comboBoxRarity.getSelectionModel().getSelectedItem(),
-                                        ItemTypes.TYPE_ITEM.getDatabaseValue(),
+                                        Category.ITEM,
                                         weight
                                 );
                             } else {
@@ -261,7 +249,7 @@ public final class ControllerSceneInventoryItem {
                                         mp,
                                         textAreaDescription.getText(),
                                         comboBoxRarity.getSelectionModel().getSelectedItem(),
-                                        ItemTypes.TYPE_ITEM.getDatabaseValue(),
+                                        Category.ITEM,
                                         weight
                                 );
                             }
@@ -279,9 +267,7 @@ public final class ControllerSceneInventoryItem {
                     }
                 };
             }
-        };
-
-        saveService.start();
+        }.start();
     }
     // Methods
     private void initExistingItem(@NotNull final String itemName) {
@@ -292,7 +278,6 @@ public final class ControllerSceneInventoryItem {
                     @Override
                     protected Void call() throws Exception {
                         try {
-
                             item = new Item(itemName);
 
                             imageExtension = item.getImageExtension();
@@ -338,9 +323,8 @@ public final class ControllerSceneInventoryItem {
                                 textAreaDescription.setText(item.getDescription());
                                 if (finalBufferedImage != null && imageExtension != null) {
                                     imageViewItem.setImage(SwingFXUtils.toFXImage(finalBufferedImage, null));
-                                    isImageSet = true;
                                 } else {
-                                    imageViewItem.setImage(defaultImage);
+                                    imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
                                 }
                             });
 
@@ -359,5 +343,5 @@ public final class ControllerSceneInventoryItem {
         };
 
         itemInitializerService.start();
-    }*/
+    }
 }

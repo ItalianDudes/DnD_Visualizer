@@ -1,6 +1,7 @@
 package it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer;
 
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
+import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.utils.Defs;
@@ -37,7 +38,7 @@ public final class TabCharacter {
     // Initialize
     public static void initialize(@NotNull final ControllerSceneSheetViewer controller) {
         onLostFocusFireActionEvent(controller);
-        controller.imageViewCharacterImage.setImage(Client.getDefaultImage());
+        controller.imageViewCharacterImage.setImage(JFXDefs.AppInfo.LOGO);
         hpRemoverRectangle = new Rectangle(controller.imageViewCurrentHP.getFitWidth(), 0, Client.getBackgroundThemeColor());
         controller.spinnerLevel.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 1, 1));
         controller.spinnerProficiencyBonus.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 6, 2, 1));

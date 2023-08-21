@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
@@ -24,6 +25,7 @@
 <?import javafx.scene.text.Font?>
 
 <!--suppress JavaFxDefaultTag -->
+
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer">
    <children>
       <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -2134,6 +2136,7 @@
                                                   <columnConstraints>
                                                       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
                                                       <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                                      <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
                                                     <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
                                                       <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
                                                     <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
@@ -2147,7 +2150,7 @@
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
                                                       </TextField>
-                                                      <Button mnemonicParsing="false" onAction="#search" GridPane.columnIndex="1">
+                                                      <Button mnemonicParsing="false" onAction="#search" GridPane.columnIndex="2">
                                                          <graphic>
                                                             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
@@ -2159,7 +2162,7 @@
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
                                                       </Button>
-                                                      <Button mnemonicParsing="false" onAction="#deleteElement" GridPane.columnIndex="2">
+                                                      <Button mnemonicParsing="false" onAction="#deleteElement" GridPane.columnIndex="3">
                                                          <graphic>
                                                             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
@@ -2171,7 +2174,7 @@
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
                                                       </Button>
-                                                      <Button mnemonicParsing="false" onAction="#editElement" GridPane.columnIndex="3">
+                                                      <Button mnemonicParsing="false" onAction="#editElement" GridPane.columnIndex="4">
                                                          <graphic>
                                                             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
@@ -2183,7 +2186,7 @@
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
                                                       </Button>
-                                                      <Button mnemonicParsing="false" onAction="#addElement" GridPane.columnIndex="4">
+                                                      <Button mnemonicParsing="false" onAction="#addElement" GridPane.columnIndex="5">
                                                          <graphic>
                                                             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
@@ -2195,13 +2198,13 @@
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
                                                       </Button>
+                                                      <ComboBox fx:id="comboBoxCategory" maxHeight="1.7976931348623157E308" onAction="#search" promptText="Categoria" GridPane.columnIndex="1" />
                                                    </children>
                                                 </GridPane>
                                                 <TableView fx:id="tableViewInventory" onMouseClicked="#doubleClickEdit" style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.rowIndex="1">
                                                   <columns>
                                                     <TableColumn fx:id="tableColumnID" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="#ID" />
                                                     <TableColumn fx:id="tableColumnName" maxWidth="1.7976931348623157E308" minWidth="500.0" prefWidth="-1.0" text="Nome" />
-                                                      <TableColumn fx:id="tableColumnCategory" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" resizable="false" text="Categoria" />
                                                       <TableColumn fx:id="tableColumnRarity" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="Rarità" />
                                                       <TableColumn fx:id="tableColumnWeight" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="Peso" />
                                                       <TableColumn fx:id="tableColumnCostMR" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="Costo (MR)" />

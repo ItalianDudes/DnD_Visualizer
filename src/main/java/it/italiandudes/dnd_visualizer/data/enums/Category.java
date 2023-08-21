@@ -1,5 +1,10 @@
 package it.italiandudes.dnd_visualizer.data.enums;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 @SuppressWarnings("unused")
 public enum Category {
     ITEM(0, "Oggetto"),
@@ -7,6 +12,10 @@ public enum Category {
     SPELL(2, "Incantesimo");
 
     // Attributes
+    @NotNull public static final ArrayList<Category> categories = new ArrayList<>();
+    static {
+        categories.addAll(Arrays.asList(Category.values()));
+    }
     private final int databaseValue;
     private final String name;
 

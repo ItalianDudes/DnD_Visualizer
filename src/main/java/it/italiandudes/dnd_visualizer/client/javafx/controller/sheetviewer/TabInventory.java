@@ -1,7 +1,6 @@
 package it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer;
 
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
-import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneMainMenu;
@@ -15,20 +14,26 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import javafx.scene.Scene;
 import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TableRow;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public final class TabInventory {
 
     // Attributes
+    private static String elementName = null;
+
+    // Methods
+    public static String getElementName() {
+        return elementName;
+    }
 
     // Old Values
     private static String oldValueMR = "0";
@@ -48,23 +53,11 @@ public final class TabInventory {
         controller.spinnerMP.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
         controller.tableColumnID.setCellValueFactory(new PropertyValueFactory<>("id"));
         controller.tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        controller.tableColumnCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
         controller.tableColumnRarity.setCellValueFactory(new PropertyValueFactory<>("rarity"));
-        controller.tableViewInventory.setRowFactory(tv -> new TableRow<ElementPreview>() {
-            @Override
-            protected void updateItem(ElementPreview item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setText(null);
-                    setStyle("-fx-font-weight: bold;");
-                } else {
-                    setText(item.getName());
-                    setStyle("-fx-background-color: "+item.getRarityColor()+";");
-                }
-            }
-        });
         controller.tableColumnWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
         controller.tableColumnCostMR.setCellValueFactory(new PropertyValueFactory<>("costCopper"));
+        controller.comboBoxCategory.setItems(FXCollections.observableList(Category.categories));
+        search(controller);
     }
 
     // OnChange Triggers Setter
@@ -143,7 +136,7 @@ public final class TabInventory {
         }
     }
     public static void search(@NotNull final ControllerSceneSheetViewer controller) {
-        Service<Void> searchService = new Service<Void>() {
+        new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
                 return new Task<Void>() {
@@ -151,14 +144,29 @@ public final class TabInventory {
                     protected Void call() throws Exception {
                         try {
                             // TODO: search with searchBar content
-                            String query = "SELECT id, name, category, rarity, weight, cost_copper FROM items;";
-                            PreparedStatement ps = DBManager.preparedStatement(query);
-                            if (ps == null) {
-                                Platform.runLater(() -> {
-                                    new ErrorAlert("ERRORE", "Errore di Connessione al database", "Non e' stato possibile consultare il database");
-                                    Client.getStage().setScene(SceneMainMenu.getScene());
-                                });
-                                return null;
+                            String query;
+                            PreparedStatement ps;
+                            if (controller.comboBoxCategory.getSelectionModel().getSelectedItem()!=null) {
+                                query = "SELECT id, name, category, rarity, weight, cost_copper FROM items WHERE category=?;";
+                                ps = DBManager.preparedStatement(query);
+                                if (ps == null) {
+                                    Platform.runLater(() -> {
+                                        new ErrorAlert("ERRORE", "Errore di Connessione al database", "Non e' stato possibile consultare il database");
+                                        Client.getStage().setScene(SceneMainMenu.getScene());
+                                    });
+                                    return null;
+                                }
+                                ps.setInt(1, controller.comboBoxCategory.getSelectionModel().getSelectedItem().getDatabaseValue());
+                            } else {
+                                query = "SELECT id, name, category, rarity, weight, cost_copper FROM items;";
+                                ps = DBManager.preparedStatement(query);
+                                if (ps == null) {
+                                    Platform.runLater(() -> {
+                                        new ErrorAlert("ERRORE", "Errore di Connessione al database", "Non e' stato possibile consultare il database");
+                                        Client.getStage().setScene(SceneMainMenu.getScene());
+                                    });
+                                    return null;
+                                }
                             }
 
                             ResultSet result = ps.executeQuery();
@@ -187,12 +195,74 @@ public final class TabInventory {
                     }
                 };
             }
-        };
+        }.start();
+    }
+    public static void deleteElement(@NotNull final ControllerSceneSheetViewer controller) {
+        ElementPreview element = controller.tableViewInventory.getSelectionModel().getSelectedItem();
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        try {
+                            String query = "DELETE FROM items WHERE id=?;";
+                            PreparedStatement ps = DBManager.preparedStatement(query);
+                            if (ps == null) throw new SQLException("The database connection doesn't exist");
+                            ps.setInt(1, element.getId());
+                            ps.executeUpdate();
+                            ps.close();
+                            Platform.runLater(() -> search(controller));
+                        } catch (SQLException e) {
+                            Logger.log(e);
+                            Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Rimozione", "Si e' verificato un errore durante la rimozione dell'elemento."));
+                        }
+                        return null;
+                    }
+                };
+            }
+        }.start();
+    }
+    public static Scene selectEquipmentScene() {
+        if (elementName == null) return null;
+        Scene scene;
+        // TODO: implement selectEquipmentScene()
+        //Equipment equipment = new Equipment(elementName);
+        switch (elementName) {}
+        return null;
+    }
+    public static void editElement(@NotNull final ControllerSceneSheetViewer controller) {
+        ElementPreview element;
+        try {
+            element = controller.tableViewInventory.getSelectionModel().getSelectedItem();
+        } catch (NullPointerException e) {
+            return;
+        }
+        elementName = element.getName();
+        Scene scene;
+        switch (element.getCategory().getDatabaseValue()) {
+            case 0: // Item
+                scene = SceneInventoryItem.getScene();
+                break;
 
-        searchService.start();
+            case 1: // Equipment
+                scene = selectEquipmentScene();
+                break;
+
+            default: // Invalid
+                new ErrorAlert("ERRORE", "ERRORE NEL DATABASE", "L'elemento selezionato non possiede una categoria valida.");
+                return;
+        }
+        Stage popupStage = Client.initPopupStage(scene);
+        popupStage.showAndWait();
+        elementName = null;
+        search(controller);
     }
     public static void addElement(@NotNull final ControllerSceneSheetViewer controller) {
-        Stage popupStage = Client.initPopupStage(SceneInventoryItem.getScene(controller));
+        elementName = null;
+        Scene scene = SceneInventoryItem.getScene();
+        Stage popupStage = Client.initPopupStage(scene);
         popupStage.showAndWait();
+        search(controller);
     }
 }

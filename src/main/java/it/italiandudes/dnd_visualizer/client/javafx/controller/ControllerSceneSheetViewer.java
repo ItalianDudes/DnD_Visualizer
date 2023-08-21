@@ -149,10 +149,10 @@ public final class ControllerSceneSheetViewer {
     @FXML public Spinner<Integer> spinnerMO;
     @FXML public Spinner<Integer> spinnerMP;
     @FXML public TextField textFieldSearchBar;
+    @FXML public ComboBox<Category> comboBoxCategory;
     @FXML public TableView<ElementPreview> tableViewInventory;
     @FXML public TableColumn<ElementPreview, Integer> tableColumnID;
     @FXML public TableColumn<ElementPreview, String> tableColumnName;
-    @FXML public TableColumn<ElementPreview, Category> tableColumnCategory;
     @FXML public TableColumn<ElementPreview, Rarity> tableColumnRarity;
     @FXML public TableColumn<ElementPreview, Double> tableColumnWeight;
     @FXML public TableColumn<ElementPreview, Integer> tableColumnCostMR;
@@ -244,8 +244,12 @@ public final class ControllerSceneSheetViewer {
     @FXML private void search() {
         TabInventory.search(this);
     }
-    @FXML private void deleteElement() {}
-    @FXML private void editElement() {}
+    @FXML private void deleteElement() {
+        TabInventory.deleteElement(this);
+    }
+    @FXML private void editElement() {
+        TabInventory.editElement(this);
+    }
     @FXML private void addElement() {
         TabInventory.addElement(this);
     }

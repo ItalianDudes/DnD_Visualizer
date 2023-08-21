@@ -8,7 +8,6 @@ import it.italiandudes.idl.common.JarHandler;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -25,12 +24,12 @@ import java.io.IOException;
 @SuppressWarnings("unused")
 public final class Client extends Application {
 
-    //Attributes
+    // Attributes
     private static Stage stage;
-    private static Image DEFAULT_IMAGE = null;
     private static JSONObject SETTINGS = null;
     private static Color COLOR_THEME_BACKGROUND;
 
+    // JavaFX Application Main
     @Override
     public void start(Stage stage) {
         Client.stage = stage;
@@ -45,14 +44,13 @@ public final class Client extends Application {
             Logger.log("JavaFX Window Close Event fired, exiting Java process...");
             System.exit(0);
         });
-        DEFAULT_IMAGE = JFXDefs.AppInfo.LOGO;
         COLOR_THEME_BACKGROUND = (Color) ((Region) Client.getStage().getScene().lookup(".root")).getBackground().getFills().get(0).getFill();
 
         // Notice into the logs that the application started Successfully
         Logger.log("Application started successfully!");
     }
 
-    //Start Methods
+    // Start Methods
     public static void start(String[] args) {
         File settingsFile = new File(Defs.Resources.JSON.JSON_CLIENT_SETTINGS);
         if (!settingsFile.exists() || !settingsFile.isFile()) {
@@ -73,13 +71,13 @@ public final class Client extends Application {
         launch(args);
     }
 
-    //Methods
+    // Methods
     @NotNull
     public static Stage getStage(){
         return stage;
     }
     @NotNull
-    public static Stage initPopupStage(@NotNull final Scene scene) {
+    public static Stage initPopupStage(Scene scene) {
         Stage popupStage = new Stage();
         popupStage.getIcons().add(JFXDefs.AppInfo.LOGO);
         popupStage.setTitle(JFXDefs.AppInfo.NAME);
@@ -87,10 +85,6 @@ public final class Client extends Application {
         popupStage.initModality(Modality.WINDOW_MODAL);
         popupStage.setScene(scene);
         return popupStage;
-    }
-    @NotNull
-    public static Image getDefaultImage() {
-        return DEFAULT_IMAGE;
     }
     @NotNull
     public static JSONObject getSettings() {
