@@ -19,10 +19,7 @@ import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -48,6 +45,7 @@ public final class ControllerSceneInventoryItem {
     // Graphic Elements
     @FXML private TextField textFieldName;
     @FXML private TextField textFieldWeight;
+    @FXML private Spinner<Integer> spinnerQuantity;
     @FXML private ComboBox<String> comboBoxRarity;
     @FXML private TextField textFieldMR;
     @FXML private TextField textFieldMA;
@@ -57,13 +55,19 @@ public final class ControllerSceneInventoryItem {
     @FXML private TextArea textAreaDescription;
     @FXML private ImageView imageViewItem;
 
+    // Old Values
+    private String oldValueQuantity = "0";
+
     // Initialize
     @FXML
     private void initialize() {
+        setOnChangeTriggers();
+        onLostFocusFireActionEvent();
         Client.getStage().setResizable(true);
         imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
         comboBoxRarity.setItems(FXCollections.observableList(Rarity.colorNames));
         comboBoxRarity.getSelectionModel().selectFirst();
+        spinnerQuantity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
         comboBoxRarity.buttonCellProperty().bind(Bindings.createObjectBinding(() -> {
 
             Rarity identifiedRarity = null;
@@ -83,6 +87,7 @@ public final class ControllerSceneInventoryItem {
                 @Override
                 protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
+                    setTextFill(Color.BLACK);
                     if (empty || item == null) {
                         setBackground(Background.EMPTY);
                         setText("");
@@ -100,7 +105,29 @@ public final class ControllerSceneInventoryItem {
         if (itemName != null) initExistingItem(itemName);
     }
 
+    // OnChange Triggers Setter
+    private void setOnChangeTriggers() {
+        spinnerQuantity.getEditor().textProperty().addListener((observable -> validateQuantity()));
+    }
+
+    // Lost Focus On Action Fire Event
+    private void onLostFocusFireActionEvent() {
+        spinnerQuantity.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) validateQuantity();
+        });
+    }
+
     // EDT
+    private void validateQuantity() {
+        try {
+            int qty = Integer.parseInt(spinnerQuantity.getEditor().getText());
+            if (qty < 0) throw new NumberFormatException();
+            oldValueQuantity = String.valueOf(qty);
+        } catch (NumberFormatException e) {
+            spinnerQuantity.getEditor().setText(oldValueQuantity);
+            new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "La quantita' deve essere un numero intero maggiore o uguale a 0.");
+        }
+    }
     @FXML
     private void removeImage() {
         imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
@@ -233,7 +260,8 @@ public final class ControllerSceneInventoryItem {
                                         textAreaDescription.getText(),
                                         comboBoxRarity.getSelectionModel().getSelectedItem(),
                                         Category.ITEM,
-                                        weight
+                                        weight,
+                                        spinnerQuantity.getValue()
                                 );
                             } else {
                                 oldName = item.getName();
@@ -250,7 +278,8 @@ public final class ControllerSceneInventoryItem {
                                         textAreaDescription.getText(),
                                         comboBoxRarity.getSelectionModel().getSelectedItem(),
                                         Category.ITEM,
-                                        weight
+                                        weight,
+                                        spinnerQuantity.getValue()
                                 );
                             }
 
@@ -326,6 +355,7 @@ public final class ControllerSceneInventoryItem {
                                 } else {
                                     imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
                                 }
+                                spinnerQuantity.getEditor().setText(String.valueOf(item.getQuantity()));
                             });
 
                         } catch (Exception e) {

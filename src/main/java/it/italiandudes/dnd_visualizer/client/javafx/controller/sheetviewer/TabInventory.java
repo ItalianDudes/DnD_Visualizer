@@ -4,10 +4,13 @@ import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneMainMenu;
+import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventoryArmor;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventoryItem;
+import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventoryWeapon;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
+import it.italiandudes.dnd_visualizer.data.item.Equipment;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
@@ -226,9 +229,21 @@ public final class TabInventory {
     public static Scene selectEquipmentScene() {
         if (elementName == null) return null;
         Scene scene;
-        // TODO: implement selectEquipmentScene()
-        //Equipment equipment = new Equipment(elementName);
-        switch (elementName) {}
+        try {
+            Equipment equipment = new Equipment(elementName);
+            switch (equipment.getType()) {
+                case ARMOR:
+                    return SceneInventoryArmor.getScene();
+                case WEAPON:
+                    return SceneInventoryWeapon.getScene();
+                default: // Invalid
+                    new ErrorAlert("ERRORE", "ERRORE NEL DATABASE", "L'elemento selezionato non possiede una categoria equipaggiamento valida.");
+                    return null;
+            }
+        } catch (SQLException e) {
+            Logger.log(e);
+            new ErrorAlert("ERRORE", "ERRORE DI CONNESSIONE", "Non e' stato possibile leggere del contenuto dalla scheda.");
+        }
         return null;
     }
     public static void editElement(@NotNull final ControllerSceneSheetViewer controller) {
@@ -240,14 +255,19 @@ public final class TabInventory {
         }
         elementName = element.getName();
         Scene scene;
-        switch (element.getCategory().getDatabaseValue()) {
-            case 0: // Item
+        switch (element.getCategory()) {
+            case ITEM:
                 scene = SceneInventoryItem.getScene();
                 break;
 
-            case 1: // Equipment
+            case EQUIPMENT:
                 scene = selectEquipmentScene();
+                if (scene == null) return;
                 break;
+            /*
+            case SPELL:
+                // TODO: Inventory with spells?
+                break;*/
 
             default: // Invalid
                 new ErrorAlert("ERRORE", "ERRORE NEL DATABASE", "L'elemento selezionato non possiede una categoria valida.");

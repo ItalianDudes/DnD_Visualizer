@@ -8,6 +8,8 @@ import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.NotNull;
@@ -240,6 +242,11 @@ public final class ControllerSceneSheetViewer {
     }
     @FXML private void doubleClickEdit(@NotNull final MouseEvent event) {
         if (event.getClickCount() >= 2) editElement();
+    }
+    @FXML private void detectEnterOnRow(@NotNull final KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER && tableViewInventory.getSelectionModel().getSelectedItem() != null) {
+            TabInventory.editElement(this);
+        }
     }
     @FXML private void search() {
         TabInventory.search(this);

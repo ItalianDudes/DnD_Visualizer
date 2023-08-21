@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -49,6 +50,7 @@
                   <VBox prefWidth="512.0" spacing="10.0">
                      <children>
                         <TextField fx:id="textFieldWeight" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Peso" />
+                        <Spinner fx:id="spinnerQuantity" editable="true" maxWidth="1.7976931348623157E308" />
                         <ComboBox fx:id="comboBoxRarity" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Rarità" style="-fx-font-weight: bold;" />
                         <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="512.0" spacing="10.0">
                            <children>

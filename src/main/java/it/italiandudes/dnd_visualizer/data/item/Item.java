@@ -18,7 +18,6 @@ import java.sql.SQLException;
 import java.util.Base64;
 import java.util.Objects;
 
-@SuppressWarnings("unused")
 public class Item implements ISavable {
 
     // Attributes
@@ -31,6 +30,7 @@ public class Item implements ISavable {
     @NotNull private Rarity rarity;
     private double weight;
     @NotNull private Category category;
+    private int quantity;
 
     // Constructors
     public Item() {
@@ -38,7 +38,8 @@ public class Item implements ISavable {
         rarity = Rarity.COMMON;
         costCopper = 0;
         weight = 0;
-        this.category = Category.values()[0];
+        category = Category.values()[0];
+        quantity = 0;
     }
     public Item(@NotNull final Item item) {
         this.itemID = item.itemID;
@@ -50,10 +51,11 @@ public class Item implements ISavable {
         this.rarity = item.rarity;
         this.weight = item.weight;
         this.category = item.category;
+        this.quantity = item.quantity;
     }
     public Item(@Nullable final Integer itemID, @Nullable final String base64image, @Nullable final String imageExtension,
                 @NotNull final String name, final int costCopper, @Nullable final String description, @Nullable final Rarity rarity,
-                final double weight, @Nullable final Category category) {
+                final double weight, @Nullable final Category category, final int quantity) {
         this.itemID = itemID;
         this.base64image = base64image;
         this.imageExtension = imageExtension;
@@ -65,11 +67,13 @@ public class Item implements ISavable {
         this.weight = Math.max(0, weight);
         if (category == null) this.category = Category.values()[0];
         else this.category = category;
+        if (quantity < 0) this.quantity = 0;
+        else this.quantity = quantity;
     }
     public Item(@Nullable final Integer itemID, @Nullable final Image image, @Nullable final String imageExtension,
                 @NotNull final String name, int cc, int cs, int ce, int cg, int cp,
                 @Nullable final String description, @Nullable final String rarity, @Nullable final Category category,
-                final double weight) {
+                final double weight, final int quantity) {
         this.itemID = itemID;
         this.name = name;
         if (cc < 0) cc = 0;
@@ -99,6 +103,7 @@ public class Item implements ISavable {
         else this.category = category;
         if (weight < 0) this.weight = 0;
         else this.weight = weight;
+        this.quantity = Math.max(0, quantity);
     }
     public Item(@NotNull final String name) throws SQLException {
         String query = "SELECT * FROM items WHERE name = ?;";
@@ -116,9 +121,10 @@ public class Item implements ISavable {
         this.rarity = retrievedItem.rarity;
         this.weight = Math.max(0, retrievedItem.weight);
         this.category = retrievedItem.category;
+        this.quantity = retrievedItem.quantity;
     }
     public Item(int itemID) throws SQLException {
-        String query = "SELECT * FROM items WHERE id = ?;";
+        String query = "SELECT * FROM items WHERE id=?;";
         PreparedStatement ps = DBManager.preparedStatement(query);
         if (ps == null) throw new SQLException("The database connection is not initialized");
         ps.setInt(1, itemID);
@@ -133,8 +139,9 @@ public class Item implements ISavable {
         this.rarity = retrievedItem.rarity;
         this.weight = Math.max(0, retrievedItem.weight);
         this.category = retrievedItem.category;
+        this.quantity = retrievedItem.quantity;
     }
-    public Item(@NotNull final ResultSet resultSet) throws SQLException {
+    private Item(@NotNull final ResultSet resultSet) throws SQLException {
         this.itemID = resultSet.getInt("id");
         try {
             this.base64image = resultSet.getString("base64image");
@@ -159,6 +166,8 @@ public class Item implements ISavable {
         this.weight = resultSet.getDouble("weight");
         if (this.weight < 0) this.weight = 0;
         this.category = Category.values()[resultSet.getInt("category")];
+        this.quantity = resultSet.getInt("quantity");
+        if (this.quantity < 0) this.quantity = 0;
     }
 
     // Methods
@@ -189,7 +198,7 @@ public class Item implements ISavable {
         if (result.next()) { // Update
             itemID = result.getInt("id");
             ps.close();
-            query = "UPDATE items SET name=?, base64image=?, image_extension=?, cost_copper=?, description=?, rarity=?, weight=?, category=? WHERE id=?;";
+            query = "UPDATE items SET name=?, base64image=?, image_extension=?, cost_copper=?, description=?, rarity=?, weight=?, category=?, quantity=? WHERE id=?;";
             ps = DBManager.preparedStatement(query);
             if (ps == null) throw new SQLException("The database connection doesn't exist");
             ps.setString(1, getName());
@@ -200,12 +209,13 @@ public class Item implements ISavable {
             ps.setInt(6, Rarity.colorNames.indexOf(getRarity().getTextedRarity()));
             ps.setDouble(7, getWeight());
             ps.setInt(8, getCategory().getDatabaseValue());
-            ps.setInt(9, itemID);
+            ps.setInt(9, getQuantity());
+            ps.setInt(10, itemID);
             ps.executeUpdate();
             ps.close();
         } else { // Insert
             ps.close();
-            query = "INSERT INTO items (name, base64image, image_extension, cost_copper, description, rarity, weight, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+            query = "INSERT INTO items (name, base64image, image_extension, cost_copper, description, rarity, weight, category, quantity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
             ps = DBManager.preparedStatement(query);
             if (ps == null) throw new SQLException("The database connection doesn't exist");
             ps.setString(1, getName());
@@ -216,6 +226,7 @@ public class Item implements ISavable {
             ps.setInt(6, Rarity.colorNames.indexOf(getRarity().getTextedRarity()));
             ps.setDouble(7, getWeight());
             ps.setInt(8, getCategory().getDatabaseValue());
+            ps.setInt(9, getQuantity());
             ps.executeUpdate();
             ps.close();
             query = "SELECT id FROM items WHERE name=?;";
@@ -294,29 +305,25 @@ public class Item implements ISavable {
         if (category == null) this.category = Category.values()[0];
         else this.category = category;
     }
+    public int getQuantity() {
+        return quantity;
+    }
+    public void setQuantity(final int quantity) {
+        this.quantity = Math.max(0, quantity);
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Item)) return false;
         Item item = (Item) o;
-        return getCostCopper() == item.getCostCopper() && Double.compare(getWeight(), item.getWeight()) == 0 && Objects.equals(getItemID(), item.getItemID()) && Objects.equals(getBase64image(), item.getBase64image()) && Objects.equals(getImageExtension(), item.getImageExtension()) && Objects.equals(getName(), item.getName()) && Objects.equals(getDescription(), item.getDescription()) && getRarity() == item.getRarity() && getCategory() == item.getCategory();
+        return getCostCopper() == item.getCostCopper() && Double.compare(getWeight(), item.getWeight()) == 0 && getQuantity() == item.getQuantity() && Objects.equals(getItemID(), item.getItemID()) && Objects.equals(getBase64image(), item.getBase64image()) && Objects.equals(getImageExtension(), item.getImageExtension()) && Objects.equals(getName(), item.getName()) && Objects.equals(getDescription(), item.getDescription()) && getRarity() == item.getRarity() && getCategory() == item.getCategory();
     }
     @Override
     public int hashCode() {
-        return Objects.hash(getItemID(), getBase64image(), getImageExtension(), getName(), getCostCopper(), getDescription(), getRarity(), getWeight(), getCategory());
+        return Objects.hash(getItemID(), getBase64image(), getImageExtension(), getName(), getCostCopper(), getDescription(), getRarity(), getWeight(), getCategory(), getQuantity());
     }
     @Override
     public String toString() {
-        return "Item{" +
-                "itemID=" + itemID +
-                ", base64image='" + base64image + '\'' +
-                ", imageExtension='" + imageExtension + '\'' +
-                ", name='" + name + '\'' +
-                ", costCopper=" + costCopper +
-                ", description='" + description + '\'' +
-                ", rarity=" + rarity +
-                ", weight=" + weight +
-                ", category=" + category +
-                '}';
+        return getName();
     }
 }

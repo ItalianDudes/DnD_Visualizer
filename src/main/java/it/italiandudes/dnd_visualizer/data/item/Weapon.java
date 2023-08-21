@@ -8,8 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@SuppressWarnings("unused")
-public final class Weapon extends Item implements ISavable {
+public final class Weapon {
 
     /*
     // Attributes

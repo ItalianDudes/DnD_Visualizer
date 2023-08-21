@@ -2201,7 +2201,7 @@
                                                       <ComboBox fx:id="comboBoxCategory" maxHeight="1.7976931348623157E308" onAction="#search" promptText="Categoria" GridPane.columnIndex="1" />
                                                    </children>
                                                 </GridPane>
-                                                <TableView fx:id="tableViewInventory" onMouseClicked="#doubleClickEdit" style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.rowIndex="1">
+                                                <TableView fx:id="tableViewInventory" onKeyPressed="#detectEnterOnRow" onMouseClicked="#doubleClickEdit" style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.rowIndex="1">
                                                   <columns>
                                                     <TableColumn fx:id="tableColumnID" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="#ID" />
                                                     <TableColumn fx:id="tableColumnName" maxWidth="1.7976931348623157E308" minWidth="500.0" prefWidth="-1.0" text="Nome" />
