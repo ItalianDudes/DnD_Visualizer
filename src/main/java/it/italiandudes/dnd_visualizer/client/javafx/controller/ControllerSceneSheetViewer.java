@@ -4,6 +4,7 @@ import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.*;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
+import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -152,6 +153,7 @@ public final class ControllerSceneSheetViewer {
     @FXML public Spinner<Integer> spinnerMP;
     @FXML public TextField textFieldSearchBar;
     @FXML public ComboBox<Category> comboBoxCategory;
+    @FXML public ComboBox<EquipmentType> comboBoxEquipmentType;
     @FXML public TableView<ElementPreview> tableViewInventory;
     @FXML public TableColumn<ElementPreview, Integer> tableColumnID;
     @FXML public TableColumn<ElementPreview, String> tableColumnName;
@@ -250,6 +252,9 @@ public final class ControllerSceneSheetViewer {
     }
     @FXML private void search() {
         TabInventory.search(this);
+    }
+    @FXML private void resetSearchBarAndCategory() {
+        TabInventory.resetSearchBarAndCategory(this);
     }
     @FXML private void deleteElement() {
         TabInventory.deleteElement(this);

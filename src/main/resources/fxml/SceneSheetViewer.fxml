@@ -2134,7 +2134,9 @@
                                              <children>
                                                 <GridPane hgap="5.0">
                                                   <columnConstraints>
-                                                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                      <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                                      <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
                                                       <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
                                                       <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
                                                     <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
@@ -2150,7 +2152,7 @@
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
                                                       </TextField>
-                                                      <Button mnemonicParsing="false" onAction="#search" GridPane.columnIndex="2">
+                                                      <Button mnemonicParsing="false" onAction="#search" GridPane.columnIndex="4">
                                                          <graphic>
                                                             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
@@ -2162,7 +2164,7 @@
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
                                                       </Button>
-                                                      <Button mnemonicParsing="false" onAction="#deleteElement" GridPane.columnIndex="3">
+                                                      <Button mnemonicParsing="false" onAction="#deleteElement" GridPane.columnIndex="5">
                                                          <graphic>
                                                             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
@@ -2174,7 +2176,7 @@
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
                                                       </Button>
-                                                      <Button mnemonicParsing="false" onAction="#editElement" GridPane.columnIndex="4">
+                                                      <Button mnemonicParsing="false" onAction="#editElement" GridPane.columnIndex="6">
                                                          <graphic>
                                                             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
@@ -2186,7 +2188,7 @@
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
                                                       </Button>
-                                                      <Button mnemonicParsing="false" onAction="#addElement" GridPane.columnIndex="5">
+                                                      <Button mnemonicParsing="false" onAction="#addElement" GridPane.columnIndex="7">
                                                          <graphic>
                                                             <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                                <image>
@@ -2199,6 +2201,12 @@
                                                          </font>
                                                       </Button>
                                                       <ComboBox fx:id="comboBoxCategory" maxHeight="1.7976931348623157E308" onAction="#search" promptText="Categoria" GridPane.columnIndex="1" />
+                                                      <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#resetSearchBarAndCategory" text="RESET" GridPane.columnIndex="3">
+                                                         <font>
+                                                            <Font name="Lucida Sans Demibold" size="16.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <ComboBox fx:id="comboBoxEquipmentType" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#search" promptText="Tipo Equipaggiamento" GridPane.columnIndex="2" />
                                                    </children>
                                                 </GridPane>
                                                 <TableView fx:id="tableViewInventory" onKeyPressed="#detectEnterOnRow" onMouseClicked="#doubleClickEdit" style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.rowIndex="1">

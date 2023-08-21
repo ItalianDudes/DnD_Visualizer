@@ -9,6 +9,7 @@ import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInvento
 import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventoryWeapon;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
+import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.data.item.Equipment;
 import it.italiandudes.dnd_visualizer.db.DBManager;
@@ -60,6 +61,7 @@ public final class TabInventory {
         controller.tableColumnWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
         controller.tableColumnCostMR.setCellValueFactory(new PropertyValueFactory<>("costCopper"));
         controller.comboBoxCategory.setItems(FXCollections.observableList(Category.categories));
+        controller.comboBoxEquipmentType.setItems(FXCollections.observableList(EquipmentType.types));
         search(controller);
     }
 
@@ -139,18 +141,23 @@ public final class TabInventory {
         }
     }
     public static void search(@NotNull final ControllerSceneSheetViewer controller) {
+        Category selectedCategory = controller.comboBoxCategory.getSelectionModel().getSelectedItem();
+        if (selectedCategory != null && selectedCategory.equals(Category.EQUIPMENT)) {
+            controller.comboBoxEquipmentType.setDisable(false);
+        } else {
+            controller.comboBoxEquipmentType.setDisable(true);
+        }
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
                 return new Task<Void>() {
                     @Override
-                    protected Void call() throws Exception {
+                    protected Void call() {
                         try {
-                            // TODO: search with searchBar content
                             String query;
                             PreparedStatement ps;
-                            if (controller.comboBoxCategory.getSelectionModel().getSelectedItem()!=null) {
-                                query = "SELECT id, name, category, rarity, weight, cost_copper FROM items WHERE category=?;";
+                            if (selectedCategory != null) {
+                                query = "SELECT id, name, category, rarity, weight, cost_copper FROM items WHERE name LIKE '%"+controller.textFieldSearchBar.getText()+"%' AND category=?;";
                                 ps = DBManager.preparedStatement(query);
                                 if (ps == null) {
                                     Platform.runLater(() -> {
@@ -159,9 +166,9 @@ public final class TabInventory {
                                     });
                                     return null;
                                 }
-                                ps.setInt(1, controller.comboBoxCategory.getSelectionModel().getSelectedItem().getDatabaseValue());
+                                ps.setInt(1, selectedCategory.getDatabaseValue());
                             } else {
-                                query = "SELECT id, name, category, rarity, weight, cost_copper FROM items;";
+                                query = "SELECT id, name, category, rarity, weight, cost_copper FROM items WHERE name LIKE '%"+controller.textFieldSearchBar.getText()+"%';";
                                 ps = DBManager.preparedStatement(query);
                                 if (ps == null) {
                                     Platform.runLater(() -> {
@@ -190,15 +197,22 @@ public final class TabInventory {
 
                             ps.close();
                             Platform.runLater(() -> controller.tableViewInventory.setItems(FXCollections.observableList(resultList)));
-                            return null;
                         } catch (Exception e) {
                             Logger.log(e);
-                            throw e;
+                            new ErrorAlert("ERRORE", "ERRORE DI CONNESSIONE", "Si e' verificato un errore durante la comunicazione con il database.");
                         }
+                        return null;
                     }
                 };
             }
         }.start();
+    }
+    public static void resetSearchBarAndCategory(@NotNull final ControllerSceneSheetViewer controller) {
+        controller.textFieldSearchBar.setText("");
+        controller.comboBoxCategory.getSelectionModel().clearSelection();
+        controller.comboBoxEquipmentType.getSelectionModel().clearSelection();
+        controller.comboBoxEquipmentType.setDisable(true);
+        search(controller);
     }
     public static void deleteElement(@NotNull final ControllerSceneSheetViewer controller) {
         ElementPreview element = controller.tableViewInventory.getSelectionModel().getSelectedItem();
@@ -228,7 +242,6 @@ public final class TabInventory {
     }
     public static Scene selectEquipmentScene() {
         if (elementName == null) return null;
-        Scene scene;
         try {
             Equipment equipment = new Equipment(elementName);
             switch (equipment.getType()) {
@@ -247,12 +260,8 @@ public final class TabInventory {
         return null;
     }
     public static void editElement(@NotNull final ControllerSceneSheetViewer controller) {
-        ElementPreview element;
-        try {
-            element = controller.tableViewInventory.getSelectionModel().getSelectedItem();
-        } catch (NullPointerException e) {
-            return;
-        }
+        ElementPreview element = controller.tableViewInventory.getSelectionModel().getSelectedItem();
+        if (element == null) return;
         elementName = element.getName();
         Scene scene;
         switch (element.getCategory()) {
