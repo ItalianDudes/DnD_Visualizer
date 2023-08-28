@@ -442,6 +442,18 @@ public final class TabSpells {
                         }
                         if (spells.isEmpty()) return null;
                         try {
+                            Platform.runLater(() -> {
+                                controller.listViewSpellCantrips.getItems().clear();
+                                controller.listViewSpell1.getItems().clear();
+                                controller.listViewSpell2.getItems().clear();
+                                controller.listViewSpell3.getItems().clear();
+                                controller.listViewSpell4.getItems().clear();
+                                controller.listViewSpell5.getItems().clear();
+                                controller.listViewSpell6.getItems().clear();
+                                controller.listViewSpell7.getItems().clear();
+                                controller.listViewSpell8.getItems().clear();
+                                controller.listViewSpell9.getItems().clear();
+                            });
                             for (ElementPreview spell : spells) {
                                 String query = "SELECT level FROM spells WHERE item_id=?;";
                                 PreparedStatement ps = DBManager.preparedStatement(query);
@@ -452,64 +464,34 @@ public final class TabSpells {
                                 result.close();
                                 switch (level) {
                                     case 0:
-                                        Platform.runLater(() -> {
-                                            controller.listViewSpellCantrips.getItems().clear();
-                                            controller.listViewSpellCantrips.getItems().add(spell.getName());
-                                        });
+                                        Platform.runLater(() -> controller.listViewSpellCantrips.getItems().add(spell.getName()));
                                         break;
                                     case 1:
-                                        Platform.runLater(() -> {
-                                            controller.listViewSpell1.getItems().clear();
-                                            controller.listViewSpell1.getItems().add(spell.getName());
-                                        });
+                                        Platform.runLater(() -> controller.listViewSpell1.getItems().add(spell.getName()));
                                         break;
                                     case 2:
-                                        Platform.runLater(() -> {
-                                            controller.listViewSpell2.getItems().clear();
-                                            controller.listViewSpell2.getItems().add(spell.getName());
-                                        });
+                                        Platform.runLater(() -> controller.listViewSpell2.getItems().add(spell.getName()));
                                         break;
                                     case 3:
-                                        Platform.runLater(() -> {
-                                            controller.listViewSpell3.getItems().clear();
-                                            controller.listViewSpell3.getItems().add(spell.getName());
-                                        });
+                                        Platform.runLater(() -> controller.listViewSpell3.getItems().add(spell.getName()));
                                         break;
                                     case 4:
-                                        Platform.runLater(() -> {
-                                            controller.listViewSpell4.getItems().clear();
-                                            controller.listViewSpell4.getItems().add(spell.getName());
-                                        });
+                                        Platform.runLater(() -> controller.listViewSpell4.getItems().add(spell.getName()));
                                         break;
                                     case 5:
-                                        Platform.runLater(() -> {
-                                            controller.listViewSpell5.getItems().clear();
-                                            controller.listViewSpell5.getItems().add(spell.getName());
-                                        });
+                                        Platform.runLater(() -> controller.listViewSpell5.getItems().add(spell.getName()));
                                         break;
                                     case 6:
-                                        Platform.runLater(() -> {
-                                            controller.listViewSpell6.getItems().clear();
-                                            controller.listViewSpell6.getItems().add(spell.getName());
-                                        });
+                                        Platform.runLater(() -> controller.listViewSpell6.getItems().add(spell.getName()));
                                         break;
                                     case 7:
-                                        Platform.runLater(() -> {
-                                            controller.listViewSpell7.getItems().clear();
-                                            controller.listViewSpell7.getItems().add(spell.getName());
-                                        });
+                                        Platform.runLater(() -> controller.listViewSpell7.getItems().add(spell.getName()));
                                         break;
                                     case 8:
-                                        Platform.runLater(() -> {
-                                            controller.listViewSpell8.getItems().clear();
-                                            controller.listViewSpell8.getItems().add(spell.getName());
-                                        });
+                                        Platform.runLater(() -> controller.listViewSpell8.getItems().add(spell.getName()));
                                         break;
                                     case 9:
-                                        Platform.runLater(() -> {
-                                            controller.listViewSpell9.getItems().clear();
-                                            controller.listViewSpell9.getItems().add(spell.getName());
-                                        });
+                                        Platform.runLater(() -> controller.listViewSpell9.getItems().add(spell.getName()));
                                         break;
                                     default:
                                         if (level < 0) {

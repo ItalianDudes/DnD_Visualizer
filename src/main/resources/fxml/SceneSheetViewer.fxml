@@ -85,7 +85,7 @@
                                           <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                                       </rowConstraints>
                                        <children>
-                                          <GridPane>
+                                          <GridPane hgap="5.0">
                                             <columnConstraints>
                                               <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
                                                 <ColumnConstraints halignment="LEFT" hgrow="NEVER" />
@@ -109,7 +109,7 @@
                                                       <Font name="Lucida Sans Regular" size="16.0" />
                                                    </font>
                                                 </Label>
-                                                <Spinner fx:id="spinnerLevel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
+                                                <Spinner fx:id="spinnerLevel" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" />
                                              </children>
                                           </GridPane>
                                           <GridPane GridPane.rowIndex="1">
@@ -532,8 +532,8 @@
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font></TextField>
-                                                            <Spinner fx:id="spinnerInspiration" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                            <Spinner fx:id="spinnerProficiencyBonus" GridPane.columnIndex="1" />
+                                                            <Spinner fx:id="spinnerInspiration" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                            <Spinner fx:id="spinnerProficiencyBonus" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" />
                                                          </children>
                                                          <padding>
                                                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -658,7 +658,7 @@
                                                       <Font name="Lucida Sans Demibold" size="16.0" />
                                                    </font>
                                                    <graphic>
-                                                      <Spinner fx:id="spinnerStrength" styleClass="parameter_spinner" />
+                                                      <Spinner fx:id="spinnerStrength" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="180.0" styleClass="parameter_spinner" />
                                                    </graphic>
                                                 </Label>
                                                 <GridPane GridPane.rowIndex="1">
@@ -702,7 +702,7 @@
                                                       <Font name="Lucida Sans Demibold" size="16.0" />
                                                    </font>
                                                    <graphic>
-                                                      <Spinner fx:id="spinnerDexterity" styleClass="parameter_spinner" />
+                                                      <Spinner fx:id="spinnerDexterity" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="180.0" styleClass="parameter_spinner" />
                                                    </graphic>
                                                 </Label>
                                                 <GridPane GridPane.rowIndex="1">
@@ -749,7 +749,7 @@
                                                       <Font name="Lucida Sans Demibold" size="16.0" />
                                                    </font>
                                                    <graphic>
-                                                      <Spinner fx:id="spinnerConstitution" styleClass="parameter_spinner" />
+                                                      <Spinner fx:id="spinnerConstitution" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="180.0" styleClass="parameter_spinner" />
                                                    </graphic>
                                                 </Label>
                                                 <GridPane GridPane.rowIndex="1">
@@ -796,7 +796,7 @@
                                                       <Font name="Lucida Sans Demibold" size="16.0" />
                                                    </font>
                                                    <graphic>
-                                                      <Spinner fx:id="spinnerIntelligence" styleClass="parameter_spinner" />
+                                                      <Spinner fx:id="spinnerIntelligence" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="180.0" styleClass="parameter_spinner" />
                                                    </graphic>
                                                 </Label>
                                                 <GridPane GridPane.rowIndex="1">
@@ -843,7 +843,7 @@
                                                       <Font name="Lucida Sans Demibold" size="16.0" />
                                                    </font>
                                                    <graphic>
-                                                      <Spinner fx:id="spinnerWisdom" styleClass="parameter_spinner" />
+                                                      <Spinner fx:id="spinnerWisdom" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="180.0" styleClass="parameter_spinner" />
                                                    </graphic>
                                                 </Label>
                                                 <GridPane vgap="5.0" GridPane.rowIndex="1">
@@ -900,7 +900,7 @@
                                                       <Font name="Lucida Sans Demibold" size="16.0" />
                                                    </font>
                                                    <graphic>
-                                                      <Spinner fx:id="spinnerCharisma" styleClass="parameter_spinner" />
+                                                      <Spinner fx:id="spinnerCharisma" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="180.0" styleClass="parameter_spinner" />
                                                    </graphic>
                                                 </Label>
                                                 <GridPane GridPane.rowIndex="1">
@@ -1998,7 +1998,7 @@
                                                                   <Image url="@../image/sheet/coins/copper-coin.png" />
                                                                </image>
                                                             </ImageView>
-                                                            <Spinner fx:id="spinnerMR" editable="true" />
+                                                            <Spinner fx:id="spinnerMR" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" />
                                                          </children>
                                                       </HBox>
                                                    </children>
@@ -2027,7 +2027,7 @@
                                                                   <Image url="@../image/sheet/coins/silver-coin.png" />
                                                                </image>
                                                             </ImageView>
-                                                            <Spinner fx:id="spinnerMA" editable="true" />
+                                                            <Spinner fx:id="spinnerMA" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" />
                                                          </children>
                                                       </HBox>
                                                    </children>
@@ -2056,7 +2056,7 @@
                                                                   <Image url="@../image/sheet/coins/electrum-coin.png" />
                                                                </image>
                                                             </ImageView>
-                                                            <Spinner fx:id="spinnerME" editable="true" />
+                                                            <Spinner fx:id="spinnerME" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" />
                                                          </children>
                                                       </HBox>
                                                    </children>
@@ -2085,7 +2085,7 @@
                                                                   <Image url="@../image/sheet/coins/gold-coin.png" />
                                                                </image>
                                                             </ImageView>
-                                                            <Spinner fx:id="spinnerMO" editable="true" />
+                                                            <Spinner fx:id="spinnerMO" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" />
                                                          </children>
                                                       </HBox>
                                                    </children>
@@ -2114,7 +2114,7 @@
                                                                   <Image url="@../image/sheet/coins/platinum-coin.png" />
                                                                </image>
                                                             </ImageView>
-                                                            <Spinner fx:id="spinnerMP" editable="true" />
+                                                            <Spinner fx:id="spinnerMP" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="150.0" />
                                                          </children>
                                                       </HBox>
                                                    </children>
@@ -2444,7 +2444,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell1SlotTot" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell1SlotTot" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -2461,7 +2461,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell1SlotCurrent" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell1SlotCurrent" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -2520,7 +2520,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell2SlotTot" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell2SlotTot" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -2537,7 +2537,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell2SlotCurrent" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell2SlotCurrent" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -2596,7 +2596,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell3SlotTot" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell3SlotTot" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -2613,7 +2613,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell3SlotCurrent" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell3SlotCurrent" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -2672,7 +2672,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell4SlotTot" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell4SlotTot" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -2689,7 +2689,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell4SlotCurrent" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell4SlotCurrent" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -2748,7 +2748,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell5SlotTot" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell5SlotTot" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -2765,7 +2765,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell5SlotCurrent" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell5SlotCurrent" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -2824,7 +2824,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell6SlotTot" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell6SlotTot" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -2841,7 +2841,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell6SlotCurrent" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell6SlotCurrent" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -2900,7 +2900,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell7SlotTot" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell7SlotTot" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -2917,7 +2917,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell7SlotCurrent" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell7SlotCurrent" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -2976,7 +2976,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell8SlotTot" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell8SlotTot" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -2993,7 +2993,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell8SlotCurrent" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell8SlotCurrent" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -3052,7 +3052,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell9SlotTot" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell9SlotTot" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -3069,7 +3069,7 @@
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Spinner fx:id="spinnerSpell9SlotCurrent" editable="true" />
+                                                                  <Spinner fx:id="spinnerSpell9SlotCurrent" editable="true" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="115.0" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -3431,7 +3431,31 @@
                   </ScrollPane>
                </content>
             </Tab>
-            <Tab text="Note" />
+            <Tab text="Note">
+               <content>
+                  <ScrollPane fitToHeight="true" fitToWidth="true">
+                     <content>
+                        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <children>
+                              <GridPane layoutX="322.0" layoutY="231.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+               </content></Tab>
         </tabs>
       </TabPane>
    </children>
