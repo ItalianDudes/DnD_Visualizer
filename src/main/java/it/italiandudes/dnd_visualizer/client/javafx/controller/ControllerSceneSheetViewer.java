@@ -3,6 +3,7 @@ package it.italiandudes.dnd_visualizer.client.javafx.controller;
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.*;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
+import it.italiandudes.dnd_visualizer.data.Note;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
@@ -155,12 +156,12 @@ public final class ControllerSceneSheetViewer {
     @FXML public ComboBox<Category> comboBoxCategory;
     @FXML public ComboBox<EquipmentType> comboBoxEquipmentType;
     @FXML public TableView<ElementPreview> tableViewInventory;
-    @FXML public TableColumn<ElementPreview, Integer> tableColumnID;
-    @FXML public TableColumn<ElementPreview, String> tableColumnName;
-    @FXML public TableColumn<ElementPreview, Rarity> tableColumnRarity;
-    @FXML public TableColumn<ElementPreview, Double> tableColumnWeight;
-    @FXML public TableColumn<ElementPreview, Integer> tableColumnCostMR;
-    @FXML public TableColumn<ElementPreview, Integer> tableColumnQuantity;
+    @FXML public TableColumn<ElementPreview, Integer> tableColumnInventoryID;
+    @FXML public TableColumn<ElementPreview, String> tableColumnInventoryName;
+    @FXML public TableColumn<ElementPreview, Rarity> tableColumnInventoryRarity;
+    @FXML public TableColumn<ElementPreview, Double> tableColumnInventoryWeight;
+    @FXML public TableColumn<ElementPreview, Integer> tableColumnInventoryCostMR;
+    @FXML public TableColumn<ElementPreview, Integer> tableColumnInventoryQuantity;
 
     // TabSpells
     @FXML public TextField textFieldSpellCasterClass;
@@ -212,6 +213,13 @@ public final class ControllerSceneSheetViewer {
     @FXML public TextArea textAreaCult;
     @FXML public TextArea textAreaAlliesAndOrganizations;
 
+    // TabNotes
+    @FXML public TableView<Note> tableViewNotes;
+    @FXML public TableColumn<Note, Integer> tableColumnNotesID;
+    @FXML public TableColumn<Note, String> tableColumnNotesTitle;
+    @FXML public TableColumn<Note, String> tableColumnNotesCreationDate;
+    @FXML public TableColumn<Note, String> tableColumnNotesLastEdit;
+
     //Initialize
     @FXML
     private void initialize() {
@@ -224,6 +232,7 @@ public final class ControllerSceneSheetViewer {
         TabSpells.initialize(this);
         TabPhysicalDescription.initialize(this);
         TabStory.initialize(this);
+        TabNotes.initialize(this);
     }
 
     // Direct EDT Method Calls
@@ -278,12 +287,20 @@ public final class ControllerSceneSheetViewer {
     @FXML private void updateCharismaAbilities() {
         TabAbility.updateCharismaAbilities(this, Integer.parseInt(labelModCharisma.getText()), spinnerProficiencyBonus.getValue());
     }
-    @FXML private void doubleClickEdit(@NotNull final MouseEvent event) {
+    @FXML private void inventoryDoubleClickEdit(@NotNull final MouseEvent event) {
         if (event.getClickCount() >= 2) editElement();
     }
-    @FXML private void detectEnterOnRow(@NotNull final KeyEvent event) {
+    @FXML private void inventoryDetectEnterOnRow(@NotNull final KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER && tableViewInventory.getSelectionModel().getSelectedItem() != null) {
             TabInventory.editElement(this);
+        }
+    }
+    @FXML private void notesDoubleClickEdit(@NotNull final MouseEvent event) {
+        if (event.getClickCount() >= 2) editNote();
+    }
+    @FXML private void notesDetectEnterOnRow(@NotNull final KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER && tableViewNotes.getSelectionModel().getSelectedItem() != null) {
+            editNote();
         }
     }
     @FXML private void search() {
@@ -300,5 +317,14 @@ public final class ControllerSceneSheetViewer {
     }
     @FXML private void addElement() {
         TabInventory.addElement(this);
+    }
+    @FXML private void addNote() {
+        TabNotes.addNote(this);
+    }
+    @FXML private void deleteNote() {
+        TabNotes.deleteNote(this);
+    }
+    @FXML private void editNote() {
+        TabNotes.editNote(this);
     }
 }

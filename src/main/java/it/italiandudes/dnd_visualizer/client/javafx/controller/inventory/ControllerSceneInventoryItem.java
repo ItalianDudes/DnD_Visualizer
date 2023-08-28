@@ -299,12 +299,12 @@ public final class ControllerSceneInventoryItem {
     }
     // Methods
     private void initExistingItem(@NotNull final String itemName) {
-        Service<Void> itemInitializerService = new Service<Void>() {
+        new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
                 return new Task<Void>() {
                     @Override
-                    protected Void call() throws Exception {
+                    protected Void call() {
                         try {
                             item = new Item(itemName);
 
@@ -363,14 +363,11 @@ public final class ControllerSceneInventoryItem {
                                 new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
                                 textFieldName.getScene().getWindow().hide();
                             });
-                            throw e;
                         }
                         return null;
                     }
                 };
             }
-        };
-
-        itemInitializerService.start();
+        }.start();
     }
 }

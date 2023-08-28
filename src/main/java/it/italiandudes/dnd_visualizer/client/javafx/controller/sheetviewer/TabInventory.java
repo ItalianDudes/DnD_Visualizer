@@ -56,12 +56,12 @@ public final class TabInventory {
         controller.spinnerME.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
         controller.spinnerMO.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
         controller.spinnerMP.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
-        controller.tableColumnID.setCellValueFactory(new PropertyValueFactory<>("id"));
-        controller.tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        controller.tableColumnRarity.setCellValueFactory(new PropertyValueFactory<>("rarity"));
-        controller.tableColumnWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
-        controller.tableColumnCostMR.setCellValueFactory(new PropertyValueFactory<>("costCopper"));
-        controller.tableColumnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        controller.tableColumnInventoryID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        controller.tableColumnInventoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        controller.tableColumnInventoryRarity.setCellValueFactory(new PropertyValueFactory<>("rarity"));
+        controller.tableColumnInventoryWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
+        controller.tableColumnInventoryCostMR.setCellValueFactory(new PropertyValueFactory<>("costCopper"));
+        controller.tableColumnInventoryQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         controller.comboBoxCategory.setItems(FXCollections.observableList(Category.categories));
         controller.comboBoxEquipmentType.setItems(FXCollections.observableList(EquipmentType.types));
         search(controller);
@@ -218,6 +218,7 @@ public final class TabInventory {
     }
     public static void deleteElement(@NotNull final ControllerSceneSheetViewer controller) {
         ElementPreview element = controller.tableViewInventory.getSelectionModel().getSelectedItem();
+        if (element == null) return;
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
