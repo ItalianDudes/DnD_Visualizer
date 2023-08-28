@@ -160,6 +160,41 @@ public final class ControllerSceneSheetViewer {
     @FXML public TableColumn<ElementPreview, Rarity> tableColumnRarity;
     @FXML public TableColumn<ElementPreview, Double> tableColumnWeight;
     @FXML public TableColumn<ElementPreview, Integer> tableColumnCostMR;
+    @FXML public TableColumn<ElementPreview, Integer> tableColumnQuantity;
+
+    // TabSpells
+    @FXML public TextField textFieldSpellCasterClass;
+    @FXML public ComboBox<String> comboBoxSpellCasterStat;
+    @FXML public TextField textFieldSpellSTDC;
+    @FXML public TextField textFieldSpellAttackBonus;
+    @FXML public ListView<String> listViewSpellCantrips;
+    @FXML public TextField textFieldSpell1SlotTot;
+    @FXML public TextField textFieldSpell1SlotCurrent;
+    @FXML public ListView<String> listViewSpell1;
+    @FXML public TextField textFieldSpell2SlotTot;
+    @FXML public TextField textFieldSpell2SlotCurrent;
+    @FXML public ListView<String> listViewSpell2;
+    @FXML public TextField textFieldSpell3SlotTot;
+    @FXML public TextField textFieldSpell3SlotCurrent;
+    @FXML public ListView<String> listViewSpell3;
+    @FXML public TextField textFieldSpell4SlotTot;
+    @FXML public TextField textFieldSpell4SlotCurrent;
+    @FXML public ListView<String> listViewSpell4;
+    @FXML public TextField textFieldSpell5SlotTot;
+    @FXML public TextField textFieldSpell5SlotCurrent;
+    @FXML public ListView<String> listViewSpell5;
+    @FXML public TextField textFieldSpell6SlotTot;
+    @FXML public TextField textFieldSpell6SlotCurrent;
+    @FXML public ListView<String> listViewSpell6;
+    @FXML public TextField textFieldSpell7SlotTot;
+    @FXML public TextField textFieldSpell7SlotCurrent;
+    @FXML public ListView<String> listViewSpell7;
+    @FXML public TextField textFieldSpell8SlotTot;
+    @FXML public TextField textFieldSpell8SlotCurrent;
+    @FXML public ListView<String> listViewSpell8;
+    @FXML public TextField textFieldSpell9SlotTot;
+    @FXML public TextField textFieldSpell9SlotCurrent;
+    @FXML public ListView<String> listViewSpell9;
 
     // TabPhysicalDescription
     @FXML public TextField textFieldAge;
@@ -186,6 +221,7 @@ public final class ControllerSceneSheetViewer {
         TabTraitsAndProficiencies.initialize(this);
         TabEquipment.initialize(this);
         TabInventory.initialize(this);
+        TabSpells.initialize(this);
         TabPhysicalDescription.initialize(this);
         TabStory.initialize(this);
     }

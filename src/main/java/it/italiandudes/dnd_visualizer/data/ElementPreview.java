@@ -16,15 +16,17 @@ public final class ElementPreview {
     private final Rarity rarity;
     private final double weight;
     private final int costCopper;
+    private final int quantity;
 
     // Constructors
-    public ElementPreview(final int id, @NotNull final String name, final Category category, final Rarity rarity, final double weight, final int costCopper) {
+    public ElementPreview(final int id, @NotNull final String name, final Category category, final Rarity rarity, final double weight, final int costCopper, final int quantity) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.costCopper = costCopper;
         this.rarity = rarity;
         this.weight = weight;
+        this.quantity = quantity;
     }
 
     // Methods
@@ -52,16 +54,19 @@ public final class ElementPreview {
     public int getCostCopper() {
         return costCopper;
     }
+    public int getQuantity() {
+        return quantity;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof ElementPreview)) return false;
         ElementPreview that = (ElementPreview) o;
-        return id == that.id && Double.compare(weight, that.weight) == 0 && costCopper == that.costCopper && Objects.equals(name, that.name) && category == that.category && rarity == that.rarity;
+        return getId() == that.getId() && Double.compare(getWeight(), that.getWeight()) == 0 && getCostCopper() == that.getCostCopper() && getQuantity() == that.getQuantity() && Objects.equals(getName(), that.getName()) && getCategory() == that.getCategory() && getRarity() == that.getRarity();
     }
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, category, rarity, weight, costCopper);
+        return Objects.hash(getId(), getName(), getCategory(), getRarity(), getWeight(), getCostCopper(), getQuantity());
     }
     @Override
     public String toString() {

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
@@ -362,8 +363,8 @@
                                                                         <Font size="16.0" />
                                                                      </font>
                                                                   </Label>
-                                                                  <Slider fx:id="sliderDSTSuccesses" majorTickUnit="3.0" max="3.0" minorTickCount="1" showTickMarks="true" GridPane.columnIndex="1" />
-                                                                  <Slider fx:id="sliderDSTFailures" majorTickUnit="3.0" max="3.0" minorTickCount="1" showTickMarks="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                                  <Slider fx:id="sliderDSTSuccesses" majorTickUnit="3.0" max="4.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" />
+                                                                  <Slider fx:id="sliderDSTFailures" majorTickUnit="3.0" max="4.0" minorTickCount="1" showTickMarks="true" snapToTicks="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                                </children>
                                                             </GridPane>
                                                          </graphic>
@@ -2216,6 +2217,7 @@
                                                       <TableColumn fx:id="tableColumnRarity" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="Rarità" />
                                                       <TableColumn fx:id="tableColumnWeight" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="Peso" />
                                                       <TableColumn fx:id="tableColumnCostMR" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="Costo (MR)" />
+                                                      <TableColumn fx:id="tableColumnQuantity" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="Quantità" />
                                                   </columns>
                                                    <columnResizePolicy>
                                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -2240,9 +2242,927 @@
                </content>
           </Tab>
             <Tab text="Incantesimi">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
+               <content>
+                  <ScrollPane fitToHeight="true" fitToWidth="true">
+                     <content>
+                        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
+                           <padding>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                           <children>
+                              <GridPane vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                </rowConstraints>
+                                 <children>
+                                    <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" vgap="5.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                          <RowConstraints vgrow="ALWAYS" />
+                                       </rowConstraints>
+                                       <children>
+                                          <GridPane hgap="5.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                              <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label text="CLASSE DA INCANTATORE">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <TextField fx:id="textFieldSpellCasterClass" editable="false" GridPane.columnIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </TextField>
+                                             </children>
+                                          </GridPane>
+                                          <GridPane hgap="5.0" GridPane.rowIndex="1">
+                                            <columnConstraints>
+                                              <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                            </rowConstraints>
+                                             <children>
+                                                <GridPane>
+                                                   <columnConstraints>
+                                                      <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                      <RowConstraints valignment="TOP" vgrow="NEVER" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <ComboBox fx:id="comboBoxSpellCasterStat" maxHeight="1.7976931348623157E308" prefWidth="400.0" promptText="CARATTERISTICA DA INCANTATORE" />
+                                                      <Label text="CARATTERISTICA DA INCANTATORE" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </GridPane>
+                                                <GridPane GridPane.columnIndex="1">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                      <RowConstraints valignment="TOP" vgrow="NEVER" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <TextField fx:id="textFieldSpellSTDC" editable="false">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </TextField>
+                                                      <Label text="CD TIRO SALVEZZA INCANTESIMI" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </GridPane>
+                                                <GridPane GridPane.columnIndex="2">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                      <RowConstraints valignment="TOP" vgrow="NEVER" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <TextField fx:id="textFieldSpellAttackBonus" editable="false">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </TextField>
+                                                      <Label text="BONUS DI ATTACCO INCANTESIMI" GridPane.rowIndex="1">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </GridPane>
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </GridPane>
+                                    <GridPane hgap="5.0" vgap="5.0" GridPane.rowIndex="1">
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                          <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" vgap="5.0">
+                                            <columnConstraints>
+                                              <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                              <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                            </rowConstraints>
+                                             <children>
+                                                <Label text="TRUCCHETTI">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ListView fx:id="listViewSpellCantrips" GridPane.rowIndex="1" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.columnIndex="1">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                             </rowConstraints>
+                                             <children>
+                                                <GridPane vgap="5.0">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                      <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <Label text="LIVELLO INCANTESIMO 1">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <GridPane hgap="5.0" GridPane.rowIndex="1">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <GridPane>
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell1SlotTot" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT TOTALI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                            <GridPane GridPane.columnIndex="1">
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell1SlotCurrent" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT SPESI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </GridPane>
+                                                <ListView fx:id="listViewSpell1" GridPane.rowIndex="1" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.columnIndex="2">
+                                            <columnConstraints>
+                                              <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                              <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                            </rowConstraints>
+                                             <children>
+                                                <GridPane vgap="5.0">
+                                                  <columnConstraints>
+                                                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                  </columnConstraints>
+                                                  <rowConstraints>
+                                                    <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                    <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                                  </rowConstraints>
+                                                   <children>
+                                                      <Label text="LIVELLO INCANTESIMO 2">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <GridPane hgap="5.0" GridPane.rowIndex="1">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <GridPane>
+                                                              <columnConstraints>
+                                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                              </columnConstraints>
+                                                              <rowConstraints>
+                                                                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                              </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell2SlotTot" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT TOTALI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                            <GridPane GridPane.columnIndex="1">
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell2SlotCurrent" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT SPESI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </GridPane>
+                                                <ListView fx:id="listViewSpell2" GridPane.rowIndex="1" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.columnIndex="3">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                             </rowConstraints>
+                                             <children>
+                                                <GridPane vgap="5.0">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                      <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <Label text="LIVELLO INCANTESIMO 3">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <GridPane hgap="5.0" GridPane.rowIndex="1">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <GridPane>
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell3SlotTot" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT TOTALI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                            <GridPane GridPane.columnIndex="1">
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell3SlotCurrent" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT SPESI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </GridPane>
+                                                <ListView fx:id="listViewSpell3" GridPane.rowIndex="1" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.columnIndex="4">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                             </rowConstraints>
+                                             <children>
+                                                <GridPane vgap="5.0">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                      <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <Label text="LIVELLO INCANTESIMO 4">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <GridPane hgap="5.0" GridPane.rowIndex="1">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <GridPane>
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell4SlotTot" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT TOTALI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                            <GridPane GridPane.columnIndex="1">
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell4SlotCurrent" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT SPESI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </GridPane>
+                                                <ListView fx:id="listViewSpell4" GridPane.rowIndex="1" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.rowIndex="1">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                             </rowConstraints>
+                                             <children>
+                                                <GridPane vgap="5.0">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                      <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <Label text="LIVELLO INCANTESIMO 5">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <GridPane hgap="5.0" GridPane.rowIndex="1">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <GridPane>
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell5SlotTot" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT TOTALI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                            <GridPane GridPane.columnIndex="1">
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell5SlotCurrent" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT SPESI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </GridPane>
+                                                <ListView fx:id="listViewSpell5" GridPane.rowIndex="1" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                             </rowConstraints>
+                                             <children>
+                                                <GridPane vgap="5.0">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                      <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <Label text="LIVELLO INCANTESIMO 6">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <GridPane hgap="5.0" GridPane.rowIndex="1">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <GridPane>
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell6SlotTot" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT TOTALI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                            <GridPane GridPane.columnIndex="1">
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell6SlotCurrent" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT SPESI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </GridPane>
+                                                <ListView fx:id="listViewSpell6" GridPane.rowIndex="1" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                             </rowConstraints>
+                                             <children>
+                                                <GridPane vgap="5.0">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                      <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <Label text="LIVELLO INCANTESIMO 7">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <GridPane hgap="5.0" GridPane.rowIndex="1">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <GridPane>
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell7SlotTot" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT TOTALI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                            <GridPane GridPane.columnIndex="1">
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell7SlotCurrent" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT SPESI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </GridPane>
+                                                <ListView fx:id="listViewSpell7" GridPane.rowIndex="1" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                             </rowConstraints>
+                                             <children>
+                                                <GridPane vgap="5.0">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                      <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <Label text="LIVELLO INCANTESIMO 8">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <GridPane hgap="5.0" GridPane.rowIndex="1">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <GridPane>
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell8SlotTot" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT TOTALI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                            <GridPane GridPane.columnIndex="1">
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell8SlotCurrent" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT SPESI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </GridPane>
+                                                <ListView fx:id="listViewSpell8" GridPane.rowIndex="1" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                          <GridPane style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                             </rowConstraints>
+                                             <children>
+                                                <GridPane vgap="5.0">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                      <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <Label text="LIVELLO INCANTESIMO 9">
+                                                         <font>
+                                                            <Font name="Lucida Sans Regular" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <GridPane hgap="5.0" GridPane.rowIndex="1">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <GridPane>
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell9SlotTot" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT TOTALI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                            <GridPane GridPane.columnIndex="1">
+                                                               <columnConstraints>
+                                                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                               </columnConstraints>
+                                                               <rowConstraints>
+                                                                  <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                               </rowConstraints>
+                                                               <children>
+                                                                  <TextField fx:id="textFieldSpell9SlotCurrent" alignment="CENTER" text="0">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                     </font>
+                                                                  </TextField>
+                                                                  <Label text="SLOT SPESI" GridPane.rowIndex="1">
+                                                                     <font>
+                                                                        <Font name="Lucida Sans Regular" size="12.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </GridPane>
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </GridPane>
+                                                <ListView fx:id="listViewSpell9" GridPane.rowIndex="1" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </GridPane>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+               </content>
             </Tab>
             <Tab text="Descrizione Fisica">
                <content>
@@ -2289,7 +3209,7 @@
                                                 </TextField>
                                                 <Label text="ETA'" GridPane.rowIndex="1">
                                                    <font>
-                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
                                                    </font>
                                                 </Label>
                                              </children>
@@ -2310,7 +3230,7 @@
                                                 </TextField>
                                                 <Label text="OCCHI" GridPane.rowIndex="1">
                                                    <font>
-                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
                                                    </font>
                                                 </Label>
                                              </children>
@@ -2331,7 +3251,7 @@
                                                 </TextField>
                                                 <Label text="ALTEZZA" GridPane.rowIndex="1">
                                                    <font>
-                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
                                                    </font>
                                                 </Label>
                                              </children>
@@ -2352,7 +3272,7 @@
                                                 </TextField>
                                                 <Label text="PELLE" GridPane.rowIndex="1">
                                                    <font>
-                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
                                                    </font>
                                                 </Label>
                                              </children>
@@ -2373,7 +3293,7 @@
                                                 </TextField>
                                                 <Label text="PESO" GridPane.rowIndex="1">
                                                    <font>
-                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
                                                    </font>
                                                 </Label>
                                              </children>
@@ -2394,7 +3314,7 @@
                                                 </TextField>
                                                 <Label text="CAPELLI" GridPane.rowIndex="1">
                                                    <font>
-                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
                                                    </font>
                                                 </Label>
                                              </children>
@@ -2449,7 +3369,7 @@
                                                 </TextArea>
                                                 <Label text="DESCRIZIONE FISICA" GridPane.rowIndex="1">
                                                    <font>
-                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
                                                    </font>
                                                 </Label>
                                              </children>
@@ -2583,11 +3503,7 @@
                   </ScrollPane>
                </content>
             </Tab>
-            <Tab text="Note">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-               </content>
-            </Tab>
+            <Tab text="Note" />
         </tabs>
       </TabPane>
    </children>

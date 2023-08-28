@@ -238,7 +238,6 @@ public final class ControllerSceneInventoryItem {
                                 }
                                 if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0) throw new NumberFormatException("A number is negative");
                             } catch (NumberFormatException e) {
-                                Logger.log(e);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Le valute devono essere dei numeri interi positivi!"));
                                 return null;
                             }

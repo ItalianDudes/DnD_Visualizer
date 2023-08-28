@@ -60,6 +60,7 @@ public final class TabInventory {
         controller.tableColumnRarity.setCellValueFactory(new PropertyValueFactory<>("rarity"));
         controller.tableColumnWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
         controller.tableColumnCostMR.setCellValueFactory(new PropertyValueFactory<>("costCopper"));
+        controller.tableColumnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         controller.comboBoxCategory.setItems(FXCollections.observableList(Category.categories));
         controller.comboBoxEquipmentType.setItems(FXCollections.observableList(EquipmentType.types));
         search(controller);
@@ -142,11 +143,7 @@ public final class TabInventory {
     }
     public static void search(@NotNull final ControllerSceneSheetViewer controller) {
         Category selectedCategory = controller.comboBoxCategory.getSelectionModel().getSelectedItem();
-        if (selectedCategory != null && selectedCategory.equals(Category.EQUIPMENT)) {
-            controller.comboBoxEquipmentType.setDisable(false);
-        } else {
-            controller.comboBoxEquipmentType.setDisable(true);
-        }
+        controller.comboBoxEquipmentType.setDisable(selectedCategory == null || !selectedCategory.equals(Category.EQUIPMENT));
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
@@ -157,7 +154,7 @@ public final class TabInventory {
                             String query;
                             PreparedStatement ps;
                             if (selectedCategory != null) {
-                                query = "SELECT id, name, category, rarity, weight, cost_copper FROM items WHERE name LIKE '%"+controller.textFieldSearchBar.getText()+"%' AND category=?;";
+                                query = "SELECT id, name, category, rarity, weight, cost_copper, quantity FROM items WHERE name LIKE '%"+controller.textFieldSearchBar.getText()+"%' AND category=?;";
                                 ps = DBManager.preparedStatement(query);
                                 if (ps == null) {
                                     Platform.runLater(() -> {
@@ -168,7 +165,7 @@ public final class TabInventory {
                                 }
                                 ps.setInt(1, selectedCategory.getDatabaseValue());
                             } else {
-                                query = "SELECT id, name, category, rarity, weight, cost_copper FROM items WHERE name LIKE '%"+controller.textFieldSearchBar.getText()+"%';";
+                                query = "SELECT id, name, category, rarity, weight, cost_copper, quantity FROM items WHERE name LIKE '%"+controller.textFieldSearchBar.getText()+"%';";
                                 ps = DBManager.preparedStatement(query);
                                 if (ps == null) {
                                     Platform.runLater(() -> {
@@ -191,7 +188,8 @@ public final class TabInventory {
                                                 Category.values()[result.getInt("category")],
                                                 Rarity.values()[result.getInt("rarity")],
                                                 result.getDouble("weight"),
-                                                result.getInt("cost_copper")
+                                                result.getInt("cost_copper"),
+                                                result.getInt("quantity")
                                         ));
                             }
 

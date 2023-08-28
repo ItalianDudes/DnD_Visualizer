@@ -47,6 +47,8 @@ public final class TabCharacter {
         updateLifeDiceFaces(controller);
         controller.textFieldTotalLifeDiceAmount.setText(String.valueOf(controller.spinnerLevel.getValue())); // This must be after "updateLifeDiceFaces(controller)"
         oldValueCurrentLifeDiceAmount = controller.textFieldCurrentLifeDiceAmount.getText();
+        controller.sliderDSTSuccesses.valueProperty().addListener((observable, oldValue, newValue) -> controller.sliderDSTSuccesses.setValue(newValue.intValue()));
+        controller.sliderDSTFailures.valueProperty().addListener((observable, oldValue, newValue) -> controller.sliderDSTFailures.setValue(newValue.intValue()));
     }
 
     // OnChange Triggers Setter
@@ -54,10 +56,14 @@ public final class TabCharacter {
         controller.spinnerLevel.getEditor().textProperty().addListener(((observable, oldValue, newValue) -> controller.textFieldTotalLifeDiceAmount.setText(newValue)));
         controller.spinnerProficiencyBonus.getEditor().textProperty().addListener(((observable) -> updateProficiencyBonus(controller)));
         controller.textFieldTotalLifeDiceAmount.textProperty().addListener(((observable) -> updateLifeDiceAmount(controller)));
+        controller.textFieldClass.textProperty().addListener(((observable, oldValue, newValue) -> controller.textFieldSpellCasterClass.setText(newValue)));
     }
 
     // Lost Focus On Action Fire Event
     private static void onLostFocusFireActionEvent(@NotNull final ControllerSceneSheetViewer controller) {
+        controller.textFieldClass.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) controller.textFieldSpellCasterClass.setText(controller.textFieldClass.getText());
+        });
         controller.textFieldCurrentLifeDiceFaces.focusedProperty().addListener(((observable, oldValue, newValue) -> {
             if (!newValue) updateLifeDiceFaces(controller);
         }));
@@ -108,7 +114,6 @@ public final class TabCharacter {
         }
     }
     public static void updateProficiencyBonus(@NotNull final ControllerSceneSheetViewer controller) {
-        // TODO: Update all parameters that depends from Proficiency Bonus
         TabAbility.updateParameters(controller);
     }
     public static void recalculateHealthPercentage(@NotNull final ControllerSceneSheetViewer controller) {

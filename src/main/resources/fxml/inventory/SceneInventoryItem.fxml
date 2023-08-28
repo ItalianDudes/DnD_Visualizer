@@ -18,6 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<!--suppress JavaFxDefaultTag -->
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.client.javafx.controller.inventory.ControllerSceneInventoryItem">
    <children>
       <VBox maxWidth="1.7976931348623157E308" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -49,8 +50,33 @@
                   </VBox>
                   <VBox prefWidth="512.0" spacing="10.0">
                      <children>
-                        <TextField fx:id="textFieldWeight" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Peso" />
-                        <Spinner fx:id="spinnerQuantity" editable="true" maxWidth="1.7976931348623157E308" />
+                        <GridPane hgap="5.0" vgap="5.0">
+                           <columnConstraints>
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                              <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints vgrow="SOMETIMES" />
+                              <RowConstraints vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../image/sheet/equipment/weight.png" />
+                                 </image>
+                              </ImageView>
+                              <TextField fx:id="textFieldWeight" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Peso" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="Lucida Sans Regular" size="16.0" />
+                                 </font></TextField>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                 <image>
+                                    <Image url="@../../image/sheet/inventory/quantity.png" />
+                                 </image>
+                              </ImageView>
+                              <Spinner fx:id="spinnerQuantity" editable="true" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                           </children>
+                        </GridPane>
                         <ComboBox fx:id="comboBoxRarity" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Rarità" style="-fx-font-weight: bold;" />
                         <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="512.0" spacing="10.0">
                            <children>
@@ -58,7 +84,10 @@
                                  <image>
                                     <Image url="@../../image/sheet/coins/copper-coin.png" />
                                  </image></ImageView>
-                              <TextField fx:id="textFieldMR" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Rame" text="0" />
+                              <TextField fx:id="textFieldMR" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Rame" text="0">
+                                 <font>
+                                    <Font name="Lucida Sans Regular" size="16.0" />
+                                 </font></TextField>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" layoutX="10.0" layoutY="116.0" maxWidth="1.7976931348623157E308" prefWidth="512.0" spacing="10.0">
@@ -67,7 +96,10 @@
                                  <image>
                                     <Image url="@../../image/sheet/coins/silver-coin.png" />
                                  </image></ImageView>
-                              <TextField fx:id="textFieldMA" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Argento" text="0" />
+                              <TextField fx:id="textFieldMA" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Argento" text="0">
+                                 <font>
+                                    <Font name="Lucida Sans Regular" size="16.0" />
+                                 </font></TextField>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" layoutX="10.0" layoutY="156.0" maxWidth="1.7976931348623157E308" prefWidth="512.0" spacing="10.0">
@@ -76,7 +108,10 @@
                                  <image>
                                     <Image url="@../../image/sheet/coins/electrum-coin.png" />
                                  </image></ImageView>
-                              <TextField fx:id="textFieldME" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Electrum" text="0" />
+                              <TextField fx:id="textFieldME" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Electrum" text="0">
+                                 <font>
+                                    <Font name="Lucida Sans Regular" size="16.0" />
+                                 </font></TextField>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" layoutX="10.0" layoutY="196.0" maxWidth="1.7976931348623157E308" prefWidth="512.0" spacing="10.0">
@@ -85,7 +120,10 @@
                                  <image>
                                     <Image url="@../../image/sheet/coins/gold-coin.png" />
                                  </image></ImageView>
-                              <TextField fx:id="textFieldMO" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Oro" text="0" />
+                              <TextField fx:id="textFieldMO" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Oro" text="0">
+                                 <font>
+                                    <Font name="Lucida Sans Regular" size="16.0" />
+                                 </font></TextField>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" layoutX="10.0" layoutY="236.0" maxWidth="1.7976931348623157E308" prefWidth="512.0" spacing="10.0">
@@ -94,7 +132,10 @@
                                  <image>
                                     <Image url="@../../image/sheet/coins/platinum-coin.png" />
                                  </image></ImageView>
-                              <TextField fx:id="textFieldMP" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Platino" text="0" />
+                              <TextField fx:id="textFieldMP" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Platino" text="0">
+                                 <font>
+                                    <Font name="Lucida Sans Regular" size="16.0" />
+                                 </font></TextField>
                            </children>
                         </HBox>
                      </children>
