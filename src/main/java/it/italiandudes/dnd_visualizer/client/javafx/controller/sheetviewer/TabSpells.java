@@ -2,12 +2,23 @@ package it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer;
 
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer;
+import it.italiandudes.dnd_visualizer.data.ElementPreview;
+import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Stats;
+import it.italiandudes.dnd_visualizer.db.DBManager;
+import it.italiandudes.idl.common.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.scene.control.SpinnerValueFactory;
 import org.jetbrains.annotations.NotNull;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public final class TabSpells {
 
@@ -421,9 +432,96 @@ public final class TabSpells {
                 return new Task<Void>() {
                     @Override
                     protected Void call() {
-
-                        String query = "";
-
+                        ObservableList<ElementPreview> elements = controller.tableViewInventory.getItems();
+                        if (elements.isEmpty()) return null;
+                        ArrayList<ElementPreview> spells = new ArrayList<>();
+                        for (ElementPreview element : elements) {
+                            if (element.getCategory().equals(Category.SPELL)) {
+                                spells.add(element);
+                            }
+                        }
+                        if (spells.isEmpty()) return null;
+                        try {
+                            for (ElementPreview spell : spells) {
+                                String query = "SELECT level FROM spells WHERE item_id=?;";
+                                PreparedStatement ps = DBManager.preparedStatement(query);
+                                if (ps == null) throw new SQLException("The database connection doesn't exist");
+                                ps.setInt(1, spell.getId());
+                                ResultSet result = ps.executeQuery();
+                                int level = result.getInt("level");
+                                result.close();
+                                switch (level) {
+                                    case 0:
+                                        Platform.runLater(() -> {
+                                            controller.listViewSpellCantrips.getItems().clear();
+                                            controller.listViewSpellCantrips.getItems().add(spell.getName());
+                                        });
+                                        break;
+                                    case 1:
+                                        Platform.runLater(() -> {
+                                            controller.listViewSpell1.getItems().clear();
+                                            controller.listViewSpell1.getItems().add(spell.getName());
+                                        });
+                                        break;
+                                    case 2:
+                                        Platform.runLater(() -> {
+                                            controller.listViewSpell2.getItems().clear();
+                                            controller.listViewSpell2.getItems().add(spell.getName());
+                                        });
+                                        break;
+                                    case 3:
+                                        Platform.runLater(() -> {
+                                            controller.listViewSpell3.getItems().clear();
+                                            controller.listViewSpell3.getItems().add(spell.getName());
+                                        });
+                                        break;
+                                    case 4:
+                                        Platform.runLater(() -> {
+                                            controller.listViewSpell4.getItems().clear();
+                                            controller.listViewSpell4.getItems().add(spell.getName());
+                                        });
+                                        break;
+                                    case 5:
+                                        Platform.runLater(() -> {
+                                            controller.listViewSpell5.getItems().clear();
+                                            controller.listViewSpell5.getItems().add(spell.getName());
+                                        });
+                                        break;
+                                    case 6:
+                                        Platform.runLater(() -> {
+                                            controller.listViewSpell6.getItems().clear();
+                                            controller.listViewSpell6.getItems().add(spell.getName());
+                                        });
+                                        break;
+                                    case 7:
+                                        Platform.runLater(() -> {
+                                            controller.listViewSpell7.getItems().clear();
+                                            controller.listViewSpell7.getItems().add(spell.getName());
+                                        });
+                                        break;
+                                    case 8:
+                                        Platform.runLater(() -> {
+                                            controller.listViewSpell8.getItems().clear();
+                                            controller.listViewSpell8.getItems().add(spell.getName());
+                                        });
+                                        break;
+                                    case 9:
+                                        Platform.runLater(() -> {
+                                            controller.listViewSpell9.getItems().clear();
+                                            controller.listViewSpell9.getItems().add(spell.getName());
+                                        });
+                                        break;
+                                    default:
+                                        if (level < 0) {
+                                            Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DATI", "Incantesimo: "+spell.getName()+"\nIl livello di un incantesimo non puo' essere inferiore a 0."));
+                                            return null;
+                                        }
+                                }
+                            }
+                        } catch (SQLException e) {
+                            Logger.log(e);
+                            new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
+                        }
                         return null;
                     }
                 };

@@ -195,7 +195,10 @@ public final class TabInventory {
                             }
 
                             ps.close();
-                            Platform.runLater(() -> controller.tableViewInventory.setItems(FXCollections.observableList(resultList)));
+                            Platform.runLater(() -> {
+                                controller.tableViewInventory.setItems(FXCollections.observableList(resultList));
+                                TabSpells.updateListViews(controller);
+                            });
                         } catch (Exception e) {
                             Logger.log(e);
                             new ErrorAlert("ERRORE", "ERRORE DI CONNESSIONE", "Si e' verificato un errore durante la comunicazione con il database.");
