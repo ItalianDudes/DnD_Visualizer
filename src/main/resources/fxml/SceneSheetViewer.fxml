@@ -2439,16 +2439,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell1SlotTot" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT TOTALI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell1SlotTot" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -2460,16 +2456,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell1SlotCurrent" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT SPESI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell1SlotCurrent" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -2523,16 +2515,12 @@
                                                                 <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                               </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell2SlotTot" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT TOTALI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell2SlotTot" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -2544,16 +2532,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell2SlotCurrent" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT SPESI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell2SlotCurrent" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -2607,16 +2591,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell3SlotTot" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT TOTALI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell3SlotTot" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -2628,16 +2608,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell3SlotCurrent" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT SPESI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell3SlotCurrent" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -2691,16 +2667,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell4SlotTot" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT TOTALI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell4SlotTot" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -2712,16 +2684,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell4SlotCurrent" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT SPESI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell4SlotCurrent" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -2775,16 +2743,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell5SlotTot" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT TOTALI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell5SlotTot" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -2796,16 +2760,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell5SlotCurrent" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT SPESI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell5SlotCurrent" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -2859,16 +2819,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell6SlotTot" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT TOTALI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell6SlotTot" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -2880,16 +2836,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell6SlotCurrent" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT SPESI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell6SlotCurrent" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -2943,16 +2895,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell7SlotTot" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT TOTALI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell7SlotTot" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -2964,16 +2912,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell7SlotCurrent" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT SPESI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell7SlotCurrent" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -3027,16 +2971,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell8SlotTot" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT TOTALI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell8SlotTot" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -3048,16 +2988,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell8SlotCurrent" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT SPESI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell8SlotCurrent" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
@@ -3111,16 +3047,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell9SlotTot" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT TOTALI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell9SlotTot" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                             <GridPane GridPane.columnIndex="1">
@@ -3132,16 +3064,12 @@
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                                </rowConstraints>
                                                                <children>
-                                                                  <TextField fx:id="textFieldSpell9SlotCurrent" alignment="CENTER" text="0">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </TextField>
                                                                   <Label text="SLOT SPESI" GridPane.rowIndex="1">
                                                                      <font>
                                                                         <Font name="Lucida Sans Regular" size="12.0" />
                                                                      </font>
                                                                   </Label>
+                                                                  <Spinner fx:id="spinnerSpell9SlotCurrent" editable="true" />
                                                                </children>
                                                             </GridPane>
                                                          </children>
