@@ -1,5 +1,6 @@
 package it.italiandudes.dnd_visualizer.data.item;
 
+import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.interfaces.ISavable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -7,11 +8,11 @@ import org.jetbrains.annotations.Nullable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 @SuppressWarnings("unused")
 public final class Spell extends Item implements ISavable {
 
-    /*
     // Attributes
     @Nullable private Integer spellID;
     private int level;
@@ -20,7 +21,6 @@ public final class Spell extends Item implements ISavable {
     @Nullable private String range;
     @Nullable private String components;
     @Nullable private String duration;
-    @Nullable private String damage;
 
     // Constructors
     public Spell() {
@@ -30,7 +30,7 @@ public final class Spell extends Item implements ISavable {
     public Spell(@NotNull final Item baseItem, @Nullable final Integer spellID,
                  final int level, @Nullable final String type, @Nullable final String castTime,
                  @Nullable final String range, @Nullable final String components,
-                 @Nullable final String duration, @Nullable final String damage) {
+                 @Nullable final String duration) {
         super(baseItem);
         this.spellID = spellID;
         if (level >= 0 && level <= 9) this.level = level;
@@ -40,7 +40,6 @@ public final class Spell extends Item implements ISavable {
         this.range = range;
         this.components = components;
         this.duration = duration;
-        this.damage = damage;
     }
     public Spell(@NotNull final String spellName) throws SQLException {
         super(spellName);
@@ -54,7 +53,6 @@ public final class Spell extends Item implements ISavable {
         if (result.next()) {
             this.spellID = result.getInt("id");
             this.level = result.getInt("level");
-            this.damage = result.getString("damage");
             this.castTime = result.getString("cast_time");
             this.range = result.getString("spell_range");
             this.duration = result.getString("duration");
@@ -100,11 +98,6 @@ public final class Spell extends Item implements ISavable {
         } catch (SQLException e) {
             this.duration = null;
         }
-        try {
-            this.damage = resultSet.getString("damage");
-        } catch (SQLException e) {
-            this.damage = null;
-        }
     }
 
     // Methods
@@ -114,7 +107,7 @@ public final class Spell extends Item implements ISavable {
         Integer itemID = getItemID();
         assert itemID != null;
         if (spellID == null) { // Insert
-            String query = "INSERT INTO spells (item_id, level, type, cast_time, spell_range, components, duration, damage) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+            String query = "INSERT INTO spells (item_id, level, type, cast_time, spell_range, components, duration) VALUES (?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = DBManager.preparedStatement(query);
             if (ps == null) throw new SQLException("The database is not connected");
             ps.setInt(1, itemID);
@@ -124,7 +117,6 @@ public final class Spell extends Item implements ISavable {
             ps.setString(5, getRange());
             ps.setString(6, getComponents());
             ps.setString(7, getDuration());
-            ps.setString(8, getDamage());
             ps.executeUpdate();
             ps.close();
             query = "SELECT id FROM spells WHERE item_id = ?;";
@@ -140,7 +132,7 @@ public final class Spell extends Item implements ISavable {
                 throw new SQLException("Something strange happened on spell insert! Spell insert but doesn't result on select");
             }
         } else { // Update
-            String query = "UPDATE spells SET item_id=?, level=?, type=?, cast_time=?, spell_range=?, components=?, duration=?, damage=? WHERE id=?;";
+            String query = "UPDATE spells SET item_id=?, level=?, type=?, cast_time=?, spell_range=?, components=?, duration=? WHERE id=?;";
             PreparedStatement ps = DBManager.preparedStatement(query);
             if (ps == null) throw new SQLException("The database is not connected");
             ps.setInt(1, itemID);
@@ -150,8 +142,7 @@ public final class Spell extends Item implements ISavable {
             ps.setString(5, getRange());
             ps.setString(6, getComponents());
             ps.setString(7, getDuration());
-            ps.setString(8, getDamage());
-            ps.setInt(9, getSpellID());
+            ps.setInt(8, getSpellID());
             ps.executeUpdate();
             ps.close();
         }
@@ -204,57 +195,16 @@ public final class Spell extends Item implements ISavable {
     public void setDuration(@Nullable final String duration) {
         this.duration = duration;
     }
-    @Nullable
-    public String getDamage() {
-        return damage;
-    }
-    public void setDamage(@Nullable final String damage) {
-        this.damage = damage;
-    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Spell)) return false;
         if (!super.equals(o)) return false;
-
         Spell spell = (Spell) o;
-
-        if (getLevel() != spell.getLevel()) return false;
-        if (getSpellID() != null ? !getSpellID().equals(spell.getSpellID()) : spell.getSpellID() != null) return false;
-        if (getType() != null ? !getType().equals(spell.getType()) : spell.getType() != null) return false;
-        if (getCastTime() != null ? !getCastTime().equals(spell.getCastTime()) : spell.getCastTime() != null)
-            return false;
-        if (getRange() != null ? !getRange().equals(spell.getRange()) : spell.getRange() != null) return false;
-        if (getComponents() != null ? !getComponents().equals(spell.getComponents()) : spell.getComponents() != null)
-            return false;
-        if (getDuration() != null ? !getDuration().equals(spell.getDuration()) : spell.getDuration() != null)
-            return false;
-        return getDamage() != null ? getDamage().equals(spell.getDamage()) : spell.getDamage() == null;
+        return getLevel() == spell.getLevel() && Objects.equals(getSpellID(), spell.getSpellID()) && Objects.equals(getType(), spell.getType()) && Objects.equals(getCastTime(), spell.getCastTime()) && Objects.equals(getRange(), spell.getRange()) && Objects.equals(getComponents(), spell.getComponents()) && Objects.equals(getDuration(), spell.getDuration());
     }
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (getSpellID() != null ? getSpellID().hashCode() : 0);
-        result = 31 * result + getLevel();
-        result = 31 * result + (getType() != null ? getType().hashCode() : 0);
-        result = 31 * result + (getCastTime() != null ? getCastTime().hashCode() : 0);
-        result = 31 * result + (getRange() != null ? getRange().hashCode() : 0);
-        result = 31 * result + (getComponents() != null ? getComponents().hashCode() : 0);
-        result = 31 * result + (getDuration() != null ? getDuration().hashCode() : 0);
-        result = 31 * result + (getDamage() != null ? getDamage().hashCode() : 0);
-        return result;
+        return Objects.hash(super.hashCode(), getSpellID(), getLevel(), getType(), getCastTime(), getRange(), getComponents(), getDuration());
     }
-    @Override
-    public String toString() {
-        return "Spell{" +
-                "spellID=" + spellID +
-                ", level=" + level +
-                ", type='" + type + '\'' +
-                ", castTime='" + castTime + '\'' +
-                ", range='" + range + '\'' +
-                ", components='" + components + '\'' +
-                ", duration='" + duration + '\'' +
-                ", damage='" + damage + '\'' +
-                "} " + super.toString();
-    }*/
 }

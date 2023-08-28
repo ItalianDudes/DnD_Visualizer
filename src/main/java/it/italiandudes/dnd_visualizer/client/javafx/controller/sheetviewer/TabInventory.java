@@ -6,6 +6,7 @@ import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSh
 import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneMainMenu;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventoryArmor;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventoryItem;
+import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventorySpell;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventoryWeapon;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
@@ -271,13 +272,13 @@ public final class TabInventory {
                 scene = selectEquipmentScene();
                 if (scene == null) return;
                 break;
-            /*
+
             case SPELL:
-                // TODO: Inventory with spells?
-                break;*/
+                scene = SceneInventorySpell.getScene();
+                break;
 
             default: // Invalid
-                new ErrorAlert("ERRORE", "ERRORE NEL DATABASE", "L'elemento selezionato non possiede una categoria valida.");
+                new ErrorAlert("ERRORE", "ERRORE NEL DATABASE", "L'elemento selezionato non possiede una categoria valida o non e' stata ancora implementata nell'applicazione.");
                 return;
         }
         Stage popupStage = Client.initPopupStage(scene);
@@ -287,7 +288,31 @@ public final class TabInventory {
     }
     public static void addElement(@NotNull final ControllerSceneSheetViewer controller) {
         elementName = null;
-        Scene scene = SceneInventoryItem.getScene();
+        Scene scene;
+        if (controller.comboBoxCategory.getSelectionModel().isEmpty()) {
+            new ErrorAlert("ERRORE", "ERRORE DI PROCEDURA", "Per aggiungere un elemento e' necessario prima selezionare una categoria.");
+            return;
+        }
+        Category category = controller.comboBoxCategory.getSelectionModel().getSelectedItem();
+        switch (category) {
+            case ITEM:
+                scene = SceneInventoryItem.getScene();
+                break;
+
+            /*
+            case EQUIPMENT:
+                scene = selectEquipmentScene();
+                if (scene == null) return;
+                break;>*/
+
+            case SPELL:
+                scene = SceneInventorySpell.getScene();
+                break;
+
+            default: // Invalid
+                new ErrorAlert("ERRORE", "ERRORE NEL DATABASE", "L'elemento selezionato non possiede una categoria valida o non e' stata ancora implementata nell'applicazione.");
+                return;
+        }
         Stage popupStage = Client.initPopupStage(scene);
         popupStage.showAndWait();
         search(controller);

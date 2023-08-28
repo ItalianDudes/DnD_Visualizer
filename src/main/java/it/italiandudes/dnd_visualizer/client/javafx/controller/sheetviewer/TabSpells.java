@@ -4,6 +4,8 @@ import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.data.enums.Stats;
 import javafx.collections.FXCollections;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.scene.control.SpinnerValueFactory;
 import org.jetbrains.annotations.NotNull;
 
@@ -55,6 +57,7 @@ public final class TabSpells {
         controller.spinnerSpell9SlotCurrent.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
         setOnChangeTriggers(controller);
         onLostFocusFireActionEvent(controller);
+        updateListViews(controller);
     }
 
     // OnChange Triggers Setter
@@ -410,5 +413,21 @@ public final class TabSpells {
             return;
         }
         oldValueSpell9Current = String.valueOf(currentSlot);
+    }
+    public static void updateListViews(@NotNull final ControllerSceneSheetViewer controller) {
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+
+                        String query = "";
+
+                        return null;
+                    }
+                };
+            }
+        }.start();
     }
 }

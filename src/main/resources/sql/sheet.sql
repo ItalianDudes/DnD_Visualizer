@@ -86,8 +86,7 @@ CREATE TABLE IF NOT EXISTS spells (
     cast_time TEXT,
     spell_range TEXT,
     components TEXT,
-    duration TEXT,
-    damage TEXT
+    duration TEXT
 );
 
 CREATE TABLE IF NOT EXISTS weapons (
