@@ -35,6 +35,7 @@ public final class JFXDefs {
                 private static final String FXML_INVENTORY_DIR = FXML_DIR + "inventory/";
                 public static final String FXML_INVENTORY_ITEM = FXML_INVENTORY_DIR + "SceneInventoryItem.fxml";
                 public static final String FXML_INVENTORY_SPELL = FXML_INVENTORY_DIR + "SceneInventorySpell.fxml";
+                public static final String FXML_INVENTORY_ARMOR = FXML_INVENTORY_DIR + "SceneInventoryArmor.fxml";
             }
         }
 

@@ -56,6 +56,19 @@ CREATE TABLE IF NOT EXISTS items (
     quantity INTEGER NOT NULL DEFAULT 0
 );
 
+CREATE TABLE IF NOT EXISTS spells (
+    id INTEGER NOT NULL PRIMARY KEY,
+    item_id INTEGER NOT NULL UNIQUE REFERENCES items(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+    level INTEGER DEFAULT 0,
+    type TEXT,
+    cast_time TEXT,
+    spell_range TEXT,
+    components TEXT,
+    duration TEXT
+);
+
 CREATE TABLE IF NOT EXISTS equipments (
     id INTEGER NOT NULL PRIMARY KEY,
     item_id INTEGER NOT NULL REFERENCES items(id)
@@ -76,28 +89,13 @@ CREATE TABLE IF NOT EXISTS armors (
     ON UPDATE CASCADE
     ON DELETE CASCADE,
     slot INTEGER NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS spells (
-    id INTEGER NOT NULL PRIMARY KEY,
-    item_id INTEGER NOT NULL UNIQUE REFERENCES items(id)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
-    level INTEGER DEFAULT 0,
-    type TEXT,
-    cast_time TEXT,
-    spell_range TEXT,
-    components TEXT,
-    duration TEXT
-);
+    );
 
 CREATE TABLE IF NOT EXISTS weapons (
     id INTEGER NOT NULL PRIMARY KEY,
-    item_id INTEGER NOT NULL UNIQUE REFERENCES items(id)
+    equipment_id INTEGER NOT NULL UNIQUE REFERENCES equipments(id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
     category TEXT,
-    damage TEXT,
-    strength_required INTEGER NOT NULL DEFAULT 0,
     properties TEXT
 );

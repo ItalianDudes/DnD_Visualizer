@@ -19,6 +19,7 @@
 <?import javafx.scene.text.Font?>
 
 <!--suppress JavaFxDefaultTag -->
+
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.client.javafx.controller.inventory.ControllerSceneInventoryItem">
    <children>
       <VBox maxWidth="1.7976931348623157E308" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -74,10 +75,10 @@
                                     <Image url="@../../image/sheet/inventory/quantity.png" />
                                  </image>
                               </ImageView>
-                              <Spinner fx:id="spinnerQuantity" editable="true" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Spinner fx:id="spinnerQuantity" editable="true" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
-                        <ComboBox fx:id="comboBoxRarity" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Rarità" style="-fx-font-weight: bold;" />
+                        <ComboBox fx:id="comboBoxRarity" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Rarità" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" />
                         <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="512.0" spacing="10.0">
                            <children>
                               <ImageView fitHeight="30.0" pickOnBounds="true" preserveRatio="true">

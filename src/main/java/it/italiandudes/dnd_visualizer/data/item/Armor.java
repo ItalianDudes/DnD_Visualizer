@@ -24,6 +24,11 @@ public final class Armor extends Equipment implements ISavable {
         super(EquipmentType.ARMOR);
         this.slot = slot;
     }
+    public Armor(@NotNull final Item item, @NotNull final ArmorSlot slot, final int lifeEffect, final double lifeEffectPerc,
+                 final int loadEffect, final double loadEffectPerc, final int caEffect, @Nullable final String otherEffects) {
+        super(item, EquipmentType.ARMOR, lifeEffect, lifeEffectPerc, caEffect, loadEffect, loadEffectPerc, otherEffects);
+        this.slot = slot;
+    }
     public Armor(@NotNull final String armorName) throws SQLException {
         super(armorName);
         String query = "SELECT * FROM armors WHERE name=?;";

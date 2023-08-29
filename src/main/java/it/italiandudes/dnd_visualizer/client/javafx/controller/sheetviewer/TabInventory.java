@@ -24,6 +24,7 @@ import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -152,6 +153,7 @@ public final class TabInventory {
                     @Override
                     protected Void call() {
                         try {
+                            // TODO: Fixare la ricerca in modo che le armature si trovino solo cercando equipaggiamenti (o armature) ecc. Attualmente le armature si possono trovare negli Items :(
                             String query;
                             PreparedStatement ps;
                             if (selectedCategory != null) {
@@ -243,24 +245,31 @@ public final class TabInventory {
             }
         }.start();
     }
-    public static Scene selectEquipmentScene() {
-        if (elementName == null) return null;
-        try {
-            Equipment equipment = new Equipment(elementName);
-            switch (equipment.getType()) {
-                case ARMOR:
-                    return SceneInventoryArmor.getScene();
-                case WEAPON:
-                    return SceneInventoryWeapon.getScene();
-                default: // Invalid
-                    new ErrorAlert("ERRORE", "ERRORE NEL DATABASE", "L'elemento selezionato non possiede una categoria equipaggiamento valida.");
-                    return null;
+    public static Scene selectEquipmentScene(@NotNull final ControllerSceneSheetViewer controller, @Nullable final ElementPreview element) {
+        EquipmentType equipmentType;
+        if (element != null) {
+            try {
+                equipmentType = new Equipment(element.getName()).getType();
+            } catch (SQLException e) {
+                new ErrorAlert("ERRORE", "ERRORE COL DATABASE", "Si e' verificato un errore durante l'interrogazione del database.");
+                return null;
             }
-        } catch (SQLException e) {
-            Logger.log(e);
-            new ErrorAlert("ERRORE", "ERRORE DI CONNESSIONE", "Non e' stato possibile leggere del contenuto dalla scheda.");
+        } else {
+            equipmentType = controller.comboBoxEquipmentType.getSelectionModel().getSelectedItem();
+            if (equipmentType == null) {
+                new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Per aggiungere dell'equipaggiamento devi prima selezionare il tipo.");
+                return null;
+            }
         }
-        return null;
+        switch (equipmentType) {
+            case ARMOR:
+                return SceneInventoryArmor.getScene();
+            case WEAPON:
+                return SceneInventoryWeapon.getScene();
+            default: // Invalid
+                new ErrorAlert("ERRORE", "ERRORE NEL DATABASE", "L'elemento selezionato non possiede una categoria equipaggiamento valida.");
+                return null;
+        }
     }
     public static void editElement(@NotNull final ControllerSceneSheetViewer controller) {
         ElementPreview element = controller.tableViewInventory.getSelectionModel().getSelectedItem();
@@ -273,7 +282,7 @@ public final class TabInventory {
                 break;
 
             case EQUIPMENT:
-                scene = selectEquipmentScene();
+                scene = selectEquipmentScene(controller, element);
                 if (scene == null) return;
                 break;
 
@@ -303,11 +312,10 @@ public final class TabInventory {
                 scene = SceneInventoryItem.getScene();
                 break;
 
-            /*
             case EQUIPMENT:
-                scene = selectEquipmentScene();
+                scene = selectEquipmentScene(controller, null);
                 if (scene == null) return;
-                break;>*/
+                break;
 
             case SPELL:
                 scene = SceneInventorySpell.getScene();
