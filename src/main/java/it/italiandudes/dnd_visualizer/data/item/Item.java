@@ -33,12 +33,12 @@ public class Item implements ISavable {
     private int quantity;
 
     // Constructors
-    public Item() {
+    public Item(@NotNull final Category category) {
         name = "";
         rarity = Rarity.COMMON;
         costCopper = 0;
         weight = 0;
-        category = Category.values()[0];
+        this.category = category;
         quantity = 0;
     }
     public Item(@NotNull final Item item) {
@@ -67,8 +67,7 @@ public class Item implements ISavable {
         this.weight = Math.max(0, weight);
         if (category == null) this.category = Category.values()[0];
         else this.category = category;
-        if (quantity < 0) this.quantity = 0;
-        else this.quantity = quantity;
+        this.quantity = Math.max(0, quantity);
     }
     public Item(@Nullable final Integer itemID, @Nullable final Image image, @Nullable final String imageExtension,
                 @NotNull final String name, int cc, int cs, int ce, int cg, int cp,

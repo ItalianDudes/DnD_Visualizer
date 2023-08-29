@@ -287,7 +287,7 @@ public final class ControllerSceneInventoryArmor {
                                         mp,
                                         textAreaDescription.getText(),
                                         comboBoxRarity.getSelectionModel().getSelectedItem(),
-                                        Category.ITEM,
+                                        Category.EQUIPMENT,
                                         weight,
                                         spinnerQuantity.getValue()
                                 );
@@ -311,7 +311,7 @@ public final class ControllerSceneInventoryArmor {
                                         mp,
                                         textAreaDescription.getText(),
                                         comboBoxRarity.getSelectionModel().getSelectedItem(),
-                                        Category.ITEM,
+                                        Category.EQUIPMENT,
                                         weight,
                                         spinnerQuantity.getValue()
                                 );

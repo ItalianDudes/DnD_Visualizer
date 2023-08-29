@@ -1,5 +1,6 @@
 package it.italiandudes.dnd_visualizer.data.item;
 
+import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.interfaces.ISavable;
@@ -24,7 +25,7 @@ public class Equipment extends Item implements ISavable {
 
     // Constructors
     public Equipment(@NotNull final EquipmentType type) {
-        super();
+        super(Category.EQUIPMENT);
         this.type = type;
     }
     public Equipment(@NotNull Item item, @NotNull final EquipmentType type, final int lifeEffect, final double lifePercentageEffect,

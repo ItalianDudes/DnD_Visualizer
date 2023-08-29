@@ -1,5 +1,6 @@
 package it.italiandudes.dnd_visualizer.data.item;
 
+import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.interfaces.ISavable;
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +25,7 @@ public final class Spell extends Item implements ISavable {
 
     // Constructors
     public Spell() {
-        super();
+        super(Category.SPELL);
         level = 0;
     }
     public Spell(@NotNull final Item baseItem, @Nullable final Integer spellID,

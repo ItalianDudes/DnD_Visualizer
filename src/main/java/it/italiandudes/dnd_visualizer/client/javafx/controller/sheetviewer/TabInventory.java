@@ -146,6 +146,7 @@ public final class TabInventory {
     public static void search(@NotNull final ControllerSceneSheetViewer controller) {
         Category selectedCategory = controller.comboBoxCategory.getSelectionModel().getSelectedItem();
         controller.comboBoxEquipmentType.setDisable(selectedCategory == null || !selectedCategory.equals(Category.EQUIPMENT));
+        EquipmentType equipmentType = controller.comboBoxEquipmentType.getSelectionModel().getSelectedItem();
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
@@ -157,17 +158,34 @@ public final class TabInventory {
                             String query;
                             PreparedStatement ps;
                             if (selectedCategory != null) {
-                                query = "SELECT id, name, category, rarity, weight, cost_copper, quantity FROM items WHERE name LIKE '%"+controller.textFieldSearchBar.getText()+"%' AND category=?;";
-                                ps = DBManager.preparedStatement(query);
-                                if (ps == null) {
-                                    Platform.runLater(() -> {
-                                        new ErrorAlert("ERRORE", "Errore di Connessione al database", "Non e' stato possibile consultare il database");
-                                        Client.getStage().setScene(SceneMainMenu.getScene());
-                                    });
-                                    return null;
+                                if (selectedCategory.equals(Category.EQUIPMENT) && equipmentType != null) {
+                                    Logger.log("1");
+                                    query = "SELECT i.id AS id, i.name AS name, i.category AS category, i.rarity AS rarity, i.weight AS weight, i.cost_copper AS cost_copper, i.quantity AS quantity FROM items AS i JOIN equipments AS e ON i.id = e.item_id WHERE i.name LIKE '%" + controller.textFieldSearchBar.getText() + "%' AND i.category=? AND e.type=?;";
+                                    ps = DBManager.preparedStatement(query);
+                                    if (ps == null) {
+                                        Platform.runLater(() -> {
+                                            new ErrorAlert("ERRORE", "Errore di Connessione al database", "Non e' stato possibile consultare il database");
+                                            Client.getStage().setScene(SceneMainMenu.getScene());
+                                        });
+                                        return null;
+                                    }
+                                    ps.setInt(1, selectedCategory.getDatabaseValue());
+                                    ps.setInt(2, equipmentType.getDatabaseValue());
+                                } else {
+                                    Logger.log("2");
+                                    query = "SELECT id, name, category, rarity, weight, cost_copper, quantity FROM items WHERE name LIKE '%" + controller.textFieldSearchBar.getText() + "%' AND category=?;";
+                                    ps = DBManager.preparedStatement(query);
+                                    if (ps == null) {
+                                        Platform.runLater(() -> {
+                                            new ErrorAlert("ERRORE", "Errore di Connessione al database", "Non e' stato possibile consultare il database");
+                                            Client.getStage().setScene(SceneMainMenu.getScene());
+                                        });
+                                        return null;
+                                    }
+                                    ps.setInt(1, selectedCategory.getDatabaseValue());
                                 }
-                                ps.setInt(1, selectedCategory.getDatabaseValue());
                             } else {
+                                Logger.log("3");
                                 query = "SELECT id, name, category, rarity, weight, cost_copper, quantity FROM items WHERE name LIKE '%"+controller.textFieldSearchBar.getText()+"%';";
                                 ps = DBManager.preparedStatement(query);
                                 if (ps == null) {
