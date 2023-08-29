@@ -151,8 +151,8 @@ public class Equipment extends Item implements ISavable {
     public Integer getEquipmentID() {
         return equipmentID;
     }
-    public void setEquipmentID(@NotNull final Integer equipmentID) {
-        this.equipmentID = equipmentID;
+    public void setEquipmentID(final int equipmentID) {
+        if (this.equipmentID == null) this.equipmentID = equipmentID;
     }
     @NotNull
     public EquipmentType getType() {

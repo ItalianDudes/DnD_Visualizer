@@ -154,12 +154,10 @@ public final class TabInventory {
                     @Override
                     protected Void call() {
                         try {
-                            // TODO: Fixare la ricerca in modo che le armature si trovino solo cercando equipaggiamenti (o armature) ecc. Attualmente le armature si possono trovare negli Items :(
                             String query;
                             PreparedStatement ps;
                             if (selectedCategory != null) {
                                 if (selectedCategory.equals(Category.EQUIPMENT) && equipmentType != null) {
-                                    Logger.log("1");
                                     query = "SELECT i.id AS id, i.name AS name, i.category AS category, i.rarity AS rarity, i.weight AS weight, i.cost_copper AS cost_copper, i.quantity AS quantity FROM items AS i JOIN equipments AS e ON i.id = e.item_id WHERE i.name LIKE '%" + controller.textFieldSearchBar.getText() + "%' AND i.category=? AND e.type=?;";
                                     ps = DBManager.preparedStatement(query);
                                     if (ps == null) {
@@ -172,7 +170,6 @@ public final class TabInventory {
                                     ps.setInt(1, selectedCategory.getDatabaseValue());
                                     ps.setInt(2, equipmentType.getDatabaseValue());
                                 } else {
-                                    Logger.log("2");
                                     query = "SELECT id, name, category, rarity, weight, cost_copper, quantity FROM items WHERE name LIKE '%" + controller.textFieldSearchBar.getText() + "%' AND category=?;";
                                     ps = DBManager.preparedStatement(query);
                                     if (ps == null) {
@@ -185,7 +182,6 @@ public final class TabInventory {
                                     ps.setInt(1, selectedCategory.getDatabaseValue());
                                 }
                             } else {
-                                Logger.log("3");
                                 query = "SELECT id, name, category, rarity, weight, cost_copper, quantity FROM items WHERE name LIKE '%"+controller.textFieldSearchBar.getText()+"%';";
                                 ps = DBManager.preparedStatement(query);
                                 if (ps == null) {
@@ -246,8 +242,7 @@ public final class TabInventory {
                     @Override
                     protected Void call() {
                         try {
-                            String query = "DELETE FROM items WHERE id=?;";
-                            PreparedStatement ps = DBManager.preparedStatement(query);
+                            PreparedStatement ps = DBManager.preparedStatement("DELETE FROM items WHERE id=?;");
                             if (ps == null) throw new SQLException("The database connection doesn't exist");
                             ps.setInt(1, element.getId());
                             ps.executeUpdate();

@@ -5,10 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Scanner;
 
 @SuppressWarnings("unused")
@@ -23,6 +20,8 @@ public final class DBManager {
         String url = DB_PREFIX+DB_ABSOLUTE_PATH+"?allowMultiQueries=true";
         dbConnection = DriverManager.getConnection(DB_PREFIX + DB_ABSOLUTE_PATH);
         dbConnection.setAutoCommit(true);
+        Statement st = dbConnection.createStatement();
+        st.execute("PRAGMA foreign_keys = ON;");
     }
 
     // Methods
