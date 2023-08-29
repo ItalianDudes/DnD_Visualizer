@@ -211,10 +211,7 @@ public final class TabInventory {
                             }
 
                             ps.close();
-                            Platform.runLater(() -> {
-                                controller.tableViewInventory.setItems(FXCollections.observableList(resultList));
-                                TabSpells.updateListViews(controller);
-                            });
+                            Platform.runLater(() -> controller.tableViewInventory.setItems(FXCollections.observableList(resultList)));
                         } catch (Exception e) {
                             Logger.log(e);
                             new ErrorAlert("ERRORE", "ERRORE DI CONNESSIONE", "Si e' verificato un errore durante la comunicazione con il database.");
@@ -247,7 +244,10 @@ public final class TabInventory {
                             ps.setInt(1, element.getId());
                             ps.executeUpdate();
                             ps.close();
-                            Platform.runLater(() -> search(controller));
+                            Platform.runLater(() -> {
+                                search(controller);
+                                TabSpells.updateListViews(controller);
+                            });
                         } catch (SQLException e) {
                             Logger.log(e);
                             Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Rimozione", "Si e' verificato un errore durante la rimozione dell'elemento."));
@@ -311,6 +311,7 @@ public final class TabInventory {
         popupStage.showAndWait();
         elementName = null;
         search(controller);
+        TabSpells.updateListViews(controller);
     }
     public static void addElement(@NotNull final ControllerSceneSheetViewer controller) {
         elementName = null;
@@ -341,5 +342,6 @@ public final class TabInventory {
         Stage popupStage = Client.initPopupStage(scene);
         popupStage.showAndWait();
         search(controller);
+        TabSpells.updateListViews(controller);
     }
 }
