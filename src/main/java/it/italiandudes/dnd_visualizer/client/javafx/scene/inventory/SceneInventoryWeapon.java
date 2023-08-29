@@ -14,7 +14,7 @@ public final class SceneInventoryWeapon {
     //Scene Generator
     public static Scene getScene(){
         try {
-            Scene scene = new Scene(FXMLLoader.load(Defs.Resources.get(JFXDefs.Resources.FXML.Inventory.FXML_INVENTORY_ITEM)));
+            Scene scene = new Scene(FXMLLoader.load(Defs.Resources.get(JFXDefs.Resources.FXML.Inventory.FXML_INVENTORY_WEAPON)));
             ThemeHandler.loadConfigTheme(scene);
             return scene;
         }catch (IOException e){

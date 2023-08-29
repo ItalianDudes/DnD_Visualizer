@@ -31,17 +31,18 @@ public final class Armor extends Equipment implements ISavable {
     }
     public Armor(@NotNull final String armorName) throws SQLException {
         super(armorName);
-        String query = "SELECT * FROM armors WHERE name=?;";
+        String query = "SELECT * FROM armors WHERE equipment_id=?;";
         PreparedStatement ps = DBManager.preparedStatement(query);
         if (ps == null) throw new SQLException("The database is not connected");
-        ps.setString(1, armorName);
+        assert getEquipmentID()!=null;
+        ps.setInt(1, getEquipmentID());
         ResultSet resultSet = ps.executeQuery();
         if (resultSet.next()) {
             this.slot = ArmorSlot.values()[resultSet.getInt("slot")];
             ps.close();
         } else {
             ps.close();
-            throw new SQLException("Exist the Equipment, but not the armor");
+            throw new SQLException("Exist the equipment, but not the armor");
         }
     }
 

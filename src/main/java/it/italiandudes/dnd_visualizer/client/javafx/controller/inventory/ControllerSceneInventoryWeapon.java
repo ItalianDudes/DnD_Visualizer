@@ -5,11 +5,11 @@ import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.InformationAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabInventory;
-import it.italiandudes.dnd_visualizer.data.enums.ArmorSlot;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.data.item.Armor;
 import it.italiandudes.dnd_visualizer.data.item.Item;
+import it.italiandudes.dnd_visualizer.data.item.Weapon;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.ImageHandler;
 import it.italiandudes.idl.common.Logger;
@@ -38,14 +38,15 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Base64;
 
-public final class ControllerSceneInventoryArmor {
+public final class ControllerSceneInventoryWeapon {
 
     // Attributes
-    private Armor armor = null;
+    private Weapon weapon = null;
     private String imageExtension = null;
 
     // Graphics Elements
-    @FXML private TextField textFieldName;
+    @FXML
+    private TextField textFieldName;
     @FXML private TextField textFieldWeight;
     @FXML private Spinner<Integer> spinnerQuantity;
     @FXML private ComboBox<String> comboBoxRarity;
@@ -56,13 +57,14 @@ public final class ControllerSceneInventoryArmor {
     @FXML private TextField textFieldMP;
     @FXML private TextArea textAreaDescription;
     @FXML private ImageView imageViewItem;
-    @FXML private ComboBox<ArmorSlot> comboBoxSlot;
+    @FXML private TextField textFieldWeaponCategory;
     @FXML private TextField textFieldEffectCA;
     @FXML private TextField textFieldEffectLife;
     @FXML private TextField textFieldEffectLoad;
     @FXML private TextField textFieldEffectLifePerc;
     @FXML private TextField textFieldEffectLoadPerc;
     @FXML private TextArea textAreaOtherEffects;
+    @FXML private TextArea textAreaProperties;
 
     // Old Values
     private String oldValueQuantity = "0";
@@ -110,10 +112,8 @@ public final class ControllerSceneInventoryArmor {
                 }
             };
         }, comboBoxRarity.valueProperty()));
-        comboBoxSlot.setItems(FXCollections.observableList(ArmorSlot.armorSlots));
-        comboBoxSlot.getSelectionModel().selectFirst();
         String itemName = TabInventory.getElementName();
-        if (itemName != null) initExistingArmor(itemName);
+        if (itemName != null) initExistingWeapon(itemName);
     }
 
     // OnChange Triggers Setter
@@ -270,7 +270,9 @@ public final class ControllerSceneInventoryArmor {
                                 return null;
                             }
                             String otherEffects = textAreaOtherEffects.getText();
-                            if (armor == null) {
+                            String weaponCategory = textFieldWeaponCategory.getText();
+                            String properties = textAreaProperties.getText();
+                            if (weapon == null) {
                                 if (Armor.checkIfExist(textFieldName.getText())) {
                                     Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Esiste gia' qualcosa con questo nome registrato!"));
                                     return null;
@@ -291,16 +293,14 @@ public final class ControllerSceneInventoryArmor {
                                         weight,
                                         spinnerQuantity.getValue()
                                 );
-                                armor = new Armor(
-                                        item,
-                                        comboBoxSlot.getSelectionModel().getSelectedItem(),
-                                        lifeEffect, lifeEffectPerc, loadEffect, loadEffectPerc,
-                                        caEffect, otherEffects
+                                weapon = new Weapon(
+                                        item, weaponCategory, properties, lifeEffect, lifeEffectPerc,
+                                        loadEffect, loadEffectPerc, caEffect, otherEffects
                                 );
                             } else {
-                                oldName = armor.getName();
+                                oldName = weapon.getName();
                                 Item item = new Item(
-                                        armor.getItemID(),
+                                        weapon.getItemID(),
                                         imageViewItem.getImage(),
                                         imageExtension,
                                         textFieldName.getText(),
@@ -315,15 +315,13 @@ public final class ControllerSceneInventoryArmor {
                                         weight,
                                         spinnerQuantity.getValue()
                                 );
-                                armor = new Armor(
-                                        item,
-                                        comboBoxSlot.getSelectionModel().getSelectedItem(),
-                                        lifeEffect, lifeEffectPerc, loadEffect, loadEffectPerc,
-                                        caEffect, otherEffects
+                                weapon = new Weapon(
+                                        item, weaponCategory, properties, lifeEffect, lifeEffectPerc,
+                                        loadEffect, loadEffectPerc, caEffect, otherEffects
                                 );
                             }
 
-                            armor.saveIntoDatabase(oldName);
+                            weapon.saveIntoDatabase(oldName);
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Salvataggio dei Dati", "Salvataggio dei dati completato con successo!"));
                         } catch (Exception e) {
                             Logger.log(e);
@@ -339,7 +337,7 @@ public final class ControllerSceneInventoryArmor {
         }.start();
     }
     // Methods
-    private void initExistingArmor(@NotNull final String armorName) {
+    private void initExistingWeapon(@NotNull final String armorName) {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
@@ -347,10 +345,10 @@ public final class ControllerSceneInventoryArmor {
                     @Override
                     protected Void call() {
                         try {
-                            armor = new Armor(armorName);
+                            weapon = new Weapon(armorName);
 
-                            imageExtension = armor.getImageExtension();
-                            int CC = armor.getCostCopper();
+                            imageExtension = weapon.getImageExtension();
+                            int CC = weapon.getCostCopper();
                             int CP = CC / 1000;
                             CC -= CP * 1000;
                             int CG = CC / 100;
@@ -362,17 +360,17 @@ public final class ControllerSceneInventoryArmor {
 
                             BufferedImage bufferedImage = null;
                             try {
-                                if (armor.getBase64image() != null && imageExtension != null) {
-                                    byte[] imageBytes = Base64.getDecoder().decode(armor.getBase64image());
+                                if (weapon.getBase64image() != null && imageExtension != null) {
+                                    byte[] imageBytes = Base64.getDecoder().decode(weapon.getBase64image());
                                     ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
                                     bufferedImage = ImageIO.read(imageStream);
-                                } else if (armor.getBase64image() != null && imageExtension == null) {
+                                } else if (weapon.getBase64image() != null && imageExtension == null) {
                                     throw new IllegalArgumentException("Image without declared extension");
                                 }
                             } catch (IllegalArgumentException e) {
                                 Logger.log(e);
-                                armor.setBase64image(null);
-                                armor.setImageExtension(null);
+                                weapon.setBase64image(null);
+                                weapon.setImageExtension(null);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
                                 return null;
                             }
@@ -380,28 +378,29 @@ public final class ControllerSceneInventoryArmor {
                             int finalCC = CC;
                             BufferedImage finalBufferedImage = bufferedImage;
                             Platform.runLater(() -> {
-                                textFieldName.setText(armor.getName());
-                                textFieldWeight.setText(String.valueOf(armor.getWeight()));
-                                comboBoxRarity.getSelectionModel().select(armor.getRarity().getTextedRarity());
+                                textFieldName.setText(weapon.getName());
+                                textFieldWeight.setText(String.valueOf(weapon.getWeight()));
+                                comboBoxRarity.getSelectionModel().select(weapon.getRarity().getTextedRarity());
                                 textFieldMR.setText(String.valueOf(finalCC));
                                 textFieldMA.setText(String.valueOf(CS));
                                 textFieldME.setText(String.valueOf(CE));
                                 textFieldMO.setText(String.valueOf(CG));
                                 textFieldMP.setText(String.valueOf(CP));
-                                textAreaDescription.setText(armor.getDescription());
+                                textAreaDescription.setText(weapon.getDescription());
                                 if (finalBufferedImage != null && imageExtension != null) {
                                     imageViewItem.setImage(SwingFXUtils.toFXImage(finalBufferedImage, null));
                                 } else {
                                     imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
                                 }
-                                spinnerQuantity.getEditor().setText(String.valueOf(armor.getQuantity()));
-                                comboBoxSlot.getSelectionModel().select(armor.getSlot());
-                                textFieldEffectCA.setText(String.valueOf(armor.getCaEffect()));
-                                textFieldEffectLife.setText(String.valueOf(armor.getLifeEffect()));
-                                textFieldEffectLifePerc.setText(String.valueOf(armor.getLifePercentageEffect()));
-                                textFieldEffectLoad.setText(String.valueOf(armor.getLoadEffect()));
-                                textFieldEffectLoadPerc.setText(String.valueOf(armor.getLoadPercentageEffect()));
-                                textAreaOtherEffects.setText(armor.getOtherEffects());
+                                spinnerQuantity.getEditor().setText(String.valueOf(weapon.getQuantity()));
+                                textFieldWeaponCategory.setText(weapon.getWeaponCategory());
+                                textFieldEffectCA.setText(String.valueOf(weapon.getCaEffect()));
+                                textFieldEffectLife.setText(String.valueOf(weapon.getLifeEffect()));
+                                textFieldEffectLifePerc.setText(String.valueOf(weapon.getLifePercentageEffect()));
+                                textFieldEffectLoad.setText(String.valueOf(weapon.getLoadEffect()));
+                                textFieldEffectLoadPerc.setText(String.valueOf(weapon.getLoadPercentageEffect()));
+                                textAreaOtherEffects.setText(weapon.getOtherEffects());
+                                textAreaProperties.setText(weapon.getProperties());
                             });
 
                         } catch (Exception e) {

@@ -89,13 +89,13 @@ CREATE TABLE IF NOT EXISTS armors (
     ON UPDATE CASCADE
     ON DELETE CASCADE,
     slot INTEGER NOT NULL
-    );
+);
 
 CREATE TABLE IF NOT EXISTS weapons (
     id INTEGER NOT NULL PRIMARY KEY,
     equipment_id INTEGER NOT NULL UNIQUE REFERENCES equipments(id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
-    category TEXT,
+    category VARCHAR(32),
     properties TEXT
 );
