@@ -33,6 +33,8 @@ import java.util.ArrayList;
 
 public final class TabInventory {
 
+    // TODO: Implement weight system
+
     // Attributes
     private static String elementName = null;
 
