@@ -408,7 +408,6 @@ public final class ControllerSceneInventoryArmor {
                                 textFieldEffectLoadPerc.setText(String.valueOf(armor.getLoadPercentageEffect()));
                                 textAreaOtherEffects.setText(armor.getOtherEffects());
                             });
-
                         } catch (Exception e) {
                             Logger.log(e);
                             Platform.runLater(() -> {

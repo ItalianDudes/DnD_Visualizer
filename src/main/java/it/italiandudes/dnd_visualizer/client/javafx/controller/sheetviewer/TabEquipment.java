@@ -274,11 +274,12 @@ public final class TabEquipment {
                             ps.close();
 
                             for (Armor armor : armors) {
+                                assert armor.getArmorID()!=null;
                                 switch (armor.getSlot()) {
                                     case HEAD:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentHead.getItems().add(armor);
-                                            if (armor.equals(head ) || armor.isEquipped()) {
+                                            if ((head != null && armor.getArmorID().equals(head.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentHead.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -288,7 +289,7 @@ public final class TabEquipment {
                                     case NECKLACE:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentNecklace.getItems().add(armor);
-                                            if (armor.equals(necklace ) || armor.isEquipped()) {
+                                            if ((necklace != null && armor.getArmorID().equals(necklace.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentNecklace.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -298,7 +299,7 @@ public final class TabEquipment {
                                     case FULL_SET:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentFullSet.getItems().add(armor);
-                                            if (armor.equals(fullSet ) || armor.isEquipped()) {
+                                            if ((fullSet != null && armor.getArmorID().equals(fullSet.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentFullSet.getSelectionModel().select(armor);
                                                 equipmentToggleFullSet(controller);
                                                 armor.setEquipped(true);
@@ -309,7 +310,7 @@ public final class TabEquipment {
                                     case LEFT_SHOULDER:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentLeftShoulder.getItems().add(armor);
-                                            if (armor.equals(leftShoulder ) || armor.isEquipped()) {
+                                            if ((leftShoulder != null && armor.getArmorID().equals(leftShoulder.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentLeftShoulder.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -319,7 +320,7 @@ public final class TabEquipment {
                                     case LEFT_ARM:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentLeftArm.getItems().add(armor);
-                                            if (armor.equals(leftArm ) || armor.isEquipped()) {
+                                            if ((leftArm != null && armor.getArmorID().equals(leftArm.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentLeftArm.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -329,7 +330,7 @@ public final class TabEquipment {
                                     case LEFT_FOREARM:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentLeftForearm.getItems().add(armor);
-                                            if (armor.equals(leftForearm ) || armor.isEquipped()) {
+                                            if ((leftForearm != null && armor.getArmorID().equals(leftForearm.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentLeftForearm.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -339,7 +340,7 @@ public final class TabEquipment {
                                     case LEFT_HAND:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentLeftHand.getItems().add(armor);
-                                            if (armor.equals(leftHand ) || armor.isEquipped()) {
+                                            if ((leftHand != null && armor.getArmorID().equals(leftHand.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentLeftHand.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -349,7 +350,7 @@ public final class TabEquipment {
                                     case MANTLE:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentMantle.getItems().add(armor);
-                                            if (armor.equals(mantle ) || armor.isEquipped()) {
+                                            if ((mantle != null && armor.getArmorID().equals(mantle.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentMantle.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -359,7 +360,7 @@ public final class TabEquipment {
                                     case BACK:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentBack.getItems().add(armor);
-                                            if (armor.equals(back ) || armor.isEquipped()) {
+                                            if ((back != null && armor.getArmorID().equals(back.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentBack.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -369,7 +370,7 @@ public final class TabEquipment {
                                     case LEFT_LEG:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentLeftLeg.getItems().add(armor);
-                                            if (armor.equals(leftLeg ) || armor.isEquipped()) {
+                                            if ((leftLeg != null && armor.getArmorID().equals(leftLeg.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentLeftLeg.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -379,7 +380,7 @@ public final class TabEquipment {
                                     case LEFT_KNEE:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentLeftKnee.getItems().add(armor);
-                                            if (armor.equals(leftKnee ) || armor.isEquipped()) {
+                                            if ((leftKnee != null && armor.getArmorID().equals(leftKnee.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentLeftKnee.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -389,7 +390,7 @@ public final class TabEquipment {
                                     case LEFT_FOOT:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentLeftFoot.getItems().add(armor);
-                                            if (armor.equals(leftFoot ) || armor.isEquipped()) {
+                                            if ((leftFoot != null && armor.getArmorID().equals(leftFoot.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentLeftFoot.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -399,7 +400,7 @@ public final class TabEquipment {
                                     case LEFT_EARRING:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentLeftEarring.getItems().add(armor);
-                                            if (armor.equals(leftEarring ) || armor.isEquipped()) {
+                                            if ((leftEarring != null && armor.getArmorID().equals(leftEarring.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentLeftEarring.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -409,7 +410,7 @@ public final class TabEquipment {
                                     case LEFT_BRACELET:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentLeftBracelet.getItems().add(armor);
-                                            if (armor.equals(leftBracelet ) || armor.isEquipped()) {
+                                            if ((leftBracelet != null && armor.getArmorID().equals(leftBracelet.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentLeftBracelet.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -419,7 +420,7 @@ public final class TabEquipment {
                                     case RING_1:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentRing1.getItems().add(armor);
-                                            if (armor.equals(ring1 ) || armor.isEquipped()) {
+                                            if ((ring1 != null && armor.getArmorID().equals(ring1.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentRing1.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -429,7 +430,7 @@ public final class TabEquipment {
                                     case RING_2:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentRing2.getItems().add(armor);
-                                            if (armor.equals(ring2 ) || armor.isEquipped()) {
+                                            if ((ring2 != null && armor.getArmorID().equals(ring2.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentRing2.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -439,7 +440,7 @@ public final class TabEquipment {
                                     case RIGHT_SHOULDER:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentRightShoulder.getItems().add(armor);
-                                            if (armor.equals(rightShoulder ) || armor.isEquipped()) {
+                                            if ((rightShoulder != null && armor.getArmorID().equals(rightShoulder.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentRightShoulder.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -449,7 +450,7 @@ public final class TabEquipment {
                                     case RIGHT_ARM:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentRightArm.getSelectionModel().select(armor);
-                                            if (armor.equals(rightArm ) || armor.isEquipped()) {
+                                            if ((rightArm != null && armor.getArmorID().equals(rightArm.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentRightArm.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -459,7 +460,7 @@ public final class TabEquipment {
                                     case RIGHT_FOREARM:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentRightForearm.getItems().add(armor);
-                                            if (armor.equals(rightForearm ) || armor.isEquipped()) {
+                                            if ((rightForearm != null && armor.getArmorID().equals(rightForearm.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentRightForearm.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -469,7 +470,7 @@ public final class TabEquipment {
                                     case RIGHT_HAND:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentRightHand.getItems().add(armor);
-                                            if (armor.equals(rightHand ) || armor.isEquipped()) {
+                                            if ((rightHand != null && armor.getArmorID().equals(rightHand.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentRightHand.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -479,7 +480,7 @@ public final class TabEquipment {
                                     case CHEST:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentChest.getItems().add(armor);
-                                            if (armor.equals(chest ) || armor.isEquipped()) {
+                                            if ((chest != null && armor.getArmorID().equals(chest.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentChest.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -489,7 +490,7 @@ public final class TabEquipment {
                                     case ABDOMEN:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentAbdomen.getItems().add(armor);
-                                            if (armor.equals(abdomen ) || armor.isEquipped()) {
+                                            if ((abdomen != null && armor.getArmorID().equals(abdomen.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentAbdomen.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -499,7 +500,7 @@ public final class TabEquipment {
                                     case RIGHT_LEG:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentRightLeg.getItems().add(armor);
-                                            if (armor.equals(rightLeg ) || armor.isEquipped()) {
+                                            if ((rightLeg != null && armor.getArmorID().equals(rightLeg.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentRightLeg.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -509,7 +510,7 @@ public final class TabEquipment {
                                     case RIGHT_KNEE:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentRightKnee.getItems().add(armor);
-                                            if (armor.equals(rightKnee ) || armor.isEquipped()) {
+                                            if ((rightKnee != null && armor.getArmorID().equals(rightKnee.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentRightKnee.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -519,7 +520,7 @@ public final class TabEquipment {
                                     case RIGHT_FOOT:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentRightFoot.getItems().add(armor);
-                                            if (armor.equals(rightFoot ) || armor.isEquipped()) {
+                                            if ((rightFoot != null && armor.getArmorID().equals(rightFoot.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentRightFoot.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -529,7 +530,7 @@ public final class TabEquipment {
                                     case RIGHT_EARRING:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentRightEarring.getItems().add(armor);
-                                            if (armor.equals(rightEarring ) || armor.isEquipped()) {
+                                            if ((rightEarring != null && armor.getArmorID().equals(rightEarring.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentRightEarring.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -539,7 +540,7 @@ public final class TabEquipment {
                                     case RIGHT_BRACELET:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentRightBracelet.getItems().add(armor);
-                                            if (armor.equals(rightBracelet ) || armor.isEquipped()) {
+                                            if ((rightBracelet != null && armor.getArmorID().equals(rightBracelet.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentRightBracelet.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -549,7 +550,7 @@ public final class TabEquipment {
                                     case RING_3:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentRing3.getItems().add(armor);
-                                            if (armor.equals(ring3 ) || armor.isEquipped()) {
+                                            if ((ring3 != null && armor.getArmorID().equals(ring3.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentRing3.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -559,7 +560,7 @@ public final class TabEquipment {
                                     case RING_4:
                                         Platform.runLater(() -> {
                                             controller.comboBoxEquipmentRing4.getItems().add(armor);
-                                            if (armor.equals(ring4 ) || armor.isEquipped()) {
+                                            if ((ring4 != null && armor.getArmorID().equals(ring4.getArmorID())) || armor.isEquipped()) {
                                                 controller.comboBoxEquipmentRing4.getSelectionModel().select(armor);
                                                 armor.setEquipped(true);
                                             }
@@ -567,6 +568,7 @@ public final class TabEquipment {
                                         break;
                                 }
                             }
+                            Platform.runLater(() -> TabInventory.updateLoad(controller));
                         } catch (SQLException e) {
                             try {
                                 if (ps != null) ps.close();

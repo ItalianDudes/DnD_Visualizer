@@ -172,10 +172,10 @@ public final class ControllerSceneSheetViewer {
     @FXML public ComboBox<Armor> comboBoxEquipmentRing4;
 
     // TabInventory
-    @FXML public Label labelCurrentWeight;
-    @FXML public Label labelMaxWeight;
-    @FXML public Label labelWeightPercentage;
-    @FXML public Label labelWeightStatus;
+    @FXML public Label labelLoadCurrent;
+    @FXML public Label labelLoadTotal;
+    @FXML public Label labelLoadPercentage;
+    @FXML public Label labelLoadStatus;
     @FXML public Spinner<Integer> spinnerMR;
     @FXML public Spinner<Integer> spinnerMA;
     @FXML public Spinner<Integer> spinnerME;
@@ -358,5 +358,9 @@ public final class ControllerSceneSheetViewer {
     }
     @FXML private void equipmentToggleFullSet() {
         TabEquipment.equipmentToggleFullSet(this);
+        TabInventory.updateLoad(this);
+    }
+    @FXML private void updateLoad() {
+        TabInventory.updateLoad(this);
     }
 }

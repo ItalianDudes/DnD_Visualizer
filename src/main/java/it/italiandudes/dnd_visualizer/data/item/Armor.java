@@ -6,8 +6,6 @@ import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.interfaces.ISavable;
 import it.italiandudes.idl.common.Logger;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -91,11 +89,22 @@ public final class Armor extends Equipment implements ISavable {
                 throw new SQLException("Something strange happened on armor insert! Armor insert but doesn't result on select");
             }
         } else { // Update
+            String slotCheckerQuery = "SELECT slot FROM armors WHERE id=?;";
+            PreparedStatement psChecker = DBManager.preparedStatement(slotCheckerQuery);
+            if (psChecker == null) throw new SQLException("The database is not connected");
+            psChecker.setInt(1, getArmorID());
+            ResultSet result = psChecker.executeQuery();
+            int oldSlot = result.getInt("slot");
+            psChecker.close();
             String query = "UPDATE armors SET slot=?, is_equipped=? WHERE id=?;";
             PreparedStatement ps = DBManager.preparedStatement(query);
             if (ps == null) throw new SQLException("The database is not connected");
             ps.setInt(1, slot.getDatabaseValue());
-            ps.setInt(2, (isEquipped?1:0));
+            if (slot.getDatabaseValue() == oldSlot) {
+                ps.setInt(2, (isEquipped ? 1 : 0));
+            } else {
+                ps.setInt(2, 0);
+            }
             ps.setInt(3, getArmorID());
             ps.executeUpdate();
             ps.close();
@@ -119,36 +128,25 @@ public final class Armor extends Equipment implements ISavable {
     public boolean isEquipped() {
         return isEquipped;
     }
-    public void setEquipped(boolean equipped) {
+    public void setEquipped(boolean equipped) { // Interactions with DB in EDT, but using Services will cause desync with load update
         isEquipped = equipped;
         if (armorID == null) return;
-        new Service<Void>() {
-            @Override
-            protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override
-                    protected Void call() {
-                        PreparedStatement ps = null;
-                        try {
-                            String query = "UPDATE armors SET is_equipped=? WHERE id=?;";
-                            ps = DBManager.preparedStatement(query);
-                            if (ps == null) throw new SQLException("The database connection doesn't exist");
-                            ps.setInt(1, (equipped ? 1 : 0));
-                            ps.setInt(2, getArmorID());
-                            ps.executeUpdate();
-                            ps.close();
-                        } catch (SQLException e) {
-                            try {
-                                if (ps != null) ps.close();
-                            } catch (SQLException ignored) {}
-                            Logger.log(e);
-                            new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
-                        }
-                        return null;
-                    }
-                };
-            }
-        }.start();
+        PreparedStatement ps = null;
+        try {
+            String query = "UPDATE armors SET is_equipped=? WHERE id=?;";
+            ps = DBManager.preparedStatement(query);
+            if (ps == null) throw new SQLException("The database connection doesn't exist");
+            ps.setInt(1, (equipped ? 1 : 0));
+            ps.setInt(2, getArmorID());
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            try {
+                if (ps != null) ps.close();
+            } catch (SQLException ignored) {}
+            Logger.log(e);
+            new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
+        }
     }
     @Override
     public boolean equals(Object o) {

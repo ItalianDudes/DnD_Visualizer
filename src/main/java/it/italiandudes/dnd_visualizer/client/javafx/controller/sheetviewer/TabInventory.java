@@ -8,12 +8,14 @@ import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInvento
 import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventoryItem;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventorySpell;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventoryWeapon;
+import it.italiandudes.dnd_visualizer.client.javafx.util.LoadCategory;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.data.item.Equipment;
 import it.italiandudes.dnd_visualizer.db.DBManager;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -29,11 +31,10 @@ import org.jetbrains.annotations.Nullable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public final class TabInventory {
-
-    // TODO: Implement weight system
 
     // Attributes
     private static String elementName = null;
@@ -68,6 +69,7 @@ public final class TabInventory {
         controller.comboBoxCategory.setItems(FXCollections.observableList(Category.categories));
         controller.comboBoxEquipmentType.setItems(FXCollections.observableList(EquipmentType.types));
         search(controller);
+        updateLoad(controller);
     }
 
     // OnChange Triggers Setter
@@ -96,7 +98,81 @@ public final class TabInventory {
         controller.spinnerMP.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) validateMP(controller);
         });
-        // TODO: add eventual TextField that need to run their onClick method
+    }
+
+    // Weight Handler
+    public static void updateLoad(@NotNull final ControllerSceneSheetViewer controller) {
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        if (!(boolean) Client.getSettings().get("enableLoad")) {
+                            return null;
+                        }
+                        Logger.log("Started update load!");
+                        String query;
+                        PreparedStatement ps = null;
+                        ResultSet result;
+                        try {
+                            double inventoryWeight = 0;
+                            double totalWeight;
+                            if ((boolean) Client.getSettings().get("enablePassiveLoad")) {
+                                query = "SELECT weight, quantity FROM items WHERE quantity>0 AND weight>0;";
+                                ps = DBManager.preparedStatement(query);
+                                if (ps == null) throw new SQLException("The database connection doesn't exist");
+                                result = ps.executeQuery();
+                                while (result.next()) {
+                                    inventoryWeight += (result.getDouble("weight")*result.getInt("quantity"));
+                                }
+                                ps.close();
+                                totalWeight = controller.spinnerStrength.getValue()*Defs.Load.TOTAL_PASSIVE_LOAD_MULTIPLIER;
+                            } else {
+                                query = "SELECT i.weight AS weight FROM items AS i JOIN equipments AS e JOIN armors AS a ON i.id = e.item_id AND e.id = a.equipment_id WHERE a.is_equipped=1;";
+                                ps = DBManager.preparedStatement(query);
+                                if (ps == null) throw new SQLException("The database connection doesn't exist");
+                                result = ps.executeQuery();
+                                while (result.next()) {
+                                    inventoryWeight += result.getDouble("weight");
+                                }
+                                ps.close();
+                                totalWeight = controller.spinnerStrength.getValue()*Defs.Load.TOTAL_ACTIVE_LOAD_MULTIPLIER;
+                            }
+                            double loadPerc = (inventoryWeight/totalWeight)*100;
+                            String status;
+                            if (loadPerc >= LoadCategory.LIGHT.getLoadThresholdMinPercentage() && loadPerc < LoadCategory.LIGHT.getLoadThresholdMaxPercentage()) {
+                                status = LoadCategory.LIGHT.getLoadIdentifier();
+                            } else if (loadPerc >= LoadCategory.NORMAL.getLoadThresholdMinPercentage() && loadPerc < LoadCategory.NORMAL.getLoadThresholdMaxPercentage()) {
+                                status = LoadCategory.NORMAL.getLoadIdentifier();
+                            } else if (loadPerc >= LoadCategory.HEAVY.getLoadThresholdMinPercentage() && loadPerc < LoadCategory.HEAVY.getLoadThresholdMaxPercentage()) {
+                                status = LoadCategory.HEAVY.getLoadIdentifier();
+                            } else if (loadPerc > LoadCategory.OVERLOAD.getLoadThresholdMinPercentage()) {
+                                status = LoadCategory.OVERLOAD.getLoadIdentifier();
+                            } else {
+                                status = LoadCategory.ERROR.getLoadIdentifier();
+                            }
+                            double finalInventoryWeight = inventoryWeight;
+                            double finalTotalWeight = totalWeight;
+                            Platform.runLater(() -> {
+                                DecimalFormat format = new DecimalFormat("#.##");
+                                controller.labelLoadCurrent.setText(format.format(finalInventoryWeight));
+                                controller.labelLoadTotal.setText(format.format(finalTotalWeight));
+                                controller.labelLoadPercentage.setText(format.format(loadPerc) + "%");
+                                controller.labelLoadStatus.setText(status);
+                            });
+                        } catch (SQLException e) {
+                            try {
+                                if (ps != null) ps.close();
+                            } catch (SQLException ignored) {}
+                            Logger.log(e);
+                            new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
+                        }
+                        return null;
+                    }
+                };
+            }
+        }.start();
     }
 
     // EDT
@@ -258,6 +334,7 @@ public final class TabInventory {
                             ps.close();
                             Platform.runLater(() -> {
                                 search(controller);
+                                updateLoad(controller);
                                 TabSpells.updateListViews(controller);
                                 TabEquipment.reloadEquipment(controller);
                             });
@@ -324,6 +401,7 @@ public final class TabInventory {
         popupStage.showAndWait();
         elementName = null;
         search(controller);
+        updateLoad(controller);
         TabSpells.updateListViews(controller);
         TabEquipment.reloadEquipment(controller);
     }
@@ -356,6 +434,7 @@ public final class TabInventory {
         Stage popupStage = Client.initPopupStage(scene);
         popupStage.showAndWait();
         search(controller);
+        updateLoad(controller);
         TabSpells.updateListViews(controller);
         TabEquipment.reloadEquipment(controller);
     }
