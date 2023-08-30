@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.Base64;
 import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class Item implements ISavable {
 
     // Attributes

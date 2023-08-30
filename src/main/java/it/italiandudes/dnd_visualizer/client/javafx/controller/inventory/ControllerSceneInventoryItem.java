@@ -56,7 +56,7 @@ public class ControllerSceneInventoryItem {
     @FXML private ImageView imageViewItem;
 
     // Old Values
-    private String oldValueQuantity = "0";
+    private int oldValueQuantity = 0;
 
     // Initialize
     @FXML
@@ -122,9 +122,10 @@ public class ControllerSceneInventoryItem {
         try {
             int qty = Integer.parseInt(spinnerQuantity.getEditor().getText());
             if (qty < 0) throw new NumberFormatException();
-            oldValueQuantity = String.valueOf(qty);
+            oldValueQuantity = qty;
+            spinnerQuantity.getValueFactory().setValue(qty);
         } catch (NumberFormatException e) {
-            spinnerQuantity.getEditor().setText(oldValueQuantity);
+            spinnerQuantity.getValueFactory().setValue(oldValueQuantity);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "La quantita' deve essere un numero intero maggiore o uguale a 0.");
         }
     }
@@ -263,6 +264,7 @@ public class ControllerSceneInventoryItem {
                                         spinnerQuantity.getValue()
                                 );
                             } else {
+                                Logger.log(String.valueOf(spinnerQuantity.getValue()));
                                 oldName = item.getName();
                                 item = new Item(
                                         item.getItemID(),
@@ -354,7 +356,7 @@ public class ControllerSceneInventoryItem {
                                 } else {
                                     imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
                                 }
-                                spinnerQuantity.getEditor().setText(String.valueOf(item.getQuantity()));
+                                spinnerQuantity.getValueFactory().setValue(item.getQuantity());
                             });
 
                         } catch (Exception e) {

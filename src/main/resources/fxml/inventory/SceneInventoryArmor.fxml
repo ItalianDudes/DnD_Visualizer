@@ -84,7 +84,7 @@
                             <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
                           </rowConstraints>
                            <children>
-                              <ComboBox fx:id="comboBoxRarity" maxWidth="1.7976931348623157E308" promptText="Rarità" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" />
+                              <ComboBox fx:id="comboBoxRarity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="1000.0" promptText="Rarità" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" />
                               <GridPane hgap="5.0" vgap="5.0" GridPane.rowIndex="1">
                                  <columnConstraints>
                                     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
@@ -194,7 +194,7 @@
                         <GridPane hgap="5.0" vgap="5.0">
                            <columnConstraints>
                               <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
-                              <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                              <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
                               <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
                               <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
                            </columnConstraints>
@@ -255,7 +255,7 @@
                                     <Font name="Lucida Sans Demibold" size="16.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="comboBoxSlot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Slot Armatura" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" />
+                              <ComboBox fx:id="comboBoxSlot" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="500.0" promptText="Slot Armatura" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" />
                               <Label text="Effetto CA" GridPane.columnIndex="2">
                                  <font>
                                     <Font name="Lucida Sans Demibold" size="16.0" />

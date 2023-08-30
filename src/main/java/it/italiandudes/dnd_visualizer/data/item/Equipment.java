@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@SuppressWarnings("unused")
 public class Equipment extends Item implements ISavable {
 
     // Attributes
@@ -49,6 +50,7 @@ public class Equipment extends Item implements ISavable {
         ps.setInt(1, itemID);
         ResultSet result = ps.executeQuery();
         if (result.next()) {
+            this.equipmentID = result.getInt("id");
             this.type = EquipmentType.values()[result.getInt("type")];
             this.lifeEffect = result.getInt("life_effect");
             this.lifePercentageEffect = result.getDouble("life_percentage_effect");
@@ -62,41 +64,6 @@ public class Equipment extends Item implements ISavable {
             throw new SQLException("Exist the item, but not the equipment");
         }
     }
-    private Equipment(@NotNull final ResultSet resultSet) throws SQLException {
-        super(resultSet.getInt("item_id"));
-        this.equipmentID = resultSet.getInt("id");
-        this.type = EquipmentType.values()[resultSet.getInt("type")];
-        try {
-            this.lifeEffect = resultSet.getInt("life_effect");
-        } catch (SQLException e) {
-            this.lifeEffect = 0;
-        }
-        try {
-            this.lifePercentageEffect = resultSet.getDouble("life_percentage_effect");
-        } catch (SQLException e) {
-            this.lifePercentageEffect = 0;
-        }
-        try {
-            this.caEffect = resultSet.getInt("ca_effect");
-        } catch (SQLException e) {
-            this.caEffect = 0;
-        }
-        try {
-            this.loadEffect = resultSet.getInt("load_effect");
-        } catch (SQLException e) {
-            this.loadEffect = 0;
-        }
-        try {
-            this.loadPercentageEffect = resultSet.getDouble("load_percentage_effect");
-        } catch (SQLException e) {
-            this.loadPercentageEffect = 0;
-        }
-        try {
-            this.otherEffects = resultSet.getString("other_effects");
-        } catch (SQLException e) {
-            this.otherEffects = null;
-        }
-    }
 
     // Methods
     @Override
@@ -104,7 +71,7 @@ public class Equipment extends Item implements ISavable {
         super.saveIntoDatabase(oldName);
         Integer itemID = getItemID();
         assert itemID != null;
-        if (getEquipmentID() == null) { // Insert
+        if (equipmentID == null) { // Insert
             String query = "INSERT INTO equipments (item_id, type, life_effect, life_percentage_effect, ca_effect, load_effect, load_percentage_effect, other_effects) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = DBManager.preparedStatement(query);
             if (ps == null) throw new SQLException("The database is not connected");
@@ -131,6 +98,7 @@ public class Equipment extends Item implements ISavable {
                 throw new SQLException("Something strange happened on equipment insert! Equipment insert but doesn't result on select");
             }
         } else { // Update
+            assert getEquipmentID()!=null;
             String query = "UPDATE equipments SET item_id=?, type=?, life_effect=?, life_percentage_effect=?, ca_effect=?, load_effect=?, load_percentage_effect=?, other_effects=? WHERE id=?;";
             PreparedStatement ps = DBManager.preparedStatement(query);
             if (ps == null) throw new SQLException("The database is not connected");

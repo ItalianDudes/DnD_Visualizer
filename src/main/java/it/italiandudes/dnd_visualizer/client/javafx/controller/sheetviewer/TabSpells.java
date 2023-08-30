@@ -22,24 +22,24 @@ public final class TabSpells {
     // Attributes
 
     // Old Values
-    private static String oldValueSpell1Tot = "0";
-    private static String oldValueSpell1Current = "0";
-    private static String oldValueSpell2Tot = "0";
-    private static String oldValueSpell2Current = "0";
-    private static String oldValueSpell3Tot = "0";
-    private static String oldValueSpell3Current = "0";
-    private static String oldValueSpell4Tot = "0";
-    private static String oldValueSpell4Current = "0";
-    private static String oldValueSpell5Tot = "0";
-    private static String oldValueSpell5Current = "0";
-    private static String oldValueSpell6Tot = "0";
-    private static String oldValueSpell6Current = "0";
-    private static String oldValueSpell7Tot = "0";
-    private static String oldValueSpell7Current = "0";
-    private static String oldValueSpell8Tot = "0";
-    private static String oldValueSpell8Current = "0";
-    private static String oldValueSpell9Tot = "0";
-    private static String oldValueSpell9Current = "0";
+    private static int oldValueSpell1Tot = 0;
+    private static int oldValueSpell1Current = 0;
+    private static int oldValueSpell2Tot = 0;
+    private static int oldValueSpell2Current = 0;
+    private static int oldValueSpell3Tot = 0;
+    private static int oldValueSpell3Current = 0;
+    private static int oldValueSpell4Tot = 0;
+    private static int oldValueSpell4Current = 0;
+    private static int oldValueSpell5Tot = 0;
+    private static int oldValueSpell5Current = 0;
+    private static int oldValueSpell6Tot = 0;
+    private static int oldValueSpell6Current = 0;
+    private static int oldValueSpell7Tot = 0;
+    private static int oldValueSpell7Current = 0;
+    private static int oldValueSpell8Tot = 0;
+    private static int oldValueSpell8Current = 0;
+    private static int oldValueSpell9Tot = 0;
+    private static int oldValueSpell9Current = 0;
 
     // Initialize
     public static void initialize(@NotNull final ControllerSceneSheetViewer controller) {
@@ -192,26 +192,28 @@ public final class TabSpells {
             maxSlot = Integer.parseInt(controller.spinnerSpell1SlotTot.getEditor().getText());
             if (maxSlot < 0) throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            controller.spinnerSpell1SlotTot.getEditor().setText(oldValueSpell1Tot);
+            controller.spinnerSpell1SlotTot.getValueFactory().setValue(oldValueSpell1Tot);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot totali devono essere un numero intero maggiore o uguale a 0.");
             return;
         }
-        oldValueSpell1Tot = String.valueOf(maxSlot);
+        controller.spinnerSpell1SlotTot.getValueFactory().setValue(maxSlot);
+        oldValueSpell1Tot = maxSlot;
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell1SlotCurrent.getEditor().getText());
             if (currentSlot < 0) throw new NumberFormatException();
             if (currentSlot > maxSlot) {
-                oldValueSpell1Current = String.valueOf(maxSlot);
-                controller.spinnerSpell1SlotCurrent.getEditor().setText(String.valueOf(oldValueSpell1Current));
+                oldValueSpell1Current = maxSlot;
+                controller.spinnerSpell1SlotCurrent.getValueFactory().setValue(oldValueSpell1Current);
                 return;
             }
         } catch (NumberFormatException e) {
-            controller.spinnerSpell1SlotCurrent.getEditor().setText(oldValueSpell1Current);
+            controller.spinnerSpell1SlotCurrent.getValueFactory().setValue(oldValueSpell1Current);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot attuali devono essere un numero intero maggiore o uguale a 0 e minore o uguale agli slot massimi.");
             return;
         }
-        oldValueSpell1Current = String.valueOf(currentSlot);
+        controller.spinnerSpell1SlotCurrent.getValueFactory().setValue(currentSlot);
+        oldValueSpell1Current = currentSlot;
     }
     public static void validateLevel2Slots(@NotNull final ControllerSceneSheetViewer controller) {
         int maxSlot;
@@ -219,26 +221,28 @@ public final class TabSpells {
             maxSlot = Integer.parseInt(controller.spinnerSpell2SlotTot.getEditor().getText());
             if (maxSlot < 0) throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            controller.spinnerSpell2SlotTot.getEditor().setText(oldValueSpell2Tot);
+            controller.spinnerSpell2SlotTot.getValueFactory().setValue(oldValueSpell2Tot);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot totali devono essere un numero intero maggiore o uguale a 0.");
             return;
         }
-        oldValueSpell2Tot = String.valueOf(maxSlot);
+        controller.spinnerSpell2SlotTot.getValueFactory().setValue(maxSlot);
+        oldValueSpell2Tot = maxSlot;
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell2SlotCurrent.getEditor().getText());
             if (currentSlot < 0) throw new NumberFormatException();
             if (currentSlot > maxSlot) {
-                oldValueSpell2Current = String.valueOf(maxSlot);
-                controller.spinnerSpell2SlotCurrent.getEditor().setText(String.valueOf(oldValueSpell2Current));
+                oldValueSpell2Current = maxSlot;
+                controller.spinnerSpell2SlotCurrent.getValueFactory().setValue(oldValueSpell2Current);
                 return;
             }
         } catch (NumberFormatException e) {
-            controller.spinnerSpell2SlotCurrent.getEditor().setText(oldValueSpell2Current);
+            controller.spinnerSpell2SlotCurrent.getValueFactory().setValue(oldValueSpell2Current);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot attuali devono essere un numero intero maggiore o uguale a 0 e minore o uguale agli slot massimi.");
             return;
         }
-        oldValueSpell2Current = String.valueOf(currentSlot);
+        controller.spinnerSpell2SlotCurrent.getValueFactory().setValue(currentSlot);
+        oldValueSpell2Current = currentSlot;
     }
     public static void validateLevel3Slots(@NotNull final ControllerSceneSheetViewer controller) {
         int maxSlot;
@@ -246,25 +250,27 @@ public final class TabSpells {
             maxSlot = Integer.parseInt(controller.spinnerSpell3SlotTot.getEditor().getText());
             if (maxSlot < 0) throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            controller.spinnerSpell3SlotTot.getEditor().setText(oldValueSpell3Tot);
+            controller.spinnerSpell3SlotTot.getValueFactory().setValue(oldValueSpell3Tot);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot totali devono essere un numero intero maggiore o uguale a 0.");
             return;
         }
-        oldValueSpell3Tot = String.valueOf(maxSlot);
+        controller.spinnerSpell3SlotTot.getValueFactory().setValue(maxSlot);
+        oldValueSpell3Tot = maxSlot;
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell3SlotCurrent.getEditor().getText());
             if (currentSlot > maxSlot) {
-                oldValueSpell3Current = String.valueOf(maxSlot);
-                controller.spinnerSpell3SlotCurrent.getEditor().setText(String.valueOf(oldValueSpell3Current));
+                oldValueSpell3Current = maxSlot;
+                controller.spinnerSpell3SlotCurrent.getValueFactory().setValue(oldValueSpell3Current);
                 return;
             }
         } catch (NumberFormatException e) {
-            controller.spinnerSpell3SlotCurrent.getEditor().setText(oldValueSpell3Current);
+            controller.spinnerSpell3SlotCurrent.getValueFactory().setValue(oldValueSpell3Current);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot attuali devono essere un numero intero maggiore o uguale a 0 e minore o uguale agli slot massimi.");
             return;
         }
-        oldValueSpell3Current = String.valueOf(currentSlot);
+        controller.spinnerSpell3SlotCurrent.getValueFactory().setValue(currentSlot);
+        oldValueSpell3Current = currentSlot;
     }
     public static void validateLevel4Slots(@NotNull final ControllerSceneSheetViewer controller) {
         int maxSlot;
@@ -272,25 +278,27 @@ public final class TabSpells {
             maxSlot = Integer.parseInt(controller.spinnerSpell4SlotTot.getEditor().getText());
             if (maxSlot < 0) throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            controller.spinnerSpell4SlotTot.getEditor().setText(oldValueSpell4Tot);
+            controller.spinnerSpell4SlotTot.getValueFactory().setValue(oldValueSpell4Tot);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot totali devono essere un numero intero maggiore o uguale a 0.");
             return;
         }
-        oldValueSpell4Tot = String.valueOf(maxSlot);
+        controller.spinnerSpell4SlotTot.getValueFactory().setValue(maxSlot);
+        oldValueSpell4Tot = maxSlot;
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell4SlotCurrent.getEditor().getText());
             if (currentSlot > maxSlot) {
-                oldValueSpell4Current = String.valueOf(maxSlot);
-                controller.spinnerSpell4SlotCurrent.getEditor().setText(String.valueOf(oldValueSpell4Current));
+                oldValueSpell4Current = maxSlot;
+                controller.spinnerSpell4SlotCurrent.getValueFactory().setValue(oldValueSpell4Current);
                 return;
             }
         } catch (NumberFormatException e) {
-            controller.spinnerSpell4SlotCurrent.getEditor().setText(oldValueSpell4Current);
+            controller.spinnerSpell4SlotCurrent.getValueFactory().setValue(oldValueSpell4Current);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot attuali devono essere un numero intero maggiore o uguale a 0 e minore o uguale agli slot massimi.");
             return;
         }
-        oldValueSpell4Current = String.valueOf(currentSlot);
+        controller.spinnerSpell4SlotCurrent.getValueFactory().setValue(currentSlot);
+        oldValueSpell4Current = currentSlot;
     }
     public static void validateLevel5Slots(@NotNull final ControllerSceneSheetViewer controller) {
         int maxSlot;
@@ -298,25 +306,27 @@ public final class TabSpells {
             maxSlot = Integer.parseInt(controller.spinnerSpell5SlotTot.getEditor().getText());
             if (maxSlot < 0) throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            controller.spinnerSpell5SlotTot.getEditor().setText(oldValueSpell5Tot);
+            controller.spinnerSpell5SlotTot.getValueFactory().setValue(oldValueSpell5Tot);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot totali devono essere un numero intero maggiore o uguale a 0.");
             return;
         }
-        oldValueSpell5Tot = String.valueOf(maxSlot);
+        controller.spinnerSpell5SlotTot.getValueFactory().setValue(maxSlot);
+        oldValueSpell5Tot = maxSlot;
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell5SlotCurrent.getEditor().getText());
             if (currentSlot > maxSlot) {
-                oldValueSpell5Current = String.valueOf(maxSlot);
-                controller.spinnerSpell5SlotCurrent.getEditor().setText(String.valueOf(oldValueSpell5Current));
+                oldValueSpell5Current = maxSlot;
+                controller.spinnerSpell5SlotCurrent.getValueFactory().setValue(oldValueSpell5Current);
                 return;
             }
         } catch (NumberFormatException e) {
-            controller.spinnerSpell5SlotCurrent.getEditor().setText(oldValueSpell5Current);
+            controller.spinnerSpell5SlotCurrent.getValueFactory().setValue(oldValueSpell5Current);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot attuali devono essere un numero intero maggiore o uguale a 0 e minore o uguale agli slot massimi.");
             return;
         }
-        oldValueSpell5Current = String.valueOf(currentSlot);
+        controller.spinnerSpell5SlotCurrent.getValueFactory().setValue(currentSlot);
+        oldValueSpell5Current = currentSlot;
     }
     public static void validateLevel6Slots(@NotNull final ControllerSceneSheetViewer controller) {
         int maxSlot;
@@ -324,25 +334,27 @@ public final class TabSpells {
             maxSlot = Integer.parseInt(controller.spinnerSpell6SlotTot.getEditor().getText());
             if (maxSlot < 0) throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            controller.spinnerSpell6SlotTot.getEditor().setText(oldValueSpell6Tot);
+            controller.spinnerSpell6SlotTot.getValueFactory().setValue(oldValueSpell6Tot);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot totali devono essere un numero intero maggiore o uguale a 0.");
             return;
         }
-        oldValueSpell6Tot = String.valueOf(maxSlot);
+        controller.spinnerSpell6SlotTot.getValueFactory().setValue(maxSlot);
+        oldValueSpell6Tot = maxSlot;
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell6SlotCurrent.getEditor().getText());
             if (currentSlot > maxSlot) {
-                oldValueSpell6Current = String.valueOf(maxSlot);
-                controller.spinnerSpell6SlotCurrent.getEditor().setText(String.valueOf(oldValueSpell6Current));
+                oldValueSpell6Current = maxSlot;
+                controller.spinnerSpell6SlotCurrent.getValueFactory().setValue(oldValueSpell6Current);
                 return;
             }
         } catch (NumberFormatException e) {
-            controller.spinnerSpell6SlotCurrent.getEditor().setText(oldValueSpell6Current);
+            controller.spinnerSpell6SlotCurrent.getValueFactory().setValue(oldValueSpell6Current);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot attuali devono essere un numero intero maggiore o uguale a 0 e minore o uguale agli slot massimi.");
             return;
         }
-        oldValueSpell6Current = String.valueOf(currentSlot);
+        controller.spinnerSpell6SlotCurrent.getValueFactory().setValue(currentSlot);
+        oldValueSpell6Current = currentSlot;
     }
     public static void validateLevel7Slots(@NotNull final ControllerSceneSheetViewer controller) {
         int maxSlot;
@@ -350,25 +362,27 @@ public final class TabSpells {
             maxSlot = Integer.parseInt(controller.spinnerSpell7SlotTot.getEditor().getText());
             if (maxSlot < 0) throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            controller.spinnerSpell7SlotTot.getEditor().setText(oldValueSpell7Tot);
+            controller.spinnerSpell7SlotTot.getValueFactory().setValue(oldValueSpell7Tot);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot totali devono essere un numero intero maggiore o uguale a 0.");
             return;
         }
-        oldValueSpell7Tot = String.valueOf(maxSlot);
+        controller.spinnerSpell7SlotTot.getValueFactory().setValue(maxSlot);
+        oldValueSpell7Tot = maxSlot;
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell7SlotCurrent.getEditor().getText());
             if (currentSlot > maxSlot) {
-                oldValueSpell7Current = String.valueOf(maxSlot);
-                controller.spinnerSpell7SlotCurrent.getEditor().setText(String.valueOf(oldValueSpell7Current));
+                oldValueSpell7Current = maxSlot;
+                controller.spinnerSpell7SlotCurrent.getValueFactory().setValue(oldValueSpell7Current);
                 return;
             }
         } catch (NumberFormatException e) {
-            controller.spinnerSpell7SlotCurrent.getEditor().setText(oldValueSpell7Current);
+            controller.spinnerSpell7SlotCurrent.getValueFactory().setValue(oldValueSpell7Current);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot attuali devono essere un numero intero maggiore o uguale a 0 e minore o uguale agli slot massimi.");
             return;
         }
-        oldValueSpell7Current = String.valueOf(currentSlot);
+        controller.spinnerSpell7SlotCurrent.getValueFactory().setValue(currentSlot);
+        oldValueSpell7Current = currentSlot;
     }
     public static void validateLevel8Slots(@NotNull final ControllerSceneSheetViewer controller) {
         int maxSlot;
@@ -376,25 +390,27 @@ public final class TabSpells {
             maxSlot = Integer.parseInt(controller.spinnerSpell8SlotTot.getEditor().getText());
             if (maxSlot < 0) throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            controller.spinnerSpell8SlotTot.getEditor().setText(oldValueSpell8Tot);
+            controller.spinnerSpell8SlotTot.getValueFactory().setValue(oldValueSpell8Tot);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot totali devono essere un numero intero maggiore o uguale a 0.");
             return;
         }
-        oldValueSpell8Tot = String.valueOf(maxSlot);
+        controller.spinnerSpell8SlotTot.getValueFactory().setValue(maxSlot);
+        oldValueSpell8Tot = maxSlot;
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell8SlotCurrent.getEditor().getText());
             if (currentSlot > maxSlot) {
-                oldValueSpell8Current = String.valueOf(maxSlot);
-                controller.spinnerSpell8SlotCurrent.getEditor().setText(String.valueOf(oldValueSpell8Current));
+                oldValueSpell8Current = maxSlot;
+                controller.spinnerSpell8SlotCurrent.getValueFactory().setValue(oldValueSpell8Current);
                 return;
             }
         } catch (NumberFormatException e) {
-            controller.spinnerSpell8SlotCurrent.getEditor().setText(oldValueSpell8Current);
+            controller.spinnerSpell8SlotCurrent.getValueFactory().setValue(oldValueSpell8Current);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot attuali devono essere un numero intero maggiore o uguale a 0 e minore o uguale agli slot massimi.");
             return;
         }
-        oldValueSpell8Current = String.valueOf(currentSlot);
+        controller.spinnerSpell8SlotCurrent.getValueFactory().setValue(currentSlot);
+        oldValueSpell8Current = currentSlot;
     }
     public static void validateLevel9Slots(@NotNull final ControllerSceneSheetViewer controller) {
         int maxSlot;
@@ -402,25 +418,27 @@ public final class TabSpells {
             maxSlot = Integer.parseInt(controller.spinnerSpell9SlotTot.getEditor().getText());
             if (maxSlot < 0) throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            controller.spinnerSpell9SlotTot.getEditor().setText(oldValueSpell9Tot);
+            controller.spinnerSpell9SlotTot.getValueFactory().setValue(oldValueSpell9Tot);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot totali devono essere un numero intero maggiore o uguale a 0.");
             return;
         }
-        oldValueSpell9Tot = String.valueOf(maxSlot);
+        controller.spinnerSpell9SlotTot.getValueFactory().setValue(maxSlot);
+        oldValueSpell9Tot = maxSlot;
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell9SlotCurrent.getEditor().getText());
             if (currentSlot > maxSlot) {
-                oldValueSpell9Current = String.valueOf(maxSlot);
-                controller.spinnerSpell9SlotCurrent.getEditor().setText(String.valueOf(oldValueSpell9Current));
+                oldValueSpell9Current = maxSlot;
+                controller.spinnerSpell9SlotCurrent.getValueFactory().setValue(oldValueSpell9Current);
                 return;
             }
         } catch (NumberFormatException e) {
-            controller.spinnerSpell9SlotCurrent.getEditor().setText(oldValueSpell9Current);
+            controller.spinnerSpell9SlotCurrent.getValueFactory().setValue(oldValueSpell9Current);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli slot attuali devono essere un numero intero maggiore o uguale a 0 e minore o uguale agli slot massimi.");
             return;
         }
-        oldValueSpell9Current = String.valueOf(currentSlot);
+        controller.spinnerSpell9SlotCurrent.getValueFactory().setValue(currentSlot);
+        oldValueSpell9Current = currentSlot;
     }
     public static void updateListViews(@NotNull final ControllerSceneSheetViewer controller) {
         controller.listViewSpellCantrips.getItems().clear();

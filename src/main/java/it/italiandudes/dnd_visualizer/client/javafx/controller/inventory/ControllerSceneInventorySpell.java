@@ -206,7 +206,6 @@ public final class ControllerSceneInventorySpell {
                                 }
                                 if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0) throw new NumberFormatException("A number is negative");
                             } catch (NumberFormatException e) {
-                                Logger.log(e);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Le valute devono essere dei numeri interi positivi!"));
                                 return null;
                             }
@@ -220,7 +219,6 @@ public final class ControllerSceneInventorySpell {
                                 }
                                 if (level < 0 || level > 9) throw new NumberFormatException("The level is less than 0 or greater than 9");
                             } catch (NumberFormatException e) {
-                                Logger.log(e);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Il livello deve essere un numero intero positivo compreso tra 0 e 9!"));
                                 return null;
                             }

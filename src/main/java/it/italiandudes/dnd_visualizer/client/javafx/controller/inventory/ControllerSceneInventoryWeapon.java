@@ -67,7 +67,7 @@ public final class ControllerSceneInventoryWeapon {
     @FXML private TextArea textAreaProperties;
 
     // Old Values
-    private String oldValueQuantity = "0";
+    private int oldValueQuantity = 0;
 
     // Initialize
     @FXML
@@ -133,9 +133,10 @@ public final class ControllerSceneInventoryWeapon {
         try {
             int qty = Integer.parseInt(spinnerQuantity.getEditor().getText());
             if (qty < 0) throw new NumberFormatException();
-            oldValueQuantity = String.valueOf(qty);
+            oldValueQuantity = qty;
+            spinnerQuantity.getValueFactory().setValue(qty);
         } catch (NumberFormatException e) {
-            spinnerQuantity.getEditor().setText(oldValueQuantity);
+            spinnerQuantity.getValueFactory().setValue(oldValueQuantity);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "La quantita' deve essere un numero intero maggiore o uguale a 0.");
         }
     }
@@ -298,6 +299,8 @@ public final class ControllerSceneInventoryWeapon {
                                         loadEffect, loadEffectPerc, caEffect, otherEffects
                                 );
                             } else {
+                                assert weapon.getEquipmentID()!=null;
+                                assert weapon.getWeaponID()!=null;
                                 oldName = weapon.getName();
                                 Item item = new Item(
                                         weapon.getItemID(),
@@ -316,7 +319,8 @@ public final class ControllerSceneInventoryWeapon {
                                         spinnerQuantity.getValue()
                                 );
                                 weapon = new Weapon(
-                                        item, weaponCategory, properties, lifeEffect, lifeEffectPerc,
+                                        item, weapon.getEquipmentID(), weapon.getWeaponID(),
+                                        weaponCategory, properties, lifeEffect, lifeEffectPerc,
                                         loadEffect, loadEffectPerc, caEffect, otherEffects
                                 );
                             }
@@ -392,7 +396,7 @@ public final class ControllerSceneInventoryWeapon {
                                 } else {
                                     imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
                                 }
-                                spinnerQuantity.getEditor().setText(String.valueOf(weapon.getQuantity()));
+                                spinnerQuantity.getValueFactory().setValue(weapon.getQuantity());
                                 textFieldWeaponCategory.setText(weapon.getWeaponCategory());
                                 textFieldEffectCA.setText(String.valueOf(weapon.getCaEffect()));
                                 textFieldEffectLife.setText(String.valueOf(weapon.getLifeEffect()));

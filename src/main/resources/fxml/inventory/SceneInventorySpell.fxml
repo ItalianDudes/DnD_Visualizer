@@ -80,7 +80,7 @@
                       <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
                     </rowConstraints>
                      <children>
-                        <ComboBox fx:id="comboBoxRarity" maxWidth="1.7976931348623157E308" promptText="Rarità" style="-fx-font-weight: bold;" />
+                        <ComboBox fx:id="comboBoxRarity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="1000.0" promptText="Rarità" style="-fx-font-weight: bold;" />
                         <GridPane hgap="5.0" GridPane.rowIndex="1">
                           <columnConstraints>
                               <ColumnConstraints halignment="CENTER" hgrow="NEVER" />

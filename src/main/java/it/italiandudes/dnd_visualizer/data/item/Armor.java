@@ -1,9 +1,13 @@
 package it.italiandudes.dnd_visualizer.data.item;
 
+import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.data.enums.ArmorSlot;
 import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.interfaces.ISavable;
+import it.italiandudes.idl.common.Logger;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,16 +22,28 @@ public final class Armor extends Equipment implements ISavable {
     // Attributes
     @Nullable private Integer armorID;
     @NotNull private ArmorSlot slot;
+    private boolean isEquipped = false;
 
     // Constructors
     public Armor(@NotNull final ArmorSlot slot) {
         super(EquipmentType.ARMOR);
         this.slot = slot;
     }
-    public Armor(@NotNull final Item item, @NotNull final ArmorSlot slot, final int lifeEffect, final double lifeEffectPerc,
-                 final int loadEffect, final double loadEffectPerc, final int caEffect, @Nullable final String otherEffects) {
+    public Armor(@NotNull final Item item, final int equipmentID, final int armorID, @NotNull final ArmorSlot slot,
+                 final int lifeEffect, final double lifeEffectPerc, final int loadEffect, final double loadEffectPerc,
+                 final int caEffect, @Nullable final String otherEffects, final boolean isEquipped) {
         super(item, EquipmentType.ARMOR, lifeEffect, lifeEffectPerc, caEffect, loadEffect, loadEffectPerc, otherEffects);
         this.slot = slot;
+        this.setEquipmentID(equipmentID);
+        this.armorID = armorID;
+        this.isEquipped = isEquipped;
+    }
+    public Armor(@NotNull final Item item, @NotNull final ArmorSlot slot, final int lifeEffect, final double lifeEffectPerc,
+                 final int loadEffect, final double loadEffectPerc, final int caEffect, @Nullable final String otherEffects,
+                 final boolean isEquipped) {
+        super(item, EquipmentType.ARMOR, lifeEffect, lifeEffectPerc, caEffect, loadEffect, loadEffectPerc, otherEffects);
+        this.slot = slot;
+        this.isEquipped = isEquipped;
     }
     public Armor(@NotNull final String armorName) throws SQLException {
         super(armorName);
@@ -38,7 +54,9 @@ public final class Armor extends Equipment implements ISavable {
         ps.setInt(1, getEquipmentID());
         ResultSet resultSet = ps.executeQuery();
         if (resultSet.next()) {
-            this.slot = ArmorSlot.values()[resultSet.getInt("slot")];
+            this.armorID = resultSet.getInt("id");
+            this.slot = ArmorSlot.values()[resultSet.getInt("slot")+1];
+            this.isEquipped = resultSet.getInt("is_equipped")!=0;
             ps.close();
         } else {
             ps.close();
@@ -60,7 +78,7 @@ public final class Armor extends Equipment implements ISavable {
             ps.setInt(2, slot.getDatabaseValue());
             ps.executeUpdate();
             ps.close();
-            query = "SELECT id FROM armors WHERE equipment_id = ?;";
+            query = "SELECT id FROM armors WHERE equipment_id=?;";
             ps = DBManager.preparedStatement(query);
             if (ps == null) throw new SQLException("The database is not connected");
             ps.setInt(1, equipmentID);
@@ -73,11 +91,11 @@ public final class Armor extends Equipment implements ISavable {
                 throw new SQLException("Something strange happened on armor insert! Armor insert but doesn't result on select");
             }
         } else { // Update
-            String query = "UPDATE armors SET equipment_id=?, slot=? WHERE id=?;";
+            String query = "UPDATE armors SET slot=?, is_equipped=? WHERE id=?;";
             PreparedStatement ps = DBManager.preparedStatement(query);
             if (ps == null) throw new SQLException("The database is not connected");
-            ps.setInt(1, equipmentID);
-            ps.setInt(2, slot.getDatabaseValue());
+            ps.setInt(1, slot.getDatabaseValue());
+            ps.setInt(2, (isEquipped?1:0));
             ps.setInt(3, getArmorID());
             ps.executeUpdate();
             ps.close();
@@ -98,16 +116,50 @@ public final class Armor extends Equipment implements ISavable {
     public void setSlot(@NotNull final ArmorSlot slot) {
         this.slot = slot;
     }
+    public boolean isEquipped() {
+        return isEquipped;
+    }
+    public void setEquipped(boolean equipped) {
+        isEquipped = equipped;
+        if (armorID == null) return;
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        PreparedStatement ps = null;
+                        try {
+                            String query = "UPDATE armors SET is_equipped=? WHERE id=?;";
+                            ps = DBManager.preparedStatement(query);
+                            if (ps == null) throw new SQLException("The database connection doesn't exist");
+                            ps.setInt(1, (equipped ? 1 : 0));
+                            ps.setInt(2, getArmorID());
+                            ps.executeUpdate();
+                            ps.close();
+                        } catch (SQLException e) {
+                            try {
+                                if (ps != null) ps.close();
+                            } catch (SQLException ignored) {}
+                            Logger.log(e);
+                            new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
+                        }
+                        return null;
+                    }
+                };
+            }
+        }.start();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Armor)) return false;
         if (!super.equals(o)) return false;
         Armor armor = (Armor) o;
-        return Objects.equals(getArmorID(), armor.getArmorID()) && getSlot() == armor.getSlot();
+        return isEquipped() == armor.isEquipped() && Objects.equals(getArmorID(), armor.getArmorID()) && getSlot() == armor.getSlot();
     }
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getArmorID(), getSlot());
+        return Objects.hash(super.hashCode(), getArmorID(), getSlot(), isEquipped());
     }
 }

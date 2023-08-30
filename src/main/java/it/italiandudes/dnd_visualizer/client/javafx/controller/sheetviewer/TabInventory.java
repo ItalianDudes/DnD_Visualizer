@@ -42,11 +42,11 @@ public final class TabInventory {
     }
 
     // Old Values
-    private static String oldValueMR = "0";
-    private static String oldValueMA = "0";
-    private static String oldValueME = "0";
-    private static String oldValueMO = "0";
-    private static String oldValueMP = "0";
+    private static int oldValueMR = 0;
+    private static int oldValueMA = 0;
+    private static int oldValueME = 0;
+    private static int oldValueMO = 0;
+    private static int oldValueMP = 0;
 
     // Initialize
     public static void initialize(@NotNull final ControllerSceneSheetViewer controller) {
@@ -100,46 +100,56 @@ public final class TabInventory {
     // EDT
     public static void validateMR(@NotNull final ControllerSceneSheetViewer controller) {
         try {
-            if (Integer.parseInt(controller.spinnerMR.getEditor().getText()) < 0) throw new NumberFormatException();
-            oldValueMR = controller.spinnerMR.getEditor().getText();
+            int qty = Integer.parseInt(controller.spinnerMR.getEditor().getText());
+            if (qty < 0) throw new NumberFormatException();
+            oldValueMR = qty;
+            controller.spinnerMR.getValueFactory().setValue(qty);
         } catch (NumberFormatException e) {
-            controller.spinnerMR.getEditor().setText(oldValueMR);
+            controller.spinnerMR.getValueFactory().setValue(oldValueMR);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Le monete di rame devono essere un numero intero positivo");
         }
     }
     public static void validateMA(@NotNull final ControllerSceneSheetViewer controller) {
         try {
-            if (Integer.parseInt(controller.spinnerMA.getEditor().getText()) < 0) throw new NumberFormatException();
-            oldValueMA = controller.spinnerMA.getEditor().getText();
+            int qty = Integer.parseInt(controller.spinnerMA.getEditor().getText());
+            if (qty < 0) throw new NumberFormatException();
+            oldValueMA = qty;
+            controller.spinnerMA.getValueFactory().setValue(qty);
         } catch (NumberFormatException e) {
-            controller.spinnerMA.getEditor().setText(oldValueMA);
+            controller.spinnerMA.getValueFactory().setValue(oldValueMA);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Le monete d'argento devono essere un numero intero positivo");
         }
     }
     public static void validateME(@NotNull final ControllerSceneSheetViewer controller) {
         try {
-            if (Integer.parseInt(controller.spinnerME.getEditor().getText()) < 0) throw new NumberFormatException();
-            oldValueME = controller.spinnerME.getEditor().getText();
+            int qty = Integer.parseInt(controller.spinnerME.getEditor().getText());
+            if (qty < 0) throw new NumberFormatException();
+            oldValueME = qty;
+            controller.spinnerME.getValueFactory().setValue(qty);
         } catch (NumberFormatException e) {
-            controller.spinnerME.getEditor().setText(oldValueME);
+            controller.spinnerME.getValueFactory().setValue(oldValueME);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Le monete di electrum devono essere un numero intero positivo");
         }
     }
     public static void validateMO(@NotNull final ControllerSceneSheetViewer controller) {
         try {
-            if (Integer.parseInt(controller.spinnerMO.getEditor().getText()) < 0) throw new NumberFormatException();
-            oldValueMO = controller.spinnerMO.getEditor().getText();
+            int qty = Integer.parseInt(controller.spinnerMO.getEditor().getText());
+            if (qty < 0) throw new NumberFormatException();
+            oldValueMO = qty;
+            controller.spinnerMO.getValueFactory().setValue(qty);
         } catch (NumberFormatException e) {
-            controller.spinnerMO.getEditor().setText(oldValueMO);
+            controller.spinnerMO.getValueFactory().setValue(oldValueMO);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Le monete d'oro devono essere un numero intero positivo");
         }
     }
     public static void validateMP(@NotNull final ControllerSceneSheetViewer controller) {
         try {
-            if (Integer.parseInt(controller.spinnerMP.getEditor().getText()) < 0) throw new NumberFormatException();
-            oldValueMP = controller.spinnerMP.getEditor().getText();
+            int qty = Integer.parseInt(controller.spinnerMP.getEditor().getText());
+            if (qty < 0) throw new NumberFormatException();
+            oldValueMP = qty;
+            controller.spinnerMP.getValueFactory().setValue(qty);
         } catch (NumberFormatException e) {
-            controller.spinnerMP.getEditor().setText(oldValueMP);
+            controller.spinnerMP.getValueFactory().setValue(oldValueMP);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Le monete di platino devono essere un numero intero positivo");
         }
     }
@@ -247,6 +257,7 @@ public final class TabInventory {
                             Platform.runLater(() -> {
                                 search(controller);
                                 TabSpells.updateListViews(controller);
+                                TabEquipment.reloadEquipment(controller);
                             });
                         } catch (SQLException e) {
                             Logger.log(e);
@@ -312,6 +323,7 @@ public final class TabInventory {
         elementName = null;
         search(controller);
         TabSpells.updateListViews(controller);
+        TabEquipment.reloadEquipment(controller);
     }
     public static void addElement(@NotNull final ControllerSceneSheetViewer controller) {
         elementName = null;
@@ -343,5 +355,6 @@ public final class TabInventory {
         popupStage.showAndWait();
         search(controller);
         TabSpells.updateListViews(controller);
+        TabEquipment.reloadEquipment(controller);
     }
 }

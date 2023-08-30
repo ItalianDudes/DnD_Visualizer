@@ -23,6 +23,15 @@ public final class Weapon extends Equipment implements ISavable {
     public Weapon() {
         super(EquipmentType.WEAPON);
     }
+    public Weapon(@NotNull final Item item, final int equipmentID, final int weaponID, @Nullable final String weaponCategory,
+                  @Nullable final String properties, final int lifeEffect, final double lifeEffectPerc, final int loadEffect,
+                  final double loadEffectPerc, final int caEffect, @Nullable final String otherEffects) {
+        super(item, EquipmentType.WEAPON, lifeEffect, lifeEffectPerc, caEffect, loadEffect, loadEffectPerc, otherEffects);
+        this.weaponCategory = weaponCategory;
+        this.properties = properties;
+        this.setEquipmentID(equipmentID);
+        this.weaponID = weaponID;
+    }
     public Weapon(@NotNull final Item item, @Nullable final String weaponCategory, @Nullable final String properties,
                   final int lifeEffect, final double lifeEffectPerc, final int loadEffect, final double loadEffectPerc,
                   final int caEffect, @Nullable final String otherEffects) {
@@ -39,6 +48,7 @@ public final class Weapon extends Equipment implements ISavable {
         ps.setInt(1, getEquipmentID());
         ResultSet result = ps.executeQuery();
         if (result.next()) {
+            this.weaponID = result.getInt("id");
             this.weaponCategory = result.getString("category");
             this.weaponID = result.getInt("id");
             this.properties = result.getString("properties");
@@ -77,13 +87,12 @@ public final class Weapon extends Equipment implements ISavable {
                 throw new SQLException("Something strange happened on weapon insert! Weapon insert but doesn't result on select");
             }
         } else { // Update
-            String query = "UPDATE weapons SET equipment_id=?, category=?, properties=? WHERE id=?;";
+            String query = "UPDATE weapons SET category=?, properties=? WHERE id=?;";
             PreparedStatement ps = DBManager.preparedStatement(query);
             if (ps == null) throw new SQLException("The database is not connected");
-            ps.setInt(1, equipmentID);
-            ps.setString(2, getWeaponCategory());
-            ps.setString(3, getProperties());
-            ps.setInt(4, getWeaponID());
+            ps.setString(1, getWeaponCategory());
+            ps.setString(2, getProperties());
+            ps.setInt(3, getWeaponID());
             ps.executeUpdate();
             ps.close();
         }

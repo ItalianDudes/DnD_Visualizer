@@ -78,7 +78,7 @@
                               <Spinner fx:id="spinnerQuantity" editable="true" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
-                        <ComboBox fx:id="comboBoxRarity" maxWidth="1.7976931348623157E308" prefWidth="512.0" promptText="Rarità" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" />
+                        <ComboBox fx:id="comboBoxRarity" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="512.0" promptText="Rarità" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" />
                         <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefWidth="512.0" spacing="10.0">
                            <children>
                               <ImageView fitHeight="30.0" pickOnBounds="true" preserveRatio="true">
