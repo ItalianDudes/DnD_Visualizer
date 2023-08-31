@@ -21,7 +21,6 @@ import java.io.IOException;
 public final class TabStory {
 
     // Attributes
-    private static boolean isSymbolImageSet = false;
     private static String symbolImageExtension = null;
 
     // Initialize
@@ -67,7 +66,6 @@ public final class TabStory {
                                 BufferedImage img = ImageIO.read(finalImagePath);
                                 Platform.runLater(() -> controller.imageViewSymbolImage.setImage(SwingFXUtils.toFXImage(img, null)));
                                 symbolImageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
-                                isSymbolImageSet = true;
                             }catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }

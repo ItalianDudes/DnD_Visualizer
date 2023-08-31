@@ -4,37 +4,6 @@ CREATE TABLE IF NOT EXISTS key_parameters (
      param_value TEXT
 );
 
-CREATE TABLE IF NOT EXISTS personality_traits (
-    id INTEGER NOT NULL PRIMARY KEY,
-    value TEXT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS ideals (
-    id INTEGER NOT NULL PRIMARY KEY,
-    value TEXT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS bonds (
-    id INTEGER NOT NULL PRIMARY KEY,
-    value TEXT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS flaws (
-    id INTEGER NOT NULL PRIMARY KEY,
-    value TEXT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS features_and_traits (
-    id INTEGER NOT NULL PRIMARY KEY,
-    ft_name VARCHAR(32) NOT NULL,
-    ft_description TEXT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS allies_and_organizations (
-    ao_name VARCHAR(32) NOT NULL PRIMARY KEY,
-    ao_description TEXT NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS notes (
     id INTEGER NOT NULL PRIMARY KEY,
     title VARCHAR(32) NOT NULL UNIQUE,

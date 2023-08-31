@@ -264,7 +264,6 @@ public class ControllerSceneInventoryItem {
                                         spinnerQuantity.getValue()
                                 );
                             } else {
-                                Logger.log(String.valueOf(spinnerQuantity.getValue()));
                                 oldName = item.getName();
                                 item = new Item(
                                         item.getItemID(),

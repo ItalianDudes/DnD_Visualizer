@@ -111,7 +111,6 @@ public final class TabInventory {
                         if (!(boolean) Client.getSettings().get("enableLoad")) {
                             return null;
                         }
-                        Logger.log("Started update load!");
                         String query;
                         PreparedStatement ps = null;
                         ResultSet result;

@@ -4,8 +4,11 @@ import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer;
+import it.italiandudes.dnd_visualizer.client.javafx.util.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
+import it.italiandudes.dnd_visualizer.utils.Defs.KeyParameters;
 import it.italiandudes.idl.common.ImageHandler;
+import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -18,15 +21,16 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.Base64;
 
 public final class TabCharacter {
 
     // Attributes
     private static Rectangle hpRemoverRectangle;
-    private static boolean isCharacterImageSet = false;
     private static String characterImageExtension = null;
 
     // Old Values
@@ -37,26 +41,146 @@ public final class TabCharacter {
 
     // Initialize
     public static void initialize(@NotNull final ControllerSceneSheetViewer controller) {
-        onLostFocusFireActionEvent(controller);
         controller.imageViewCharacterImage.setImage(JFXDefs.AppInfo.LOGO);
         hpRemoverRectangle = new Rectangle(controller.imageViewCurrentHP.getFitWidth(), 0, Client.getBackgroundThemeColor());
         controller.spinnerLevel.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 1, 1));
         controller.spinnerProficiencyBonus.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 6, 2, 1));
         controller.spinnerInspiration.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0, 1));
+        onLostFocusFireActionEvent(controller);
         setOnChangeTriggers(controller);
         updateLifeDiceFaces(controller);
         controller.textFieldTotalLifeDiceAmount.setText(String.valueOf(controller.spinnerLevel.getValue())); // This must be after "updateLifeDiceFaces(controller)"
         oldValueCurrentLifeDiceAmount = controller.textFieldCurrentLifeDiceAmount.getText();
         controller.sliderDSTSuccesses.valueProperty().addListener((observable, oldValue, newValue) -> controller.sliderDSTSuccesses.setValue(newValue.intValue()));
         controller.sliderDSTFailures.valueProperty().addListener((observable, oldValue, newValue) -> controller.sliderDSTFailures.setValue(newValue.intValue()));
+        readTabData(controller);
+    }
+
+    // Data Reader
+    private static void readTabData(@NotNull final ControllerSceneSheetViewer controller) {
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        String characterName = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CHARACTER_NAME);
+                        String characterClass = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CLASS);
+                        String level = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.LEVEL);
+                        String background = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.BACKGROUND);
+                        String playerName = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.PLAYER_NAME);
+                        String race = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.RACE);
+                        String alignment = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.ALIGNMENT);
+                        String exp = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.EXP);
+                        String base64CharacterImage = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CHARACTER_IMAGE);
+                        String characterImageExtension = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CHARACTER_IMAGE_EXTENSION);
+                        Image characterImage = null;
+                        try {
+                            if (base64CharacterImage != null) {
+                                if (characterImageExtension == null) throw new IllegalArgumentException("Image without declared extension");
+                                byte[] imageBytes = Base64.getDecoder().decode(base64CharacterImage);
+                                ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
+                                BufferedImage bufferedImageCharacter = ImageIO.read(imageStream);
+                                characterImage = SwingFXUtils.toFXImage(bufferedImageCharacter, null);
+                            }
+                        } catch (IllegalArgumentException | IOException e) {
+                            Logger.log(e);
+                            Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI LETTURA", "L'immagine ricevuta dal database non è leggibile."));
+                        }
+                        String maxHP = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.MAX_HP);
+                        String currentHP = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CURRENT_HP);
+                        String tempHP = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.TEMP_HP);
+                        String currentLifeDicesAmount = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CURRENT_LIFE_DICES);
+                        String totalLifeDicesAmount = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.TOTAL_LIFE_DICES);
+                        String proficiencyBonus = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.PROFICIENCY_BONUS);
+                        String inspiration = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.INSPIRATION);
+                        String initiative = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.INITIATIVE);
+                        String speed = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.SPEED);
+                        String personalityTraits = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.PERSONALITY_TRAITS);
+                        String ideals = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.IDEALS);
+                        String bonds = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.BONDS);
+                        String flaws = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.FLAWS);
+                        Image finalCharacterImage = characterImage;
+                        Platform.runLater(() -> {
+                            if (characterName != null) controller.textFieldCharacterName.setText(characterName);
+                            if (characterClass != null) controller.textFieldClass.setText(characterClass);
+                            if (level != null) controller.spinnerLevel.getValueFactory().setValue(Integer.parseInt(level));
+                            if (background != null) controller.textFieldBackground.setText(background);
+                            if (playerName != null) controller.textFieldPlayerName.setText(playerName);
+                            if (race != null) controller.textFieldRace.setText(race);
+                            if (alignment != null) controller.textFieldAlignment.setText(alignment);
+                            if (exp != null) controller.textFieldExperience.setText(exp);
+                            if (finalCharacterImage != null) {
+                                controller.imageViewCharacterImage.setImage(finalCharacterImage);
+                                controller.imageViewCharacterBodyImage.setImage(finalCharacterImage);
+                                TabCharacter.characterImageExtension = characterImageExtension;
+                            }
+                            if (maxHP != null) controller.textFieldMaxHP.setText(maxHP);
+                            if (currentHP != null) controller.textFieldCurrentHP.setText(currentHP);
+                            if (tempHP != null) controller.textFieldTempHP.setText(tempHP);
+                            if (currentLifeDicesAmount != null) controller.textFieldCurrentLifeDiceAmount.setText(currentLifeDicesAmount);
+                            if (totalLifeDicesAmount != null) controller.textFieldTotalLifeDiceAmount.setText(totalLifeDicesAmount);
+                            if (proficiencyBonus != null) controller.spinnerProficiencyBonus.getValueFactory().setValue(Integer.parseInt(proficiencyBonus));
+                            if (inspiration != null) controller.spinnerInspiration.getValueFactory().setValue(Integer.parseInt(inspiration));
+                            if (initiative != null) controller.textFieldInitiative.setText(initiative);
+                            if (speed != null) controller.textFieldSpeed.setText(speed);
+                            if (personalityTraits != null) controller.textAreaPersonalityTraits.setText(personalityTraits);
+                            if (ideals != null) controller.textAreaIdeals.setText(ideals);
+                            if (bonds != null) controller.textAreaBonds.setText(bonds);
+                            if (flaws != null) controller.textAreaFlaws.setText(flaws);
+                        });
+                        return null;
+                    }
+                };
+            }
+        }.start();
     }
 
     // OnChange Triggers Setter
     private static void setOnChangeTriggers(@NotNull final ControllerSceneSheetViewer controller) {
-        controller.spinnerLevel.getEditor().textProperty().addListener(((observable, oldValue, newValue) -> controller.textFieldTotalLifeDiceAmount.setText(newValue)));
-        controller.spinnerProficiencyBonus.getEditor().textProperty().addListener(((observable) -> updateProficiencyBonus(controller)));
-        controller.textFieldTotalLifeDiceAmount.textProperty().addListener(((observable) -> updateLifeDiceAmount(controller)));
-        controller.textFieldClass.textProperty().addListener(((observable, oldValue, newValue) -> controller.textFieldSpellCasterClass.setText(newValue)));
+        controller.textFieldCharacterName.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CHARACTER_NAME, newValue));
+        controller.textFieldClass.textProperty().addListener((observable, oldValue, newValue) -> {
+            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CLASS, newValue);
+            controller.textFieldSpellCasterClass.setText(newValue);
+        });
+        controller.spinnerLevel.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.LEVEL, newValue);
+            controller.textFieldTotalLifeDiceAmount.setText(newValue);
+        });
+        controller.textFieldBackground.textProperty().addListener(((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.BACKGROUND, newValue)));
+        controller.textFieldPlayerName.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.PLAYER_NAME, newValue));
+        controller.textFieldRace.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.RACE, newValue));
+        controller.textFieldAlignment.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.ALIGNMENT, newValue));
+        controller.textFieldExperience.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.EXP, newValue));
+        controller.imageViewCharacterImage.imageProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CHARACTER_IMAGE, KeyParameters.TabCharacter.CHARACTER_IMAGE_EXTENSION, newValue, characterImageExtension));
+        controller.textFieldMaxHP.textProperty().addListener((observable, oldValue, newValue) -> {
+            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.MAX_HP, newValue);
+            recalculateHealthPercentage(controller);
+        });
+        controller.textFieldCurrentHP.textProperty().addListener((observable, oldValue, newValue) -> {
+            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CURRENT_HP, newValue);
+            recalculateHealthPercentage(controller);
+        });
+        controller.textFieldTempHP.textProperty().addListener((observable, oldValue, newValue) -> {
+            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.TEMP_HP, newValue);
+            recalculateHealthPercentage(controller);
+        });
+        controller.textFieldCurrentLifeDiceAmount.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CURRENT_LIFE_DICES, newValue));
+        controller.textFieldTotalLifeDiceAmount.textProperty().addListener((observable, oldValue, newValue) -> {
+            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.TOTAL_LIFE_DICES, newValue);
+            updateLifeDiceAmount(controller);
+        });
+        controller.spinnerProficiencyBonus.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.PROFICIENCY_BONUS, newValue);
+            updateProficiencyBonus(controller);
+        });
+        controller.spinnerInspiration.getEditor().textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.INSPIRATION, newValue));
+        controller.textFieldInitiative.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.INITIATIVE, newValue));
+        controller.textFieldSpeed.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.SPEED, newValue));
+        controller.textAreaPersonalityTraits.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.PERSONALITY_TRAITS, newValue));
+        controller.textAreaIdeals.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.IDEALS, newValue));
+        controller.textAreaBonds.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.BONDS, newValue));
+        controller.textAreaFlaws.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.FLAWS, newValue));
     }
 
     // Lost Focus On Action Fire Event
@@ -79,7 +203,6 @@ public final class TabCharacter {
         controller.textFieldCurrentLifeDiceAmount.focusedProperty().addListener(((observable, oldValue, newValue) -> {
             if (!newValue) validateNewCurrentLifeDiceAmount(controller);
         }));
-        // TODO: add eventual TextField that need to run their onClick method
     }
 
     // EDT
@@ -182,7 +305,6 @@ public final class TabCharacter {
                                     controller.imageViewCharacterBodyImage.setImage(fxImage);
                                 });
                                 characterImageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
-                                isCharacterImageSet = true;
                             }catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }

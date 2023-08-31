@@ -22,7 +22,6 @@ import java.io.IOException;
 public final class TabPhysicalDescription {
 
     // Attributes
-    private static boolean isCharacterBodyImageSet = false;
     private static String characterBodyImageExtension = null;
 
     // Initialize
@@ -71,7 +70,6 @@ public final class TabPhysicalDescription {
                                     controller.imageViewCharacterImage.setImage(fxImage);
                                 });
                                 characterBodyImageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
-                                isCharacterBodyImageSet = true;
                             }catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }

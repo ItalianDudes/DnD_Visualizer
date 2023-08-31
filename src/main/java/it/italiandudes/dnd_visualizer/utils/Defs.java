@@ -44,6 +44,90 @@ public final class Defs {
 
     // Key Parameters for the sheet
     public static final class KeyParameters {
+        public static final class TabCharacter {
+            public static final String CHARACTER_NAME = "character_name";
+            public static final String CLASS = "class";
+            public static final String LEVEL = "level";
+            public static final String BACKGROUND = "background";
+            public static final String PLAYER_NAME = "player_name";
+            public static final String RACE = "race";
+            public static final String ALIGNMENT = "alignment";
+            public static final String EXP = "exp";
+            public static final String CHARACTER_IMAGE = "character_image";
+            public static final String CHARACTER_IMAGE_EXTENSION = "character_image_extension";
+            public static final String MAX_HP = "max_hp";
+            public static final String CURRENT_HP = "current_hp";
+            public static final String TEMP_HP = "temp_hp";
+            public static final String CURRENT_LIFE_DICES = "current_life_dices";
+            public static final String TOTAL_LIFE_DICES = "total_life_dices";
+            public static final String PROFICIENCY_BONUS = "proficiency_bonus";
+            public static final String INSPIRATION = "inspiration";
+            public static final String INITIATIVE = "initiative";
+            public static final String SPEED = "speed";
+            public static final String PERSONALITY_TRAITS = "personality_traits";
+            public static final String IDEALS = "ideals";
+            public static final String BONDS = "bonds";
+            public static final String FLAWS = "flaws";
+        }
+        public static final class TabAbility {
+            public static final String STRENGTH = "strength";
+            public static final String DEXTERITY = "dexterity";
+            public static final String CONSTITUTION = "constitution";
+            public static final String INTELLIGENCE = "intelligence";
+            public static final String WISDOM = "wisdom";
+            public static final String CHARISMA = "charisma";
+        }
+        public static final class TabTraitsAndCompetences {
+            public static final String FEATURES_AND_TRAITS = "features_and_traits";
+            public static final String LANGUAGES = "languages";
+            public static final String ARMORS = "armors";
+            public static final String WEAPONS = "weapons";
+            public static final String TOOLS = "tools";
+        }
+        public static final class TabInventory {
+            public static final String COPPER_COINS = "copper_coins";
+            public static final String SILVER_COINS = "silver_coins";
+            public static final String ELECTRUM_COINS = "electrum_coins";
+            public static final String GOLD_COINS = "gold_coins";
+            public static final String PLATINUM_COINS = "platinum_coins";
+        }
+        public static final class TabSpells {
+            public static final String CASTER_STAT = "caster_stat";
+            public static final String SLOT_TOTAL_1 = "slot_total_1";
+            public static final String SLOT_TOTAL_2 = "slot_total_2";
+            public static final String SLOT_TOTAL_3 = "slot_total_3";
+            public static final String SLOT_TOTAL_4 = "slot_total_4";
+            public static final String SLOT_TOTAL_5 = "slot_total_5";
+            public static final String SLOT_TOTAL_6 = "slot_total_6";
+            public static final String SLOT_TOTAL_7 = "slot_total_7";
+            public static final String SLOT_TOTAL_8 = "slot_total_8";
+            public static final String SLOT_TOTAL_9 = "slot_total_9";
+            public static final String SLOT_SPENT_1 = "slot_spent_1";
+            public static final String SLOT_SPENT_2 = "slot_spent_2";
+            public static final String SLOT_SPENT_3 = "slot_spent_3";
+            public static final String SLOT_SPENT_4 = "slot_spent_4";
+            public static final String SLOT_SPENT_5 = "slot_spent_5";
+            public static final String SLOT_SPENT_6 = "slot_spent_6";
+            public static final String SLOT_SPENT_7 = "slot_spent_7";
+            public static final String SLOT_SPENT_8 = "slot_spent_8";
+            public static final String SLOT_SPENT_9 = "slot_spent_9";
+        }
+        public static final class TabPhysicalDescription {
+            public static final String AGE = "age";
+            public static final String HEIGHT = "height";
+            public static final String WEIGHT = "weight";
+            public static final String EYES = "eyes";
+            public static final String SKIN = "skin";
+            public static final String HAIR = "hair";
+            public static final String PHYSICAL_DESCRIPTION = "physical_description";
+        }
+        public static final class TabStory {
+            public static final String CHARACTER_BACKSTORY = "character_backstory";
+            public static final String CULT_IMAGE = "cult_image";
+            public static final String CULT_IMAGE_EXTENSION = "cult_image_extension";
+            public static final String CULT_DESCRIPTION = "cult_description";
+            public static final String ALLIES_AND_ORGANIZATIONS = "allies_and_organizations";
+        }
     }
 
     // Weight Constants
