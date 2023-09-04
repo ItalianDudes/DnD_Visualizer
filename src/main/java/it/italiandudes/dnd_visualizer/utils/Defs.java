@@ -76,6 +76,30 @@ public final class Defs {
             public static final String INTELLIGENCE = "intelligence";
             public static final String WISDOM = "wisdom";
             public static final String CHARISMA = "charisma";
+            public static final String PROF_ST_STRENGTH = "prof_st_strength";
+            public static final String PROF_ST_DEXTERITY = "prof_st_dexterity";
+            public static final String PROF_ST_CONSTITUTION = "prof_st_constitution";
+            public static final String PROF_ST_INTELLIGENCE = "prof_st_intelligence";
+            public static final String PROF_ST_WISDOM = "prof_st_wisdom";
+            public static final String PROF_ST_CHARISMA = "prof_st_charisma";
+            public static final String PROF_ATHLETICS = "prof_athletics";
+            public static final String PROF_ACROBATICS = "prof_acrobatics";
+            public static final String PROF_STEALTH = "prof_stealth";
+            public static final String PROF_SLEIGHT_OF_HAND = "prof_sleight_of_hand";
+            public static final String PROF_ARCANA = "prof_arcana";
+            public static final String PROF_INVESTIGATION = "prof_investigation";
+            public static final String PROF_NATURE = "prof_nature";
+            public static final String PROF_RELIGION = "prof_religion";
+            public static final String PROF_HISTORY = "prof_history";
+            public static final String PROF_ANIMAL_HANDLING = "prof_animal_handling";
+            public static final String PROF_INSIGHT = "prof_insight";
+            public static final String PROF_MEDICINE = "prof_medicine";
+            public static final String PROF_PERCEPTION = "prof_perception";
+            public static final String PROF_SURVIVAL = "prof_survival";
+            public static final String PROF_DECEPTION = "prof_deception";
+            public static final String PROF_INTIMIDATION = "prof_intimidation";
+            public static final String PROF_PERFORMANCE = "prof_performance";
+            public static final String PROF_PERSUASION = "prof_persuasion";
         }
         public static final class TabTraitsAndCompetences {
             public static final String FEATURES_AND_TRAITS = "features_and_traits";
