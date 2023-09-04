@@ -54,8 +54,6 @@ public final class TabInventory {
 
     // Initialize
     public static void initialize(@NotNull final ControllerSceneSheetViewer controller) {
-        onLostFocusFireActionEvent(controller);
-        setOnChangeTriggers(controller);
         controller.spinnerMR.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
         controller.spinnerMA.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
         controller.spinnerME.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
@@ -70,6 +68,8 @@ public final class TabInventory {
         controller.comboBoxCategory.setItems(FXCollections.observableList(Category.categories));
         controller.comboBoxEquipmentType.setItems(FXCollections.observableList(EquipmentType.types));
         readTabData(controller);
+        setOnChangeTriggers(controller);
+        onLostFocusFireActionEvent(controller);
         search(controller);
     }
 

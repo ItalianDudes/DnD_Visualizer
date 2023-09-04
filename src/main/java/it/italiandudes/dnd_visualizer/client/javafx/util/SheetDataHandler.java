@@ -75,7 +75,7 @@ public final class SheetDataHandler {
                                 if (ps != null) ps.close();
                             } catch (SQLException ignored) {}
                             Logger.log(e);
-                            Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI SCRITTURA", "Si e' verificato un errore durante la scrittura di un parametro."));
+                            Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI SCRITTURA", "Si e' verificato un errore durante la scrittura di un parametro.\nKEY: "+KEY));
                         }
                         return null;
                     }
