@@ -1710,7 +1710,7 @@
                                           <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                        </rowConstraints>
                                        <children>
-                                          <TextArea fx:id="textAreaPrivileges">
+                                          <TextArea fx:id="textAreaFeaturesAndTraits">
                                              <font>
                                                 <Font name="Lucida Sans Regular" size="16.0" />
                                              </font>

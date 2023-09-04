@@ -21,8 +21,8 @@ public final class TabAbility {
         controller.spinnerIntelligence.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 20, 8, 1));
         controller.spinnerWisdom.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 20, 8, 1));
         controller.spinnerCharisma.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 20, 8, 1));
-        setOnChangeTriggers(controller);
         readTabData(controller);
+        setOnChangeTriggers(controller);
         updateParameters(controller);
     }
 

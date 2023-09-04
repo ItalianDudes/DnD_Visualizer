@@ -134,7 +134,7 @@ public final class ControllerSceneSheetViewer {
     @FXML public RadioButton radioButtonMasteryPersuasion;
 
     // TabTraitsAndProficiencies
-    @FXML public TextArea textAreaPrivileges;
+    @FXML public TextArea textAreaFeaturesAndTraits;
     @FXML public TextArea textAreaLanguages;
     @FXML public TextArea textAreaProficiencyWeapons;
     @FXML public TextArea textAreaProficiencyArmors;
