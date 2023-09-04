@@ -9,6 +9,7 @@ import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInvento
 import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventorySpell;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventoryWeapon;
 import it.italiandudes.dnd_visualizer.client.javafx.util.LoadCategory;
+import it.italiandudes.dnd_visualizer.client.javafx.util.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
@@ -68,8 +69,36 @@ public final class TabInventory {
         controller.tableColumnInventoryQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         controller.comboBoxCategory.setItems(FXCollections.observableList(Category.categories));
         controller.comboBoxEquipmentType.setItems(FXCollections.observableList(EquipmentType.types));
+        readTabData(controller);
         search(controller);
-        updateLoad(controller);
+    }
+
+    // Data Reader
+    private static void readTabData(@NotNull final ControllerSceneSheetViewer controller) {
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        String copperCoins = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabInventory.COPPER_COINS);
+                        String silverCoins = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabInventory.SILVER_COINS);
+                        String electrumCoins = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabInventory.ELECTRUM_COINS);
+                        String goldCoins = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabInventory.GOLD_COINS);
+                        String platinumCoins = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabInventory.PLATINUM_COINS);
+                        Platform.runLater(() -> {
+                            if (copperCoins != null) controller.spinnerMR.getValueFactory().setValue(Integer.parseInt(copperCoins));
+                            if (silverCoins != null) controller.spinnerMA.getValueFactory().setValue(Integer.parseInt(silverCoins));
+                            if (electrumCoins != null) controller.spinnerME.getValueFactory().setValue(Integer.parseInt(electrumCoins));
+                            if (goldCoins != null) controller.spinnerMO.getValueFactory().setValue(Integer.parseInt(goldCoins));
+                            if (platinumCoins != null) controller.spinnerMP.getValueFactory().setValue(Integer.parseInt(platinumCoins));
+                            updateLoad(controller);
+                        });
+                        return null;
+                    }
+                };
+            }
+        }.start();
     }
 
     // OnChange Triggers Setter
@@ -181,6 +210,7 @@ public final class TabInventory {
             if (qty < 0) throw new NumberFormatException();
             oldValueMR = qty;
             controller.spinnerMR.getValueFactory().setValue(qty);
+            SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabInventory.COPPER_COINS, String.valueOf(qty));
         } catch (NumberFormatException e) {
             controller.spinnerMR.getValueFactory().setValue(oldValueMR);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Le monete di rame devono essere un numero intero positivo");
@@ -192,6 +222,7 @@ public final class TabInventory {
             if (qty < 0) throw new NumberFormatException();
             oldValueMA = qty;
             controller.spinnerMA.getValueFactory().setValue(qty);
+            SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabInventory.SILVER_COINS, String.valueOf(qty));
         } catch (NumberFormatException e) {
             controller.spinnerMA.getValueFactory().setValue(oldValueMA);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Le monete d'argento devono essere un numero intero positivo");
@@ -203,6 +234,7 @@ public final class TabInventory {
             if (qty < 0) throw new NumberFormatException();
             oldValueME = qty;
             controller.spinnerME.getValueFactory().setValue(qty);
+            SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabInventory.ELECTRUM_COINS, String.valueOf(qty));
         } catch (NumberFormatException e) {
             controller.spinnerME.getValueFactory().setValue(oldValueME);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Le monete di electrum devono essere un numero intero positivo");
@@ -214,6 +246,7 @@ public final class TabInventory {
             if (qty < 0) throw new NumberFormatException();
             oldValueMO = qty;
             controller.spinnerMO.getValueFactory().setValue(qty);
+            SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabInventory.GOLD_COINS, String.valueOf(qty));
         } catch (NumberFormatException e) {
             controller.spinnerMO.getValueFactory().setValue(oldValueMO);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Le monete d'oro devono essere un numero intero positivo");
@@ -225,6 +258,7 @@ public final class TabInventory {
             if (qty < 0) throw new NumberFormatException();
             oldValueMP = qty;
             controller.spinnerMP.getValueFactory().setValue(qty);
+            SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabInventory.PLATINUM_COINS, String.valueOf(qty));
         } catch (NumberFormatException e) {
             controller.spinnerMP.getValueFactory().setValue(oldValueMP);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Le monete di platino devono essere un numero intero positivo");
