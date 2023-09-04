@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'it.italiandudes'
-version = '0.8.6A'
+version = '0.8.8A'
 
 repositories {
     mavenCentral()
