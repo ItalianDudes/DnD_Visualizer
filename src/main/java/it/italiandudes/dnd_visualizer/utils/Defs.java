@@ -44,6 +44,8 @@ public final class Defs {
 
     // Key Parameters for the sheet
     public static final class KeyParameters {
+        public static final String CHARACTER_IMAGE = "character_image";
+        public static final String CHARACTER_IMAGE_EXTENSION = "character_image_extension";
         public static final class TabCharacter {
             public static final String CHARACTER_NAME = "character_name";
             public static final String CLASS = "class";
@@ -53,8 +55,6 @@ public final class Defs {
             public static final String RACE = "race";
             public static final String ALIGNMENT = "alignment";
             public static final String EXP = "exp";
-            public static final String CHARACTER_IMAGE = "character_image";
-            public static final String CHARACTER_IMAGE_EXTENSION = "character_image_extension";
             public static final String MAX_HP = "max_hp";
             public static final String CURRENT_HP = "current_hp";
             public static final String TEMP_HP = "temp_hp";

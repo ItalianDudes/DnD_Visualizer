@@ -18,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -32,6 +33,14 @@ public final class TabCharacter {
     // Attributes
     private static Rectangle hpRemoverRectangle;
     private static String characterImageExtension = null;
+
+    // Methods
+    public static void setCharacterImageExtension(@Nullable final String characterImageExtension) {
+        TabCharacter.characterImageExtension = characterImageExtension;
+    }
+    public static String getCharacterImageExtension() {
+        return characterImageExtension;
+    }
 
     // Old Values
     private static String oldValueCurrentLifeDiceAmount = null;
@@ -72,8 +81,8 @@ public final class TabCharacter {
                         String race = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.RACE);
                         String alignment = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.ALIGNMENT);
                         String exp = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.EXP);
-                        String base64CharacterImage = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CHARACTER_IMAGE);
-                        String characterImageExtension = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CHARACTER_IMAGE_EXTENSION);
+                        String base64CharacterImage = SheetDataHandler.readKeyParameter(KeyParameters.CHARACTER_IMAGE);
+                        String characterImageExtension = SheetDataHandler.readKeyParameter(KeyParameters.CHARACTER_IMAGE_EXTENSION);
                         Image characterImage = null;
                         try {
                             if (base64CharacterImage != null) {
@@ -152,7 +161,6 @@ public final class TabCharacter {
         controller.textFieldRace.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.RACE, newValue));
         controller.textFieldAlignment.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.ALIGNMENT, newValue));
         controller.textFieldExperience.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.EXP, newValue));
-        controller.imageViewCharacterImage.imageProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CHARACTER_IMAGE, KeyParameters.TabCharacter.CHARACTER_IMAGE_EXTENSION, newValue, characterImageExtension));
         controller.textFieldMaxHP.textProperty().addListener((observable, oldValue, newValue) -> {
             SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.MAX_HP, newValue);
             recalculateHealthPercentage(controller);
@@ -279,8 +287,9 @@ public final class TabCharacter {
     public static void openCharacterImageFileChooser(@NotNull final ControllerSceneSheetViewer controller) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleziona un Contenuto Multimediale");
-        // TODO: add supported extensions with for-each
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG", "*.png"));
+        for (String ext : Defs.Resources.SQL.SUPPORTED_IMAGE_EXTENSIONS) {
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ext.toUpperCase(), "*."+ext));
+        }
         fileChooser.setInitialDirectory(new File(Defs.JAR_POSITION).getParentFile());
         File imagePath;
         try {
@@ -305,6 +314,7 @@ public final class TabCharacter {
                                     controller.imageViewCharacterBodyImage.setImage(fxImage);
                                 });
                                 characterImageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
+                                SheetDataHandler.writeKeyParameter(KeyParameters.CHARACTER_IMAGE, KeyParameters.CHARACTER_IMAGE_EXTENSION, fxImage, characterImageExtension);
                             }catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }
