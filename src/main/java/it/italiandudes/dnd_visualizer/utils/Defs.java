@@ -5,6 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Objects;
 
@@ -12,7 +13,14 @@ import java.util.Objects;
 public final class Defs {
 
     // Jar App Position
-    public static final String JAR_POSITION = new File(DnD_Visualizer.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getAbsolutePath();
+    public static final String JAR_POSITION;
+    static {
+        try {
+            JAR_POSITION = new File(DnD_Visualizer.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getAbsolutePath();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     // Resources Location
     public static final class Resources {
