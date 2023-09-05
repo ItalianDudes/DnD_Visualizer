@@ -80,7 +80,7 @@ public final class TabSpells {
                 return new Task<Void>() {
                     @Override
                     protected Void call() {
-                        int casterStat = 1, slot1Tot = -1, slot1Spent = -1, slot2Tot = -1, slot2Spent = -1,
+                        int casterStat = -1, slot1Tot = -1, slot1Spent = -1, slot2Tot = -1, slot2Spent = -1,
                         slot3Tot = -1, slot3Spent = -1, slot4Tot = -1, slot4Spent = -1, slot5Tot = -1,
                         slot5Spent = -1, slot6Tot = -1, slot6Spent = -1, slot7Tot = -1, slot7Spent = -1,
                         slot8Tot = -1, slot8Spent = -1, slot9Tot = -1, slot9Spent = -1;
@@ -190,8 +190,10 @@ public final class TabSpells {
 
     // OnChange Triggers Setter
     private static void setOnChangeTriggers(@NotNull final ControllerSceneSheetViewer controller) {
-        controller.comboBoxSpellCasterStat.getSelectionModel().selectedItemProperty().addListener((observable) -> updateSpellModifiers(controller));
-        controller.comboBoxSpellCasterStat.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.CASTER_STAT, String.valueOf(newValue.intValue())));
+        controller.comboBoxSpellCasterStat.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            updateSpellModifiers(controller);
+            SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.CASTER_STAT, String.valueOf(newValue.intValue()));
+        });
         controller.spinnerSpell1SlotTot.getEditor().textProperty().addListener((observable -> validateLevel1Slots(controller)));
         controller.spinnerSpell1SlotCurrent.getEditor().textProperty().addListener((observable -> validateLevel1Slots(controller)));
         controller.spinnerSpell2SlotTot.getEditor().textProperty().addListener((observable -> validateLevel2Slots(controller)));
