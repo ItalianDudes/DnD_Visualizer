@@ -34,6 +34,13 @@ public final class Defs {
             public static final String DEFAULT_JSON_CLIENT_SETTINGS = "/json/" + JSON_CLIENT_SETTINGS;
         }
 
+        // Images
+        public static final class Image {
+            private static final String IMAGE_DIR = "/image/";
+            public static final String IMAGE_CA = IMAGE_DIR+"sheet/character/ac_full.png";
+            public static final String IMAGE_GOLDEN_CA = IMAGE_DIR+"sheet/character/ac_overflow.png";
+        }
+
         // SQL
         public static final class SQL {
             private static final String SQL_DIR = "/sql/";
@@ -153,6 +160,10 @@ public final class Defs {
             public static final String ALLIES_AND_ORGANIZATIONS = "allies_and_organizations";
         }
     }
+
+    // CA (not a real max, just used to calculate its percentage and fill the rectangle)
+    public static final double MAX_CA = 30.0;
+    public static final int MAX_CA_PERCENTAGE = 200;
 
     // Weight Constants
     public static final class Load {

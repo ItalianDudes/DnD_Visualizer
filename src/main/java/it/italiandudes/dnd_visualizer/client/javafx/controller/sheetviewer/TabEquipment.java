@@ -25,6 +25,7 @@ public final class TabEquipment {
     // Attributes
     public static final Armor EMPTY = new Armor(ArmorSlot.NO_ARMOR);
 
+
     // Method
     private static ObservableList<Armor> getEmptyList() {
         ObservableList<Armor> EMPTY_LIST = FXCollections.observableList(new ArrayList<>());
@@ -568,7 +569,52 @@ public final class TabEquipment {
                                         break;
                                 }
                             }
-                            Platform.runLater(() -> TabInventory.updateLoad(controller));
+                            Platform.runLater(() -> updateEquipmentProperties(controller));
+                        } catch (SQLException e) {
+                            try {
+                                if (ps != null) ps.close();
+                            } catch (SQLException ignored) {}
+                            Logger.log(e);
+                            new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
+                        }
+                        return null;
+                    }
+                };
+            }
+        }.start();
+    }
+    public static void updateCA(@NotNull final ControllerSceneSheetViewer controller) {
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        String query;
+                        PreparedStatement ps = null;
+                        ResultSet result;
+                        try {
+                            query = "SELECT e.ca_effect AS ca, a.slot AS slot FROM items AS i JOIN equipments AS e JOIN armors AS a ON i.id = e.item_id AND e.id = a.equipment_id WHERE a.is_equipped=1;";
+                            ps = DBManager.preparedStatement(query);
+                            if (ps == null) throw new SQLException("The database connection doesn't exist");
+                            result = ps.executeQuery();
+                            int ca = 0;
+                            int slot;
+                            while (result.next()) {
+                                slot = result.getInt("slot");
+                                if (slot > ArmorSlot.NO_ARMOR.getDatabaseValue()) {
+                                    if (slot == ArmorSlot.FULL_SET.getDatabaseValue()) {
+                                        ca = result.getInt("ca");
+                                        break;
+                                    } else {
+                                        ca += result.getInt("ca");
+                                    }
+                                }
+                            }
+                            ps.close();
+                            if (ca == 0) ca = 10 + Integer.parseInt(controller.labelModDexterity.getText());
+                            int finalCa = ca;
+                            Platform.runLater(() -> TabCharacter.updateCASymbol(controller, finalCa));
                         } catch (SQLException e) {
                             try {
                                 if (ps != null) ps.close();
@@ -624,5 +670,10 @@ public final class TabEquipment {
             controller.comboBoxEquipmentRightKnee.setDisable(true);
             controller.comboBoxEquipmentRightFoot.setDisable(true);
         }
+        TabEquipment.updateEquipmentProperties(controller);
+    }
+    public static void updateEquipmentProperties(@NotNull final ControllerSceneSheetViewer controller) {
+        TabInventory.updateLoad(controller);
+        updateCA(controller);
     }
 }

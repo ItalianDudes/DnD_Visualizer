@@ -34,6 +34,8 @@ public final class ControllerSceneSheetViewer {
     @FXML public ImageView imageViewCurrentHP;
     @FXML public StackPane stackPaneCurrentHP;
     @FXML public Label labelHPLeftPercentage;
+    @FXML public ImageView imageViewCurrentCA;
+    @FXML public StackPane stackPaneCurrentCA;
     @FXML public TextField textFieldMaxHP;
     @FXML public TextField textFieldCurrentHP;
     @FXML public TextField textFieldTempHP;
@@ -358,9 +360,8 @@ public final class ControllerSceneSheetViewer {
     }
     @FXML private void equipmentToggleFullSet() {
         TabEquipment.equipmentToggleFullSet(this);
-        TabInventory.updateLoad(this);
     }
-    @FXML private void updateLoad() {
-        TabInventory.updateLoad(this);
+    @FXML private void updateEquipmentProperties() {
+        TabEquipment.updateEquipmentProperties(this);
     }
 }

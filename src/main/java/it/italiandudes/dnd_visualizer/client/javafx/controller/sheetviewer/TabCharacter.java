@@ -31,7 +31,10 @@ import java.util.Base64;
 public final class TabCharacter {
 
     // Attributes
+    private static final Image IMAGE_CA = new Image(Defs.Resources.getAsStream(Defs.Resources.Image.IMAGE_CA));
+    private static final Image IMAGE_GOLDEN_CA = new Image(Defs.Resources.getAsStream(Defs.Resources.Image.IMAGE_GOLDEN_CA));
     private static Rectangle hpRemoverRectangle;
+    private static Rectangle caRemoverRectangle;
     private static String characterImageExtension = null;
 
     // Methods
@@ -52,6 +55,7 @@ public final class TabCharacter {
     public static void initialize(@NotNull final ControllerSceneSheetViewer controller) {
         controller.imageViewCharacterImage.setImage(JFXDefs.AppInfo.LOGO);
         hpRemoverRectangle = new Rectangle(controller.imageViewCurrentHP.getFitWidth(), 0, Client.getBackgroundThemeColor());
+        caRemoverRectangle = new Rectangle(controller.imageViewCurrentCA.getFitWidth(), 0, Client.getBackgroundThemeColor());
         controller.spinnerLevel.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 1, 1));
         controller.spinnerProficiencyBonus.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 6, 2, 1));
         controller.spinnerInspiration.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0, 1));
@@ -247,6 +251,16 @@ public final class TabCharacter {
     public static void updateProficiencyBonus(@NotNull final ControllerSceneSheetViewer controller) {
         TabAbility.updateParameters(controller);
     }
+    public static void updateCASymbol(@NotNull final ControllerSceneSheetViewer controller, int CA) {
+        double newCAPercentage = controller.imageViewCurrentCA.getFitHeight() - (controller.imageViewCurrentCA.getFitHeight() * CA / Defs.MAX_CA);
+        if (newCAPercentage<0) newCAPercentage = 0;
+        if (CA >= Defs.MAX_CA) controller.imageViewCurrentCA.setImage(TabCharacter.IMAGE_GOLDEN_CA);
+        else controller.imageViewCurrentCA.setImage(TabCharacter.IMAGE_CA);
+        caRemoverRectangle.setHeight(newCAPercentage);
+        controller.stackPaneCurrentCA.getChildren().remove(caRemoverRectangle);
+        controller.stackPaneCurrentCA.getChildren().add(caRemoverRectangle);
+        controller.labelCA.setText(String.valueOf(CA));
+    }
     public static void recalculateHealthPercentage(@NotNull final ControllerSceneSheetViewer controller) {
         double maxHP, currentHP, tempHP;
         try {
@@ -284,6 +298,7 @@ public final class TabCharacter {
         oldValueCurrentHP = controller.textFieldCurrentHP.getText();
         oldValueTempHP = controller.textFieldTempHP.getText();
     }
+    @SuppressWarnings("DuplicatedCode")
     public static void openCharacterImageFileChooser(@NotNull final ControllerSceneSheetViewer controller) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleziona un Contenuto Multimediale");

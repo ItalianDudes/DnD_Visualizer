@@ -389,6 +389,7 @@ public final class TabAbility {
         controller.textFieldInitiative.setText(String.valueOf(mod));
         updateDexterityAbilities(controller, mod, controller.spinnerProficiencyBonus.getValue());
         TabSpells.updateSpellModifiers(controller);
+        TabEquipment.updateCA(controller);
     }
     public static void updateConstitution(@NotNull final ControllerSceneSheetViewer controller) {
         int value = controller.spinnerConstitution.getValue();

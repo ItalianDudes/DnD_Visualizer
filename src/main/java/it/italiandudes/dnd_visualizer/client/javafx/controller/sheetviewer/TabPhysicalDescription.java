@@ -74,6 +74,7 @@ public final class TabPhysicalDescription {
     }
 
     // EDT
+    @SuppressWarnings("DuplicatedCode")
     public static void openCharacterBodyImageFileChooser(@NotNull final ControllerSceneSheetViewer controller) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleziona un Contenuto Multimediale");

@@ -4,6 +4,7 @@ import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
+import it.italiandudes.idl.common.StringHandler;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -51,7 +52,7 @@ public final class SheetDataHandler {
             protected Task<Void> createTask() {
                 return new Task<Void>() {
                     @Override
-                    protected Void call() {
+                    protected synchronized Void call() {
                         String query;
                         PreparedStatement ps = null;
                         try {
@@ -62,7 +63,7 @@ public final class SheetDataHandler {
                                 ps.setString(1, VALUE);
                                 ps.setString(2, KEY);
                             } else { // Insert
-                                query = "INSERT INTO key_parameters (param_key, param_value) VALUES (?, ?);";
+                                query = "INSERT OR REPLACE INTO key_parameters (param_key, param_value) VALUES (?, ?);";
                                 ps = DBManager.preparedStatement(query);
                                 if (ps == null) throw new SQLException("The database connection doesn't exist");
                                 ps.setString(1, KEY);
@@ -75,7 +76,7 @@ public final class SheetDataHandler {
                                 if (ps != null) ps.close();
                             } catch (SQLException ignored) {}
                             Logger.log(e);
-                            Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI SCRITTURA", "Si e' verificato un errore durante la scrittura di un parametro.\nKEY: "+KEY));
+                            Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI SCRITTURA", "Si e' verificato un errore durante la scrittura di un parametro.\nKEY: "+KEY+"\nVALUE: "+VALUE));
                         }
                         return null;
                     }
