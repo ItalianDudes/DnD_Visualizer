@@ -147,6 +147,9 @@ public final class TabInventory {
                             double inventoryWeight = 0;
                             double totalWeight;
                             if ((boolean) Client.getSettings().get("enablePassiveLoad")) {
+                                if ((boolean) Client.getSettings().get("coinsIncreaseLoad")) {
+                                    inventoryWeight += controller.spinnerMR.getValueFactory().getValue() + controller.spinnerMA.getValueFactory().getValue() + controller.spinnerME.getValueFactory().getValue() + controller.spinnerMO.getValueFactory().getValue() + controller.spinnerMP.getValueFactory().getValue();
+                                }
                                 query = "SELECT weight, quantity FROM items WHERE quantity>0 AND weight>0;";
                                 ps = DBManager.preparedStatement(query);
                                 if (ps == null) throw new SQLException("The database connection doesn't exist");
