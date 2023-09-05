@@ -3,13 +3,12 @@ package it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.client.javafx.util.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.client.javafx.util.StatsCalculator;
+import it.italiandudes.dnd_visualizer.utils.Defs.KeyParameters;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.scene.control.SpinnerValueFactory;
 import org.jetbrains.annotations.NotNull;
-
-import it.italiandudes.dnd_visualizer.utils.Defs.KeyParameters;
 
 public final class TabAbility {
 

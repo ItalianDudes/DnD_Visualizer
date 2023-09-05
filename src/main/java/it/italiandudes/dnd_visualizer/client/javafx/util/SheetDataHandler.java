@@ -2,9 +2,7 @@ package it.italiandudes.dnd_visualizer.client.javafx.util;
 
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.db.DBManager;
-import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
-import it.italiandudes.idl.common.StringHandler;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;

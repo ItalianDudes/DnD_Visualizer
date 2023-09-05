@@ -6,7 +6,6 @@ import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
