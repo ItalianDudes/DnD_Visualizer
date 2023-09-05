@@ -148,7 +148,7 @@ public final class TabInventory {
                             double totalWeight;
                             if ((boolean) Client.getSettings().get("enablePassiveLoad")) {
                                 if ((boolean) Client.getSettings().get("coinsIncreaseLoad")) {
-                                    inventoryWeight += controller.spinnerMR.getValueFactory().getValue() + controller.spinnerMA.getValueFactory().getValue() + controller.spinnerME.getValueFactory().getValue() + controller.spinnerMO.getValueFactory().getValue() + controller.spinnerMP.getValueFactory().getValue();
+                                    inventoryWeight += (controller.spinnerMR.getValueFactory().getValue()/Defs.Load.COIN_LOAD_DIVISOR) + (controller.spinnerMA.getValueFactory().getValue()/Defs.Load.COIN_LOAD_DIVISOR) + (controller.spinnerME.getValueFactory().getValue()/Defs.Load.COIN_LOAD_DIVISOR) + (controller.spinnerMO.getValueFactory().getValue()/Defs.Load.COIN_LOAD_DIVISOR) + (controller.spinnerMP.getValueFactory().getValue()/Defs.Load.COIN_LOAD_DIVISOR);
                                 }
                                 query = "SELECT weight, quantity FROM items WHERE quantity>0 AND weight>0;";
                                 ps = DBManager.preparedStatement(query);
@@ -214,6 +214,7 @@ public final class TabInventory {
             oldValueMR = qty;
             controller.spinnerMR.getValueFactory().setValue(qty);
             SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabInventory.COPPER_COINS, String.valueOf(qty));
+            updateLoad(controller);
         } catch (NumberFormatException e) {
             controller.spinnerMR.getValueFactory().setValue(oldValueMR);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Le monete di rame devono essere un numero intero positivo");
@@ -226,6 +227,7 @@ public final class TabInventory {
             oldValueMA = qty;
             controller.spinnerMA.getValueFactory().setValue(qty);
             SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabInventory.SILVER_COINS, String.valueOf(qty));
+            updateLoad(controller);
         } catch (NumberFormatException e) {
             controller.spinnerMA.getValueFactory().setValue(oldValueMA);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Le monete d'argento devono essere un numero intero positivo");
@@ -238,6 +240,7 @@ public final class TabInventory {
             oldValueME = qty;
             controller.spinnerME.getValueFactory().setValue(qty);
             SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabInventory.ELECTRUM_COINS, String.valueOf(qty));
+            updateLoad(controller);
         } catch (NumberFormatException e) {
             controller.spinnerME.getValueFactory().setValue(oldValueME);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Le monete di electrum devono essere un numero intero positivo");
@@ -250,6 +253,7 @@ public final class TabInventory {
             oldValueMO = qty;
             controller.spinnerMO.getValueFactory().setValue(qty);
             SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabInventory.GOLD_COINS, String.valueOf(qty));
+            updateLoad(controller);
         } catch (NumberFormatException e) {
             controller.spinnerMO.getValueFactory().setValue(oldValueMO);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Le monete d'oro devono essere un numero intero positivo");
@@ -262,6 +266,7 @@ public final class TabInventory {
             oldValueMP = qty;
             controller.spinnerMP.getValueFactory().setValue(qty);
             SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabInventory.PLATINUM_COINS, String.valueOf(qty));
+            updateLoad(controller);
         } catch (NumberFormatException e) {
             controller.spinnerMP.getValueFactory().setValue(oldValueMP);
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Le monete di platino devono essere un numero intero positivo");

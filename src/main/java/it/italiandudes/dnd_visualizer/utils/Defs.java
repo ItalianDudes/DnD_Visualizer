@@ -167,6 +167,7 @@ public final class Defs {
 
     // Weight Constants
     public static final class Load {
+        public static final double COIN_LOAD_DIVISOR = 1000.0;
         public static final double TOTAL_PASSIVE_LOAD_MULTIPLIER = 10;
         public static final double TOTAL_ACTIVE_LOAD_MULTIPLIER = 5;
     }

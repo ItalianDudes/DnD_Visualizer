@@ -1,5 +1,6 @@
 {
   "enableDarkMode": true,
   "enableLoad": true,
-  "enablePassiveLoad": true
+  "enablePassiveLoad": true,
+  "coinsIncreaseLoad": true
 }
