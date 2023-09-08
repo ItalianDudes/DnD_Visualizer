@@ -4,6 +4,7 @@ import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneLoading;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneSheetViewer;
+import it.italiandudes.dnd_visualizer.client.javafx.util.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
@@ -103,7 +104,19 @@ public final class ControllerSceneMainMenu {
                         } catch (IOException | SQLException e) {
                             Logger.log(e);
                             Platform.runLater(() -> {
-                                new ErrorAlert("ERROR", "I/O Error", "An error has occurred during sheet opening");
+                                new ErrorAlert("ERRORE", "Errore di I/O", "Si e' verificato un errore durante l'apertura della scheda.");
+                                Client.getStage().setScene(thisScene);
+                            });
+                            return null;
+                        }
+
+                        String dbVersion = SheetDataHandler.readKeyParameter(Defs.KeyParameters.DB_VERSION);
+
+                        if  (dbVersion == null || !dbVersion.equals(Defs.DB_VERSION)) {
+                            String sheetVersion = (dbVersion!=null?dbVersion:"NA");
+                            String supportedVersion = Defs.DB_VERSION;
+                            Platform.runLater(() -> {
+                                new ErrorAlert("ERRORE", "Errore della Scheda", "La versione della scheda selezionata non e' supportata.\nVersione Supportata: "+supportedVersion+"\nVersione Scheda: "+sheetVersion);
                                 Client.getStage().setScene(thisScene);
                             });
                             return null;

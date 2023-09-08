@@ -11,6 +11,9 @@ import java.util.Objects;
 
 public final class Defs {
 
+    // DB Version
+    public static final String DB_VERSION = "1.1";
+
     // Jar App Position
     public static final String JAR_POSITION;
     static {
@@ -58,6 +61,7 @@ public final class Defs {
 
     // Key Parameters for the sheet
     public static final class KeyParameters {
+        public static final String DB_VERSION = "db_version";
         public static final String CHARACTER_IMAGE = "character_image";
         public static final String CHARACTER_IMAGE_EXTENSION = "character_image_extension";
         public static final class TabCharacter {

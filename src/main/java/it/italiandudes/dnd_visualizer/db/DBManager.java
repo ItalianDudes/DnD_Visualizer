@@ -1,5 +1,6 @@
 package it.italiandudes.dnd_visualizer.db;
 
+import it.italiandudes.dnd_visualizer.client.javafx.util.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import org.jetbrains.annotations.NotNull;
 
@@ -8,7 +9,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Scanner;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "SqlDialectInspection"})
 public final class DBManager {
 
     // Attributes
@@ -69,6 +70,7 @@ public final class DBManager {
             }
         }
         reader.close();
+        SheetDataHandler.writeKeyParameter(Defs.KeyParameters.DB_VERSION, Defs.DB_VERSION);
     }
 
 }
