@@ -1,6 +1,6 @@
 package it.italiandudes.dnd_visualizer.data.item;
 
-import it.italiandudes.dnd_visualizer.data.enums.ArmorSlot;
+import it.italiandudes.dnd_visualizer.data.enums.AddonSlot;
 import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.interfaces.ISavable;
@@ -12,46 +12,45 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @SuppressWarnings("unused")
-public final class Armor extends Equipment implements ISavable {
+public class Addon extends Equipment implements ISavable {
 
     // Attributes
-    @Nullable private Integer armorID;
-    @NotNull private ArmorSlot slot;
+    @Nullable private Integer addonID;
+    @NotNull private AddonSlot slot;
 
-    // Constructors
-    public Armor(@NotNull final ArmorSlot slot) {
-        super(EquipmentType.ARMOR);
+    public Addon(@NotNull final AddonSlot slot) {
+        super(EquipmentType.ADDON);
         this.slot = slot;
     }
-    public Armor(@NotNull final Item item, final int equipmentID, final int armorID, @NotNull final ArmorSlot slot,
+    public Addon(@NotNull final Item item, final int equipmentID, final int addonID, @NotNull final AddonSlot slot,
                  final int lifeEffect, final double lifeEffectPerc, final int loadEffect, final double loadEffectPerc,
                  final int caEffect, @Nullable final String otherEffects, final boolean isEquipped) {
-        super(item, EquipmentType.ARMOR, lifeEffect, lifeEffectPerc, caEffect, loadEffect, loadEffectPerc, otherEffects, isEquipped);
+        super(item, EquipmentType.ADDON, lifeEffect, lifeEffectPerc, caEffect, loadEffect, loadEffectPerc, otherEffects, isEquipped);
         this.slot = slot;
         this.setEquipmentID(equipmentID);
-        this.armorID = armorID;
+        this.addonID = addonID;
     }
-    public Armor(@NotNull final Item item, @NotNull final ArmorSlot slot, final int lifeEffect, final double lifeEffectPerc,
+    public Addon(@NotNull final Item item, @NotNull final AddonSlot slot, final int lifeEffect, final double lifeEffectPerc,
                  final int loadEffect, final double loadEffectPerc, final int caEffect, @Nullable final String otherEffects,
                  final boolean isEquipped) {
-        super(item, EquipmentType.ARMOR, lifeEffect, lifeEffectPerc, caEffect, loadEffect, loadEffectPerc, otherEffects, isEquipped);
+        super(item, EquipmentType.ADDON, lifeEffect, lifeEffectPerc, caEffect, loadEffect, loadEffectPerc, otherEffects, isEquipped);
         this.slot = slot;
     }
-    public Armor(@NotNull final String armorName) throws SQLException {
-        super(armorName);
-        String query = "SELECT * FROM armors WHERE equipment_id=?;";
+    public Addon(@NotNull final String addonName) throws SQLException {
+        super(addonName);
+        String query = "SELECT * FROM addons WHERE equipment_id=?;";
         PreparedStatement ps = DBManager.preparedStatement(query);
         if (ps == null) throw new SQLException("The database is not connected");
         assert getEquipmentID()!=null;
         ps.setInt(1, getEquipmentID());
         ResultSet resultSet = ps.executeQuery();
         if (resultSet.next()) {
-            this.armorID = resultSet.getInt("id");
-            this.slot = ArmorSlot.values()[resultSet.getInt("slot")+1];
+            this.addonID = resultSet.getInt("id");
+            this.slot = AddonSlot.values()[resultSet.getInt("slot")+1];
             ps.close();
         } else {
             ps.close();
-            throw new SQLException("Exist the equipment, but not the armor");
+            throw new SQLException("Exist the equipment, but not the addon");
         }
     }
 
@@ -61,67 +60,67 @@ public final class Armor extends Equipment implements ISavable {
         super.saveIntoDatabase(oldName);
         Integer equipmentID = getEquipmentID();
         assert equipmentID != null;
-        if (armorID == null) { // Insert
-            String query = "INSERT INTO armors (equipment_id, slot) VALUES (?, ?);";
+        if (addonID == null) { // Insert
+            String query = "INSERT INTO addons (equipment_id, slot) VALUES (?, ?);";
             PreparedStatement ps = DBManager.preparedStatement(query);
             if (ps == null) throw new SQLException("The database is not connected");
             ps.setInt(1, equipmentID);
             ps.setInt(2, slot.getDatabaseValue());
             ps.executeUpdate();
             ps.close();
-            query = "SELECT id FROM armors WHERE equipment_id=?;";
+            query = "SELECT id FROM addons WHERE equipment_id=?;";
             ps = DBManager.preparedStatement(query);
             if (ps == null) throw new SQLException("The database is not connected");
             ps.setInt(1, equipmentID);
             ResultSet resultSet = ps.executeQuery();
             if (resultSet.next()) {
-                setArmorID(resultSet.getInt("id"));
+                setAddonID(resultSet.getInt("id"));
                 ps.close();
             } else {
                 ps.close();
-                throw new SQLException("Something strange happened on armor insert! Armor insert but doesn't result on select");
+                throw new SQLException("Something strange happened on addon insert! Addon insert but doesn't result on select");
             }
         } else { // Update
-            String query = "UPDATE armors SET slot=? WHERE id=?;";
+            String query = "UPDATE addons SET slot=? WHERE id=?;";
             PreparedStatement ps = DBManager.preparedStatement(query);
             if (ps == null) throw new SQLException("The database is not connected");
             ps.setInt(1, slot.getDatabaseValue());
-            ps.setInt(2, armorID);
+            ps.setInt(2, addonID);
             ps.executeUpdate();
             ps.close();
         }
     }
     @Nullable
-    public Integer getArmorID() {
-        return armorID;
+    public Integer getAddonID() {
+        return addonID;
     }
 
-    public void setArmorID(final int armorID) {
-        if (this.armorID == null) this.armorID = armorID;
+    public void setAddonID(final int addonID) {
+        if (this.addonID == null) this.addonID = addonID;
     }
     @NotNull
-    public ArmorSlot getSlot() {
+    public AddonSlot getSlot() {
         return slot;
     }
-    public void setSlot(@NotNull final ArmorSlot slot) {
+    public void setSlot(@NotNull final AddonSlot slot) {
         this.slot = slot;
     }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Armor)) return false;
+        if (!(o instanceof Addon)) return false;
         if (!super.equals(o)) return false;
 
-        Armor armor = (Armor) o;
+        Addon addon = (Addon) o;
 
-        if (isEquipped() != armor.isEquipped()) return false;
-        if (getArmorID() != null ? !getArmorID().equals(armor.getArmorID()) : armor.getArmorID() != null) return false;
-        return getSlot() == armor.getSlot();
+        if (isEquipped() != addon.isEquipped()) return false;
+        if (getAddonID() != null ? !getAddonID().equals(addon.getAddonID()) : addon.getAddonID() != null) return false;
+        return getSlot() == addon.getSlot();
     }
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        result = 31 * result + (getArmorID() != null ? getArmorID().hashCode() : 0);
+        result = 31 * result + (getAddonID() != null ? getAddonID().hashCode() : 0);
         result = 31 * result + getSlot().hashCode();
         result = 31 * result + (isEquipped() ? 1 : 0);
         return result;

@@ -49,7 +49,8 @@ CREATE TABLE IF NOT EXISTS equipments (
     ca_effect INTEGER NOT NULL DEFAULT 0,
     load_effect INTEGER NOT NULL DEFAULT 0,
     load_percentage_effect REAL NOT NULL DEFAULT 0,
-    other_effects TEXT
+    other_effects TEXT,
+    is_equipped INTEGER NOT NULL DEFAULT 0
 );
 
 CREATE TABLE IF NOT EXISTS armors (
@@ -57,8 +58,15 @@ CREATE TABLE IF NOT EXISTS armors (
     equipment_id INTEGER NOT NULL UNIQUE REFERENCES equipments(id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,
-    slot INTEGER NOT NULL,
-    is_equipped INTEGER NOT NULL DEFAULT 0
+    slot INTEGER NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS addons (
+    id INTEGER NOT NULL PRIMARY KEY,
+    equipment_id INTEGER NOT NULL UNIQUE REFERENCES equipments(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+    slot INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS weapons (

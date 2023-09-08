@@ -5,6 +5,7 @@ import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.InformationAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabInventory;
+import it.italiandudes.dnd_visualizer.client.javafx.util.UIElementConfigurator;
 import it.italiandudes.dnd_visualizer.data.enums.ArmorSlot;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
@@ -68,7 +69,7 @@ public final class ControllerSceneInventoryArmor {
     private int oldValueQuantity = 0;
 
     // Initialize
-    @FXML
+    @FXML @SuppressWarnings("DuplicatedCode")
     private void initialize() {
         setOnChangeTriggers();
         onLostFocusFireActionEvent();
@@ -77,6 +78,7 @@ public final class ControllerSceneInventoryArmor {
         comboBoxRarity.setItems(FXCollections.observableList(Rarity.colorNames));
         comboBoxRarity.getSelectionModel().selectFirst();
         spinnerQuantity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
+        spinnerQuantity.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
         comboBoxRarity.buttonCellProperty().bind(Bindings.createObjectBinding(() -> {
 
             Rarity identifiedRarity = null;
@@ -110,7 +112,7 @@ public final class ControllerSceneInventoryArmor {
                 }
             };
         }, comboBoxRarity.valueProperty()));
-        comboBoxSlot.setItems(FXCollections.observableList(ArmorSlot.armorSlots));
+        comboBoxSlot.setItems(FXCollections.observableList(ArmorSlot.ARMOR_SLOTS));
         comboBoxSlot.getSelectionModel().selectFirst();
         String itemName = TabInventory.getElementName();
         if (itemName != null) initExistingArmor(itemName);
@@ -129,6 +131,7 @@ public final class ControllerSceneInventoryArmor {
     }
 
     // EDT
+    @SuppressWarnings("DuplicatedCode")
     private void validateQuantity() {
         try {
             int qty = Integer.parseInt(spinnerQuantity.getEditor().getText());
@@ -145,7 +148,7 @@ public final class ControllerSceneInventoryArmor {
         imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
         imageExtension = null;
     }
-    @FXML
+    @FXML @SuppressWarnings("DuplicatedCode")
     private void openFileChooser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleziona un Contenuto Multimediale");
@@ -197,7 +200,7 @@ public final class ControllerSceneInventoryArmor {
             @Override
             protected Task<Void> createTask() {
                 return new Task<Void>() {
-                    @Override
+                    @Override @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             double weight;
@@ -349,7 +352,7 @@ public final class ControllerSceneInventoryArmor {
             @Override
             protected Task<Void> createTask() {
                 return new Task<Void>() {
-                    @Override
+                    @Override @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             armor = new Armor(armorName);

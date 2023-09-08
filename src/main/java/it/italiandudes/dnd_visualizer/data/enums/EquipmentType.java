@@ -8,7 +8,7 @@ import java.util.Arrays;
 public enum EquipmentType {
     ARMOR(0, "Armatura"),
     WEAPON(1, "Arma"),
-
+    ADDON(2, "Addon")
     ;
 
     // Attributes

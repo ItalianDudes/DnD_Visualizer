@@ -4,10 +4,10 @@ import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.*;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
 import it.italiandudes.dnd_visualizer.data.Note;
-import it.italiandudes.dnd_visualizer.data.enums.Category;
-import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
-import it.italiandudes.dnd_visualizer.data.enums.Rarity;
+import it.italiandudes.dnd_visualizer.data.enums.*;
+import it.italiandudes.dnd_visualizer.data.item.Addon;
 import it.italiandudes.dnd_visualizer.data.item.Armor;
+import it.italiandudes.dnd_visualizer.data.item.Weapon;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -19,7 +19,6 @@ import org.jetbrains.annotations.NotNull;
 
 public final class ControllerSceneSheetViewer {
 
-    //Graphic Elements
     // TabCharacter
     @FXML public TextField textFieldCharacterName;
     @FXML public TextField textFieldClass;
@@ -144,21 +143,21 @@ public final class ControllerSceneSheetViewer {
 
     // TabEquipment
     @FXML public ComboBox<Armor> comboBoxEquipmentHead;
-    @FXML public ComboBox<Armor> comboBoxEquipmentNecklace;
+    @FXML public ComboBox<Addon> comboBoxEquipmentNecklace;
     @FXML public ComboBox<Armor> comboBoxEquipmentFullSet;
     @FXML public ComboBox<Armor> comboBoxEquipmentLeftShoulder;
     @FXML public ComboBox<Armor> comboBoxEquipmentLeftArm;
     @FXML public ComboBox<Armor> comboBoxEquipmentLeftForearm;
     @FXML public ComboBox<Armor> comboBoxEquipmentLeftHand;
-    @FXML public ComboBox<Armor> comboBoxEquipmentMantle;
+    @FXML public ComboBox<Addon> comboBoxEquipmentMantle;
     @FXML public ComboBox<Armor> comboBoxEquipmentBack;
     @FXML public ComboBox<Armor> comboBoxEquipmentLeftLeg;
     @FXML public ComboBox<Armor> comboBoxEquipmentLeftKnee;
     @FXML public ComboBox<Armor> comboBoxEquipmentLeftFoot;
-    @FXML public ComboBox<Armor> comboBoxEquipmentLeftEarring;
-    @FXML public ComboBox<Armor> comboBoxEquipmentLeftBracelet;
-    @FXML public ComboBox<Armor> comboBoxEquipmentRing1;
-    @FXML public ComboBox<Armor> comboBoxEquipmentRing2;
+    @FXML public ComboBox<Addon> comboBoxEquipmentLeftEarring;
+    @FXML public ComboBox<Addon> comboBoxEquipmentLeftBracelet;
+    @FXML public ComboBox<Addon> comboBoxEquipmentRing1;
+    @FXML public ComboBox<Addon> comboBoxEquipmentRing2;
     @FXML public ComboBox<Armor> comboBoxEquipmentRightShoulder;
     @FXML public ComboBox<Armor> comboBoxEquipmentRightArm;
     @FXML public ComboBox<Armor> comboBoxEquipmentRightForearm;
@@ -168,10 +167,11 @@ public final class ControllerSceneSheetViewer {
     @FXML public ComboBox<Armor> comboBoxEquipmentRightLeg;
     @FXML public ComboBox<Armor> comboBoxEquipmentRightKnee;
     @FXML public ComboBox<Armor> comboBoxEquipmentRightFoot;
-    @FXML public ComboBox<Armor> comboBoxEquipmentRightEarring;
-    @FXML public ComboBox<Armor> comboBoxEquipmentRightBracelet;
-    @FXML public ComboBox<Armor> comboBoxEquipmentRing3;
-    @FXML public ComboBox<Armor> comboBoxEquipmentRing4;
+    @FXML public ComboBox<Addon> comboBoxEquipmentRightEarring;
+    @FXML public ComboBox<Addon> comboBoxEquipmentRightBracelet;
+    @FXML public ComboBox<Addon> comboBoxEquipmentRing3;
+    @FXML public ComboBox<Addon> comboBoxEquipmentRing4;
+    @FXML public ListView<Weapon> listViewEquippedWeapons;
 
     // TabInventory
     @FXML public Label labelLoadCurrent;

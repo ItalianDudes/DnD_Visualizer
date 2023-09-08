@@ -19,30 +19,20 @@ public enum ArmorSlot {
     CHEST(10, "Petto"),
     ABDOMEN(11, "Addome"),
     BACK(12, "Schiena"),
-    MANTLE(13, "Mantello"),
-    LEFT_LEG(14, "Gamba SX"),
-    RIGHT_LEG(15, "Gamba DX"),
-    LEFT_KNEE(16, "Ginocchio SX"),
-    RIGHT_KNEE(17, "Ginocchio DX"),
-    LEFT_FOOT(18, "Piede SX"),
-    RIGHT_FOOT(19, "Piede DX"),
-    LEFT_BRACELET(20, "Bracciale SX"),
-    RIGHT_BRACELET(21, "Bracciale DX"),
-    LEFT_EARRING(22, "Orecchino SX"),
-    RIGHT_EARRING(23, "Orecchino DX"),
-    NECKLACE(24, "Collana"),
-    RING_1(25, "Anello 1"),
-    RING_2(26, "Anello 2"),
-    RING_3(27, "Anello 3"),
-    RING_4(28, "Anello 4"),
+    LEFT_LEG(13, "Gamba SX"),
+    RIGHT_LEG(14, "Gamba DX"),
+    LEFT_KNEE(15, "Ginocchio SX"),
+    RIGHT_KNEE(16, "Ginocchio DX"),
+    LEFT_FOOT(17, "Piede SX"),
+    RIGHT_FOOT(18, "Piede DX")
     ;
 
     // Attributes
     @NotNull
-    public static final ArrayList<ArmorSlot> armorSlots = new ArrayList<>();
+    public static final ArrayList<ArmorSlot> ARMOR_SLOTS = new ArrayList<>();
     static {
         for (ArmorSlot slot : ArmorSlot.values()) {
-            if (slot.databaseValue >= 0) armorSlots.add(slot);
+            if (slot.databaseValue >= 0) ARMOR_SLOTS.add(slot);
         }
     }
     private final int databaseValue;

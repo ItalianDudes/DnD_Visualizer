@@ -4,10 +4,8 @@ import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneMainMenu;
-import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventoryArmor;
-import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventoryItem;
-import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventorySpell;
-import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.SceneInventoryWeapon;
+import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.*;
+import it.italiandudes.dnd_visualizer.client.javafx.util.UIElementConfigurator;
 import it.italiandudes.dnd_visualizer.client.javafx.util.LoadCategory;
 import it.italiandudes.dnd_visualizer.client.javafx.util.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
@@ -59,6 +57,11 @@ public final class TabInventory {
         controller.spinnerME.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
         controller.spinnerMO.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
         controller.spinnerMP.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
+        controller.spinnerMR.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerMA.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerME.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerMO.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerMP.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
         controller.tableColumnInventoryID.setCellValueFactory(new PropertyValueFactory<>("id"));
         controller.tableColumnInventoryName.setCellValueFactory(new PropertyValueFactory<>("name"));
         controller.tableColumnInventoryRarity.setCellValueFactory(new PropertyValueFactory<>("rarity"));
@@ -410,6 +413,8 @@ public final class TabInventory {
                 return SceneInventoryArmor.getScene();
             case WEAPON:
                 return SceneInventoryWeapon.getScene();
+            case ADDON:
+                return SceneInventoryAddon.getScene();
             default: // Invalid
                 new ErrorAlert("ERRORE", "ERRORE NEL DATABASE", "L'elemento selezionato non possiede una categoria equipaggiamento valida.");
                 return null;

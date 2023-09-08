@@ -9,7 +9,6 @@ import org.jetbrains.annotations.Nullable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
 
 @SuppressWarnings("unused")
 public final class Weapon extends Equipment implements ISavable {
@@ -25,8 +24,8 @@ public final class Weapon extends Equipment implements ISavable {
     }
     public Weapon(@NotNull final Item item, final int equipmentID, final int weaponID, @Nullable final String weaponCategory,
                   @Nullable final String properties, final int lifeEffect, final double lifeEffectPerc, final int loadEffect,
-                  final double loadEffectPerc, final int caEffect, @Nullable final String otherEffects) {
-        super(item, EquipmentType.WEAPON, lifeEffect, lifeEffectPerc, caEffect, loadEffect, loadEffectPerc, otherEffects);
+                  final double loadEffectPerc, final int caEffect, @Nullable final String otherEffects, final boolean isEquipped) {
+        super(item, EquipmentType.WEAPON, lifeEffect, lifeEffectPerc, caEffect, loadEffect, loadEffectPerc, otherEffects, isEquipped);
         this.weaponCategory = weaponCategory;
         this.properties = properties;
         this.setEquipmentID(equipmentID);
@@ -34,8 +33,8 @@ public final class Weapon extends Equipment implements ISavable {
     }
     public Weapon(@NotNull final Item item, @Nullable final String weaponCategory, @Nullable final String properties,
                   final int lifeEffect, final double lifeEffectPerc, final int loadEffect, final double loadEffectPerc,
-                  final int caEffect, @Nullable final String otherEffects) {
-        super(item, EquipmentType.WEAPON, lifeEffect, lifeEffectPerc, caEffect, loadEffect, loadEffectPerc, otherEffects);
+                  final int caEffect, @Nullable final String otherEffects, final boolean isEquipped) {
+        super(item, EquipmentType.WEAPON, lifeEffect, lifeEffectPerc, caEffect, loadEffect, loadEffectPerc, otherEffects, isEquipped);
         this.weaponCategory = weaponCategory;
         this.properties = properties;
     }
@@ -50,7 +49,6 @@ public final class Weapon extends Equipment implements ISavable {
         if (result.next()) {
             this.weaponID = result.getInt("id");
             this.weaponCategory = result.getString("category");
-            this.weaponID = result.getInt("id");
             this.properties = result.getString("properties");
             ps.close();
         } else {
@@ -108,7 +106,7 @@ public final class Weapon extends Equipment implements ISavable {
     public String getWeaponCategory() {
         return weaponCategory;
     }
-    public void setCategory(@Nullable final String weaponCategory) {
+    public void setWeaponCategory(@Nullable final String weaponCategory) {
         this.weaponCategory = weaponCategory;
     }
     @Nullable
@@ -123,11 +121,21 @@ public final class Weapon extends Equipment implements ISavable {
         if (this == o) return true;
         if (!(o instanceof Weapon)) return false;
         if (!super.equals(o)) return false;
+
         Weapon weapon = (Weapon) o;
-        return Objects.equals(getWeaponID(), weapon.getWeaponID()) && Objects.equals(getWeaponCategory(), weapon.getWeaponCategory()) && Objects.equals(getProperties(), weapon.getProperties());
+
+        if (getWeaponID() != null ? !getWeaponID().equals(weapon.getWeaponID()) : weapon.getWeaponID() != null)
+            return false;
+        if (getWeaponCategory() != null ? !getWeaponCategory().equals(weapon.getWeaponCategory()) : weapon.getWeaponCategory() != null)
+            return false;
+        return getProperties() != null ? getProperties().equals(weapon.getProperties()) : weapon.getProperties() == null;
     }
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getWeaponID(), getWeaponCategory(), getProperties());
+        int result = super.hashCode();
+        result = 31 * result + (getWeaponID() != null ? getWeaponID().hashCode() : 0);
+        result = 31 * result + (getWeaponCategory() != null ? getWeaponCategory().hashCode() : 0);
+        result = 31 * result + (getProperties() != null ? getProperties().hashCode() : 0);
+        return result;
     }
 }

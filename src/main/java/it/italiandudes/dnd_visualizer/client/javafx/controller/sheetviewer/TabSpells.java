@@ -2,6 +2,7 @@ package it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer;
 
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer;
+import it.italiandudes.dnd_visualizer.client.javafx.util.UIElementConfigurator;
 import it.italiandudes.dnd_visualizer.client.javafx.util.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Stats;
@@ -20,8 +21,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public final class TabSpells {
-
-    // Attributes
 
     // Old Values
     private static int oldValueSpell1Tot = 0;
@@ -65,6 +64,24 @@ public final class TabSpells {
         controller.spinnerSpell8SlotCurrent.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
         controller.spinnerSpell9SlotTot.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
         controller.spinnerSpell9SlotCurrent.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
+        controller.spinnerSpell1SlotTot.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell1SlotCurrent.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell2SlotTot.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell2SlotCurrent.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell3SlotTot.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell3SlotCurrent.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell4SlotTot.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell4SlotCurrent.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell5SlotTot.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell5SlotCurrent.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell6SlotTot.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell6SlotCurrent.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell7SlotTot.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell7SlotCurrent.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell8SlotTot.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell8SlotCurrent.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell9SlotTot.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
+        controller.spinnerSpell9SlotCurrent.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
         readTabData(controller);
         setOnChangeTriggers(controller);
         onLostFocusFireActionEvent(controller);

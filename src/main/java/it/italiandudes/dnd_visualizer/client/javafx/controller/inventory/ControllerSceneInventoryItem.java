@@ -5,6 +5,7 @@ import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.InformationAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabInventory;
+import it.italiandudes.dnd_visualizer.client.javafx.util.UIElementConfigurator;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.data.item.Item;
@@ -59,7 +60,7 @@ public class ControllerSceneInventoryItem {
     private int oldValueQuantity = 0;
 
     // Initialize
-    @FXML
+    @FXML @SuppressWarnings("DuplicatedCode")
     private void initialize() {
         setOnChangeTriggers();
         onLostFocusFireActionEvent();
@@ -68,6 +69,7 @@ public class ControllerSceneInventoryItem {
         comboBoxRarity.setItems(FXCollections.observableList(Rarity.colorNames));
         comboBoxRarity.getSelectionModel().selectFirst();
         spinnerQuantity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
+        spinnerQuantity.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
         comboBoxRarity.buttonCellProperty().bind(Bindings.createObjectBinding(() -> {
 
             Rarity identifiedRarity = null;
@@ -118,6 +120,7 @@ public class ControllerSceneInventoryItem {
     }
 
     // EDT
+    @SuppressWarnings("DuplicatedCode")
     private void validateQuantity() {
         try {
             int qty = Integer.parseInt(spinnerQuantity.getEditor().getText());
@@ -134,7 +137,7 @@ public class ControllerSceneInventoryItem {
         imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
         imageExtension = null;
     }
-    @FXML
+    @FXML @SuppressWarnings("DuplicatedCode")
     private void openFileChooser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleziona un Contenuto Multimediale");
@@ -186,7 +189,7 @@ public class ControllerSceneInventoryItem {
             @Override
             protected Task<Void> createTask() {
                 return new Task<Void>() {
-                    @Override
+                    @Override @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             double weight;
@@ -304,7 +307,7 @@ public class ControllerSceneInventoryItem {
             @Override
             protected Task<Void> createTask() {
                 return new Task<Void>() {
-                    @Override
+                    @Override @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             item = new Item(itemName);

@@ -1,9 +1,11 @@
 package it.italiandudes.dnd_visualizer.data.item;
 
+import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.interfaces.ISavable;
+import it.italiandudes.idl.common.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,6 +25,7 @@ public class Equipment extends Item implements ISavable {
     private int loadEffect = 0;
     private double loadPercentageEffect = 0;
     @Nullable private String otherEffects = null;
+    private boolean isEquipped = false;
 
     // Constructors
     public Equipment(@NotNull final EquipmentType type) {
@@ -30,7 +33,8 @@ public class Equipment extends Item implements ISavable {
         this.type = type;
     }
     public Equipment(@NotNull Item item, @NotNull final EquipmentType type, final int lifeEffect, final double lifePercentageEffect,
-                     final int caEffect, final int loadEffect, final double loadPercentageEffect, @Nullable final String otherEffects) {
+                     final int caEffect, final int loadEffect, final double loadPercentageEffect, @Nullable final String otherEffects,
+                     final boolean isEquipped) {
         super(item);
         this.type = type;
         this.lifeEffect = lifeEffect;
@@ -39,6 +43,7 @@ public class Equipment extends Item implements ISavable {
         this.loadEffect = loadEffect;
         this.loadPercentageEffect = loadPercentageEffect;
         this.otherEffects = otherEffects;
+        this.isEquipped = isEquipped;
     }
     public Equipment(@NotNull final String name) throws SQLException {
         super(name);
@@ -58,6 +63,7 @@ public class Equipment extends Item implements ISavable {
             this.loadEffect = result.getInt("load_effect");
             this.loadPercentageEffect = result.getDouble("load_percentage_effect");
             this.otherEffects = result.getString("other_effects");
+            this.isEquipped = result.getInt("is_equipped")!=0;
             ps.close();
         } else {
             ps.close();
@@ -72,6 +78,7 @@ public class Equipment extends Item implements ISavable {
         Integer itemID = getItemID();
         assert itemID != null;
         if (equipmentID == null) { // Insert
+            Logger.log("EQUIPMENT INSERT");
             String query = "INSERT INTO equipments (item_id, type, life_effect, life_percentage_effect, ca_effect, load_effect, load_percentage_effect, other_effects) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = DBManager.preparedStatement(query);
             if (ps == null) throw new SQLException("The database is not connected");
@@ -98,8 +105,9 @@ public class Equipment extends Item implements ISavable {
                 throw new SQLException("Something strange happened on equipment insert! Equipment insert but doesn't result on select");
             }
         } else { // Update
+            Logger.log("EQUIPMENT UPDATE");
             assert getEquipmentID()!=null;
-            String query = "UPDATE equipments SET item_id=?, type=?, life_effect=?, life_percentage_effect=?, ca_effect=?, load_effect=?, load_percentage_effect=?, other_effects=? WHERE id=?;";
+            String query = "UPDATE equipments SET item_id=?, type=?, life_effect=?, life_percentage_effect=?, ca_effect=?, load_effect=?, load_percentage_effect=?, other_effects=?, is_equipped=? WHERE id=?;";
             PreparedStatement ps = DBManager.preparedStatement(query);
             if (ps == null) throw new SQLException("The database is not connected");
             ps.setInt(1, itemID);
@@ -110,7 +118,8 @@ public class Equipment extends Item implements ISavable {
             ps.setInt(6, getLoadEffect());
             ps.setDouble(7, getLoadPercentageEffect());
             ps.setString(8, getOtherEffects());
-            ps.setInt(9, getEquipmentID());
+            ps.setInt(9, isEquipped()?1:0);
+            ps.setInt(10, getEquipmentID());
             ps.executeUpdate();
             ps.close();
         }
@@ -162,5 +171,64 @@ public class Equipment extends Item implements ISavable {
     }
     public void setOtherEffects(@Nullable final String otherEffects) {
         this.otherEffects = otherEffects;
+    }
+    public boolean isEquipped() {
+        return isEquipped;
+    }
+    public void setEquipped(boolean equipped) {
+        isEquipped = equipped;
+        if (equipmentID == null) return;
+        PreparedStatement ps = null;
+        try {
+            String query = "UPDATE equipments SET is_equipped=? WHERE id=?;";
+            ps = DBManager.preparedStatement(query);
+            if (ps == null) throw new SQLException("The database connection doesn't exist");
+            ps.setInt(1, (equipped ? 1 : 0));
+            ps.setInt(2, equipmentID);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            try {
+                if (ps != null) ps.close();
+            } catch (SQLException ignored) {}
+            Logger.log(e);
+            new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
+        }
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Equipment)) return false;
+        if (!super.equals(o)) return false;
+
+        Equipment equipment = (Equipment) o;
+
+        if (getLifeEffect() != equipment.getLifeEffect()) return false;
+        if (Double.compare(equipment.getLifePercentageEffect(), getLifePercentageEffect()) != 0) return false;
+        if (getCaEffect() != equipment.getCaEffect()) return false;
+        if (getLoadEffect() != equipment.getLoadEffect()) return false;
+        if (Double.compare(equipment.getLoadPercentageEffect(), getLoadPercentageEffect()) != 0) return false;
+        if (isEquipped() != equipment.isEquipped()) return false;
+        if (getEquipmentID() != null ? !getEquipmentID().equals(equipment.getEquipmentID()) : equipment.getEquipmentID() != null)
+            return false;
+        if (getType() != equipment.getType()) return false;
+        return getOtherEffects() != null ? getOtherEffects().equals(equipment.getOtherEffects()) : equipment.getOtherEffects() == null;
+    }
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        long temp;
+        result = 31 * result + (getEquipmentID() != null ? getEquipmentID().hashCode() : 0);
+        result = 31 * result + getType().hashCode();
+        result = 31 * result + getLifeEffect();
+        temp = Double.doubleToLongBits(getLifePercentageEffect());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + getCaEffect();
+        result = 31 * result + getLoadEffect();
+        temp = Double.doubleToLongBits(getLoadPercentageEffect());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (getOtherEffects() != null ? getOtherEffects().hashCode() : 0);
+        result = 31 * result + (isEquipped() ? 1 : 0);
+        return result;
     }
 }

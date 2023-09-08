@@ -9,7 +9,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Objects;
 
-@SuppressWarnings("unused")
 public final class Defs {
 
     // Jar App Position
@@ -74,7 +73,6 @@ public final class Defs {
             public static final String CURRENT_HP = "current_hp";
             public static final String TEMP_HP = "temp_hp";
             public static final String CURRENT_LIFE_DICES = "current_life_dices";
-            public static final String TOTAL_LIFE_DICES = "total_life_dices";
             public static final String PROFICIENCY_BONUS = "proficiency_bonus";
             public static final String INSPIRATION = "inspiration";
             public static final String INITIATIVE = "initiative";
@@ -171,7 +169,6 @@ public final class Defs {
 
     // CA (not a real max, just used to calculate its percentage and fill the rectangle)
     public static final double MAX_CA = 30.0;
-    public static final int MAX_CA_PERCENTAGE = 200;
 
     // Weight Constants
     public static final class Load {

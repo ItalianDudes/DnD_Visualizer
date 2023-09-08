@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--suppress JavaFxDefaultTag -->
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<!--suppress JavaFxDefaultTag -->
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer">
    <children>
       <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -1852,164 +1872,129 @@
                      <content>
                         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
                            <children>
-                              <GridPane hgap="20.0" layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <GridPane layoutX="5.0" layoutY="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columnConstraints>
-                                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="420.0" />
-                                    <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
-                                    <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="420.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
                                  </columnConstraints>
                                  <rowConstraints>
+                                    <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                     <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
                                  </rowConstraints>
                                  <children>
-                                    <GridPane alignment="CENTER" hgap="5.0" vgap="15.0">
+                                    <GridPane hgap="20.0">
                                        <columnConstraints>
-                                          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
-                                          <ColumnConstraints halignment="LEFT" hgrow="NEVER" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="420.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="420.0" />
                                        </columnConstraints>
                                        <rowConstraints>
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                          <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
                                        </rowConstraints>
                                        <children>
-                                          <Label text="Spalla SX" GridPane.columnIndex="1">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentLeftShoulder" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Spalla SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" />
-                                          <Label text="Braccio SX" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentLeftArm" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Braccio SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="1" />
-                                          <Label text="Avambraccio SX" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentLeftForearm" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Avambraccio SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="2" />
-                                          <Label text="Mano SX" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentLeftHand" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Mano SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="3" />
-                                          <Label text="Schiena" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentBack" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Schiena" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="5" />
-                                          <Label text="Mantello" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentMantle" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Mantello" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="4" />
-                                          <Label text="Gamba SX" GridPane.columnIndex="1" GridPane.rowIndex="6">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentLeftLeg" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Gamba SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="6" />
-                                          <Label text="Ginocchio SX" GridPane.columnIndex="1" GridPane.rowIndex="7">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentLeftKnee" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Ginocchio SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="7" />
-                                          <Label text="Piede SX" GridPane.columnIndex="1" GridPane.rowIndex="8">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentLeftFoot" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Piede SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="8" />
-                                          <Label text="Orecchino SX" GridPane.columnIndex="1" GridPane.rowIndex="9">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentLeftEarring" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Orecchino SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="9" />
-                                          <Label text="Bracciale SX" GridPane.columnIndex="1" GridPane.rowIndex="10">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentLeftBracelet" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Bracciale SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="10" />
-                                          <Label text="Anello 1" GridPane.columnIndex="1" GridPane.rowIndex="11">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentRing1" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Anello 1" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="11" />
-                                          <Label text="Anello 2" GridPane.columnIndex="1" GridPane.rowIndex="12">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentRing2" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Anello 2" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="12" />
-                                       </children>
-                                    </GridPane>
-                                    <VBox spacing="10.0" GridPane.columnIndex="1">
-                                       <GridPane.margin>
-                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                                       </GridPane.margin>
-                                       <children>
-                                          <GridPane>
+                                          <GridPane alignment="CENTER" hgap="5.0" vgap="10.0">
                                              <columnConstraints>
                                                 <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                <ColumnConstraints halignment="LEFT" hgrow="NEVER" />
                                              </columnConstraints>
                                              <rowConstraints>
                                                 <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                 <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                             </rowConstraints>
-                                             <children>
-                                                <ComboBox fx:id="comboBoxEquipmentHead" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Testa" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="1" />
-                                                <Label text="Testa">
-                                                   <font>
-                                                      <Font name="Lucida Sans Demibold" size="16.0" />
-                                                   </font>
-                                                </Label>
-                                             </children>
-                                          </GridPane>
-                                          <GridPane>
-                                             <columnConstraints>
-                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
-                                             </columnConstraints>
-                                             <rowConstraints>
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                 <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                 <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                              </rowConstraints>
                                              <children>
-                                                <ComboBox fx:id="comboBoxEquipmentNecklace" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Collana" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="1" />
-                                                <Label text="Collana">
+                                                <Label text="Spalla SX" GridPane.columnIndex="1">
                                                    <font>
                                                       <Font name="Lucida Sans Demibold" size="16.0" />
                                                    </font>
                                                 </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentLeftShoulder" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Spalla SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" />
+                                                <Label text="Braccio SX" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentLeftArm" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Braccio SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="1" />
+                                                <Label text="Avambraccio SX" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentLeftForearm" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Avambraccio SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="2" />
+                                                <Label text="Mano SX" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentLeftHand" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Mano SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="3" />
+                                                <Label text="Schiena" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentBack" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Schiena" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="5" />
+                                                <Label text="Mantello" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentMantle" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Mantello" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="4" />
+                                                <Label text="Gamba SX" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentLeftLeg" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Gamba SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="6" />
+                                                <Label text="Ginocchio SX" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentLeftKnee" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Ginocchio SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="7" />
+                                                <Label text="Piede SX" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentLeftFoot" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Piede SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="8" />
+                                                <Label text="Orecchino SX" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentLeftEarring" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Orecchino SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="9" />
+                                                <Label text="Bracciale SX" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentLeftBracelet" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Bracciale SX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="10" />
+                                                <Label text="Anello 1" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentRing1" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Anello 1" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="11" />
+                                                <Label text="Anello 2" GridPane.columnIndex="1" GridPane.rowIndex="12">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentRing2" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Anello 2" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="12" />
                                              </children>
                                           </GridPane>
-                                          <StackPane>
+                                          <VBox spacing="10.0" GridPane.columnIndex="1">
                                              <children>
-                                                <ImageView fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
-                                                   <image>
-                                                      <Image url="@../image/sheet/equipment/body.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <GridPane alignment="CENTER" StackPane.alignment="CENTER">
+                                                <GridPane>
                                                    <columnConstraints>
                                                       <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
                                                    </columnConstraints>
@@ -2018,117 +2003,180 @@
                                                       <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <ComboBox fx:id="comboBoxEquipmentFullSet" maxWidth="1.7976931348623157E308" onAction="#equipmentToggleFullSet" promptText="Set Completo" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="1" />
-                                                      <Label text="Set Completo">
+                                                      <ComboBox fx:id="comboBoxEquipmentHead" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Testa" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="1" />
+                                                      <Label text="Testa">
                                                          <font>
                                                             <Font name="Lucida Sans Demibold" size="16.0" />
                                                          </font>
                                                       </Label>
                                                    </children>
                                                 </GridPane>
+                                                <GridPane>
+                                                   <columnConstraints>
+                                                      <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                      <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <ComboBox fx:id="comboBoxEquipmentNecklace" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Collana" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="1" />
+                                                      <Label text="Collana">
+                                                         <font>
+                                                            <Font name="Lucida Sans Demibold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </GridPane>
+                                                <StackPane>
+                                                   <children>
+                                                      <ImageView fitHeight="460.0" fitWidth="460.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+                                                         <image>
+                                                            <Image url="@../image/sheet/equipment/body.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                      <GridPane alignment="CENTER" StackPane.alignment="CENTER">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                            <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <ComboBox fx:id="comboBoxEquipmentFullSet" maxWidth="1.7976931348623157E308" onAction="#equipmentToggleFullSet" promptText="Set Completo" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="1" />
+                                                            <Label text="Set Completo">
+                                                               <font>
+                                                                  <Font name="Lucida Sans Demibold" size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </StackPane>
                                              </children>
-                                          </StackPane>
+                                          </VBox>
+                                          <GridPane alignment="CENTER" hgap="5.0" layoutX="10.0" layoutY="10.0" vgap="10.0" GridPane.columnIndex="2">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                             </rowConstraints>
+                                             <children>
+                                                <Label text="Spalla DX">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentRightShoulder" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Spalla DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" />
+                                                <Label text="Braccio DX" GridPane.rowIndex="1">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentRightArm" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Braccio DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Label text="Avambraccio DX" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentRightForearm" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Avambraccio DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <Label text="Mano DX" GridPane.rowIndex="3">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentRightHand" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Mano DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                <Label text="Petto" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentChest" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Petto" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                <Label text="Addome" GridPane.rowIndex="5">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentAbdomen" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Addome" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                <Label text="Gamba DX" GridPane.rowIndex="6">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentRightLeg" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Gamba DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                <Label text="Ginocchio DX" GridPane.rowIndex="7">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentRightKnee" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Ginocchio DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                                <Label text="Piede DX" GridPane.rowIndex="8">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentRightFoot" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Piede DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                                <Label text="Orecchino DX" GridPane.rowIndex="9">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentRightEarring" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Orecchino DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                                <Label text="Bracciale DX" GridPane.rowIndex="10">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentRightBracelet" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Bracciale DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                                                <Label text="Anello 3" GridPane.rowIndex="11">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentRing3" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Anello 3" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                                                <Label text="Anello 4" GridPane.rowIndex="12">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <ComboBox fx:id="comboBoxEquipmentRing4" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Anello 4" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                                             </children>
+                                          </GridPane>
                                        </children>
-                                    </VBox>
-                                    <GridPane alignment="CENTER" hgap="5.0" layoutX="10.0" layoutY="10.0" vgap="15.0" GridPane.columnIndex="2">
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </GridPane>
+                                    <GridPane GridPane.rowIndex="1">
                                        <columnConstraints>
-                                          <ColumnConstraints halignment="RIGHT" hgrow="NEVER" />
                                           <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
                                        </columnConstraints>
                                        <rowConstraints>
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
-                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                          <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
                                           <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                        </rowConstraints>
                                        <children>
-                                          <Label text="Spalla DX">
+                                          <Label text="Armi Equipaggiate" GridPane.rowIndex="1">
                                              <font>
                                                 <Font name="Lucida Sans Demibold" size="16.0" />
                                              </font>
                                           </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentRightShoulder" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Spalla DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" />
-                                          <Label text="Braccio DX" GridPane.rowIndex="1">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentRightArm" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Braccio DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <Label text="Avambraccio DX" GridPane.rowIndex="2">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentRightForearm" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Avambraccio DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <Label text="Mano DX" GridPane.rowIndex="3">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentRightHand" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Mano DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                          <Label text="Petto" GridPane.rowIndex="4">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentChest" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Petto" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                          <Label text="Addome" GridPane.rowIndex="5">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentAbdomen" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Addome" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                          <Label text="Gamba DX" GridPane.rowIndex="6">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentRightLeg" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Gamba DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                                          <Label text="Ginocchio DX" GridPane.rowIndex="7">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentRightKnee" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Ginocchio DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                                          <Label text="Piede DX" GridPane.rowIndex="8">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentRightFoot" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Piede DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                                          <Label text="Orecchino DX" GridPane.rowIndex="9">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentRightEarring" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Orecchino DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                                          <Label text="Bracciale DX" GridPane.rowIndex="10">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentRightBracelet" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Bracciale DX" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                                          <Label text="Anello 3" GridPane.rowIndex="11">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentRing3" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Anello 3" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                                          <Label text="Anello 4" GridPane.rowIndex="12">
-                                             <font>
-                                                <Font name="Lucida Sans Demibold" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="comboBoxEquipmentRing4" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Anello 4" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                                          <ListView fx:id="listViewEquippedWeapons" prefHeight="200.0" prefWidth="200.0" />
                                        </children>
                                     </GridPane>
                                  </children>

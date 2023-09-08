@@ -5,9 +5,9 @@ import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.InformationAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabInventory;
+import it.italiandudes.dnd_visualizer.client.javafx.util.UIElementConfigurator;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
-import it.italiandudes.dnd_visualizer.data.item.Armor;
 import it.italiandudes.dnd_visualizer.data.item.Item;
 import it.italiandudes.dnd_visualizer.data.item.Weapon;
 import it.italiandudes.dnd_visualizer.utils.Defs;
@@ -65,12 +65,13 @@ public final class ControllerSceneInventoryWeapon {
     @FXML private TextField textFieldEffectLoadPerc;
     @FXML private TextArea textAreaOtherEffects;
     @FXML private TextArea textAreaProperties;
+    @FXML private CheckBox checkBoxEquipped;
 
     // Old Values
     private int oldValueQuantity = 0;
 
     // Initialize
-    @FXML
+    @FXML @SuppressWarnings("DuplicatedCode")
     private void initialize() {
         setOnChangeTriggers();
         onLostFocusFireActionEvent();
@@ -79,6 +80,7 @@ public final class ControllerSceneInventoryWeapon {
         comboBoxRarity.setItems(FXCollections.observableList(Rarity.colorNames));
         comboBoxRarity.getSelectionModel().selectFirst();
         spinnerQuantity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
+        spinnerQuantity.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
         comboBoxRarity.buttonCellProperty().bind(Bindings.createObjectBinding(() -> {
 
             Rarity identifiedRarity = null;
@@ -129,6 +131,7 @@ public final class ControllerSceneInventoryWeapon {
     }
 
     // EDT
+    @SuppressWarnings("DuplicatedCode")
     private void validateQuantity() {
         try {
             int qty = Integer.parseInt(spinnerQuantity.getEditor().getText());
@@ -145,7 +148,7 @@ public final class ControllerSceneInventoryWeapon {
         imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
         imageExtension = null;
     }
-    @FXML
+    @FXML @SuppressWarnings("DuplicatedCode")
     private void openFileChooser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleziona un Contenuto Multimediale");
@@ -197,7 +200,7 @@ public final class ControllerSceneInventoryWeapon {
             @Override
             protected Task<Void> createTask() {
                 return new Task<Void>() {
-                    @Override
+                    @Override @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             double weight;
@@ -273,8 +276,9 @@ public final class ControllerSceneInventoryWeapon {
                             String otherEffects = textAreaOtherEffects.getText();
                             String weaponCategory = textFieldWeaponCategory.getText();
                             String properties = textAreaProperties.getText();
+                            boolean isEquipped = checkBoxEquipped.isSelected();
                             if (weapon == null) {
-                                if (Armor.checkIfExist(textFieldName.getText())) {
+                                if (Weapon.checkIfExist(textFieldName.getText())) {
                                     Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Esiste gia' qualcosa con questo nome registrato!"));
                                     return null;
                                 }
@@ -296,7 +300,7 @@ public final class ControllerSceneInventoryWeapon {
                                 );
                                 weapon = new Weapon(
                                         item, weaponCategory, properties, lifeEffect, lifeEffectPerc,
-                                        loadEffect, loadEffectPerc, caEffect, otherEffects
+                                        loadEffect, loadEffectPerc, caEffect, otherEffects, isEquipped
                                 );
                             } else {
                                 assert weapon.getEquipmentID()!=null;
@@ -321,10 +325,9 @@ public final class ControllerSceneInventoryWeapon {
                                 weapon = new Weapon(
                                         item, weapon.getEquipmentID(), weapon.getWeaponID(),
                                         weaponCategory, properties, lifeEffect, lifeEffectPerc,
-                                        loadEffect, loadEffectPerc, caEffect, otherEffects
+                                        loadEffect, loadEffectPerc, caEffect, otherEffects, isEquipped
                                 );
                             }
-
                             weapon.saveIntoDatabase(oldName);
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Salvataggio dei Dati", "Salvataggio dei dati completato con successo!"));
                         } catch (Exception e) {
@@ -346,7 +349,7 @@ public final class ControllerSceneInventoryWeapon {
             @Override
             protected Task<Void> createTask() {
                 return new Task<Void>() {
-                    @Override
+                    @Override @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             weapon = new Weapon(armorName);
@@ -405,6 +408,7 @@ public final class ControllerSceneInventoryWeapon {
                                 textFieldEffectLoadPerc.setText(String.valueOf(weapon.getLoadPercentageEffect()));
                                 textAreaOtherEffects.setText(weapon.getOtherEffects());
                                 textAreaProperties.setText(weapon.getProperties());
+                                checkBoxEquipped.setSelected(weapon.isEquipped());
                             });
 
                         } catch (Exception e) {

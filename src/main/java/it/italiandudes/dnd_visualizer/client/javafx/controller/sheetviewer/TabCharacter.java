@@ -70,6 +70,7 @@ public final class TabCharacter {
     }
 
     // Data Reader
+    @SuppressWarnings("DuplicatedCode")
     private static void readTabData(@NotNull final ControllerSceneSheetViewer controller) {
         new Service<Void>() {
             @Override
@@ -104,7 +105,6 @@ public final class TabCharacter {
                         String currentHP = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CURRENT_HP);
                         String tempHP = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.TEMP_HP);
                         String currentLifeDicesAmount = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CURRENT_LIFE_DICES);
-                        String totalLifeDicesAmount = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.TOTAL_LIFE_DICES);
                         String proficiencyBonus = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.PROFICIENCY_BONUS);
                         String inspiration = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.INSPIRATION);
                         String initiative = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.INITIATIVE);
@@ -117,7 +117,10 @@ public final class TabCharacter {
                         Platform.runLater(() -> {
                             if (characterName != null) controller.textFieldCharacterName.setText(characterName);
                             if (characterClass != null) controller.textFieldClass.setText(characterClass);
-                            if (level != null) controller.spinnerLevel.getValueFactory().setValue(Integer.parseInt(level));
+                            if (level != null) {
+                                controller.spinnerLevel.getValueFactory().setValue(Integer.parseInt(level));
+                                controller.textFieldTotalLifeDiceAmount.setText(level);
+                            }
                             if (background != null) controller.textFieldBackground.setText(background);
                             if (playerName != null) controller.textFieldPlayerName.setText(playerName);
                             if (race != null) controller.textFieldRace.setText(race);
@@ -132,7 +135,7 @@ public final class TabCharacter {
                             if (currentHP != null) controller.textFieldCurrentHP.setText(currentHP);
                             if (tempHP != null) controller.textFieldTempHP.setText(tempHP);
                             if (currentLifeDicesAmount != null) controller.textFieldCurrentLifeDiceAmount.setText(currentLifeDicesAmount);
-                            if (totalLifeDicesAmount != null) controller.textFieldTotalLifeDiceAmount.setText(totalLifeDicesAmount);
+                            else controller.textFieldCurrentLifeDiceAmount.setText(String.valueOf(controller.spinnerLevel.getValue()));
                             if (proficiencyBonus != null) controller.spinnerProficiencyBonus.getValueFactory().setValue(Integer.parseInt(proficiencyBonus));
                             if (inspiration != null) controller.spinnerInspiration.getValueFactory().setValue(Integer.parseInt(inspiration));
                             if (initiative != null) controller.textFieldInitiative.setText(initiative);
@@ -159,6 +162,7 @@ public final class TabCharacter {
         controller.spinnerLevel.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.LEVEL, newValue);
             controller.textFieldTotalLifeDiceAmount.setText(newValue);
+            updateLifeDiceAmount(controller);
         });
         controller.textFieldBackground.textProperty().addListener(((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.BACKGROUND, newValue)));
         controller.textFieldPlayerName.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.PLAYER_NAME, newValue));
@@ -178,10 +182,6 @@ public final class TabCharacter {
             recalculateHealthPercentage(controller);
         });
         controller.textFieldCurrentLifeDiceAmount.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CURRENT_LIFE_DICES, newValue));
-        controller.textFieldTotalLifeDiceAmount.textProperty().addListener((observable, oldValue, newValue) -> {
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.TOTAL_LIFE_DICES, newValue);
-            updateLifeDiceAmount(controller);
-        });
         controller.spinnerProficiencyBonus.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.PROFICIENCY_BONUS, newValue);
             updateProficiencyBonus(controller);
