@@ -2,7 +2,10 @@ package it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer;
 
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer;
-import it.italiandudes.dnd_visualizer.data.enums.*;
+import it.italiandudes.dnd_visualizer.data.enums.AddonSlot;
+import it.italiandudes.dnd_visualizer.data.enums.ArmorSlot;
+import it.italiandudes.dnd_visualizer.data.enums.Category;
+import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
 import it.italiandudes.dnd_visualizer.data.item.Addon;
 import it.italiandudes.dnd_visualizer.data.item.Armor;
 import it.italiandudes.dnd_visualizer.data.item.Weapon;
