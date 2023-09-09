@@ -79,7 +79,6 @@ public final class Defs {
             public static final String CURRENT_LIFE_DICES = "current_life_dices";
             public static final String PROFICIENCY_BONUS = "proficiency_bonus";
             public static final String INSPIRATION = "inspiration";
-            public static final String INITIATIVE = "initiative";
             public static final String SPEED = "speed";
             public static final String PERSONALITY_TRAITS = "personality_traits";
             public static final String IDEALS = "ideals";

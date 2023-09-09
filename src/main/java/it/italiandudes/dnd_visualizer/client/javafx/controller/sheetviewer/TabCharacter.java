@@ -107,7 +107,6 @@ public final class TabCharacter {
                         String currentLifeDicesAmount = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CURRENT_LIFE_DICES);
                         String proficiencyBonus = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.PROFICIENCY_BONUS);
                         String inspiration = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.INSPIRATION);
-                        String initiative = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.INITIATIVE);
                         String speed = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.SPEED);
                         String personalityTraits = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.PERSONALITY_TRAITS);
                         String ideals = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.IDEALS);
@@ -138,7 +137,6 @@ public final class TabCharacter {
                             else controller.textFieldCurrentLifeDiceAmount.setText(String.valueOf(controller.spinnerLevel.getValue()));
                             if (proficiencyBonus != null) controller.spinnerProficiencyBonus.getValueFactory().setValue(Integer.parseInt(proficiencyBonus));
                             if (inspiration != null) controller.spinnerInspiration.getValueFactory().setValue(Integer.parseInt(inspiration));
-                            if (initiative != null) controller.textFieldInitiative.setText(initiative);
                             if (speed != null) controller.textFieldSpeed.setText(speed);
                             if (personalityTraits != null) controller.textAreaPersonalityTraits.setText(personalityTraits);
                             if (ideals != null) controller.textAreaIdeals.setText(ideals);
@@ -187,7 +185,6 @@ public final class TabCharacter {
             updateProficiencyBonus(controller);
         });
         controller.spinnerInspiration.getEditor().textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.INSPIRATION, newValue));
-        controller.textFieldInitiative.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.INITIATIVE, newValue));
         controller.textFieldSpeed.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.SPEED, newValue));
         controller.textAreaPersonalityTraits.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.PERSONALITY_TRAITS, newValue));
         controller.textAreaIdeals.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.IDEALS, newValue));
