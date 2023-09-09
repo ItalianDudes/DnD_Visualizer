@@ -2,6 +2,7 @@ package it.italiandudes.dnd_visualizer;
 
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.db.DBManager;
+import it.italiandudes.idl.common.InfoFlags;
 import it.italiandudes.idl.common.Logger;
 import org.json.simple.parser.JSONParser;
 
@@ -30,6 +31,7 @@ public final class DnD_Visualizer {
         try {
             Client.start(args);
         } catch (NoClassDefFoundError e) {
+            Logger.log("ERROR: TO RUN THIS JAR YOU NEED JAVA 8 WITH BUILT-IN JAVAFX!", new InfoFlags(true, true, true, true));
             Logger.log(e);
             System.exit(0);
         }
