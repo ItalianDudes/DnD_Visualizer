@@ -320,6 +320,10 @@ public final class TabCharacter {
                         protected Void call() {
                             try {
                                 BufferedImage img = ImageIO.read(finalImagePath);
+                                if (img == null) {
+                                    Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
+                                    return null;
+                                }
                                 Image fxImage = SwingFXUtils.toFXImage(img, null);
                                 Platform.runLater(() -> {
                                     controller.imageViewCharacterImage.setImage(fxImage);

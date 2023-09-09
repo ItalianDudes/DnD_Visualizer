@@ -111,6 +111,10 @@ public final class TabStory {
                         protected Void call() {
                             try {
                                 BufferedImage img = ImageIO.read(finalImagePath);
+                                if (img == null) {
+                                    Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
+                                    return null;
+                                }
                                 Platform.runLater(() -> controller.imageViewSymbolImage.setImage(SwingFXUtils.toFXImage(img, null)));
                                 symbolImageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
                             }catch (IOException e) {

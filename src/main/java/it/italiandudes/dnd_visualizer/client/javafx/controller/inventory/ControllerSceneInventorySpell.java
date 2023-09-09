@@ -140,6 +140,10 @@ public final class ControllerSceneInventorySpell {
                         protected Void call() {
                             try {
                                 BufferedImage img = ImageIO.read(finalImagePath);
+                                if (img == null) {
+                                    Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
+                                    return null;
+                                }
                                 Platform.runLater(() -> imageViewItem.setImage(SwingFXUtils.toFXImage(img, null)));
                                 imageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
                             }catch (IOException e) {
