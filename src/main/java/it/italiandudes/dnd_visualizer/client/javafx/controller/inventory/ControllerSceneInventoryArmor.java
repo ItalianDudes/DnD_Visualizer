@@ -7,6 +7,7 @@ import it.italiandudes.dnd_visualizer.client.javafx.alert.InformationAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabInventory;
 import it.italiandudes.dnd_visualizer.client.javafx.util.UIElementConfigurator;
 import it.italiandudes.dnd_visualizer.data.enums.ArmorSlot;
+import it.italiandudes.dnd_visualizer.data.enums.ArmorWeightCategory;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.data.item.Armor;
@@ -48,6 +49,7 @@ public final class ControllerSceneInventoryArmor {
     // Graphics Elements
     @FXML private TextField textFieldName;
     @FXML private TextField textFieldWeight;
+    @FXML private ComboBox<ArmorWeightCategory> comboBoxWeightCategory;
     @FXML private Spinner<Integer> spinnerQuantity;
     @FXML private ComboBox<String> comboBoxRarity;
     @FXML private TextField textFieldMR;
@@ -77,6 +79,8 @@ public final class ControllerSceneInventoryArmor {
         imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
         comboBoxRarity.setItems(FXCollections.observableList(Rarity.colorNames));
         comboBoxRarity.getSelectionModel().selectFirst();
+        comboBoxWeightCategory.setItems(FXCollections.observableList(ArmorWeightCategory.ARMOR_WEIGHT_CATEGORIES));
+        comboBoxWeightCategory.getSelectionModel().selectFirst();
         spinnerQuantity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0, 1));
         spinnerQuantity.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
         comboBoxRarity.buttonCellProperty().bind(Bindings.createObjectBinding(() -> {
@@ -217,7 +221,7 @@ public final class ControllerSceneInventoryArmor {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Il peso deve essere un numero a virgola mobile positivo!"));
                                 return null;
                             }
-
+                            ArmorWeightCategory weightCategory = comboBoxWeightCategory.getSelectionModel().getSelectedItem();
                             String oldName = null;
                             int mr, ma, me, mo, mp;
                             try {
@@ -299,7 +303,7 @@ public final class ControllerSceneInventoryArmor {
                                         item,
                                         comboBoxSlot.getSelectionModel().getSelectedItem(),
                                         lifeEffect, lifeEffectPerc, loadEffect, loadEffectPerc,
-                                        caEffect, otherEffects, false
+                                        caEffect, otherEffects, weightCategory, false
                                 );
                             } else {
                                 assert armor.getEquipmentID()!=null;
@@ -327,7 +331,7 @@ public final class ControllerSceneInventoryArmor {
                                         armor.getArmorID(),
                                         comboBoxSlot.getSelectionModel().getSelectedItem(),
                                         lifeEffect, lifeEffectPerc, loadEffect, loadEffectPerc,
-                                        caEffect, otherEffects, armor.isEquipped()
+                                        caEffect, otherEffects, weightCategory, armor.isEquipped()
                                 );
                             }
 
@@ -410,6 +414,7 @@ public final class ControllerSceneInventoryArmor {
                                 textFieldEffectLoad.setText(String.valueOf(armor.getLoadEffect()));
                                 textFieldEffectLoadPerc.setText(String.valueOf(armor.getLoadPercentageEffect()));
                                 textAreaOtherEffects.setText(armor.getOtherEffects());
+                                comboBoxWeightCategory.getSelectionModel().select(armor.getWeightCategory());
                             });
                         } catch (Exception e) {
                             Logger.log(e);

@@ -2,10 +2,7 @@ package it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer;
 
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer;
-import it.italiandudes.dnd_visualizer.data.enums.AddonSlot;
-import it.italiandudes.dnd_visualizer.data.enums.ArmorSlot;
-import it.italiandudes.dnd_visualizer.data.enums.Category;
-import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
+import it.italiandudes.dnd_visualizer.data.enums.*;
 import it.italiandudes.dnd_visualizer.data.item.Addon;
 import it.italiandudes.dnd_visualizer.data.item.Armor;
 import it.italiandudes.dnd_visualizer.data.item.Weapon;
@@ -260,8 +257,6 @@ public final class TabEquipment {
         Addon rightBracelet = controller.comboBoxEquipmentRightBracelet.getSelectionModel().getSelectedItem();
         Addon ring3 = controller.comboBoxEquipmentRing3.getSelectionModel().getSelectedItem();
         Addon ring4 = controller.comboBoxEquipmentRing4.getSelectionModel().getSelectedItem();
-        // Weapon leftWeapon = controller.comboBoxEquipmentLeftWeapon.getSelectionModel().getSelectedItem();
-        // Weapon rightWeapon = controller.comboBoxEquipmentRightWeapon.getSelectionModel().getSelectedItem();
         setEmpty(controller);
         equipmentToggleFullSet(controller);
         new Service<Void>() {
@@ -630,22 +625,28 @@ public final class TabEquipment {
                         PreparedStatement ps = null;
                         ResultSet result;
                         try {
-                            query = "SELECT e.ca_effect AS ca, a.slot AS slot FROM items AS i JOIN equipments AS e JOIN armors AS a ON i.id = e.item_id AND e.id = a.equipment_id WHERE e.is_equipped=1;";
+                            query = "SELECT e.ca_effect AS ca, a.slot AS slot, a.weight_category AS weight_category FROM items AS i JOIN equipments AS e JOIN armors AS a ON i.id = e.item_id AND e.id = a.equipment_id WHERE e.is_equipped=1;";
                             ps = DBManager.preparedStatement(query);
                             if (ps == null) throw new SQLException("The database connection doesn't exist");
                             result = ps.executeQuery();
                             double caArmor = fleshAC*(ArmorSlot.values().length-2);
                             int slot;
+                            ArmorWeightCategory weightCategory;
                             boolean fullSet = false;
                             while (result.next()) {
+                                weightCategory = ArmorWeightCategory.values()[result.getInt("weight_category")];
                                 slot = result.getInt("slot");
                                 if (slot > ArmorSlot.NO_ARMOR.getDatabaseValue()) {
                                     if (slot == ArmorSlot.FULL_SET.getDatabaseValue()) {
                                         fullSet = true;
                                         caArmor = result.getInt("ca");
+                                        if (weightCategory == ArmorWeightCategory.LIGHT) caArmor+= modDexterity;
+                                        else if (weightCategory == ArmorWeightCategory.MEDIUM) caArmor += Math.min(2, modDexterity);
                                         break;
                                     } else {
                                         caArmor += result.getInt("ca")-fleshAC;
+                                        if (weightCategory == ArmorWeightCategory.LIGHT) caArmor+= modDexterity;
+                                        else if (weightCategory == ArmorWeightCategory.MEDIUM) caArmor += Math.min(2, modDexterity);
                                     }
                                 }
                             }
