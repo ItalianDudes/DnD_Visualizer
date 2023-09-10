@@ -4,14 +4,10 @@ import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.idl.common.InfoFlags;
 import it.italiandudes.idl.common.Logger;
-import org.json.simple.parser.JSONParser;
 
 import java.io.IOException;
 
 public final class DnD_Visualizer {
-
-    // Instance Attributes
-    public static final JSONParser JSON_PARSER = new JSONParser();
 
     // Main Method
     public static void main(String[] args) {

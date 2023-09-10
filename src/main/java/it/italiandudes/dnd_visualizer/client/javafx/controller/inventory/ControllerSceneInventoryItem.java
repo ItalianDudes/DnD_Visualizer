@@ -22,6 +22,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -29,6 +30,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -104,7 +106,9 @@ public class ControllerSceneInventoryItem {
             };
         }, comboBoxRarity.valueProperty()));
         String itemName = TabInventory.getElementName();
+        JSONObject itemStructure = TabInventory.getElementStructure();
         if (itemName != null) initExistingItem(itemName);
+        else if (itemStructure != null) initExistingItem(itemStructure);
     }
 
     // OnChange Triggers Setter
@@ -305,7 +309,184 @@ public class ControllerSceneInventoryItem {
             }
         }.start();
     }
+    @FXML @SuppressWarnings("DuplicatedCode")
+    private void exportItemStructure() {
+        if (textFieldName.getText().replace(" ", "").isEmpty()) {
+            new ErrorAlert("ERRORE", "Errore di Inserimento", "Non e' stato assegnato un nome all'oggetto.");
+            return;
+        }
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override @SuppressWarnings("DuplicatedCode")
+                    protected Void call() {
+                        try {
+                            double weight;
+                            try {
+                                String textWeight = textFieldWeight.getText();
+                                if (textWeight == null || textWeight.replace(" ", "").isEmpty()) {
+                                    weight = 0;
+                                } else {
+                                    weight = Double.parseDouble(textFieldWeight.getText());
+                                    if (weight < 0) throw new NumberFormatException("The weight is less than 0");
+                                }
+                            } catch (NumberFormatException e) {
+                                Logger.log(e);
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Il peso deve essere un numero a virgola mobile positivo!"));
+                                return null;
+                            }
+
+                            int mr, ma, me, mo, mp;
+                            try {
+                                String strMR = textFieldMR.getText();
+                                if (strMR == null || strMR.replace(" ", "").isEmpty()) {
+                                    mr = 0;
+                                } else {
+                                    mr = Integer.parseInt(strMR);
+                                }
+                                String strMA = textFieldMA.getText();
+                                if (strMA == null || strMA.replace(" ", "").isEmpty()) {
+                                    ma = 0;
+                                } else {
+                                    ma = Integer.parseInt(strMA);
+                                }
+                                String strME = textFieldME.getText();
+                                if (strME == null || strME.replace(" ", "").isEmpty()) {
+                                    me = 0;
+                                } else {
+                                    me = Integer.parseInt(strME);
+                                }
+                                String strMO = textFieldMO.getText();
+                                if (strMO == null || strMO.replace(" ", "").isEmpty()) {
+                                    mo = 0;
+                                } else {
+                                    mo = Integer.parseInt(strMO);
+                                }
+                                String strMP = textFieldMP.getText();
+                                if (strMP == null || strMP.replace(" ", "").isEmpty()) {
+                                    mp = 0;
+                                } else {
+                                    mp = Integer.parseInt(strMP);
+                                }
+                                if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0) throw new NumberFormatException("A number is negative");
+                            } catch (NumberFormatException e) {
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Le valute devono essere dei numeri interi positivi!"));
+                                return null;
+                            }
+
+                            Item exportableItem = new Item(
+                                    null,
+                                    imageViewItem.getImage(),
+                                    imageExtension,
+                                    textFieldName.getText(),
+                                    mr,
+                                    ma,
+                                    me,
+                                    mo,
+                                    mp,
+                                    textAreaDescription.getText(),
+                                    comboBoxRarity.getSelectionModel().getSelectedItem(),
+                                    Category.ITEM,
+                                    weight,
+                                    spinnerQuantity.getValue()
+                            );
+
+                            String itemCode = exportableItem.getShareString();
+                            Platform.runLater(() -> {
+                                ClipboardContent content = new ClipboardContent();
+                                content.putString(itemCode);
+                                Client.getSystemClipboard().setContent(content);
+                            });
+                            Platform.runLater(() -> new InformationAlert("SUCCESSO", "Esportazione dei Dati", "Dati esportati con successo nella clipboard di sistema!"));
+                        } catch (Exception e) {
+                            Logger.log(e);
+                            Platform.runLater(() -> {
+                                new ErrorAlert("ERRORE", "Errore di Esportazione", "Si e' verificato un errore durante l'esportazione dei dati");
+                                textFieldName.getScene().getWindow().hide();
+                            });
+                        }
+                        return null;
+                    }
+                };
+            }
+        }.start();
+    }
     // Methods
+    private void initExistingItem(@NotNull final JSONObject itemStructure) {
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override @SuppressWarnings("DuplicatedCode")
+                    protected Void call() {
+
+                        try {
+                            Item tempItem = new Item(itemStructure);
+
+                            imageExtension = tempItem.getImageExtension();
+                            int CC = tempItem.getCostCopper();
+                            int CP = CC / 1000;
+                            CC -= CP * 1000;
+                            int CG = CC / 100;
+                            CC -= CG * 100;
+                            int CE = CC / 50;
+                            CC -= CE * 50;
+                            int CS = CC / 10;
+                            CC -= CS * 10;
+
+                            BufferedImage bufferedImage = null;
+                            try {
+                                if (tempItem.getBase64image() != null && imageExtension != null) {
+                                    byte[] imageBytes = Base64.getDecoder().decode(tempItem.getBase64image());
+                                    ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
+                                    bufferedImage = ImageIO.read(imageStream);
+                                } else if (tempItem.getBase64image() != null && imageExtension == null) {
+                                    throw new IllegalArgumentException("Image without declared extension");
+                                }
+                            } catch (IllegalArgumentException e) {
+                                Logger.log(e);
+                                tempItem.setBase64image(null);
+                                tempItem.setImageExtension(null);
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
+                                return null;
+                            }
+
+                            int finalCC = CC;
+                            BufferedImage finalBufferedImage = bufferedImage;
+                            Platform.runLater(() -> {
+
+                                textFieldName.setText(tempItem.getName());
+                                textFieldWeight.setText(String.valueOf(tempItem.getWeight()));
+                                comboBoxRarity.getSelectionModel().select(tempItem.getRarity().getTextedRarity());
+                                textFieldMR.setText(String.valueOf(finalCC));
+                                textFieldMA.setText(String.valueOf(CS));
+                                textFieldME.setText(String.valueOf(CE));
+                                textFieldMO.setText(String.valueOf(CG));
+                                textFieldMP.setText(String.valueOf(CP));
+                                textAreaDescription.setText(tempItem.getDescription());
+                                if (finalBufferedImage != null && imageExtension != null) {
+                                    imageViewItem.setImage(SwingFXUtils.toFXImage(finalBufferedImage, null));
+                                } else {
+                                    imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
+                                }
+                                spinnerQuantity.getValueFactory().setValue(tempItem.getQuantity());
+                            });
+
+                        } catch (Exception e) {
+                            Logger.log(e);
+                            Platform.runLater(() -> {
+                                new ErrorAlert("ERRORE", "Errore di Importazione", "La struttura dei dati non e' valida.");
+                                textFieldName.getScene().getWindow().hide();
+                            });
+                        }
+
+                        return null;
+                    }
+                };
+            }
+        }.start();
+    }
     private void initExistingItem(@NotNull final String itemName) {
         new Service<Void>() {
             @Override

@@ -1,6 +1,5 @@
 package it.italiandudes.dnd_visualizer.client.javafx;
 
-import it.italiandudes.dnd_visualizer.DnD_Visualizer;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneMainMenu;
 import it.italiandudes.dnd_visualizer.client.javafx.util.ThemeHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
@@ -8,30 +7,32 @@ import it.italiandudes.idl.common.JarHandler;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.input.Clipboard;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.jetbrains.annotations.NotNull;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
+import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 @SuppressWarnings("unused")
 public final class Client extends Application {
 
     // Attributes
-    private static Stage stage;
+    private static Clipboard SYSTEM_CLIPBOARD = null;
+    private static Stage stage = null;
     private static JSONObject SETTINGS = null;
-    private static Color COLOR_THEME_BACKGROUND;
+    private static Color COLOR_THEME_BACKGROUND = null;
 
     // JavaFX Application Main
     @Override
     public void start(Stage stage) {
+        SYSTEM_CLIPBOARD = Clipboard.getSystemClipboard();
         Client.stage = stage;
         stage.setTitle(JFXDefs.AppInfo.NAME);
         stage.getIcons().add(JFXDefs.AppInfo.LOGO);
@@ -62,8 +63,14 @@ public final class Client extends Application {
             }
         }
         try {
-            SETTINGS = (JSONObject) DnD_Visualizer.JSON_PARSER.parse(new FileReader(settingsFile));
-        } catch (IOException | ParseException e) {
+            Scanner inFile = new Scanner(settingsFile);
+            StringBuilder builder = new StringBuilder();
+            while (inFile.hasNext()) {
+                builder.append(inFile.nextLine()).append('\n');
+            }
+            inFile.close();
+            SETTINGS = new JSONObject(builder.toString());
+        } catch (IOException e) {
             Logger.log(e);
             return;
         }
@@ -72,6 +79,10 @@ public final class Client extends Application {
     }
 
     // Methods
+    @NotNull
+    public static Clipboard getSystemClipboard() {
+        return SYSTEM_CLIPBOARD;
+    }
     @NotNull
     public static Stage getStage(){
         return stage;

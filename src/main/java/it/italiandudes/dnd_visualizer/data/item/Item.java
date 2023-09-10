@@ -2,16 +2,21 @@ package it.italiandudes.dnd_visualizer.data.item;
 
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
+import it.italiandudes.dnd_visualizer.data.enums.SerializerType;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.interfaces.ISavable;
+import it.italiandudes.dnd_visualizer.interfaces.ISerializable;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,10 +24,10 @@ import java.util.Base64;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
-public class Item implements ISavable {
+public class Item implements ISavable, ISerializable {
 
     // Attributes
-    @Nullable private Integer itemID;
+    @Nullable private Integer itemID = null;
     @Nullable private String base64image;
     @Nullable private String imageExtension;
     @NotNull private String name;
@@ -169,8 +174,49 @@ public class Item implements ISavable {
         this.quantity = resultSet.getInt("quantity");
         if (this.quantity < 0) this.quantity = 0;
     }
+    public Item(@NotNull final JSONObject itemStructure) throws JSONException {
+        try {
+            this.base64image = itemStructure.getString("base64image");
+            this.imageExtension = itemStructure.getString("imageExtension");
+        } catch (JSONException e) {
+            this.base64image = null;
+            this.imageExtension = null;
+        }
+        this.name = itemStructure.getString("name");
+        try {
+            this.costCopper = Math.max(0, itemStructure.getInt("costCopper"));
+        } catch (JSONException e) {
+            this.costCopper = 0;
+        }
+        try {
+            this.description = itemStructure.getString("description");
+        } catch (JSONException e) {
+            this.description = null;
+        }
+        try {
+            this.rarity = Rarity.values()[itemStructure.getInt("rarity")];
+        } catch (JSONException | ArrayIndexOutOfBoundsException e) {
+            this.rarity = Rarity.COMMON;
+        }
+        try {
+            this.weight = Math.max(0, itemStructure.getDouble("weight"));
+        } catch (JSONException e) {
+            this.weight = 0;
+        }
+        try {
+            this.category = Category.values()[itemStructure.getInt("category")];
+        } catch (ArrayIndexOutOfBoundsException | JSONException e) {
+            throw new JSONException("Parameter category must be a non-null integer in bounds.");
+        }
+        try {
+            this.quantity = Math.max(0, itemStructure.getInt("quantity"));
+        } catch (JSONException e) {
+            this.quantity = 0;
+        }
+    }
 
     // Methods
+    @SuppressWarnings("DuplicatedCode")
     public static boolean checkIfExist(@NotNull final String itemName) throws SQLException {
         String query = "SELECT id FROM items WHERE name=?;";
         PreparedStatement ps = DBManager.preparedStatement(query);
@@ -186,7 +232,24 @@ public class Item implements ISavable {
             return false;
         }
     }
+
     @Override
+    public String getShareString() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(SERIALIZER_KEY, SerializerType.ITEM.ordinal());
+        jsonObject.put("base64image", base64image);
+        jsonObject.put("imageExtension", imageExtension);
+        jsonObject.put("name", name);
+        jsonObject.put("costCopper", costCopper);
+        jsonObject.put("description", description);
+        jsonObject.put("rarity", Rarity.colorNames.indexOf(rarity.getTextedRarity()));
+        jsonObject.put("weight", weight);
+        jsonObject.put("category", category.getDatabaseValue());
+        jsonObject.put("quantity", quantity);
+        return Base64.getEncoder().encodeToString(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
+    }
+
+    @Override @SuppressWarnings("DuplicatedCode")
     public void saveIntoDatabase(@Nullable final String oldName) throws SQLException {
         String itemCheckerQuery = "SELECT id FROM items WHERE name=?;";
         PreparedStatement ps = DBManager.preparedStatement(itemCheckerQuery);

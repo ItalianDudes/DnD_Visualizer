@@ -1,14 +1,19 @@
 package it.italiandudes.dnd_visualizer.data.item;
 
 import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
+import it.italiandudes.dnd_visualizer.data.enums.Rarity;
+import it.italiandudes.dnd_visualizer.data.enums.SerializerType;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.interfaces.ISavable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
 
 @SuppressWarnings("unused")
 public final class Weapon extends Equipment implements ISavable {
@@ -58,6 +63,33 @@ public final class Weapon extends Equipment implements ISavable {
     }
 
     // Methods
+    @Override @SuppressWarnings("DuplicatedCode")
+    public String getShareString() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(SERIALIZER_KEY, SerializerType.WEAPON.ordinal());
+        jsonObject.put("itemID", getItemID());
+        jsonObject.put("base64image", getBase64image());
+        jsonObject.put("imageExtension", getImageExtension());
+        jsonObject.put("name", getName());
+        jsonObject.put("costCopper", getCostCopper());
+        jsonObject.put("description", getDescription());
+        jsonObject.put("rarity", Rarity.colorNames.indexOf(getRarity().getTextedRarity()));
+        jsonObject.put("weight", getWeight());
+        jsonObject.put("category", getCategory().getDatabaseValue());
+        jsonObject.put("quantity", getQuantity());
+        jsonObject.put("equipmentID", getEquipmentID());
+        jsonObject.put("type", getType().getDatabaseValue());
+        jsonObject.put("lifeEffect", getLifeEffect());
+        jsonObject.put("lifePercentageEffect", getLifePercentageEffect());
+        jsonObject.put("caEffect", getCaEffect());
+        jsonObject.put("loadEffect", getLoadEffect());
+        jsonObject.put("loadPercentageEffect", getLoadPercentageEffect());
+        jsonObject.put("isEquipped", isEquipped());
+        jsonObject.put("weaponID", weaponID);
+        jsonObject.put("weaponCategory", weaponCategory);
+        jsonObject.put("properties", properties);
+        return Base64.getEncoder().encodeToString(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
+    }
     @Override
     public void saveIntoDatabase(@Nullable final String oldName) throws SQLException {
         super.saveIntoDatabase(oldName);

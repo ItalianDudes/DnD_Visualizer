@@ -1,14 +1,19 @@
 package it.italiandudes.dnd_visualizer.data.item;
 
 import it.italiandudes.dnd_visualizer.data.enums.Category;
+import it.italiandudes.dnd_visualizer.data.enums.Rarity;
+import it.italiandudes.dnd_visualizer.data.enums.SerializerType;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.interfaces.ISavable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
@@ -102,7 +107,30 @@ public final class Spell extends Item implements ISavable {
     }
 
     // Methods
-    @Override
+    @Override @SuppressWarnings("DuplicatedCode")
+    public String getShareString() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put(SERIALIZER_KEY, SerializerType.SPELL.ordinal());
+        jsonObject.put("itemID", getItemID());
+        jsonObject.put("base64image", getBase64image());
+        jsonObject.put("imageExtension", getImageExtension());
+        jsonObject.put("name", getName());
+        jsonObject.put("costCopper", getCostCopper());
+        jsonObject.put("description", getDescription());
+        jsonObject.put("rarity", Rarity.colorNames.indexOf(getRarity().getTextedRarity()));
+        jsonObject.put("weight", getWeight());
+        jsonObject.put("category", getCategory().getDatabaseValue());
+        jsonObject.put("quantity", getQuantity());
+        jsonObject.put("spellID", spellID);
+        jsonObject.put("level", level);
+        jsonObject.put("type", type);
+        jsonObject.put("castTime", castTime);
+        jsonObject.put("range", range);
+        jsonObject.put("components", components);
+        jsonObject.put("duration", duration);
+        return Base64.getEncoder().encodeToString(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
+    }
+    @Override @SuppressWarnings("DuplicatedCode")
     public void saveIntoDatabase(@Nullable final String oldName) throws SQLException {
         super.saveIntoDatabase(oldName);
         Integer itemID = getItemID();

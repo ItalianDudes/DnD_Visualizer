@@ -72,7 +72,7 @@ public class Equipment extends Item implements ISavable {
     }
 
     // Methods
-    @Override
+    @Override @SuppressWarnings("DuplicatedCode")
     public void saveIntoDatabase(@Nullable String oldName) throws SQLException {
         super.saveIntoDatabase(oldName);
         Integer itemID = getItemID();

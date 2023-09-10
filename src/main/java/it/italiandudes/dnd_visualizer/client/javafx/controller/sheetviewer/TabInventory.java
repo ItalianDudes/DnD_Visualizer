@@ -3,6 +3,7 @@ package it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer;
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer;
+import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneLoading;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneMainMenu;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.inventory.*;
 import it.italiandudes.dnd_visualizer.client.javafx.util.LoadCategory;
@@ -12,8 +13,10 @@ import it.italiandudes.dnd_visualizer.data.ElementPreview;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
+import it.italiandudes.dnd_visualizer.data.enums.SerializerType;
 import it.italiandudes.dnd_visualizer.data.item.Equipment;
 import it.italiandudes.dnd_visualizer.db.DBManager;
+import it.italiandudes.dnd_visualizer.interfaces.ISerializable;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
@@ -26,21 +29,28 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONObject;
 
+import java.nio.charset.StandardCharsets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 
 public final class TabInventory {
 
     // Attributes
     private static String elementName = null;
+    private static JSONObject elementStructure = null;
 
     // Methods
     public static String getElementName() {
         return elementName;
+    }
+    public static JSONObject getElementStructure() {
+        return elementStructure;
     }
 
     // Old Values
@@ -450,6 +460,74 @@ public final class TabInventory {
         updateLoad(controller);
         TabSpells.updateListViews(controller);
         TabEquipment.reloadEquipment(controller);
+    }
+    public static void importElementFromElementCode(@NotNull final ControllerSceneSheetViewer controller) {
+        String elementCode = controller.textFieldElementCode.getText();
+        if (elementCode == null || elementCode.replace(" ", "").isEmpty()) return;
+        Scene thisScene = Client.getStage().getScene();
+        Client.getStage().setScene(SceneLoading.getScene());
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        try {
+                            String jsonString = new String(Base64.getDecoder().decode(elementCode), StandardCharsets.UTF_8);
+                            JSONObject element = new JSONObject(jsonString);
+                            Integer serializerID = (Integer) element.get(ISerializable.SERIALIZER_KEY);
+                            if (serializerID == null || serializerID < 0 || serializerID >= SerializerType.values().length) throw new IllegalArgumentException("The serializerID must be an non null integer withing SerializerTypes array bounds!");
+                            SerializerType serializerType = SerializerType.values()[serializerID];
+                            elementStructure = element;
+                            Platform.runLater(() -> {
+                                Scene newScene = null;
+                                switch (serializerType) {
+                                    case ITEM:
+                                        newScene = SceneInventoryItem.getScene();
+                                        break;
+
+                                    case ARMOR:
+                                        newScene = SceneInventoryArmor.getScene();
+                                        break;
+
+                                    case ADDON:
+                                        newScene = SceneInventoryAddon.getScene();
+                                        break;
+
+                                    case WEAPON:
+                                        newScene = SceneInventoryWeapon.getScene();
+                                        break;
+
+                                    case SPELL:
+                                        newScene = SceneInventorySpell.getScene();
+                                        break;
+
+                                    default:
+                                        elementStructure = null;
+                                        new ErrorAlert("ERRORE", "Errore di Importazione", "Struttura dati non riconosciuta, importazione fallita.");
+                                        Client.getStage().setScene(thisScene);
+                                        break;
+                                }
+                                Client.getStage().setScene(thisScene);
+                                Stage popupScene = Client.initPopupStage(newScene);
+                                popupScene.showAndWait();
+                                elementStructure = null;
+                                search(controller);
+                                updateLoad(controller);
+                                TabSpells.updateListViews(controller);
+                                TabEquipment.reloadEquipment(controller);
+                            });
+                        } catch (IllegalArgumentException e) {
+                            Platform.runLater(() -> {
+                                new ErrorAlert("ERRORE", "Errore di Importazione", "Il codice elemento non e' valido, inserire un codice valido.");
+                                Client.getStage().setScene(thisScene);
+                            });
+                        }
+                        return null;
+                    }
+                };
+            }
+        }.start();
     }
     public static void addElement(@NotNull final ControllerSceneSheetViewer controller) {
         elementName = null;

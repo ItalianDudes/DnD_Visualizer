@@ -185,6 +185,7 @@ public final class ControllerSceneSheetViewer {
     @FXML public Spinner<Integer> spinnerME;
     @FXML public Spinner<Integer> spinnerMO;
     @FXML public Spinner<Integer> spinnerMP;
+    @FXML public TextField textFieldElementCode;
     @FXML public TextField textFieldSearchBar;
     @FXML public ComboBox<Category> comboBoxCategory;
     @FXML public ComboBox<EquipmentType> comboBoxEquipmentType;
@@ -365,5 +366,8 @@ public final class ControllerSceneSheetViewer {
     }
     @FXML private void updateEquipmentProperties() {
         TabEquipment.updateEquipmentProperties(this);
+    }
+    @FXML private void importElementFromElementCode() {
+        TabInventory.importElementFromElementCode(this);
     }
 }

@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--suppress JavaFxDefaultTag -->
+
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.client.javafx.controller.inventory.ControllerSceneInventoryItem">
    <children>
       <VBox maxWidth="1.7976931348623157E308" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -138,6 +151,7 @@
             <GridPane hgap="10.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
@@ -153,7 +167,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#save" GridPane.columnIndex="1">
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#save" GridPane.columnIndex="2">
                      <graphic>
                         <ImageView fitHeight="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -161,6 +175,11 @@
                            </image>
                         </ImageView>
                      </graphic>
+                  </Button>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exportItemStructure" text="ESPORTA" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Lucida Sans Demibold" size="16.0" />
+                     </font>
                   </Button>
                </children>
             </GridPane>
