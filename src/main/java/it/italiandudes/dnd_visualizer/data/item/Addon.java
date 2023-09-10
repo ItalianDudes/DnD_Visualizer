@@ -9,6 +9,7 @@ import it.italiandudes.dnd_visualizer.interfaces.ISavable;
 import it.italiandudes.dnd_visualizer.interfaces.ISerializable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
@@ -59,6 +60,14 @@ public class Addon extends Equipment implements ISavable, ISerializable {
             throw new SQLException("Exist the equipment, but not the addon");
         }
     }
+    public Addon(@NotNull final JSONObject addonStructure) throws JSONException {
+        super(addonStructure);
+        try {
+            this.slot = AddonSlot.values()[addonStructure.getInt("slot")+1];
+        } catch (ArrayIndexOutOfBoundsException | JSONException e) {
+            throw new JSONException("Parameter addon slot must be a non-null integer in bounds.");
+        }
+    }
 
     // Methods
     @Override @SuppressWarnings("DuplicatedCode")
@@ -80,7 +89,7 @@ public class Addon extends Equipment implements ISavable, ISerializable {
         jsonObject.put("caEffect", getCaEffect());
         jsonObject.put("loadEffect", getLoadEffect());
         jsonObject.put("loadPercentageEffect", getLoadPercentageEffect());
-        jsonObject.put("isEquipped", isEquipped());
+        jsonObject.put("otherEffects", getOtherEffects());
         jsonObject.put("slot", slot.getDatabaseValue());
         return Base64.getEncoder().encodeToString(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
     }

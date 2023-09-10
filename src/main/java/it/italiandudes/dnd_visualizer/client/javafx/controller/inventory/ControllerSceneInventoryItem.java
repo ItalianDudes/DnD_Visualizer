@@ -309,7 +309,7 @@ public class ControllerSceneInventoryItem {
             }
         }.start();
     }
-    @FXML @SuppressWarnings("DuplicatedCode")
+    @FXML
     private void exportItemStructure() {
         if (textFieldName.getText().replace(" ", "").isEmpty()) {
             new ErrorAlert("ERRORE", "Errore di Inserimento", "Non e' stato assegnato un nome all'oggetto.");
@@ -412,6 +412,7 @@ public class ControllerSceneInventoryItem {
             }
         }.start();
     }
+
     // Methods
     private void initExistingItem(@NotNull final JSONObject itemStructure) {
         new Service<Void>() {
@@ -454,6 +455,7 @@ public class ControllerSceneInventoryItem {
 
                             int finalCC = CC;
                             BufferedImage finalBufferedImage = bufferedImage;
+
                             Platform.runLater(() -> {
 
                                 textFieldName.setText(tempItem.getName());
@@ -480,7 +482,6 @@ public class ControllerSceneInventoryItem {
                                 textFieldName.getScene().getWindow().hide();
                             });
                         }
-
                         return null;
                     }
                 };

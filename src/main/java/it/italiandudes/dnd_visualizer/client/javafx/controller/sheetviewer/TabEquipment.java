@@ -492,7 +492,7 @@ public final class TabEquipment {
                             }
                             for (Weapon weapon : weapons) {
                                 assert weapon.getWeaponID()!=null;
-                                if (weapon.isEquipped()) controller.listViewEquippedWeapons.getItems().add(weapon);
+                                if (weapon.isEquipped()) Platform.runLater(() -> controller.listViewEquippedWeapons.getItems().add(weapon));
                             }
                             for (Addon addon : addons) {
                                 assert addon.getAddonID()!=null;

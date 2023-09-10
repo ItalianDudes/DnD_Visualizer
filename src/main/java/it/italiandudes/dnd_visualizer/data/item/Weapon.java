@@ -7,6 +7,7 @@ import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.interfaces.ISavable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
@@ -61,13 +62,25 @@ public final class Weapon extends Equipment implements ISavable {
             throw new SQLException("Exist the equipment, but not the weapon");
         }
     }
+    public Weapon(@NotNull final JSONObject weaponStructure) throws JSONException {
+        super(weaponStructure);
+        try {
+            this.weaponCategory = weaponStructure.getString("weaponCategory");
+        } catch (JSONException e) {
+            this.weaponCategory = null;
+        }
+        try {
+            this.properties = weaponStructure.getString("properties");
+        } catch (JSONException e) {
+            this.properties = null;
+        }
+    }
 
     // Methods
     @Override @SuppressWarnings("DuplicatedCode")
     public String getShareString() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(SERIALIZER_KEY, SerializerType.WEAPON.ordinal());
-        jsonObject.put("itemID", getItemID());
         jsonObject.put("base64image", getBase64image());
         jsonObject.put("imageExtension", getImageExtension());
         jsonObject.put("name", getName());
@@ -77,15 +90,13 @@ public final class Weapon extends Equipment implements ISavable {
         jsonObject.put("weight", getWeight());
         jsonObject.put("category", getCategory().getDatabaseValue());
         jsonObject.put("quantity", getQuantity());
-        jsonObject.put("equipmentID", getEquipmentID());
         jsonObject.put("type", getType().getDatabaseValue());
         jsonObject.put("lifeEffect", getLifeEffect());
         jsonObject.put("lifePercentageEffect", getLifePercentageEffect());
         jsonObject.put("caEffect", getCaEffect());
         jsonObject.put("loadEffect", getLoadEffect());
         jsonObject.put("loadPercentageEffect", getLoadPercentageEffect());
-        jsonObject.put("isEquipped", isEquipped());
-        jsonObject.put("weaponID", weaponID);
+        jsonObject.put("otherEffects", getOtherEffects());
         jsonObject.put("weaponCategory", weaponCategory);
         jsonObject.put("properties", properties);
         return Base64.getEncoder().encodeToString(jsonObject.toString().getBytes(StandardCharsets.UTF_8));

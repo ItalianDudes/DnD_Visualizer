@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--suppress JavaFxDefaultTag -->
+
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.*?>
@@ -272,6 +273,7 @@
                      <columnConstraints>
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
                         <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints valignment="CENTER" vgrow="NEVER" />
@@ -286,7 +288,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#save" GridPane.columnIndex="1">
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#save" GridPane.columnIndex="2">
                            <graphic>
                               <ImageView fitHeight="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -294,6 +296,11 @@
                                  </image>
                               </ImageView>
                            </graphic>
+                        </Button>
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exportAddonStructure" text="ESPORTA" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="Lucida Sans Demibold" size="16.0" />
+                           </font>
                         </Button>
                      </children>
                   </GridPane>

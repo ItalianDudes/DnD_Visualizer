@@ -25,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -32,6 +33,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -118,8 +120,10 @@ public final class ControllerSceneInventoryArmor {
         }, comboBoxRarity.valueProperty()));
         comboBoxSlot.setItems(FXCollections.observableList(ArmorSlot.ARMOR_SLOTS));
         comboBoxSlot.getSelectionModel().selectFirst();
-        String itemName = TabInventory.getElementName();
-        if (itemName != null) initExistingArmor(itemName);
+        String armorName = TabInventory.getElementName();
+        JSONObject armorStructure = TabInventory.getElementStructure();
+        if (armorName != null) initExistingArmor(armorName);
+        else if (armorStructure != null) initExistingArmor(armorStructure);
     }
 
     // OnChange Triggers Setter
@@ -197,6 +201,134 @@ public final class ControllerSceneInventoryArmor {
     @FXML
     private void backToSheet() {
         textFieldName.getScene().getWindow().hide();
+    }
+    @FXML
+    private void exportArmorStructure() {
+        if (textFieldName.getText().replace(" ", "").isEmpty()) {
+            new ErrorAlert("ERRORE", "Errore di Inserimento", "Non e' stato assegnato un nome all'oggetto.");
+            return;
+        }
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override @SuppressWarnings("DuplicatedCode")
+                    protected Void call() {
+                        try {
+                            double weight;
+                            try {
+                                String textWeight = textFieldWeight.getText();
+                                if (textWeight == null || textWeight.replace(" ", "").isEmpty()) {
+                                    weight = 0;
+                                } else {
+                                    weight = Double.parseDouble(textFieldWeight.getText());
+                                    if (weight < 0) throw new NumberFormatException("The weight is less than 0");
+                                }
+                            } catch (NumberFormatException e) {
+                                Logger.log(e);
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Il peso deve essere un numero a virgola mobile positivo!"));
+                                return null;
+                            }
+                            ArmorWeightCategory weightCategory = comboBoxWeightCategory.getSelectionModel().getSelectedItem();
+
+                            int mr, ma, me, mo, mp;
+                            try {
+                                String strMR = textFieldMR.getText();
+                                if (strMR == null || strMR.replace(" ", "").isEmpty()) {
+                                    mr = 0;
+                                } else {
+                                    mr = Integer.parseInt(strMR);
+                                }
+                                String strMA = textFieldMA.getText();
+                                if (strMA == null || strMA.replace(" ", "").isEmpty()) {
+                                    ma = 0;
+                                } else {
+                                    ma = Integer.parseInt(strMA);
+                                }
+                                String strME = textFieldME.getText();
+                                if (strME == null || strME.replace(" ", "").isEmpty()) {
+                                    me = 0;
+                                } else {
+                                    me = Integer.parseInt(strME);
+                                }
+                                String strMO = textFieldMO.getText();
+                                if (strMO == null || strMO.replace(" ", "").isEmpty()) {
+                                    mo = 0;
+                                } else {
+                                    mo = Integer.parseInt(strMO);
+                                }
+                                String strMP = textFieldMP.getText();
+                                if (strMP == null || strMP.replace(" ", "").isEmpty()) {
+                                    mp = 0;
+                                } else {
+                                    mp = Integer.parseInt(strMP);
+                                }
+                                if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0) throw new NumberFormatException("A number is negative");
+                            } catch (NumberFormatException e) {
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Le valute devono essere dei numeri interi positivi!"));
+                                return null;
+                            }
+                            int lifeEffect, loadEffect, caEffect;
+                            double lifeEffectPerc, loadEffectPerc;
+                            try {
+                                lifeEffect = Integer.parseInt(textFieldEffectLife.getText());
+                                loadEffect = Integer.parseInt(textFieldEffectLoad.getText());
+                                caEffect = Integer.parseInt(textFieldEffectCA.getText());
+                            } catch (NumberFormatException e) {
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli effetti sulla vita, sul carico e sulla CA devono essere dei numeri interi"));
+                                return null;
+                            }
+                            try {
+                                lifeEffectPerc = Double.parseDouble(textFieldEffectLifePerc.getText());
+                                loadEffectPerc = Double.parseDouble(textFieldEffectLoadPerc.getText());
+                            } catch (NumberFormatException e) {
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli effetti percentuale sulla vita e sul carico devono essere dei numeri interi o decimali (decimale con punto)"));
+                                return null;
+                            }
+                            String otherEffects = textAreaOtherEffects.getText();
+
+                            Item item = new Item(
+                                    null,
+                                    imageViewItem.getImage(),
+                                    imageExtension,
+                                    textFieldName.getText(),
+                                    mr,
+                                    ma,
+                                    me,
+                                    mo,
+                                    mp,
+                                    textAreaDescription.getText(),
+                                    comboBoxRarity.getSelectionModel().getSelectedItem(),
+                                    Category.EQUIPMENT,
+                                    weight,
+                                    spinnerQuantity.getValue()
+                            );
+                            Armor exportableArmor = new Armor(
+                                    item,
+                                    comboBoxSlot.getSelectionModel().getSelectedItem(),
+                                    lifeEffect, lifeEffectPerc, loadEffect, loadEffectPerc,
+                                    caEffect, otherEffects, weightCategory, false
+                            );
+
+                            String armorCode = exportableArmor.getShareString();
+                            Platform.runLater(() -> {
+                                ClipboardContent content = new ClipboardContent();
+                                content.putString(armorCode);
+                                Client.getSystemClipboard().setContent(content);
+                            });
+                            Platform.runLater(() -> new InformationAlert("SUCCESSO", "Esportazione dei Dati", "Dati esportati con successo nella clipboard di sistema!"));
+                        } catch (Exception e) {
+                            Logger.log(e);
+                            Platform.runLater(() -> {
+                                new ErrorAlert("ERRORE", "Errore di Esportazione", "Si e' verificato un errore durante l'esportazione dei dati");
+                                textFieldName.getScene().getWindow().hide();
+                            });
+                        }
+                        return null;
+                    }
+                };
+            }
+        }.start();
     }
     @FXML
     private void save() {
@@ -355,6 +487,86 @@ public final class ControllerSceneInventoryArmor {
         }.start();
     }
     // Methods
+    private void initExistingArmor(@NotNull final JSONObject armorStructure) {
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override @SuppressWarnings("DuplicatedCode")
+                    protected Void call() {
+
+                        try {
+                            Armor tempArmor = new Armor(armorStructure);
+
+                            imageExtension = tempArmor.getImageExtension();
+                            int CC = tempArmor.getCostCopper();
+                            int CP = CC / 1000;
+                            CC -= CP * 1000;
+                            int CG = CC / 100;
+                            CC -= CG * 100;
+                            int CE = CC / 50;
+                            CC -= CE * 50;
+                            int CS = CC / 10;
+                            CC -= CS * 10;
+
+                            BufferedImage bufferedImage = null;
+                            try {
+                                if (tempArmor.getBase64image() != null && imageExtension != null) {
+                                    byte[] imageBytes = Base64.getDecoder().decode(tempArmor.getBase64image());
+                                    ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
+                                    bufferedImage = ImageIO.read(imageStream);
+                                } else if (tempArmor.getBase64image() != null && imageExtension == null) {
+                                    throw new IllegalArgumentException("Image without declared extension");
+                                }
+                            } catch (IllegalArgumentException e) {
+                                Logger.log(e);
+                                tempArmor.setBase64image(null);
+                                tempArmor.setImageExtension(null);
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
+                                return null;
+                            }
+
+                            int finalCC = CC;
+                            BufferedImage finalBufferedImage = bufferedImage;
+
+                            Platform.runLater(() -> {
+                                textFieldName.setText(tempArmor.getName());
+                                textFieldWeight.setText(String.valueOf(tempArmor.getWeight()));
+                                comboBoxRarity.getSelectionModel().select(tempArmor.getRarity().getTextedRarity());
+                                textFieldMR.setText(String.valueOf(finalCC));
+                                textFieldMA.setText(String.valueOf(CS));
+                                textFieldME.setText(String.valueOf(CE));
+                                textFieldMO.setText(String.valueOf(CG));
+                                textFieldMP.setText(String.valueOf(CP));
+                                textAreaDescription.setText(tempArmor.getDescription());
+                                if (finalBufferedImage != null && imageExtension != null) {
+                                    imageViewItem.setImage(SwingFXUtils.toFXImage(finalBufferedImage, null));
+                                } else {
+                                    imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
+                                }
+                                spinnerQuantity.getValueFactory().setValue(tempArmor.getQuantity());
+                                comboBoxSlot.getSelectionModel().select(tempArmor.getSlot());
+                                textFieldEffectCA.setText(String.valueOf(tempArmor.getCaEffect()));
+                                textFieldEffectLife.setText(String.valueOf(tempArmor.getLifeEffect()));
+                                textFieldEffectLifePerc.setText(String.valueOf(tempArmor.getLifePercentageEffect()));
+                                textFieldEffectLoad.setText(String.valueOf(tempArmor.getLoadEffect()));
+                                textFieldEffectLoadPerc.setText(String.valueOf(tempArmor.getLoadPercentageEffect()));
+                                textAreaOtherEffects.setText(tempArmor.getOtherEffects());
+                                comboBoxWeightCategory.getSelectionModel().select(tempArmor.getWeightCategory());
+                            });
+                        } catch (Exception e) {
+                            Logger.log(e);
+                            Platform.runLater(() -> {
+                                new ErrorAlert("ERRORE", "Errore di Importazione", "La struttura dei dati non e' valida.");
+                                textFieldName.getScene().getWindow().hide();
+                            });
+                        }
+                        return null;
+                    }
+                };
+            }
+        }.start();
+    }
     private void initExistingArmor(@NotNull final String armorName) {
         new Service<Void>() {
             @Override

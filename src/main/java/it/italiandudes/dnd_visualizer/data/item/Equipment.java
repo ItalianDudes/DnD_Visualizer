@@ -8,6 +8,8 @@ import it.italiandudes.dnd_visualizer.interfaces.ISavable;
 import it.italiandudes.idl.common.Logger;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -70,6 +72,44 @@ public class Equipment extends Item implements ISavable {
             throw new SQLException("Exist the item, but not the equipment");
         }
     }
+    public Equipment(@NotNull final JSONObject equipmentStructure) throws JSONException {
+        super(equipmentStructure);
+        try {
+            this.type = EquipmentType.values()[equipmentStructure.getInt("type")];
+        } catch (ArrayIndexOutOfBoundsException | JSONException e) {
+            throw new JSONException("Parameter equipment type must be a non-null integer in bounds.");
+        }
+        try {
+            this.lifeEffect = equipmentStructure.getInt("lifeEffect");
+        } catch (JSONException e) {
+            this.lifeEffect = 0;
+        }
+        try {
+            this.lifePercentageEffect = equipmentStructure.getDouble("lifePercentageEffect");
+        } catch (JSONException e) {
+            this.lifePercentageEffect = 0;
+        }
+        try {
+            this.caEffect = equipmentStructure.getInt("caEffect");
+        } catch (JSONException e) {
+            this.caEffect = 0;
+        }
+        try {
+            this.loadEffect = equipmentStructure.getInt("loadEffect");
+        } catch (JSONException e) {
+            this.loadEffect = 0;
+        }
+        try {
+            this.loadPercentageEffect = equipmentStructure.getDouble("loadPercentageEffect");
+        } catch (JSONException e) {
+            this.loadPercentageEffect = 0;
+        }
+        try {
+            this.otherEffects = equipmentStructure.getString("otherEffects");
+        } catch (JSONException e) {
+            this.otherEffects = null;
+        }
+    }
 
     // Methods
     @Override @SuppressWarnings("DuplicatedCode")
@@ -78,7 +118,6 @@ public class Equipment extends Item implements ISavable {
         Integer itemID = getItemID();
         assert itemID != null;
         if (equipmentID == null) { // Insert
-            Logger.log("EQUIPMENT INSERT");
             String query = "INSERT INTO equipments (item_id, type, life_effect, life_percentage_effect, ca_effect, load_effect, load_percentage_effect, other_effects) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = DBManager.preparedStatement(query);
             if (ps == null) throw new SQLException("The database is not connected");
@@ -105,7 +144,6 @@ public class Equipment extends Item implements ISavable {
                 throw new SQLException("Something strange happened on equipment insert! Equipment insert but doesn't result on select");
             }
         } else { // Update
-            Logger.log("EQUIPMENT UPDATE");
             assert getEquipmentID()!=null;
             String query = "UPDATE equipments SET item_id=?, type=?, life_effect=?, life_percentage_effect=?, ca_effect=?, load_effect=?, load_percentage_effect=?, other_effects=?, is_equipped=? WHERE id=?;";
             PreparedStatement ps = DBManager.preparedStatement(query);

@@ -7,6 +7,7 @@ import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.interfaces.ISavable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
@@ -105,13 +106,45 @@ public final class Spell extends Item implements ISavable {
             this.duration = null;
         }
     }
+    public Spell(@NotNull final JSONObject spellStructure) throws JSONException {
+        super(spellStructure);
+        try {
+            this.level = spellStructure.getInt("level");
+        } catch (JSONException e) {
+            this.level = 0;
+        }
+        try {
+            this.type = spellStructure.getString("type");
+        } catch (JSONException e) {
+            this.type = null;
+        }
+        try {
+            this.castTime = spellStructure.getString("castTime");
+        } catch (JSONException e) {
+            this.castTime = null;
+        }
+        try {
+            this.range = spellStructure.getString("range");
+        } catch (JSONException e) {
+            this.range = null;
+        }
+        try {
+            this.components = spellStructure.getString("components");
+        } catch (JSONException e) {
+            this.components = null;
+        }
+        try {
+            this.duration = spellStructure.getString("duration");
+        } catch (JSONException e) {
+            this.duration = null;
+        }
+    }
 
     // Methods
     @Override @SuppressWarnings("DuplicatedCode")
     public String getShareString() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(SERIALIZER_KEY, SerializerType.SPELL.ordinal());
-        jsonObject.put("itemID", getItemID());
         jsonObject.put("base64image", getBase64image());
         jsonObject.put("imageExtension", getImageExtension());
         jsonObject.put("name", getName());
@@ -121,7 +154,6 @@ public final class Spell extends Item implements ISavable {
         jsonObject.put("weight", getWeight());
         jsonObject.put("category", getCategory().getDatabaseValue());
         jsonObject.put("quantity", getQuantity());
-        jsonObject.put("spellID", spellID);
         jsonObject.put("level", level);
         jsonObject.put("type", type);
         jsonObject.put("castTime", castTime);

@@ -25,6 +25,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -32,6 +33,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -104,9 +106,9 @@ public final class ControllerSceneInventorySpell {
             };
         }, comboBoxRarity.valueProperty()));
         String spellName = TabInventory.getElementName();
-        if (spellName != null) {
-            initExistingSpell(spellName);
-        }
+        JSONObject spellStructure = TabInventory.getElementStructure();
+        if (spellName != null) initExistingSpell(spellName);
+        else if (spellStructure != null) initExistingSpell(spellStructure);
     }
 
     // EDT
@@ -304,8 +306,197 @@ public final class ControllerSceneInventorySpell {
 
         saveService.start();
     }
+    @FXML
+    private void exportSpellStructure() {
+        if (textFieldName.getText().replace(" ", "").isEmpty()) {
+            new ErrorAlert("ERRORE", "Errore di Inserimento", "Non e' stato assegnato un nome all'oggetto.");
+            return;
+        }
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override @SuppressWarnings("DuplicatedCode")
+                    protected Void call() {
+                        try {
+                            double weight;
+                            String oldName = null;
+                            int mr, ma, me, mo, mp;
+                            try {
+                                String strMR = textFieldMR.getText();
+                                if (strMR == null || strMR.replace(" ", "").isEmpty()) {
+                                    mr = 0;
+                                } else {
+                                    mr = Integer.parseInt(strMR);
+                                }
+                                String strMA = textFieldMA.getText();
+                                if (strMA == null || strMA.replace(" ", "").isEmpty()) {
+                                    ma = 0;
+                                } else {
+                                    ma = Integer.parseInt(strMA);
+                                }
+                                String strME = textFieldME.getText();
+                                if (strME == null || strME.replace(" ", "").isEmpty()) {
+                                    me = 0;
+                                } else {
+                                    me = Integer.parseInt(strME);
+                                }
+                                String strMO = textFieldMO.getText();
+                                if (strMO == null || strMO.replace(" ", "").isEmpty()) {
+                                    mo = 0;
+                                } else {
+                                    mo = Integer.parseInt(strMO);
+                                }
+                                String strMP = textFieldMP.getText();
+                                if (strMP == null || strMP.replace(" ", "").isEmpty()) {
+                                    mp = 0;
+                                } else {
+                                    mp = Integer.parseInt(strMP);
+                                }
+                                if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0) throw new NumberFormatException("A number is negative");
+                            } catch (NumberFormatException e) {
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Le valute devono essere dei numeri interi positivi!"));
+                                return null;
+                            }
+                            int level;
+                            try {
+                                String strLevel = textFieldLevel.getText();
+                                if (strLevel == null || strLevel.replace(" ", "").isEmpty()) {
+                                    level = 0;
+                                } else {
+                                    level = Integer.parseInt(strLevel);
+                                }
+                                if (level < 0 || level > 9) throw new NumberFormatException("The level is less than 0 or greater than 9");
+                            } catch (NumberFormatException e) {
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Il livello deve essere un numero intero positivo compreso tra 0 e 9!"));
+                                return null;
+                            }
+
+                            Item item = new Item(
+                                    null,
+                                    imageViewItem.getImage(),
+                                    imageExtension,
+                                    textFieldName.getText(),
+                                    mr,
+                                    ma,
+                                    me,
+                                    mo,
+                                    mp,
+                                    textAreaDescription.getText(),
+                                    comboBoxRarity.getSelectionModel().getSelectedItem(),
+                                    Category.SPELL,
+                                    0,
+                                    1
+                            );
+                            Spell exportableSpell = new Spell(
+                                    item,
+                                    null,
+                                    level,
+                                    textFieldType.getText(),
+                                    textFieldCastTime.getText(),
+                                    textFieldSpellRange.getText(),
+                                    textFieldComponents.getText(),
+                                    textFieldDuration.getText()
+                            );
+
+                            String spellCode = exportableSpell.getShareString();
+                            Platform.runLater(() -> {
+                                ClipboardContent content = new ClipboardContent();
+                                content.putString(spellCode);
+                                Client.getSystemClipboard().setContent(content);
+                            });
+                            Platform.runLater(() -> new InformationAlert("SUCCESSO", "Esportazione dei Dati", "Dati esportati con successo nella clipboard di sistema!"));
+                        } catch (Exception e) {
+                            Logger.log(e);
+                            Platform.runLater(() -> {
+                                new ErrorAlert("ERRORE", "Errore di Esportazione", "Si e' verificato un errore durante l'esportazione dei dati");
+                                textFieldName.getScene().getWindow().hide();
+                            });
+                        }
+                        return null;
+                    }
+                };
+            }
+        }.start();
+    }
 
     // Methods
+    private void initExistingSpell(@NotNull final JSONObject spellStructure) {
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override @SuppressWarnings("DuplicatedCode")
+                    protected Void call() {
+
+                        try {
+                            Spell tempSpell = new Spell(spellStructure);
+
+                            imageExtension = tempSpell.getImageExtension();
+                            int CC = tempSpell.getCostCopper();
+                            int CP = CC / 1000;
+                            CC -= CP * 1000;
+                            int CG = CC / 100;
+                            CC -= CG * 100;
+                            int CE = CC / 50;
+                            CC -= CE * 50;
+                            int CS = CC / 10;
+                            CC -= CS * 10;
+
+                            BufferedImage bufferedImage = null;
+                            try {
+                                if (tempSpell.getBase64image() != null && imageExtension != null) {
+                                    byte[] imageBytes = Base64.getDecoder().decode(tempSpell.getBase64image());
+                                    ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
+                                    bufferedImage = ImageIO.read(imageStream);
+                                } else if (tempSpell.getBase64image() != null && imageExtension == null) {
+                                    throw new IllegalArgumentException("Image without declared extension");
+                                }
+                            } catch (IllegalArgumentException e) {
+                                Logger.log(e);
+                                tempSpell.setBase64image(null);
+                                tempSpell.setImageExtension(null);
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
+                                return null;
+                            }
+
+                            int finalCC = CC;
+                            BufferedImage finalBufferedImage = bufferedImage;
+
+                            Platform.runLater(() -> {
+                                textFieldName.setText(tempSpell.getName());
+                                comboBoxRarity.getSelectionModel().select(tempSpell.getRarity().getTextedRarity());
+                                textFieldMR.setText(String.valueOf(finalCC));
+                                textFieldMA.setText(String.valueOf(CS));
+                                textFieldME.setText(String.valueOf(CE));
+                                textFieldMO.setText(String.valueOf(CG));
+                                textFieldMP.setText(String.valueOf(CP));
+                                textAreaDescription.setText(tempSpell.getDescription());
+                                if (finalBufferedImage != null && imageExtension != null) {
+                                    imageViewItem.setImage(SwingFXUtils.toFXImage(finalBufferedImage, null));
+                                } else {
+                                    imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
+                                }
+                                textFieldLevel.setText(String.valueOf(tempSpell.getLevel()));
+                                textFieldType.setText(tempSpell.getType());
+                                textFieldCastTime.setText(tempSpell.getCastTime());
+                                textFieldSpellRange.setText(tempSpell.getRange());
+                                textFieldComponents.setText(tempSpell.getComponents());
+                                textFieldDuration.setText(tempSpell.getDuration());
+                            });
+                        } catch (Exception e) {
+                            Logger.log(e);
+                            Platform.runLater(() -> {
+                                new ErrorAlert("ERRORE", "Errore di Importazione", "La struttura dei dati non e' valida.");
+                                textFieldName.getScene().getWindow().hide();
+                            });
+                        }
+                        return null;
+                    }
+                };
+            }
+        }.start();
+    }
     private void initExistingSpell(@NotNull final String spellName) {
         Service<Void> itemInitializerService = new Service<Void>() {
             @Override
