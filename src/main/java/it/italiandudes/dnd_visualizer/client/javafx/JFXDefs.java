@@ -59,6 +59,19 @@ public final class JFXDefs {
             private static final String IMAGE_DIR = "/image/";
             public static final String IMAGE_LOGO = IMAGE_DIR+"app-logo.png";
             public static final String IMAGE_FILE_EXPLORER = IMAGE_DIR+"file-explorer.png";
+            public static final String IMAGE_PLAY = IMAGE_DIR + "play.png";
+            public static final String IMAGE_STOP = IMAGE_DIR + "stop.png";
+            public static final class Dice {
+                private static final String DICE_DIR = IMAGE_DIR + "sheet/dice/";
+                public static final String HEAD = DICE_DIR + "head.png";
+                public static final String TAIL = DICE_DIR + "tail.png";
+                public static final String D4 = DICE_DIR + "d4.png";
+                public static final String D6 = DICE_DIR + "d6.png";
+                public static final String D8 = DICE_DIR + "d8.png";
+                public static final String D10 = DICE_DIR + "d10.png";
+                public static final String D12 = DICE_DIR + "d12.png";
+                public static final String D20 = DICE_DIR + "d20.png";
+            }
         }
 
     }

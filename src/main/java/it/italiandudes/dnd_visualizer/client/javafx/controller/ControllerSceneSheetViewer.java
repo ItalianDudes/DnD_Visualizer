@@ -5,6 +5,7 @@ import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.*;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
 import it.italiandudes.dnd_visualizer.data.Note;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
+import it.italiandudes.dnd_visualizer.data.enums.DiceRepresentation;
 import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.data.item.Addon;
@@ -254,6 +255,14 @@ public final class ControllerSceneSheetViewer {
     @FXML public TableColumn<Note, String> tableColumnNotesCreationDate;
     @FXML public TableColumn<Note, String> tableColumnNotesLastEdit;
 
+    // TabDiceRoller
+    @FXML public ImageView imageViewToggleDiceRolling;
+    @FXML public ComboBox<DiceRepresentation> comboBoxDiceFaces;
+    @FXML public Spinner<Integer> spinnerDiceAmount;
+    @FXML public ImageView imageViewDice;
+    @FXML public Label labelDiceValue;
+    @FXML public TextArea textAreaDiceSum;
+
     //Initialize
     @FXML
     private void initialize() {
@@ -267,6 +276,7 @@ public final class ControllerSceneSheetViewer {
         TabPhysicalDescription.initialize(this);
         TabStory.initialize(this);
         TabNotes.initialize(this);
+        TabDiceRoller.initialize(this);
     }
 
     // Direct EDT Method Calls
@@ -369,5 +379,8 @@ public final class ControllerSceneSheetViewer {
     }
     @FXML private void importElementFromElementCode() {
         TabInventory.importElementFromElementCode(this);
+    }
+    @FXML private void toggleDiceRolling() {
+        TabDiceRoller.toggleDiceRolling(this);
     }
 }
