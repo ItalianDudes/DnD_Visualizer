@@ -463,6 +463,7 @@ public final class TabInventory {
     }
     public static void importElementFromElementCode(@NotNull final ControllerSceneSheetViewer controller) {
         String elementCode = controller.textFieldElementCode.getText();
+        controller.textFieldElementCode.setText("");
         if (elementCode == null || elementCode.replace(" ", "").isEmpty()) return;
         Scene thisScene = Client.getStage().getScene();
         Client.getStage().setScene(SceneLoading.getScene());
