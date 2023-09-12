@@ -379,6 +379,7 @@ public final class TabAbility {
         toggleSTStrengthProficiency(controller);
         updateStrengthAbilities(controller, mod, controller.spinnerProficiencyBonus.getValue());
         TabSpells.updateSpellModifiers(controller);
+        TabInventory.updateLoad(controller);
     }
     public static void updateDexterity(@NotNull final ControllerSceneSheetViewer controller) {
         int value = controller.spinnerDexterity.getValue();
