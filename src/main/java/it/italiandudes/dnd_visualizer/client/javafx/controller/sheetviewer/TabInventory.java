@@ -29,6 +29,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.nio.charset.StandardCharsets;
@@ -518,7 +519,7 @@ public final class TabInventory {
                                 TabSpells.updateListViews(controller);
                                 TabEquipment.reloadEquipment(controller);
                             });
-                        } catch (IllegalArgumentException e) {
+                        } catch (IllegalArgumentException | JSONException e) {
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Importazione", "Il codice elemento non e' valido, inserire un codice valido.");
                                 Client.getStage().setScene(thisScene);
