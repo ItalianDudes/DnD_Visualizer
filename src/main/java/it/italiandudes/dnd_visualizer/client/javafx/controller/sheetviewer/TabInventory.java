@@ -503,8 +503,10 @@ public final class TabInventory {
                             SerializerType serializerType = SerializerType.values()[serializerID];
                             if (serializerType == SerializerType.INVENTORY) {
                                 JSONArray elements = element.getJSONArray("elements");
-                                try {
-                                    for (int i=0; i<elements.length(); i++) {
+                                int errored = 0;
+                                int success = 0;
+                                for (int i = 0; i < elements.length(); i++) {
+                                    try {
                                         JSONObject singleElement = elements.getJSONObject(i);
                                         switch (SerializerType.values()[singleElement.getInt(ISerializable.SERIALIZER_ID)]) {
                                             case ITEM:
@@ -523,24 +525,19 @@ public final class TabInventory {
                                                 new Spell(singleElement).saveIntoDatabase(null);
                                                 break;
                                         }
+                                        success++;
+                                    } catch (SQLException | JSONException e) {
+                                        errored++;
+                                        Logger.log(e);
                                     }
-                                    Platform.runLater(() -> {
-                                        new InformationAlert("SUCCESSO", "Importazione Inventario", "Inventario importato con successo!");
-                                        Client.getStage().setScene(thisScene);
-                                    });
-                                } catch (SQLException e) {
-                                    Logger.log(e);
-                                    Platform.runLater(() -> {
-                                        new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante l'importazione di uno degli elementi, l'importazione e' stata interrotta.");
-                                        Client.getStage().setScene(thisScene);
-                                    });
-                                } catch (JSONException e) {
-                                    Logger.log(e);
-                                    Platform.runLater(() -> {
-                                        new ErrorAlert("ERRORE", "Errore di Importazione", "Si e' verificato un errore durante l'importazione di uno degli elementi, l'importazione e' stata interrotta.");
-                                        Client.getStage().setScene(thisScene);
-                                    });
                                 }
+                                int finalSuccess = success;
+                                int finalErrored = errored;
+                                Platform.runLater(() -> {
+                                    new InformationAlert("IMPORTAZIONE COMPLETATA", "Importazione Inventario", "Importazione completata!\nSuccessi: "+ finalSuccess +"\nFallimenti: "+ finalErrored);
+                                    Client.getStage().setScene(thisScene);
+                                    search(controller);
+                                });
                             } else {
                                 elementStructure = element;
                                 Platform.runLater(() -> {
@@ -688,8 +685,10 @@ public final class TabInventory {
                                 SerializerType serializerType = SerializerType.values()[serializerID];
                                 if (serializerType == SerializerType.INVENTORY) {
                                     JSONArray elements = element.getJSONArray("elements");
-                                    try {
-                                        for (int i = 0; i < elements.length(); i++) {
+                                    int errored = 0;
+                                    int success = 0;
+                                    for (int i = 0; i < elements.length(); i++) {
+                                        try {
                                             JSONObject singleElement = elements.getJSONObject(i);
                                             switch (SerializerType.values()[singleElement.getInt(ISerializable.SERIALIZER_ID)]) {
                                                 case ITEM:
@@ -708,25 +707,19 @@ public final class TabInventory {
                                                     new Spell(singleElement).saveIntoDatabase(null);
                                                     break;
                                             }
+                                            success++;
+                                        } catch (SQLException | JSONException e) {
+                                            errored++;
+                                            Logger.log(e);
                                         }
-                                        Platform.runLater(() -> {
-                                            new InformationAlert("SUCCESSO", "Importazione Inventario", "Inventario importato con successo!");
-                                            Client.getStage().setScene(thisScene);
-                                            search(controller);
-                                        });
-                                    } catch (SQLException e) {
-                                        Logger.log(e);
-                                        Platform.runLater(() -> {
-                                            new ErrorAlert("ERRORE", "Errore di Database", "Si e' verificato un errore durante l'importazione di uno degli elementi nel database, l'importazione e' stata interrotta.");
-                                            Client.getStage().setScene(thisScene);
-                                        });
-                                    } catch (JSONException e) {
-                                        Logger.log(e);
-                                        Platform.runLater(() -> {
-                                            new ErrorAlert("ERRORE", "Errore di Importazione", "Si e' verificato un errore durante l'importazione di uno degli elementi dell'inventario, l'importazione e' stata interrotta.");
-                                            Client.getStage().setScene(thisScene);
-                                        });
                                     }
+                                    int finalSuccess = success;
+                                    int finalErrored = errored;
+                                    Platform.runLater(() -> {
+                                        new InformationAlert("IMPORTAZIONE COMPLETATA", "Importazione Inventario", "Importazione completata!\nSuccessi: "+ finalSuccess +"\nFallimenti: "+ finalErrored);
+                                        Client.getStage().setScene(thisScene);
+                                        search(controller);
+                                    });
                                 } else {
                                     Platform.runLater(() -> {
                                         new ErrorAlert("ERRORE", "Errore di Procedura", "Il file contiene del codice elemento, non del codice inventario.");
