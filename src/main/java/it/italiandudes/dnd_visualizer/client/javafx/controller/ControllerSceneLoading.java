@@ -9,6 +9,6 @@ public final class ControllerSceneLoading {
     //Initialize
     @FXML
     private void initialize() {
-        Client.getStage().setResizable(false);
+        Client.getStage().setResizable(true);
     }
 }

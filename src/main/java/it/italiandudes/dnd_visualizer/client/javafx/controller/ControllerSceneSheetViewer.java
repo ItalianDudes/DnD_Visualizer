@@ -267,8 +267,8 @@ public final class ControllerSceneSheetViewer {
     //Initialize
     @FXML
     private void initialize() {
-        DiscordRichPresenceManager.updateRichPresenceState(DiscordRichPresenceManager.States.IN_GAME);
         Client.getStage().setResizable(true);
+        DiscordRichPresenceManager.updateRichPresenceState(DiscordRichPresenceManager.States.IN_GAME);
         TabCharacter.initialize(this);
         TabAbility.initialize(this);
         TabTraitsAndProficiencies.initialize(this);

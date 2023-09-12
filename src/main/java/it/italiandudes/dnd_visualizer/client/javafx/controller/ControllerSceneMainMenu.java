@@ -27,8 +27,8 @@ public final class ControllerSceneMainMenu {
     //Initialize
     @FXML
     private void initialize() {
+        Client.getStage().setResizable(true);
         DiscordRichPresenceManager.updateRichPresenceState(DiscordRichPresenceManager.States.MENU);
-        Client.getStage().setResizable(false);
     }
 
     // EDT

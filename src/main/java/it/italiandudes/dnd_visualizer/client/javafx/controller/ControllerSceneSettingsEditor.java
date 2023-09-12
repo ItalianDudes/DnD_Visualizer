@@ -44,8 +44,8 @@ public final class ControllerSceneSettingsEditor {
     //Initialize
     @FXML
     private void initialize() {
+        Client.getStage().setResizable(true);
         DiscordRichPresenceManager.updateRichPresenceState(DiscordRichPresenceManager.States.SETTINGS);
-        Client.getStage().setResizable(false);
         toggleButtonEnableDarkMode.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DARK_MODE));
         toggleButtonEnableLoad.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_LOAD));
         toggleButtonEnablePassiveLoad.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_PASSIVE_LOAD));
