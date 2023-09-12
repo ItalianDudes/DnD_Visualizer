@@ -112,6 +112,12 @@ public final class Client extends Application {
             SETTINGS.remove(Defs.SettingsKeys.COINS_INCREASE_LOAD);
             SETTINGS.put(Defs.SettingsKeys.COINS_INCREASE_LOAD, true);
         }
+        try {
+            SETTINGS.getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE);
+        } catch (JSONException e) {
+            SETTINGS.remove(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE);
+            SETTINGS.put(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE, true);
+        }
         writeJSONSettings();
     }
     public static void writeJSONSettings() throws IOException {

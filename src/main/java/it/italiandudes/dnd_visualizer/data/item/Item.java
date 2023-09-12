@@ -232,11 +232,10 @@ public class Item implements ISavable, ISerializable {
             return false;
         }
     }
-
-    @Override
-    public String getShareString() {
+    @Override @SuppressWarnings("DuplicatedCode")
+    public JSONObject exportElementJSON() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(SERIALIZER_KEY, SerializerType.ITEM.ordinal());
+        jsonObject.put(SERIALIZER_ID, SerializerType.ITEM.ordinal());
         jsonObject.put("base64image", base64image);
         jsonObject.put("imageExtension", imageExtension);
         jsonObject.put("name", name);
@@ -246,9 +245,12 @@ public class Item implements ISavable, ISerializable {
         jsonObject.put("weight", weight);
         jsonObject.put("category", category.getDatabaseValue());
         jsonObject.put("quantity", quantity);
-        return Base64.getEncoder().encodeToString(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
+        return jsonObject;
     }
-
+    @Override @SuppressWarnings("DuplicatedCode")
+    public String exportElement() {
+        return Base64.getEncoder().encodeToString(exportElementJSON().toString().getBytes(StandardCharsets.UTF_8));
+    }
     @Override @SuppressWarnings("DuplicatedCode")
     public void saveIntoDatabase(@Nullable final String oldName) throws SQLException {
         String itemCheckerQuery = "SELECT id FROM items WHERE name=?;";

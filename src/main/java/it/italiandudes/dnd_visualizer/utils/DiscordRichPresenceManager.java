@@ -26,7 +26,9 @@ public final class DiscordRichPresenceManager {
     private static void initializeRichPresence() {
         try {
             if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
-        } catch (Throwable ignored) {}
+        } catch (Throwable e) {
+            return;
+        }
         DiscordRPC lib = DiscordRPC.INSTANCE;
         DiscordEventHandlers handlers = new DiscordEventHandlers();
         lib.Discord_Initialize(APPLICATION_ID, handlers, true, null);
@@ -47,7 +49,9 @@ public final class DiscordRichPresenceManager {
     public static void updateRichPresenceState(@Nullable final String state) {
         try {
             if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
-        } catch (Throwable ignored) {}
+        } catch (Throwable e) {
+            return;
+        }
         if (presence == null) initializeRichPresence();
         presence.state = state;
         DiscordRPC.INSTANCE.Discord_UpdatePresence(presence);
@@ -55,7 +59,9 @@ public final class DiscordRichPresenceManager {
     public static void updateRichPresenceDetails() {
         try {
             if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
-        } catch (Throwable ignored) {}
+        } catch (Throwable e) {
+            return;
+        }
         if (presence == null) initializeRichPresence();
         StringBuilder detailsBuilder = new StringBuilder();
         if (characterName == null || characterName.replace(" ", "").isEmpty()) characterName = null;
@@ -68,21 +74,25 @@ public final class DiscordRichPresenceManager {
     public static void setCharacterName(@Nullable final String characterName) {
         try {
             if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
-        } catch (Throwable ignored) {}
+        } catch (Throwable e) {
+            return;
+        }
         DiscordRichPresenceManager.characterName = characterName;
         updateRichPresenceDetails();
     }
     public static void setLevel(@Nullable final String level) {
         try {
             if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
-        } catch (Throwable ignored) {}
+        } catch (Throwable e) {
+            return;
+        }
         DiscordRichPresenceManager.level = level;
         updateRichPresenceDetails();
     }
     public static void shutdownRichPresence() {
-        try {
-            if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
-        } catch (Throwable ignored) {}
+        presence = null;
+        level = null;
+        characterName = null;
         DiscordRPC.INSTANCE.Discord_Shutdown();
     }
 }

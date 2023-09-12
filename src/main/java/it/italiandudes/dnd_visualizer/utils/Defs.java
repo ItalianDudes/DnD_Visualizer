@@ -47,6 +47,9 @@ public final class Defs {
         // Sheet Extension
         public static final String SHEET_EXTENSION = "dnd5e.sheet";
 
+        // Inventory Extension
+        public static final String INVENTORY_EXTENSION = "dnd5e.inventory";
+
         // JSON
         public static final class JSON {
             public static final String JSON_CLIENT_SETTINGS = "client_settings.json";
@@ -62,6 +65,8 @@ public final class Defs {
             public static final String IMAGE_LIGHT_MODE = IMAGE_DIR + "light_mode.png";
             public static final String IMAGE_TICK = IMAGE_DIR + "tick.png";
             public static final String IMAGE_CROSS = IMAGE_DIR + "cross.png";
+            public static final String IMAGE_WUMPUS = IMAGE_DIR + "wumpus.png";
+            public static final String IMAGE_NO_WUMPUS = IMAGE_DIR + "no_wumpus.png";
         }
 
         // SQL

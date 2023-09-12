@@ -71,9 +71,9 @@ public class Addon extends Equipment implements ISavable, ISerializable {
 
     // Methods
     @Override @SuppressWarnings("DuplicatedCode")
-    public String getShareString() {
+    public JSONObject exportElementJSON() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(SERIALIZER_KEY, SerializerType.ADDON.ordinal());
+        jsonObject.put(SERIALIZER_ID, SerializerType.ADDON.ordinal());
         jsonObject.put("base64image", getBase64image());
         jsonObject.put("imageExtension", getImageExtension());
         jsonObject.put("name", getName());
@@ -91,7 +91,11 @@ public class Addon extends Equipment implements ISavable, ISerializable {
         jsonObject.put("loadPercentageEffect", getLoadPercentageEffect());
         jsonObject.put("otherEffects", getOtherEffects());
         jsonObject.put("slot", slot.getDatabaseValue());
-        return Base64.getEncoder().encodeToString(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
+        return jsonObject;
+    }
+    @Override @SuppressWarnings("DuplicatedCode")
+    public String exportElement() {
+        return Base64.getEncoder().encodeToString(exportElementJSON().toString().getBytes(StandardCharsets.UTF_8));
     }
     @Override
     public void saveIntoDatabase(@Nullable final String oldName) throws SQLException {

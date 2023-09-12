@@ -459,7 +459,7 @@ public final class ControllerSceneInventoryWeapon {
                                     loadEffect, loadEffectPerc, caEffect, otherEffects, isEquipped
                             );
 
-                            String weaponCode = exportableWeapon.getShareString();
+                            String weaponCode = exportableWeapon.exportElement();
                             Platform.runLater(() -> {
                                 ClipboardContent content = new ClipboardContent();
                                 content.putString(weaponCode);

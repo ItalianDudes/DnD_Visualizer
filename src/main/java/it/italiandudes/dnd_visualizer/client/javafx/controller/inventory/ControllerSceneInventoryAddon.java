@@ -464,7 +464,7 @@ public final class ControllerSceneInventoryAddon {
                                     caEffect, otherEffects, false
                             );
 
-                            String addonCode = exportableAddon.getShareString();
+                            String addonCode = exportableAddon.exportElement();
                             Platform.runLater(() -> {
                                 ClipboardContent content = new ClipboardContent();
                                 content.putString(addonCode);

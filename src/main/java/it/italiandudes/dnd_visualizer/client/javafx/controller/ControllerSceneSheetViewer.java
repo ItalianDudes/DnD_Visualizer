@@ -385,4 +385,10 @@ public final class ControllerSceneSheetViewer {
     @FXML private void toggleDiceRolling() {
         TabDiceRoller.toggleDiceRolling(this);
     }
+    @FXML private void importInventory() {
+        TabInventory.importInventory(this);
+    }
+    @FXML private void exportInventory() {
+        TabInventory.exportInventory();
+    }
 }

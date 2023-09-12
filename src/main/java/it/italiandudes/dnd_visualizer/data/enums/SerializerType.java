@@ -5,5 +5,6 @@ public enum SerializerType {
     ARMOR,
     WEAPON,
     ADDON,
-    SPELL
+    SPELL,
+    INVENTORY
 }

@@ -26,16 +26,20 @@ public final class ControllerSceneSettingsEditor {
     private static final Image LIGHT_MODE = new Image(Defs.Resources.getAsStream(Defs.Resources.Image.IMAGE_LIGHT_MODE));
     private static final Image TICK = new Image(Defs.Resources.getAsStream(Defs.Resources.Image.IMAGE_TICK));
     private static final Image CROSS = new Image(Defs.Resources.getAsStream(Defs.Resources.Image.IMAGE_CROSS));
+    private static final Image WUMPUS = new Image(Defs.Resources.getAsStream(Defs.Resources.Image.IMAGE_WUMPUS));
+    private static final Image NO_WUMPUS = new Image(Defs.Resources.getAsStream(Defs.Resources.Image.IMAGE_NO_WUMPUS));
 
     //Graphic Elements
     @FXML private ImageView imageViewEnableDarkMode;
     @FXML private ImageView imageViewEnableLoad;
     @FXML private ImageView imageViewEnablePassiveLoad;
     @FXML private ImageView imageViewCoinsIncreaseLoad;
+    @FXML private ImageView imageViewEnableDiscordRichPresence;
     @FXML private ToggleButton toggleButtonEnableDarkMode;
     @FXML private ToggleButton toggleButtonEnableLoad;
     @FXML private ToggleButton toggleButtonEnablePassiveLoad;
     @FXML private ToggleButton toggleButtonCoinsIncreaseLoad;
+    @FXML private ToggleButton toggleButtonEnableDiscordRichPresence;
 
     //Initialize
     @FXML
@@ -46,6 +50,7 @@ public final class ControllerSceneSettingsEditor {
         toggleButtonEnableLoad.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_LOAD));
         toggleButtonEnablePassiveLoad.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_PASSIVE_LOAD));
         toggleButtonCoinsIncreaseLoad.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.COINS_INCREASE_LOAD));
+        toggleButtonEnableDiscordRichPresence.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE));
         if (toggleButtonEnableDarkMode.isSelected()) imageViewEnableDarkMode.setImage(DARK_MODE);
         else imageViewEnableDarkMode.setImage(LIGHT_MODE);
         if (toggleButtonEnableLoad.isSelected()) imageViewEnableLoad.setImage(TICK);
@@ -54,6 +59,8 @@ public final class ControllerSceneSettingsEditor {
         else imageViewEnablePassiveLoad.setImage(CROSS);
         if (toggleButtonCoinsIncreaseLoad.isSelected()) imageViewCoinsIncreaseLoad.setImage(TICK);
         else imageViewCoinsIncreaseLoad.setImage(CROSS);
+        if (toggleButtonEnableDiscordRichPresence.isSelected()) imageViewEnableDiscordRichPresence.setImage(WUMPUS);
+        else imageViewEnableDiscordRichPresence.setImage(NO_WUMPUS);
     }
 
     // EDT
@@ -84,6 +91,11 @@ public final class ControllerSceneSettingsEditor {
         else imageViewCoinsIncreaseLoad.setImage(CROSS);
     }
     @FXML
+    private void toggleEnableDiscordRichPresence() {
+        if (toggleButtonEnableDiscordRichPresence.isSelected()) imageViewEnableDiscordRichPresence.setImage(WUMPUS);
+        else imageViewEnableDiscordRichPresence.setImage(NO_WUMPUS);
+    }
+    @FXML
     private void backToMenu() {
         Client.getStage().setScene(SceneMainMenu.getScene());
     }
@@ -100,10 +112,14 @@ public final class ControllerSceneSettingsEditor {
                             Client.getSettings().put(Defs.SettingsKeys.ENABLE_LOAD, toggleButtonEnableLoad.isSelected());
                             Client.getSettings().put(Defs.SettingsKeys.ENABLE_PASSIVE_LOAD, toggleButtonEnablePassiveLoad.isSelected());
                             Client.getSettings().put(Defs.SettingsKeys.COINS_INCREASE_LOAD, toggleButtonCoinsIncreaseLoad.isSelected());
+                            Client.getSettings().put(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE, toggleButtonEnableDiscordRichPresence.isSelected());
                         } catch (JSONException e) {
                             Logger.log(e);
                         }
                         ThemeHandler.setConfigTheme();
+                        if (!toggleButtonEnableDiscordRichPresence.isSelected()) {
+                            DiscordRichPresenceManager.shutdownRichPresence();
+                        }
                         try {
                             Client.writeJSONSettings();
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Salvataggio Impostazioni", "Impostazioni salvate e applicate con successo!"));

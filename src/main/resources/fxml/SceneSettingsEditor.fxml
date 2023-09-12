@@ -41,6 +41,7 @@
                 <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                 <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                   <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Label text="Attiva Tema Scuro">
@@ -63,6 +64,11 @@
                         <Font name="Lucida Sans Demibold" size="16.0" />
                      </font>
                   </Label>
+                  <Label text="Attiva Discord Rich Presence" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Lucida Sans Demibold" size="16.0" />
+                     </font>
+                  </Label>
                   <ToggleButton fx:id="toggleButtonEnableDarkMode" mnemonicParsing="false" onAction="#toggleEnableDarkMode" GridPane.columnIndex="1">
                      <graphic>
                         <ImageView fx:id="imageViewEnableDarkMode" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
@@ -81,6 +87,11 @@
                   <ToggleButton fx:id="toggleButtonCoinsIncreaseLoad" mnemonicParsing="false" onAction="#toggleCoinsIncreaseLoad" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <graphic>
                         <ImageView fx:id="imageViewCoinsIncreaseLoad" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton fx:id="toggleButtonEnableDiscordRichPresence" mnemonicParsing="false" onAction="#toggleEnableDiscordRichPresence" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <graphic>
+                        <ImageView fx:id="imageViewEnableDiscordRichPresence" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic>
                   </ToggleButton>
                </children>

@@ -78,9 +78,9 @@ public final class Armor extends Equipment implements ISavable {
 
     // Methods
     @Override @SuppressWarnings("DuplicatedCode")
-    public String getShareString() {
+    public JSONObject exportElementJSON() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(SERIALIZER_KEY, SerializerType.ARMOR.ordinal());
+        jsonObject.put(SERIALIZER_ID, SerializerType.ARMOR.ordinal());
         jsonObject.put("base64image", getBase64image());
         jsonObject.put("imageExtension", getImageExtension());
         jsonObject.put("name", getName());
@@ -99,7 +99,11 @@ public final class Armor extends Equipment implements ISavable {
         jsonObject.put("slot", slot.getDatabaseValue());
         jsonObject.put("otherEffects", getOtherEffects());
         jsonObject.put("weightCategory", weightCategory.getDatabaseValue());
-        return Base64.getEncoder().encodeToString(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
+        return jsonObject;
+    }
+    @Override @SuppressWarnings("DuplicatedCode")
+    public String exportElement() {
+        return Base64.getEncoder().encodeToString(exportElementJSON().toString().getBytes(StandardCharsets.UTF_8));
     }
     @Override
     public void saveIntoDatabase(@Nullable final String oldName) throws SQLException {

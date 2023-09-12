@@ -399,7 +399,7 @@ public final class ControllerSceneInventorySpell {
                                     textFieldDuration.getText()
                             );
 
-                            String spellCode = exportableSpell.getShareString();
+                            String spellCode = exportableSpell.exportElement();
                             Platform.runLater(() -> {
                                 ClipboardContent content = new ClipboardContent();
                                 content.putString(spellCode);

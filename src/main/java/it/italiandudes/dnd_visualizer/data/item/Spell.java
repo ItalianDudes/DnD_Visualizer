@@ -142,9 +142,9 @@ public final class Spell extends Item implements ISavable {
 
     // Methods
     @Override @SuppressWarnings("DuplicatedCode")
-    public String getShareString() {
+    public JSONObject exportElementJSON() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(SERIALIZER_KEY, SerializerType.SPELL.ordinal());
+        jsonObject.put(SERIALIZER_ID, SerializerType.SPELL.ordinal());
         jsonObject.put("base64image", getBase64image());
         jsonObject.put("imageExtension", getImageExtension());
         jsonObject.put("name", getName());
@@ -160,9 +160,13 @@ public final class Spell extends Item implements ISavable {
         jsonObject.put("range", range);
         jsonObject.put("components", components);
         jsonObject.put("duration", duration);
-        return Base64.getEncoder().encodeToString(jsonObject.toString().getBytes(StandardCharsets.UTF_8));
+        return jsonObject;
     }
     @Override @SuppressWarnings("DuplicatedCode")
+    public String exportElement() {
+        return Base64.getEncoder().encodeToString(exportElementJSON().toString().getBytes(StandardCharsets.UTF_8));
+    }
+    @Override
     public void saveIntoDatabase(@Nullable final String oldName) throws SQLException {
         super.saveIntoDatabase(oldName);
         Integer itemID = getItemID();

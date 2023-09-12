@@ -2,6 +2,7 @@ package it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer;
 
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
+import it.italiandudes.dnd_visualizer.client.javafx.alert.InformationAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneLoading;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneMainMenu;
@@ -14,7 +15,7 @@ import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.data.enums.SerializerType;
-import it.italiandudes.dnd_visualizer.data.item.Equipment;
+import it.italiandudes.dnd_visualizer.data.item.*;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.interfaces.ISerializable;
 import it.italiandudes.dnd_visualizer.utils.Defs;
@@ -26,12 +27,18 @@ import javafx.concurrent.Task;
 import javafx.scene.Scene;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,6 +46,7 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Scanner;
 
 public final class TabInventory {
 
@@ -477,48 +485,103 @@ public final class TabInventory {
                         try {
                             String jsonString = new String(Base64.getDecoder().decode(elementCode), StandardCharsets.UTF_8);
                             JSONObject element = new JSONObject(jsonString);
-                            Integer serializerID = (Integer) element.get(ISerializable.SERIALIZER_KEY);
+                            String dbVersion = null;
+                            try {
+                                dbVersion = element.getString(ISerializable.DB_VERSION);
+                                if (!dbVersion.equals(Defs.DB_VERSION)) throw new JSONException("DB Version Mismatch");
+                            } catch (JSONException e) {
+                                String supportedVersion = Defs.DB_VERSION;
+                                String inventoryVersion = (dbVersion!=null?dbVersion:"NA");
+                                Platform.runLater(() -> {
+                                    new ErrorAlert("ERRORE", "Errore di Importazione", "La versione di database dell'elemento non e' supportata.\nVersione Supportata: "+supportedVersion+"\nVersione Elemento: "+inventoryVersion);
+                                    Client.getStage().setScene(thisScene);
+                                });
+                                return null;
+                            }
+                            Integer serializerID = (Integer) element.get(ISerializable.SERIALIZER_ID);
                             if (serializerID == null || serializerID < 0 || serializerID >= SerializerType.values().length) throw new IllegalArgumentException("The serializerID must be an non null integer withing SerializerTypes array bounds!");
                             SerializerType serializerType = SerializerType.values()[serializerID];
-                            elementStructure = element;
-                            Platform.runLater(() -> {
-                                Scene newScene = null;
-                                switch (serializerType) {
-                                    case ITEM:
-                                        newScene = SceneInventoryItem.getScene();
-                                        break;
-
-                                    case ARMOR:
-                                        newScene = SceneInventoryArmor.getScene();
-                                        break;
-
-                                    case ADDON:
-                                        newScene = SceneInventoryAddon.getScene();
-                                        break;
-
-                                    case WEAPON:
-                                        newScene = SceneInventoryWeapon.getScene();
-                                        break;
-
-                                    case SPELL:
-                                        newScene = SceneInventorySpell.getScene();
-                                        break;
-
-                                    default:
-                                        elementStructure = null;
-                                        new ErrorAlert("ERRORE", "Errore di Importazione", "Struttura dati non riconosciuta, importazione fallita.");
+                            if (serializerType == SerializerType.INVENTORY) {
+                                JSONArray elements = element.getJSONArray("elements");
+                                try {
+                                    for (int i=0; i<elements.length(); i++) {
+                                        JSONObject singleElement = elements.getJSONObject(i);
+                                        switch (SerializerType.values()[singleElement.getInt(ISerializable.SERIALIZER_ID)]) {
+                                            case ITEM:
+                                                new Item(singleElement).saveIntoDatabase(null);
+                                                break;
+                                            case ADDON:
+                                                new Addon(singleElement).saveIntoDatabase(null);
+                                                break;
+                                            case ARMOR:
+                                                new Armor(singleElement).saveIntoDatabase(null);
+                                                break;
+                                            case WEAPON:
+                                                new Weapon(singleElement).saveIntoDatabase(null);
+                                                break;
+                                            case SPELL:
+                                                new Spell(singleElement).saveIntoDatabase(null);
+                                                break;
+                                        }
+                                    }
+                                    Platform.runLater(() -> {
+                                        new InformationAlert("SUCCESSO", "Importazione Inventario", "Inventario importato con successo!");
                                         Client.getStage().setScene(thisScene);
-                                        break;
+                                    });
+                                } catch (SQLException e) {
+                                    Logger.log(e);
+                                    Platform.runLater(() -> {
+                                        new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante l'importazione di uno degli elementi, l'importazione e' stata interrotta.");
+                                        Client.getStage().setScene(thisScene);
+                                    });
+                                } catch (JSONException e) {
+                                    Logger.log(e);
+                                    Platform.runLater(() -> {
+                                        new ErrorAlert("ERRORE", "Errore di Importazione", "Si e' verificato un errore durante l'importazione di uno degli elementi, l'importazione e' stata interrotta.");
+                                        Client.getStage().setScene(thisScene);
+                                    });
                                 }
-                                Client.getStage().setScene(thisScene);
-                                Stage popupScene = Client.initPopupStage(newScene);
-                                popupScene.showAndWait();
-                                elementStructure = null;
-                                search(controller);
-                                updateLoad(controller);
-                                TabSpells.updateListViews(controller);
-                                TabEquipment.reloadEquipment(controller);
-                            });
+                            } else {
+                                elementStructure = element;
+                                Platform.runLater(() -> {
+                                    Scene newScene = null;
+                                    switch (serializerType) {
+                                        case ITEM:
+                                            newScene = SceneInventoryItem.getScene();
+                                            break;
+
+                                        case ARMOR:
+                                            newScene = SceneInventoryArmor.getScene();
+                                            break;
+
+                                        case ADDON:
+                                            newScene = SceneInventoryAddon.getScene();
+                                            break;
+
+                                        case WEAPON:
+                                            newScene = SceneInventoryWeapon.getScene();
+                                            break;
+
+                                        case SPELL:
+                                            newScene = SceneInventorySpell.getScene();
+                                            break;
+
+                                        default:
+                                            elementStructure = null;
+                                            new ErrorAlert("ERRORE", "Errore di Importazione", "Struttura dati non riconosciuta, importazione fallita.");
+                                            Client.getStage().setScene(thisScene);
+                                            break;
+                                    }
+                                    Client.getStage().setScene(thisScene);
+                                    Stage popupScene = Client.initPopupStage(newScene);
+                                    popupScene.showAndWait();
+                                    elementStructure = null;
+                                    search(controller);
+                                    updateLoad(controller);
+                                    TabSpells.updateListViews(controller);
+                                    TabEquipment.reloadEquipment(controller);
+                                });
+                            }
                         } catch (IllegalArgumentException | JSONException e) {
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Importazione", "Il codice elemento non e' valido, inserire un codice valido.");
@@ -563,5 +626,222 @@ public final class TabInventory {
         updateLoad(controller);
         TabSpells.updateListViews(controller);
         TabEquipment.reloadEquipment(controller);
+    }
+    public static void importInventory(@NotNull final ControllerSceneSheetViewer controller) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Importazione dell'Inventario");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("DND5E Inventory", "*."+Defs.Resources.INVENTORY_EXTENSION));
+        fileChooser.setInitialDirectory(new File(Defs.JAR_POSITION).getParentFile());
+        File invPath;
+        try {
+            invPath = fileChooser.showOpenDialog(Client.getStage().getScene().getWindow());
+        } catch (IllegalArgumentException e) {
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+            invPath = fileChooser.showOpenDialog(Client.getStage().getScene().getWindow());
+        }
+        if (invPath!=null) {
+            Scene thisScene = Client.getStage().getScene();
+            Client.getStage().setScene(SceneLoading.getScene());
+            File finalInvPath = invPath;
+            new Service<Void>() {
+                @Override
+                protected Task<Void> createTask() {
+                    return new Task<Void>() {
+                        @Override
+                        protected Void call() {
+                            StringBuilder codeBuilder = new StringBuilder();
+                            try {
+                                Scanner invReader = new Scanner(finalInvPath);
+                                while (invReader.hasNext()) {
+                                    codeBuilder.append(invReader.nextLine());
+                                    if (invReader.hasNext()) codeBuilder.append('\n');
+                                }
+                                invReader.close();
+                            } catch (FileNotFoundException e) {
+                                Logger.log(e);
+                                Platform.runLater(() -> {
+                                    new ErrorAlert("ERRORE", "Errore di I/O", "Il file specificato non esiste.");
+                                    Client.getStage().setScene(thisScene);
+                                });
+                                return null;
+                            }
+                            try {
+                                String elementCode = codeBuilder.toString();
+                                String jsonString = new String(Base64.getDecoder().decode(elementCode), StandardCharsets.UTF_8);
+                                JSONObject element = new JSONObject(jsonString);
+                                String dbVersion = null;
+                                try {
+                                    dbVersion = element.getString(ISerializable.DB_VERSION);
+                                    if (!dbVersion.equals(Defs.DB_VERSION)) throw new JSONException("DB Version Mismatch");
+                                } catch (JSONException e) {
+                                    String supportedVersion = Defs.DB_VERSION;
+                                    String inventoryVersion = (dbVersion!=null?dbVersion:"NA");
+                                    Platform.runLater(() -> {
+                                        new ErrorAlert("ERRORE", "Errore di Importazione", "La versione di database dell'inventario non e' supportata.\nVersione Supportata: "+supportedVersion+"\nVersione Inventario: "+inventoryVersion);
+                                        Client.getStage().setScene(thisScene);
+                                    });
+                                    return null;
+                                }
+                                Integer serializerID = (Integer) element.get(ISerializable.SERIALIZER_ID);
+                                if (serializerID == null || serializerID < 0 || serializerID >= SerializerType.values().length)
+                                    throw new IllegalArgumentException("The serializerID must be an non null integer withing SerializerTypes array bounds!");
+                                SerializerType serializerType = SerializerType.values()[serializerID];
+                                if (serializerType == SerializerType.INVENTORY) {
+                                    JSONArray elements = element.getJSONArray("elements");
+                                    try {
+                                        for (int i = 0; i < elements.length(); i++) {
+                                            JSONObject singleElement = elements.getJSONObject(i);
+                                            switch (SerializerType.values()[singleElement.getInt(ISerializable.SERIALIZER_ID)]) {
+                                                case ITEM:
+                                                    new Item(singleElement).saveIntoDatabase(null);
+                                                    break;
+                                                case ADDON:
+                                                    new Addon(singleElement).saveIntoDatabase(null);
+                                                    break;
+                                                case ARMOR:
+                                                    new Armor(singleElement).saveIntoDatabase(null);
+                                                    break;
+                                                case WEAPON:
+                                                    new Weapon(singleElement).saveIntoDatabase(null);
+                                                    break;
+                                                case SPELL:
+                                                    new Spell(singleElement).saveIntoDatabase(null);
+                                                    break;
+                                            }
+                                        }
+                                        Platform.runLater(() -> {
+                                            new InformationAlert("SUCCESSO", "Importazione Inventario", "Inventario importato con successo!");
+                                            Client.getStage().setScene(thisScene);
+                                            search(controller);
+                                        });
+                                    } catch (SQLException e) {
+                                        Logger.log(e);
+                                        Platform.runLater(() -> {
+                                            new ErrorAlert("ERRORE", "Errore di Database", "Si e' verificato un errore durante l'importazione di uno degli elementi nel database, l'importazione e' stata interrotta.");
+                                            Client.getStage().setScene(thisScene);
+                                        });
+                                    } catch (JSONException e) {
+                                        Logger.log(e);
+                                        Platform.runLater(() -> {
+                                            new ErrorAlert("ERRORE", "Errore di Importazione", "Si e' verificato un errore durante l'importazione di uno degli elementi dell'inventario, l'importazione e' stata interrotta.");
+                                            Client.getStage().setScene(thisScene);
+                                        });
+                                    }
+                                } else {
+                                    Platform.runLater(() -> {
+                                        new ErrorAlert("ERRORE", "Errore di Procedura", "Il file contiene del codice elemento, non del codice inventario.");
+                                        Client.getStage().setScene(thisScene);
+                                    });
+                                }
+                            } catch (IllegalArgumentException | JSONException e) {
+                                Logger.log(e);
+                                Platform.runLater(() -> {
+                                    new ErrorAlert("ERRORE", "Errore di Importazione", "Il codice di importazione dell'inventario contenuto nel file non e' valido.");
+                                    Client.getStage().setScene(thisScene);
+                                });
+                            }
+                            return null;
+                        }
+                    };
+                }
+            }.start();
+        }
+    }
+    public static void exportInventory() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Esportazione dell'Inventario");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("DND5E Inventory", "*."+Defs.Resources.INVENTORY_EXTENSION));
+        fileChooser.setInitialDirectory(new File(Defs.JAR_POSITION).getParentFile());
+        File destPath;
+        try {
+            destPath = fileChooser.showSaveDialog(Client.getStage().getScene().getWindow());
+        } catch (IllegalArgumentException e) {
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+            destPath = fileChooser.showSaveDialog(Client.getStage().getScene().getWindow());
+        }
+        if (destPath!=null) {
+            File finalDestPath = destPath;
+            new Service<Void>() {
+                @Override
+                protected Task<Void> createTask() {
+                    return new Task<Void>() {
+                        @Override
+                        protected Void call() {
+                            String query;
+                            PreparedStatement ps = null;
+                            ResultSet result;
+
+                            JSONObject inventory = new JSONObject();
+                            inventory.put(ISerializable.SERIALIZER_ID, SerializerType.INVENTORY.ordinal());
+                            inventory.put(ISerializable.DB_VERSION, Defs.DB_VERSION);
+                            JSONArray elementArray = new JSONArray();
+                            try {
+                                query = "SELECT name, category FROM items WHERE category<>?;";
+                                ps = DBManager.preparedStatement(query);
+                                if (ps == null) throw new SQLException("The database connection doesn't exist");
+                                ps.setInt(1, Category.EQUIPMENT.getDatabaseValue());
+                                result = ps.executeQuery();
+
+                                while (result.next()) {
+                                    Category category = Category.values()[result.getInt("category")];
+                                    switch (category) {
+                                        case ITEM:
+                                            elementArray.put(new Item(result.getString("name")).exportElementJSON());
+                                            break;
+                                        case SPELL:
+                                            elementArray.put(new Spell(result.getString("name")).exportElementJSON());
+                                            break;
+                                    }
+                                }
+                                ps.close();
+
+                                query = "SELECT i.name AS name, e.type AS type FROM items AS i JOIN equipments AS e ON i.id=e.item_id WHERE i.category=?;";
+                                ps = DBManager.preparedStatement(query);
+                                if (ps == null) throw new SQLException("The database connection doesn't exist");
+                                ps.setInt(1, Category.EQUIPMENT.getDatabaseValue());
+                                result = ps.executeQuery();
+
+                                while (result.next()) {
+                                    EquipmentType type = EquipmentType.values()[result.getInt("type")];
+                                    switch (type) {
+                                        case ARMOR:
+                                            elementArray.put(new Armor(result.getString("name")).exportElementJSON());
+                                            break;
+                                        case WEAPON:
+                                            elementArray.put(new Weapon(result.getString("name")).exportElementJSON());
+                                            break;
+                                        case ADDON:
+                                            elementArray.put(new Addon(result.getString("name")).exportElementJSON());
+                                            break;
+                                    }
+                                }
+                                ps.close();
+                            } catch (SQLException e) {
+                                try {
+                                    if (ps != null) ps.close();
+                                } catch (SQLException ignored) {
+                                }
+                                Logger.log(e);
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database."));
+                                return null;
+                            }
+
+                            inventory.put("elements", elementArray);
+                            String exportableInventory = Base64.getEncoder().encodeToString(inventory.toString().getBytes(StandardCharsets.UTF_8));
+                            try {
+                                FileWriter writer = new FileWriter(finalDestPath);
+                                writer.append(exportableInventory);
+                                writer.close();
+                                Platform.runLater(() -> new InformationAlert("SUCCESSO", "Esportazione Inventario", "Esportazione dell'inventario effettuata con successo!"));
+                            } catch (IOException e) {
+                                Logger.log(e);
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI SCRITTURA", "Si e' verificato un errore durante la scrittura del file dell'inventario."));
+                            }
+                            return null;
+                        }
+                    };
+                }
+            }.start();
+        }
     }
 }

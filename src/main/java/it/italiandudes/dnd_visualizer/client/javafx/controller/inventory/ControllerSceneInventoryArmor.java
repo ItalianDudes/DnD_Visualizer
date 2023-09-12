@@ -310,7 +310,7 @@ public final class ControllerSceneInventoryArmor {
                                     caEffect, otherEffects, weightCategory, false
                             );
 
-                            String armorCode = exportableArmor.getShareString();
+                            String armorCode = exportableArmor.exportElement();
                             Platform.runLater(() -> {
                                 ClipboardContent content = new ClipboardContent();
                                 content.putString(armorCode);

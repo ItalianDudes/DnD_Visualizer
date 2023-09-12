@@ -2449,6 +2449,7 @@
                                              <rowConstraints>
                                                 <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                 <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                              </rowConstraints>
                                              <children>
                                                 <GridPane hgap="5.0" vgap="5.0">
@@ -2580,6 +2581,27 @@
                                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                                    </columnResizePolicy>
                                                 </TableView>
+                                                <GridPane hgap="5.0" GridPane.rowIndex="2">
+                                                   <columnConstraints>
+                                                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
+                                                   </columnConstraints>
+                                                   <rowConstraints>
+                                                      <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                   </rowConstraints>
+                                                   <children>
+                                                      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#importInventory" text="Importa Inventario">
+                                                         <font>
+                                                            <Font name="Lucida Sans Demibold" size="16.0" />
+                                                         </font>
+                                                      </Button>
+                                                      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#exportInventory" text="Esporta Inventario" GridPane.columnIndex="1">
+                                                         <font>
+                                                            <Font name="Lucida Sans Demibold" size="16.0" />
+                                                         </font>
+                                                      </Button>
+                                                   </children>
+                                                </GridPane>
                                              </children>
                                              <padding>
                                                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

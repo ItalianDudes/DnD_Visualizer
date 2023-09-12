@@ -392,7 +392,7 @@ public class ControllerSceneInventoryItem {
                                     spinnerQuantity.getValue()
                             );
 
-                            String itemCode = exportableItem.getShareString();
+                            String itemCode = exportableItem.exportElement();
                             Platform.runLater(() -> {
                                 ClipboardContent content = new ClipboardContent();
                                 content.putString(itemCode);
