@@ -3,6 +3,7 @@ package it.italiandudes.dnd_visualizer.client.javafx.controller;
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneLoading;
+import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneSettingsEditor;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneSheetViewer;
 import it.italiandudes.dnd_visualizer.client.javafx.util.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.db.DBManager;
@@ -50,7 +51,7 @@ public final class ControllerSceneMainMenu {
         Client.getStage().setScene(SceneLoading.getScene());
 
         File finalSheetDB = fileSheet;
-        Service<Void> sheetCreatorService = new Service<Void>() {
+        new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
                 return new Task<Void>() {
@@ -72,9 +73,7 @@ public final class ControllerSceneMainMenu {
                     }
                 };
             }
-        };
-
-        sheetCreatorService.start();
+        }.start();
     }
     @FXML
     private void openSheet() {
@@ -95,7 +94,7 @@ public final class ControllerSceneMainMenu {
         Client.getStage().setScene(SceneLoading.getScene());
 
         File finalSheetDB = fileSheet;
-        Service<Void> sheetOpenerService = new Service<Void>() {
+        new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
                 return new Task<Void>() {
@@ -129,8 +128,10 @@ public final class ControllerSceneMainMenu {
                     }
                 };
             }
-        };
-
-        sheetOpenerService.start();
+        }.start();
+    }
+    @FXML
+    private void openSettingsEditor() {
+        Client.getStage().setScene(SceneSettingsEditor.getScene());
     }
 }

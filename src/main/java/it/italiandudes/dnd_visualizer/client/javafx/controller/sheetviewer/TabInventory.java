@@ -174,7 +174,7 @@ public final class TabInventory {
                                 ps.close();
                                 totalWeight = controller.spinnerStrength.getValue()*Defs.Load.TOTAL_PASSIVE_LOAD_MULTIPLIER;
                             } else {
-                                query = "SELECT i.weight AS weight FROM items AS i JOIN equipments AS e JOIN armors AS a ON i.id = e.item_id AND e.id = a.equipment_id WHERE a.is_equipped=1;";
+                                query = "SELECT i.weight AS weight FROM items AS i JOIN equipments AS e JOIN armors AS a ON i.id = e.item_id AND e.id = a.equipment_id WHERE e.is_equipped=1;";
                                 ps = DBManager.preparedStatement(query);
                                 if (ps == null) throw new SQLException("The database connection doesn't exist");
                                 result = ps.executeQuery();

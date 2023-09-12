@@ -3,6 +3,7 @@ package it.italiandudes.dnd_visualizer.utils;
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
+import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import org.jetbrains.annotations.Nullable;
 
 public final class DiscordRichPresenceManager {
@@ -10,6 +11,7 @@ public final class DiscordRichPresenceManager {
     // Classes
     public static final class States {
         public static final String MENU = "Nel Menu";
+        public static final String SETTINGS = "Modificando le Impostazioni";
         public static final String IN_GAME = "In Gioco";
     }
 
@@ -22,6 +24,9 @@ public final class DiscordRichPresenceManager {
 
     // Rich Presence Initializer
     private static void initializeRichPresence() {
+        try {
+            if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
+        } catch (Throwable ignored) {}
         DiscordRPC lib = DiscordRPC.INSTANCE;
         DiscordEventHandlers handlers = new DiscordEventHandlers();
         lib.Discord_Initialize(APPLICATION_ID, handlers, true, null);
@@ -40,11 +45,17 @@ public final class DiscordRichPresenceManager {
         }, "RPC-Callback-Handler").start();
     }
     public static void updateRichPresenceState(@Nullable final String state) {
+        try {
+            if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
+        } catch (Throwable ignored) {}
         if (presence == null) initializeRichPresence();
         presence.state = state;
         DiscordRPC.INSTANCE.Discord_UpdatePresence(presence);
     }
     public static void updateRichPresenceDetails() {
+        try {
+            if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
+        } catch (Throwable ignored) {}
         if (presence == null) initializeRichPresence();
         StringBuilder detailsBuilder = new StringBuilder();
         if (characterName == null || characterName.replace(" ", "").isEmpty()) characterName = null;
@@ -55,14 +66,23 @@ public final class DiscordRichPresenceManager {
         DiscordRPC.INSTANCE.Discord_UpdatePresence(presence);
     }
     public static void setCharacterName(@Nullable final String characterName) {
+        try {
+            if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
+        } catch (Throwable ignored) {}
         DiscordRichPresenceManager.characterName = characterName;
         updateRichPresenceDetails();
     }
     public static void setLevel(@Nullable final String level) {
+        try {
+            if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
+        } catch (Throwable ignored) {}
         DiscordRichPresenceManager.level = level;
         updateRichPresenceDetails();
     }
     public static void shutdownRichPresence() {
+        try {
+            if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
+        } catch (Throwable ignored) {}
         DiscordRPC.INSTANCE.Discord_Shutdown();
     }
 }

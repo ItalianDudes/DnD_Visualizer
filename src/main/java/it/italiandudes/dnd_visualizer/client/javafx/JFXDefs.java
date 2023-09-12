@@ -30,6 +30,7 @@ public final class JFXDefs {
             public static final String FXML_LOADING = FXML_DIR + "SceneLoading.fxml";
             public static final String FXML_MAIN_MENU = FXML_DIR + "SceneMainMenu.fxml";
             public static final String FXML_SHEET_VIEWER = FXML_DIR + "SceneSheetViewer.fxml";
+            public static final String FXML_SETTINGS_EDITOR = FXML_DIR + "SceneSettingsEditor.fxml";
             public static final String FXML_NOTE = FXML_DIR + "SceneNote.fxml";
             public static final class Inventory {
                 private static final String FXML_INVENTORY_DIR = FXML_DIR + "inventory/";

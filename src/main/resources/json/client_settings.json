@@ -2,5 +2,6 @@
   "enableDarkMode": true,
   "enableLoad": true,
   "enablePassiveLoad": true,
-  "coinsIncreaseLoad": true
+  "coinsIncreaseLoad": true,
+  "enableDiscordRichPresence": true
 }

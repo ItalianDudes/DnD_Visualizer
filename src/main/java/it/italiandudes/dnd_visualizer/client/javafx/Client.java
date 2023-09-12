@@ -55,6 +55,12 @@ public final class Client extends Application {
 
     // Start Methods
     public static void start(String[] args) {
+        loadSettingsFile();
+        launch(args);
+    }
+
+    // Settings Loader
+    public static void loadSettingsFile() {
         File settingsFile = new File(Defs.Resources.JSON.JSON_CLIENT_SETTINGS);
         if (!settingsFile.exists() || !settingsFile.isFile()) {
             try {
@@ -78,7 +84,6 @@ public final class Client extends Application {
             return;
         }
         ThemeHandler.setConfigTheme();
-        launch(args);
     }
 
     // Settings Checker
@@ -107,6 +112,9 @@ public final class Client extends Application {
             SETTINGS.remove(Defs.SettingsKeys.COINS_INCREASE_LOAD);
             SETTINGS.put(Defs.SettingsKeys.COINS_INCREASE_LOAD, true);
         }
+        writeJSONSettings();
+    }
+    public static void writeJSONSettings() throws IOException {
         FileWriter writer = new FileWriter(Defs.Resources.JSON.JSON_CLIENT_SETTINGS);
         writer.append(SETTINGS.toString(2));
         writer.close();

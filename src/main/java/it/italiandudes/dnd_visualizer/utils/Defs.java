@@ -30,6 +30,7 @@ public final class Defs {
         public static final String ENABLE_LOAD = "enableLoad";
         public static final String ENABLE_PASSIVE_LOAD = "enablePassiveLoad";
         public static final String COINS_INCREASE_LOAD = "coinsIncreaseLoad";
+        public static final String ENABLE_DISCORD_RICH_PRESENCE = "enableDiscordRichPresence";
     }
 
     // Resources Location
@@ -55,8 +56,12 @@ public final class Defs {
         // Images
         public static final class Image {
             private static final String IMAGE_DIR = "/image/";
-            public static final String IMAGE_CA = IMAGE_DIR+"sheet/character/ac_full.png";
-            public static final String IMAGE_GOLDEN_CA = IMAGE_DIR+"sheet/character/ac_overflow.png";
+            public static final String IMAGE_CA = IMAGE_DIR + "sheet/character/ac_full.png";
+            public static final String IMAGE_GOLDEN_CA = IMAGE_DIR + "sheet/character/ac_overflow.png";
+            public static final String IMAGE_DARK_MODE = IMAGE_DIR + "dark_mode.png";
+            public static final String IMAGE_LIGHT_MODE = IMAGE_DIR + "light_mode.png";
+            public static final String IMAGE_TICK = IMAGE_DIR + "tick.png";
+            public static final String IMAGE_CROSS = IMAGE_DIR + "cross.png";
         }
 
         // SQL
