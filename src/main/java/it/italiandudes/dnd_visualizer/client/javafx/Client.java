@@ -14,9 +14,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -70,12 +72,44 @@ public final class Client extends Application {
             }
             inFile.close();
             SETTINGS = new JSONObject(builder.toString());
+            fixJSONSettings();
         } catch (IOException e) {
             Logger.log(e);
             return;
         }
         ThemeHandler.setConfigTheme();
         launch(args);
+    }
+
+    // Settings Checker
+    private static void fixJSONSettings() throws JSONException, IOException {
+        try {
+            SETTINGS.getBoolean(Defs.SettingsKeys.ENABLE_DARK_MODE);
+        } catch (JSONException e) {
+            SETTINGS.remove(Defs.SettingsKeys.ENABLE_DARK_MODE);
+            SETTINGS.put(Defs.SettingsKeys.ENABLE_DARK_MODE, true);
+        }
+        try {
+            SETTINGS.getBoolean(Defs.SettingsKeys.ENABLE_LOAD);
+        } catch (JSONException e) {
+            SETTINGS.remove(Defs.SettingsKeys.ENABLE_LOAD);
+            SETTINGS.put(Defs.SettingsKeys.ENABLE_LOAD, true);
+        }
+        try {
+            SETTINGS.getBoolean(Defs.SettingsKeys.ENABLE_PASSIVE_LOAD);
+        } catch (JSONException e) {
+            SETTINGS.remove(Defs.SettingsKeys.ENABLE_PASSIVE_LOAD);
+            SETTINGS.put(Defs.SettingsKeys.ENABLE_PASSIVE_LOAD, true);
+        }
+        try {
+            SETTINGS.getBoolean(Defs.SettingsKeys.COINS_INCREASE_LOAD);
+        } catch (JSONException e) {
+            SETTINGS.remove(Defs.SettingsKeys.COINS_INCREASE_LOAD);
+            SETTINGS.put(Defs.SettingsKeys.COINS_INCREASE_LOAD, true);
+        }
+        FileWriter writer = new FileWriter(Defs.Resources.JSON.JSON_CLIENT_SETTINGS);
+        writer.append(SETTINGS.toString(2));
+        writer.close();
     }
 
     // Methods

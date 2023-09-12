@@ -24,6 +24,14 @@ public final class Defs {
         }
     }
 
+    // JSON Settings
+    public static final class SettingsKeys {
+        public static final String ENABLE_DARK_MODE = "enableDarkMode";
+        public static final String ENABLE_LOAD = "enableLoad";
+        public static final String ENABLE_PASSIVE_LOAD = "enablePassiveLoad";
+        public static final String COINS_INCREASE_LOAD = "coinsIncreaseLoad";
+    }
+
     // Resources Location
     public static final class Resources {
 

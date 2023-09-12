@@ -47,8 +47,9 @@ public final class DiscordRichPresenceManager {
     public static void updateRichPresenceDetails() {
         if (presence == null) initializeRichPresence();
         StringBuilder detailsBuilder = new StringBuilder();
-        // Logger.log(characterName);
+        if (characterName == null || characterName.replace(" ", "").isEmpty()) characterName = null;
         if (characterName != null) detailsBuilder.append(characterName);
+        if (level == null || level.replace(" ", "").isEmpty()) level = null;
         if (characterName != null && level != null) detailsBuilder.append(" - ").append(level);
         presence.details = detailsBuilder.toString();
         DiscordRPC.INSTANCE.Discord_UpdatePresence(presence);
