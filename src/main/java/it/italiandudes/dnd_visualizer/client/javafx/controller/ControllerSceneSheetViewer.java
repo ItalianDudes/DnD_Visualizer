@@ -11,6 +11,7 @@ import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.data.item.Addon;
 import it.italiandudes.dnd_visualizer.data.item.Armor;
 import it.italiandudes.dnd_visualizer.data.item.Weapon;
+import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -266,6 +267,7 @@ public final class ControllerSceneSheetViewer {
     //Initialize
     @FXML
     private void initialize() {
+        DiscordRichPresenceManager.updateRichPresenceState(DiscordRichPresenceManager.States.IN_GAME);
         Client.getStage().setResizable(true);
         TabCharacter.initialize(this);
         TabAbility.initialize(this);

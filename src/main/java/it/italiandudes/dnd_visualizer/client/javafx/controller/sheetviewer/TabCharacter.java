@@ -7,6 +7,7 @@ import it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSh
 import it.italiandudes.dnd_visualizer.client.javafx.util.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.dnd_visualizer.utils.Defs.KeyParameters;
+import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
 import it.italiandudes.idl.common.ImageHandler;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
@@ -114,11 +115,15 @@ public final class TabCharacter {
                         String flaws = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.FLAWS);
                         Image finalCharacterImage = characterImage;
                         Platform.runLater(() -> {
-                            if (characterName != null) controller.textFieldCharacterName.setText(characterName);
+                            if (characterName != null) {
+                                controller.textFieldCharacterName.setText(characterName);
+                                DiscordRichPresenceManager.setCharacterName(characterName);
+                            }
                             if (characterClass != null) controller.textFieldClass.setText(characterClass);
                             if (level != null) {
                                 controller.spinnerLevel.getValueFactory().setValue(Integer.parseInt(level));
                                 controller.textFieldTotalLifeDiceAmount.setText(level);
+                                DiscordRichPresenceManager.setLevel(level);
                             }
                             if (background != null) controller.textFieldBackground.setText(background);
                             if (playerName != null) controller.textFieldPlayerName.setText(playerName);
@@ -152,13 +157,20 @@ public final class TabCharacter {
 
     // OnChange Triggers Setter
     private static void setOnChangeTriggers(@NotNull final ControllerSceneSheetViewer controller) {
-        controller.textFieldCharacterName.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CHARACTER_NAME, newValue));
+        controller.textFieldCharacterName.textProperty().addListener((observable, oldValue, newValue) -> {
+            Logger.log(newValue);
+            if (newValue.replace(" ", "").isEmpty()) DiscordRichPresenceManager.setCharacterName(null);
+            else DiscordRichPresenceManager.setCharacterName(newValue);
+            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CHARACTER_NAME, newValue);
+        });
         controller.textFieldClass.textProperty().addListener((observable, oldValue, newValue) -> {
             SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CLASS, newValue);
             controller.textFieldSpellCasterClass.setText(newValue);
         });
         controller.spinnerLevel.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.LEVEL, newValue);
+            if (newValue.replace(" ", "").isEmpty()) DiscordRichPresenceManager.setLevel(null);
+            else DiscordRichPresenceManager.setLevel(newValue);
             controller.textFieldTotalLifeDiceAmount.setText(newValue);
             updateLifeDiceAmount(controller);
         });

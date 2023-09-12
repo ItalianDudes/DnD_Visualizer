@@ -7,6 +7,7 @@ import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneSheetViewer;
 import it.italiandudes.dnd_visualizer.client.javafx.util.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.utils.Defs;
+import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
@@ -25,6 +26,7 @@ public final class ControllerSceneMainMenu {
     //Initialize
     @FXML
     private void initialize() {
+        DiscordRichPresenceManager.updateRichPresenceState(DiscordRichPresenceManager.States.MENU);
         Client.getStage().setResizable(false);
     }
 
