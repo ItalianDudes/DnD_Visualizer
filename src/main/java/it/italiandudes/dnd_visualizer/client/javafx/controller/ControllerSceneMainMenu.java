@@ -3,6 +3,7 @@ package it.italiandudes.dnd_visualizer.client.javafx.controller;
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ConfirmationAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
+import it.italiandudes.dnd_visualizer.client.javafx.alert.InformationAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneLoading;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneSettingsEditor;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneSheetViewer;
@@ -62,6 +63,14 @@ public final class ControllerSceneMainMenu {
                             currentVersion = JarHandler.ManifestReader.getValue(attributes, "Version");
                         } catch (IOException e) {
                             Logger.log(e);
+                        }
+
+                        if (Updater.getLatestVersion(currentVersion, latestVersion).equals(currentVersion)) {
+                            Platform.runLater(() -> {
+                                new InformationAlert("AGGIORNAMENTO", "Controllo Versione", "La versione corrente e' la piu' recente.");
+                                Client.getStage().setScene(thisScene);
+                            });
+                            return null;
                         }
 
                         String finalCurrentVersion = currentVersion;
