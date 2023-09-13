@@ -3,8 +3,13 @@ plugins {
     id 'java'
 }
 
+// Versioning
+def versionNumber = '1.1.3'
+def versionType = 'RELEASE' // RELEASE | BETA | ALPHA
+def versionMarker = versionType.charAt(0)
+
 group = 'it.italiandudes'
-version = '1.1.2R'
+version = versionNumber+versionMarker
 
 repositories {
     mavenCentral()
@@ -27,6 +32,13 @@ dependencies {
 shadowJar {
     manifest {
         attributes "Main-Class" : "it.italiandudes.dnd_visualizer.DnD_Visualizer"
+        attributes "Title" : "D&D Visualizer"
+        attributes "Vendor" : "ItalianDudes"
+        attributes "Version" : archiveVersion.get()
+        attributes "Version-Number" : archiveVersion.get()
+        attributes "Version-Type" : versionType
+        attributes "Version-Marker" : versionMarker
+        attributes "Timestamp" : new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
     }
     archiveFileName = getRootDir().getName()+"-"+archiveVersion.get()+".jar"
 }

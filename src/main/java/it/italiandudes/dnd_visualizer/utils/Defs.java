@@ -11,6 +11,9 @@ import java.util.Objects;
 
 public final class Defs {
 
+    // App File Name
+    public static final String APP_FILE_NAME = "DnD_Visualizer";
+
     // DB Version
     public static final String DB_VERSION = "1.1";
 
