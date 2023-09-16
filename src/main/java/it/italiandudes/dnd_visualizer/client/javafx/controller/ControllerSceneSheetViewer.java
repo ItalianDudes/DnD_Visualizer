@@ -382,6 +382,9 @@ public final class ControllerSceneSheetViewer {
     @FXML private void importElementFromElementCode() {
         TabInventory.importElementFromElementCode(this);
     }
+    @FXML private void importElementFromFile() {
+        TabInventory.importElementFromFile(this);
+    }
     @FXML private void toggleDiceRolling() {
         TabDiceRoller.toggleDiceRolling(this);
     }

@@ -53,6 +53,9 @@ public final class Defs {
         // Inventory Extension
         public static final String INVENTORY_EXTENSION = "dnd5e.inventory";
 
+        // Element Extension
+        public static final String ELEMENT_EXTENSION = "dnd5e.element";
+
         // JSON
         public static final class JSON {
             public static final String JSON_CLIENT_SETTINGS = "client_settings.json";

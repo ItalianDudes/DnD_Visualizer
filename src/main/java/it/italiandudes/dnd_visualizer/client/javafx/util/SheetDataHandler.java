@@ -1,17 +1,23 @@
 package it.italiandudes.dnd_visualizer.client.javafx.util;
 
+import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
+import it.italiandudes.dnd_visualizer.client.javafx.alert.InformationAlert;
 import it.italiandudes.dnd_visualizer.db.DBManager;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,6 +37,41 @@ public final class SheetDataHandler {
         } else {
             ps.close();
             return false;
+        }
+    }
+    public static void exportElementCodeIntoFile(@NotNull final String elementCode) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Esportazione di un Elemento");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("DND5E Element", "*."+ Defs.Resources.ELEMENT_EXTENSION));
+        fileChooser.setInitialDirectory(new File(Defs.JAR_POSITION).getParentFile());
+        File elementPath;
+        try {
+            elementPath = fileChooser.showSaveDialog(Client.getStage().getScene().getWindow());
+        } catch (IllegalArgumentException e) {
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+            elementPath = fileChooser.showSaveDialog(Client.getStage().getScene().getWindow());
+        }
+        if (elementPath != null) {
+            File finalElementPath = elementPath;
+            new Service<Void>() {
+                @Override
+                protected Task<Void> createTask() {
+                    return new Task<Void>() {
+                        @Override
+                        protected Void call() {
+                            try (FileWriter writer = new FileWriter(finalElementPath)) {
+                                writer.append(elementCode);
+                            } catch (IOException e) {
+                                Logger.log(e);
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di I/O", "Si e' verificato un errore durante la scrittura dell'elemento."));
+                                return null;
+                            }
+                            Platform.runLater(() -> new InformationAlert("SUCCESSO", "Esportazione Elemento", "Elemento esportato con successo!"));
+                            return null;
+                        }
+                    };
+                }
+            }.start();
         }
     }
     public static void writeKeyParameter(@NotNull final String imageKey, @NotNull final String imageExtensionKey, @NotNull final Image image, @NotNull final String imageExtension) {

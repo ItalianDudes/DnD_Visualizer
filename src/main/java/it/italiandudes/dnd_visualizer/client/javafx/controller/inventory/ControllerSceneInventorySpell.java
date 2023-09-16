@@ -2,9 +2,11 @@ package it.italiandudes.dnd_visualizer.client.javafx.controller.inventory;
 
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
+import it.italiandudes.dnd_visualizer.client.javafx.alert.ConfirmationAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.InformationAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.TabInventory;
+import it.italiandudes.dnd_visualizer.client.javafx.util.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.data.item.Item;
@@ -401,11 +403,15 @@ public final class ControllerSceneInventorySpell {
 
                             String spellCode = exportableSpell.exportElement();
                             Platform.runLater(() -> {
-                                ClipboardContent content = new ClipboardContent();
-                                content.putString(spellCode);
-                                Client.getSystemClipboard().setContent(content);
+                                if (new ConfirmationAlert("ESPORTAZIONE", "Esportazione dei Dati", "Codice elemento pronto, vuoi esportarlo su file?").result) {
+                                    Platform.runLater(() -> SheetDataHandler.exportElementCodeIntoFile(spellCode));
+                                } else {
+                                    ClipboardContent content = new ClipboardContent();
+                                    content.putString(spellCode);
+                                    Client.getSystemClipboard().setContent(content);
+                                    new InformationAlert("SUCCESSO", "Esportazione dei Dati", "Dati esportati con successo nella clipboard di sistema!");
+                                }
                             });
-                            Platform.runLater(() -> new InformationAlert("SUCCESSO", "Esportazione dei Dati", "Dati esportati con successo nella clipboard di sistema!"));
                         } catch (Exception e) {
                             Logger.log(e);
                             Platform.runLater(() -> {

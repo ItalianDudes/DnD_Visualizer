@@ -470,10 +470,58 @@ public final class TabInventory {
         TabSpells.updateListViews(controller);
         TabEquipment.reloadEquipment(controller);
     }
+    public static void importElementFromFile(@NotNull final ControllerSceneSheetViewer controller) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Importazione di un Elemento");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("DND5E Element", "*."+Defs.Resources.ELEMENT_EXTENSION));
+        fileChooser.setInitialDirectory(new File(Defs.JAR_POSITION).getParentFile());
+        File elementPath;
+        try {
+            elementPath = fileChooser.showOpenDialog(Client.getStage().getScene().getWindow());
+        } catch (IllegalArgumentException e) {
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+            elementPath = fileChooser.showOpenDialog(Client.getStage().getScene().getWindow());
+        }
+        if (elementPath != null) {
+            File finalElementPath = elementPath;
+            new Service<Void>() {
+                @Override
+                protected Task<Void> createTask() {
+                    return new Task<Void>() {
+                        @Override
+                        protected Void call() {
+                            if (!finalElementPath.exists() || !finalElementPath.isFile()) {
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di I/O", "Il percorso selezionato non porta a un file esistente o leggibile."));
+                                return null;
+                            }
+                            Scanner reader;
+                            try {
+                                reader = new Scanner(finalElementPath);
+                            } catch (FileNotFoundException e) {
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di I/O", "Il percorso selezionato non porta a un file esistente o leggibile."));
+                                return null;
+                            }
+                            StringBuilder elementCodeBuilder = new StringBuilder();
+                            while (reader.hasNext()) {
+                                elementCodeBuilder.append(reader.nextLine());
+                                if (reader.hasNext()) elementCodeBuilder.append('\n');
+                            }
+                            reader.close();
+                            Platform.runLater(() -> importElement(controller, elementCodeBuilder.toString()));
+                            return null;
+                        }
+                    };
+                }
+            }.start();
+        }
+    }
     public static void importElementFromElementCode(@NotNull final ControllerSceneSheetViewer controller) {
         String elementCode = controller.textFieldElementCode.getText();
         controller.textFieldElementCode.setText("");
         if (elementCode == null || elementCode.replace(" ", "").isEmpty()) return;
+        importElement(controller, elementCode);
+    }
+    private static void importElement(@NotNull final ControllerSceneSheetViewer controller, @NotNull final String elementCode) {
         Scene thisScene = Client.getStage().getScene();
         Client.getStage().setScene(SceneLoading.getScene());
         new Service<Void>() {
