@@ -6,6 +6,7 @@ import it.italiandudes.dnd_visualizer.data.enums.SerializerType;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.interfaces.ISavable;
 import it.italiandudes.dnd_visualizer.interfaces.ISerializable;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import org.jetbrains.annotations.NotNull;
@@ -236,6 +237,7 @@ public class Item implements ISavable, ISerializable {
     public JSONObject exportElementJSON() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(SERIALIZER_ID, SerializerType.ITEM.ordinal());
+        jsonObject.put(DB_VERSION, Defs.DB_VERSION);
         jsonObject.put("base64image", base64image);
         jsonObject.put("imageExtension", imageExtension);
         jsonObject.put("name", name);

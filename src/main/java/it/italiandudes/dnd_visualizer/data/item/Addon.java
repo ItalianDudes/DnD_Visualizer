@@ -7,6 +7,7 @@ import it.italiandudes.dnd_visualizer.data.enums.SerializerType;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.interfaces.ISavable;
 import it.italiandudes.dnd_visualizer.interfaces.ISerializable;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONException;
@@ -74,6 +75,7 @@ public class Addon extends Equipment implements ISavable, ISerializable {
     public JSONObject exportElementJSON() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(SERIALIZER_ID, SerializerType.ADDON.ordinal());
+        jsonObject.put(DB_VERSION, Defs.DB_VERSION);
         jsonObject.put("base64image", getBase64image());
         jsonObject.put("imageExtension", getImageExtension());
         jsonObject.put("name", getName());
