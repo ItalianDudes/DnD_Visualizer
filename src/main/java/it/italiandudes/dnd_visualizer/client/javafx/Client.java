@@ -153,5 +153,8 @@ public final class Client extends Application {
     public static Color getBackgroundThemeColor() {
         return COLOR_THEME_BACKGROUND;
     }
+    public static void updateBackgroundThemeColor() {
+        COLOR_THEME_BACKGROUND = (Color) ((Region) Client.getStage().getScene().lookup(".root")).getBackground().getFills().get(0).getFill();
+    }
 
 }
