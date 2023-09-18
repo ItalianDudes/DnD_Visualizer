@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 
 import java.io.IOException;
 
-@SuppressWarnings("unused")
 public final class SceneSheetViewer {
 
     //Scene Generator

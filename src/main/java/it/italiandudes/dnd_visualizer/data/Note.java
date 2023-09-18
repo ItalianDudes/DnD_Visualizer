@@ -56,6 +56,7 @@ public final class Note implements ISavable {
     }
 
     // Methods
+    @SuppressWarnings("DuplicatedCode")
     public static boolean checkIfExist(@NotNull final String title) throws SQLException {
         String query = "SELECT id FROM notes WHERE title=?;";
         PreparedStatement ps = DBManager.preparedStatement(query);
@@ -63,7 +64,7 @@ public final class Note implements ISavable {
         ps.setString(1, title);
         ResultSet result = ps.executeQuery();
         if (result.next()) {
-            int id = result.getInt("id");
+            result.getInt("id");
             ps.close();
             return true;
         } else {

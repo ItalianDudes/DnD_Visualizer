@@ -3,6 +3,7 @@ package it.italiandudes.dnd_visualizer.client.javafx.util;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 
+@SuppressWarnings("unused")
 public final class StatsCalculator {
 
     public static int calculateModifier(String statString) {

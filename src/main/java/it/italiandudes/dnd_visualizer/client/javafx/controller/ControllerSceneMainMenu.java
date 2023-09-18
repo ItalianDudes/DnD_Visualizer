@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.jar.Attributes;
 
-@SuppressWarnings("unused")
 public final class ControllerSceneMainMenu {
 
     //Initialize
@@ -88,6 +87,7 @@ public final class ControllerSceneMainMenu {
             }
         }.start();
     }
+    @SuppressWarnings("DuplicatedCode")
     private void updateApp(@NotNull final Scene thisScene, @NotNull final String latestVersion) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Aggiornamento D&D Visualizer");

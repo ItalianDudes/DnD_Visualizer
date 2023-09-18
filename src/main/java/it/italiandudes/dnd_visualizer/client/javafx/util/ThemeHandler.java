@@ -6,7 +6,6 @@ import it.italiandudes.dnd_visualizer.utils.Defs;
 import javafx.scene.Scene;
 import org.jetbrains.annotations.NotNull;
 
-@SuppressWarnings("unused")
 public final class ThemeHandler {
 
     // Config Theme

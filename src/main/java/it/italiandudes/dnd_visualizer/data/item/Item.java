@@ -225,7 +225,7 @@ public class Item implements ISavable, ISerializable {
         ps.setString(1, itemName);
         ResultSet result = ps.executeQuery();
         if (result.next()) {
-            int id = result.getInt("id");
+            result.getInt("id");
             ps.close();
             return true;
         } else {

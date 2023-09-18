@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
-@SuppressWarnings("unused")
 public enum Rarity {
     COMMON("Comune", new Color(0.88,0.88,0.88,1)),
     UNCOMMON("Non Comune", new Color(0.13333333333333333333333333333333, 0.63921568627450980392156862745098,0.09411764705882352941176470588235,1)),

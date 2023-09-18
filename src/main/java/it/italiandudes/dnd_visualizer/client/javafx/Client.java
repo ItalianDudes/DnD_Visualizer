@@ -22,7 +22,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
-@SuppressWarnings("unused")
 public final class Client extends Application {
 
     // Attributes

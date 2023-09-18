@@ -168,7 +168,7 @@ public final class Spell extends Item implements ISavable {
     public String exportElement() {
         return Base64.getEncoder().encodeToString(exportElementJSON().toString().getBytes(StandardCharsets.UTF_8));
     }
-    @Override
+    @Override @SuppressWarnings("DuplicatedCode")
     public void saveIntoDatabase(@Nullable final String oldName) throws SQLException {
         super.saveIntoDatabase(oldName);
         Integer itemID = getItemID();

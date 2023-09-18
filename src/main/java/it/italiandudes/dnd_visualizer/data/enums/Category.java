@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-@SuppressWarnings("unused")
 public enum Category {
     ITEM(0, "Oggetto"),
     EQUIPMENT(1, "Equipaggiamento"),
