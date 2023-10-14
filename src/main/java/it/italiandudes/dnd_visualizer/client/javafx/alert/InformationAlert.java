@@ -1,6 +1,7 @@
 package it.italiandudes.dnd_visualizer.client.javafx.alert;
 
 import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
+import it.italiandudes.dnd_visualizer.client.javafx.util.ThemeHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
@@ -21,6 +22,7 @@ public final class InformationAlert extends Alert {
             area.setEditable(false);
             getDialogPane().setContent(area);
         }
+        ThemeHandler.loadConfigTheme(this.getDialogPane().getScene());
         showAndWait();
     }
     public InformationAlert(String header, String content){
