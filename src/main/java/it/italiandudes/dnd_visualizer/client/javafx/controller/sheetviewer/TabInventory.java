@@ -585,6 +585,9 @@ public final class TabInventory {
                                     new InformationAlert("IMPORTAZIONE COMPLETATA", "Importazione Inventario", "Importazione completata!\nSuccessi: "+ finalSuccess +"\nFallimenti: "+ finalErrored);
                                     Client.getStage().setScene(thisScene);
                                     search(controller);
+                                    updateLoad(controller);
+                                    TabSpells.updateListViews(controller);
+                                    TabEquipment.reloadEquipment(controller);
                                 });
                             } else {
                                 elementStructure = element;
@@ -767,6 +770,9 @@ public final class TabInventory {
                                         new InformationAlert("IMPORTAZIONE COMPLETATA", "Importazione Inventario", "Importazione completata!\nSuccessi: "+ finalSuccess +"\nFallimenti: "+ finalErrored);
                                         Client.getStage().setScene(thisScene);
                                         search(controller);
+                                        updateLoad(controller);
+                                        TabSpells.updateListViews(controller);
+                                        TabEquipment.reloadEquipment(controller);
                                     });
                                 } else {
                                     Platform.runLater(() -> {
