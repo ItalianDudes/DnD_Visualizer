@@ -106,6 +106,7 @@ public final class TabCharacter {
                         String currentHP = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CURRENT_HP);
                         String tempHP = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.TEMP_HP);
                         String currentLifeDicesAmount = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CURRENT_LIFE_DICES);
+                        String lifeDiceFaces = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.LIFE_DICE_FACES);
                         String proficiencyBonus = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.PROFICIENCY_BONUS);
                         String inspiration = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.INSPIRATION);
                         String speed = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.SPEED);
@@ -140,6 +141,10 @@ public final class TabCharacter {
                             if (tempHP != null) controller.textFieldTempHP.setText(tempHP);
                             if (currentLifeDicesAmount != null) controller.textFieldCurrentLifeDiceAmount.setText(currentLifeDicesAmount);
                             else controller.textFieldCurrentLifeDiceAmount.setText(String.valueOf(controller.spinnerLevel.getValue()));
+                            if (lifeDiceFaces != null) {
+                                controller.textFieldCurrentLifeDiceFaces.setText(lifeDiceFaces);
+                                controller.textFieldTotalLifeDiceFaces.setText(lifeDiceFaces);
+                            }
                             if (proficiencyBonus != null) controller.spinnerProficiencyBonus.getValueFactory().setValue(Integer.parseInt(proficiencyBonus));
                             if (inspiration != null) controller.spinnerInspiration.getValueFactory().setValue(Integer.parseInt(inspiration));
                             if (speed != null) controller.textFieldSpeed.setText(speed);
@@ -191,6 +196,7 @@ public final class TabCharacter {
             SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.TEMP_HP, newValue);
             recalculateHealthPercentage(controller);
         });
+        controller.textFieldCurrentLifeDiceFaces.textProperty().addListener(((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.LIFE_DICE_FACES, newValue)));
         controller.textFieldCurrentLifeDiceAmount.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CURRENT_LIFE_DICES, newValue));
         controller.spinnerProficiencyBonus.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.PROFICIENCY_BONUS, newValue);

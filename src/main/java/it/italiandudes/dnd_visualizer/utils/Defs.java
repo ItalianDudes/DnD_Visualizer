@@ -101,6 +101,7 @@ public final class Defs {
             public static final String CURRENT_HP = "current_hp";
             public static final String TEMP_HP = "temp_hp";
             public static final String CURRENT_LIFE_DICES = "current_life_dices";
+            public static final String LIFE_DICE_FACES = "life_dice_faces";
             public static final String PROFICIENCY_BONUS = "proficiency_bonus";
             public static final String INSPIRATION = "inspiration";
             public static final String SPEED = "speed";
