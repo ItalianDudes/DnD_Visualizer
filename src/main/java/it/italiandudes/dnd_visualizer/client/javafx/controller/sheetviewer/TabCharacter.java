@@ -285,13 +285,19 @@ public final class TabCharacter {
             new ErrorAlert("ERRORE", "ERRORE DI ELABORAZIONE", "I punti ferita massimi calcolati devono essere un numero maggiore a 0.");
             return;
         }
-        try {
-            currentHP = (controller.textFieldCurrentHP.getText().replace(" ", "").isEmpty() ? 0 : Double.parseDouble(controller.textFieldCurrentHP.getText()));
-            if (currentHP < 0) throw new NumberFormatException();
-        } catch (NumberFormatException e) {
-            controller.textFieldCurrentHP.setText(oldValueCurrentHP);
-            new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "I punti ferita attuali devono essere un numero maggiore o uguale a 0.");
-            return;
+        if (maxHP > 0) {
+            try {
+                currentHP = (controller.textFieldCurrentHP.getText().replace(" ", "").isEmpty() ? 0 : Double.parseDouble(controller.textFieldCurrentHP.getText()));
+                if (currentHP < 0) throw new NumberFormatException();
+            } catch (NumberFormatException e) {
+                controller.textFieldCurrentHP.setText(oldValueCurrentHP);
+                new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "I punti ferita attuali devono essere un numero maggiore o uguale a 0.");
+                return;
+            }
+        } else {
+            currentHP = 0;
+            oldValueCurrentHP = "0";
+            controller.textFieldCurrentHP.setText("0");
         }
         try {
             tempHP = (controller.textFieldTempHP.getText().replace(" ", "").isEmpty() ? 0 : Double.parseDouble(controller.textFieldTempHP.getText()));
@@ -325,7 +331,7 @@ public final class TabCharacter {
         oldValueMaxHP = controller.textFieldMaxHP.getText();
         double calculatedMaxHP = maxHP + lifeEffect;
         calculatedMaxHP += (calculatedMaxHP*lifePercentageEffect) / 100;
-        calculatedMaxHP = calculatedMaxHP>=1?calculatedMaxHP:1;
+        calculatedMaxHP = calculatedMaxHP>=0?calculatedMaxHP:0;
         controller.textFieldCalculatedMaxHP.setText(String.format("%.0f", calculatedMaxHP));
         recalculateHealthPercentage(controller);
     }
