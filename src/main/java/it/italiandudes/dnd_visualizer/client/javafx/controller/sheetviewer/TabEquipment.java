@@ -167,6 +167,14 @@ public final class TabEquipment {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
         })));
+        controller.comboBoxEquipmentBelt.getSelectionModel().selectedItemProperty().addListener((((observable, oldValue, newValue) -> {
+            if (oldValue!=null) oldValue.setEquipped(false);
+            if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
+        })));
+        controller.comboBoxEquipmentBandolier.getSelectionModel().selectedItemProperty().addListener((((observable, oldValue, newValue) -> {
+            if (oldValue!=null) oldValue.setEquipped(false);
+            if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
+        })));
     }
 
     // EDT
@@ -231,6 +239,10 @@ public final class TabEquipment {
         controller.comboBoxEquipmentRing4.getSelectionModel().selectFirst();
         controller.comboBoxEquipmentBackpack.setItems(getEmptyAddonList());
         controller.comboBoxEquipmentBackpack.getSelectionModel().selectFirst();
+        controller.comboBoxEquipmentBandolier.setItems(getEmptyAddonList());
+        controller.comboBoxEquipmentBandolier.getSelectionModel().selectFirst();
+        controller.comboBoxEquipmentBelt.setItems(getEmptyAddonList());
+        controller.comboBoxEquipmentBelt.getSelectionModel().selectFirst();
         controller.listViewEquippedWeapons.getItems().clear();
     }
     public static void reloadEquipment(@NotNull final ControllerSceneSheetViewer controller) {
@@ -264,6 +276,8 @@ public final class TabEquipment {
         Addon ring3 = controller.comboBoxEquipmentRing3.getSelectionModel().getSelectedItem();
         Addon ring4 = controller.comboBoxEquipmentRing4.getSelectionModel().getSelectedItem();
         Addon backpack = controller.comboBoxEquipmentBackpack.getSelectionModel().getSelectedItem();
+        Addon belt = controller.comboBoxEquipmentBelt.getSelectionModel().getSelectedItem();
+        Addon bandolier = controller.comboBoxEquipmentBandolier.getSelectionModel().getSelectedItem();
         setEmpty(controller);
         equipmentToggleFullSet(controller);
         new Service<Void>() {
@@ -609,6 +623,26 @@ public final class TabEquipment {
                                             controller.comboBoxEquipmentBackpack.getItems().add(addon);
                                             if (backpack != null && addon.getAddonID().equals(backpack.getAddonID()) || addon.isEquipped()) {
                                                 controller.comboBoxEquipmentBackpack.getSelectionModel().select(addon);
+                                                addon.setEquipped(true);
+                                            }
+                                        });
+                                        break;
+
+                                    case BELT:
+                                        Platform.runLater(() -> {
+                                            controller.comboBoxEquipmentBelt.getItems().add(addon);
+                                            if (belt != null && addon.getAddonID().equals(belt.getAddonID()) || addon.isEquipped()) {
+                                                controller.comboBoxEquipmentBelt.getSelectionModel().select(addon);
+                                                addon.setEquipped(true);
+                                            }
+                                        });
+                                        break;
+
+                                    case BANDOLIER:
+                                        Platform.runLater(() -> {
+                                            controller.comboBoxEquipmentBandolier.getItems().add(addon);
+                                            if (bandolier != null && addon.getAddonID().equals(bandolier.getAddonID()) || addon.isEquipped()) {
+                                                controller.comboBoxEquipmentBandolier.getSelectionModel().select(addon);
                                                 addon.setEquipped(true);
                                             }
                                         });

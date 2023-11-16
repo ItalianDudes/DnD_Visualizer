@@ -2046,6 +2046,10 @@
                                                             <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
                                                          </columnConstraints>
                                                          <rowConstraints>
+                                                            <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                            <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                            <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                                            <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                             <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
                                                             <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                             <RowConstraints valignment="CENTER" vgrow="NEVER" />
@@ -2058,12 +2062,24 @@
                                                                </font>
                                                             </Label>
                                                             <ComboBox fx:id="comboBoxEquipmentBackpack" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Zaino" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="1" />
-                                                            <Label text="Set Completo" GridPane.rowIndex="2">
+                                                            <Label text="Set Completo" GridPane.rowIndex="6">
                                                                <font>
                                                                   <Font name="Lucida Sans Demibold" size="16.0" />
                                                                </font>
                                                             </Label>
-                                                            <ComboBox fx:id="comboBoxEquipmentFullSet" maxWidth="1.7976931348623157E308" onAction="#equipmentToggleFullSet" promptText="Set Completo" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="3" />
+                                                            <ComboBox fx:id="comboBoxEquipmentFullSet" maxWidth="1.7976931348623157E308" onAction="#equipmentToggleFullSet" promptText="Set Completo" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="7" />
+                                                            <ComboBox fx:id="comboBoxEquipmentBandolier" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Bandoliera" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="3" />
+                                                            <Label text="Bandoliera" GridPane.rowIndex="2">
+                                                               <font>
+                                                                  <Font name="Lucida Sans Demibold" size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <ComboBox fx:id="comboBoxEquipmentBelt" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Cintura" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="5" />
+                                                            <Label text="Cintura" GridPane.rowIndex="4">
+                                                               <font>
+                                                                  <Font name="Lucida Sans Demibold" size="16.0" />
+                                                               </font>
+                                                            </Label>
                                                          </children>
                                                       </GridPane>
                                                    </children>
