@@ -62,6 +62,10 @@ public final class TabInventory {
         return elementStructure;
     }
 
+    // Load Effect Registries
+    private static int loadEffect = 0;
+    private static double loadPercentageEffect = 0;
+
     // Old Values
     private static int oldValueMR = 0;
     private static int oldValueMA = 0;
@@ -152,6 +156,11 @@ public final class TabInventory {
     }
 
     // Weight Handler
+    public static void updateMaxLoad(@NotNull final ControllerSceneSheetViewer controller, final int loadEffect, final double loadPercentageEffect) {
+        TabInventory.loadEffect = loadEffect;
+        TabInventory.loadPercentageEffect = loadPercentageEffect;
+        updateLoad(controller);
+    }
     public static void updateLoad(@NotNull final ControllerSceneSheetViewer controller) {
         new Service<Void>() {
             @Override
@@ -192,6 +201,9 @@ public final class TabInventory {
                                 ps.close();
                                 totalWeight = controller.spinnerStrength.getValue()*Defs.Load.TOTAL_ACTIVE_LOAD_MULTIPLIER;
                             }
+                            totalWeight += loadEffect;
+                            totalWeight += (totalWeight * loadPercentageEffect) / 100;
+                            totalWeight = totalWeight>=0?totalWeight:0;
                             double loadPerc = (inventoryWeight/totalWeight)*100;
                             String status;
                             if (loadPerc >= LoadCategory.LIGHT.getLoadThresholdMinPercentage() && loadPerc < LoadCategory.LIGHT.getLoadThresholdMaxPercentage()) {
@@ -200,7 +212,7 @@ public final class TabInventory {
                                 status = LoadCategory.NORMAL.getLoadIdentifier();
                             } else if (loadPerc >= LoadCategory.HEAVY.getLoadThresholdMinPercentage() && loadPerc < LoadCategory.HEAVY.getLoadThresholdMaxPercentage()) {
                                 status = LoadCategory.HEAVY.getLoadIdentifier();
-                            } else if (loadPerc > LoadCategory.OVERLOAD.getLoadThresholdMinPercentage()) {
+                            } else if (loadPerc >= LoadCategory.OVERLOAD.getLoadThresholdMinPercentage()) {
                                 status = LoadCategory.OVERLOAD.getLoadIdentifier();
                             } else {
                                 status = LoadCategory.ERROR.getLoadIdentifier();

@@ -282,8 +282,9 @@ public final class ControllerSceneInventoryAddon {
                             try {
                                 lifeEffectPerc = Double.parseDouble(textFieldEffectLifePerc.getText());
                                 loadEffectPerc = Double.parseDouble(textFieldEffectLoadPerc.getText());
+                                if (lifeEffectPerc <= -100 || loadEffectPerc <= -100) throw new NumberFormatException();
                             } catch (NumberFormatException e) {
-                                Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli effetti percentuale sulla vita e sul carico devono essere dei numeri interi o decimali (decimale con punto)"));
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli effetti percentuale sulla vita e sul carico devono essere dei numeri interi o decimali (decimale con punto) maggiori di -100"));
                                 return null;
                             }
                             String otherEffects = textAreaOtherEffects.getText();
@@ -437,8 +438,9 @@ public final class ControllerSceneInventoryAddon {
                             try {
                                 lifeEffectPerc = Double.parseDouble(textFieldEffectLifePerc.getText());
                                 loadEffectPerc = Double.parseDouble(textFieldEffectLoadPerc.getText());
+                                if (lifeEffectPerc <= -100 || loadEffectPerc <= -100) throw new NumberFormatException();
                             } catch (NumberFormatException e) {
-                                Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli effetti percentuale sulla vita e sul carico devono essere dei numeri interi o decimali (decimale con punto)"));
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli effetti percentuale sulla vita e sul carico devono essere dei numeri interi o decimali (decimale con punto) maggiori di -100"));
                                 return null;
                             }
                             String otherEffects = textAreaOtherEffects.getText();

@@ -48,6 +48,7 @@ public final class TabCharacter {
 
     // Old Values
     private static String oldValueCurrentLifeDiceAmount = null;
+    private static String oldValueCalculatedMaxHP = "20";
     private static String oldValueMaxHP = "20";
     private static String oldValueCurrentHP = "20";
     private static String oldValueTempHP = "0";
@@ -163,7 +164,6 @@ public final class TabCharacter {
     // OnChange Triggers Setter
     private static void setOnChangeTriggers(@NotNull final ControllerSceneSheetViewer controller) {
         controller.textFieldCharacterName.textProperty().addListener((observable, oldValue, newValue) -> {
-            Logger.log(newValue);
             if (newValue.replace(" ", "").isEmpty()) DiscordRichPresenceManager.setCharacterName(null);
             else DiscordRichPresenceManager.setCharacterName(newValue);
             SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CHARACTER_NAME, newValue);
@@ -186,7 +186,7 @@ public final class TabCharacter {
         controller.textFieldExperience.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.EXP, newValue));
         controller.textFieldMaxHP.textProperty().addListener((observable, oldValue, newValue) -> {
             SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.MAX_HP, newValue);
-            recalculateHealthPercentage(controller);
+            TabEquipment.updateMaxCalculatedHP(controller);
         });
         controller.textFieldCurrentHP.textProperty().addListener((observable, oldValue, newValue) -> {
             SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CURRENT_HP, newValue);
@@ -219,7 +219,7 @@ public final class TabCharacter {
             if (!newValue) updateLifeDiceFaces(controller);
         }));
         controller.textFieldMaxHP.focusedProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue) recalculateHealthPercentage(controller);
+            if (!newValue) TabEquipment.updateMaxCalculatedHP(controller);
         });
         controller.textFieldCurrentHP.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) recalculateHealthPercentage(controller);
@@ -279,11 +279,10 @@ public final class TabCharacter {
     public static void recalculateHealthPercentage(@NotNull final ControllerSceneSheetViewer controller) {
         double maxHP, currentHP, tempHP;
         try {
-            maxHP = (controller.textFieldMaxHP.getText().replace(" ", "").isEmpty() ? 0 : Double.parseDouble(controller.textFieldMaxHP.getText()));
-            if (maxHP <= 0) throw new NumberFormatException();
+            maxHP = (controller.textFieldCalculatedMaxHP.getText().replace(" ", "").isEmpty()? 0 : Double.parseDouble(controller.textFieldCalculatedMaxHP.getText()));
         } catch (NumberFormatException e) {
-            controller.textFieldMaxHP.setText(oldValueMaxHP);
-            new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "I punti ferita massimi devono essere un numero maggiore a 0.");
+            controller.textFieldCalculatedMaxHP.setText(oldValueCalculatedMaxHP);
+            new ErrorAlert("ERRORE", "ERRORE DI ELABORAZIONE", "I punti ferita massimi calcolati devono essere un numero maggiore a 0.");
             return;
         }
         try {
@@ -309,9 +308,26 @@ public final class TabCharacter {
         controller.stackPaneCurrentHP.getChildren().remove(hpRemoverRectangle);
         controller.stackPaneCurrentHP.getChildren().add(hpRemoverRectangle);
         controller.labelHPLeftPercentage.setText(hpPercentage > 500?">500%":hpPercentage+"%");
-        oldValueMaxHP = controller.textFieldMaxHP.getText();
+        oldValueCalculatedMaxHP = controller.textFieldCalculatedMaxHP.getText();
         oldValueCurrentHP = controller.textFieldCurrentHP.getText();
         oldValueTempHP = controller.textFieldTempHP.getText();
+    }
+    public static void updateCalculatedMaxHP(@NotNull final ControllerSceneSheetViewer controller, final int lifeEffect, final double lifePercentageEffect) {
+        double maxHP;
+        try {
+            maxHP = (controller.textFieldMaxHP.getText().replace(" ", "").isEmpty() ? 0 : Double.parseDouble(controller.textFieldMaxHP.getText()));
+            if (maxHP <= 0) throw new NumberFormatException();
+        } catch (NumberFormatException e) {
+            controller.textFieldMaxHP.setText(oldValueMaxHP);
+            new ErrorAlert("ERRORE", "ERRORE DI ELABORAZIONE", "I punti ferita massimi devono essere un numero maggiore a 0.");
+            return;
+        }
+        oldValueMaxHP = controller.textFieldMaxHP.getText();
+        double calculatedMaxHP = maxHP + lifeEffect;
+        calculatedMaxHP += (calculatedMaxHP*lifePercentageEffect) / 100;
+        calculatedMaxHP = calculatedMaxHP>=1?calculatedMaxHP:1;
+        controller.textFieldCalculatedMaxHP.setText(String.format("%.0f", calculatedMaxHP));
+        recalculateHealthPercentage(controller);
     }
     @SuppressWarnings("DuplicatedCode")
     public static void openCharacterImageFileChooser(@NotNull final ControllerSceneSheetViewer controller) {

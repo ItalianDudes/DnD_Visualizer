@@ -724,8 +724,124 @@ public final class TabEquipment {
         }
         TabEquipment.updateEquipmentProperties(controller);
     }
+    public static void updateMaxCalculatedHP(@NotNull final ControllerSceneSheetViewer controller) {
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        String query;
+                        PreparedStatement ps = null;
+                        ResultSet result;
+                        int lifeEffect = 0;
+                        double lifePercentageEffect = 0;
+                        try {
+                            query = "SELECT e.life_effect AS life_effect, e.life_percentage_effect AS life_percentage_effect, a.slot AS slot FROM items AS i JOIN equipments AS e JOIN armors AS a ON i.id = e.item_id AND e.id = a.equipment_id WHERE e.is_equipped=1;";
+                            ps = DBManager.preparedStatement(query);
+                            if (ps == null) throw new SQLException("The database connection doesn't exist");
+                            result = ps.executeQuery();
+                            int slot;
+                            while (result.next()) {
+                                slot = result.getInt("slot");
+                                if (slot > ArmorSlot.NO_ARMOR.getDatabaseValue()) {
+                                    if (slot == ArmorSlot.FULL_SET.getDatabaseValue()) {
+                                        lifeEffect = result.getInt("life_effect");
+                                        lifePercentageEffect = result.getDouble("life_percentage_effect");
+                                        break;
+                                    } else {
+                                        lifeEffect += result.getInt("life_effect");
+                                        lifePercentageEffect += result.getDouble("life_percentage_effect");
+                                    }
+                                }
+                            }
+                            ps.close();
+                            query = "SELECT e.life_effect AS life_effect, e.life_percentage_effect AS life_percentage_effect FROM items AS i JOIN equipments AS e JOIN addons AS a ON i.id = e.item_id AND e.id = a.equipment_id WHERE e.is_equipped=1;";
+                            ps = DBManager.preparedStatement(query);
+                            if (ps == null) throw new SQLException("The database connection doesn't exist");
+                            result = ps.executeQuery();
+                            while (result.next()) {
+                                lifeEffect += result.getInt("life_effect");
+                                lifePercentageEffect += result.getDouble("life_percentage_effect");
+                            }
+                            ps.close();
+                            int finalLifeEffect = lifeEffect;
+                            double finalLifePercentageEffect = lifePercentageEffect;
+                            Platform.runLater(() -> TabCharacter.updateCalculatedMaxHP(controller, finalLifeEffect, finalLifePercentageEffect));
+                        } catch (SQLException e) {
+                            try {
+                                if (ps != null) ps.close();
+                            } catch (SQLException ignored) {}
+                            Logger.log(e);
+                            new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
+                        }
+                        return null;
+                    }
+                };
+            }
+        }.start();
+    }
+    public static void updateMaxLoad(@NotNull final ControllerSceneSheetViewer controller) {
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        String query;
+                        PreparedStatement ps = null;
+                        ResultSet result;
+                        int loadEffect = 0;
+                        double loadPercentageEffect = 0;
+                        try {
+                            query = "SELECT e.load_effect AS load_effect, e.load_percentage_effect AS load_percentage_effect, a.slot AS slot FROM items AS i JOIN equipments AS e JOIN armors AS a ON i.id = e.item_id AND e.id = a.equipment_id WHERE e.is_equipped=1;";
+                            ps = DBManager.preparedStatement(query);
+                            if (ps == null) throw new SQLException("The database connection doesn't exist");
+                            result = ps.executeQuery();
+                            int slot;
+                            while (result.next()) {
+                                slot = result.getInt("slot");
+                                if (slot > ArmorSlot.NO_ARMOR.getDatabaseValue()) {
+                                    if (slot == ArmorSlot.FULL_SET.getDatabaseValue()) {
+                                        loadEffect = result.getInt("load_effect");
+                                        loadPercentageEffect = result.getDouble("load_percentage_effect");
+                                        break;
+                                    } else {
+                                        loadEffect += result.getInt("load_effect");
+                                        loadPercentageEffect += result.getDouble("load_percentage_effect");
+                                    }
+                                }
+                            }
+                            ps.close();
+                            query = "SELECT e.load_effect AS load_effect, e.load_percentage_effect AS load_percentage_effect FROM items AS i JOIN equipments AS e JOIN addons AS a ON i.id = e.item_id AND e.id = a.equipment_id WHERE e.is_equipped=1;";
+                            ps = DBManager.preparedStatement(query);
+                            if (ps == null) throw new SQLException("The database connection doesn't exist");
+                            result = ps.executeQuery();
+                            while (result.next()) {
+                                loadEffect += result.getInt("load_effect");
+                                loadPercentageEffect += result.getDouble("load_percentage_effect");
+                            }
+                            ps.close();
+                            int finalLoadEffect = loadEffect;
+                            double finalLoadPercentageEffect = loadPercentageEffect;
+                            Platform.runLater(() -> TabInventory.updateMaxLoad(controller, finalLoadEffect, finalLoadPercentageEffect));
+                        } catch (SQLException e) {
+                            try {
+                                if (ps != null) ps.close();
+                            } catch (SQLException ignored) {}
+                            Logger.log(e);
+                            new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
+                        }
+                        return null;
+                    }
+                };
+            }
+        }.start();
+    }
     public static void updateEquipmentProperties(@NotNull final ControllerSceneSheetViewer controller) {
         TabInventory.updateLoad(controller);
         updateCA(controller);
+        updateMaxCalculatedHP(controller);
+        updateMaxLoad(controller);
     }
 }

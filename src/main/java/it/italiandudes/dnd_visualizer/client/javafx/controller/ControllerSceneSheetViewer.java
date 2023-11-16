@@ -39,6 +39,7 @@ public final class ControllerSceneSheetViewer {
     @FXML public Label labelHPLeftPercentage;
     @FXML public ImageView imageViewCurrentCA;
     @FXML public StackPane stackPaneCurrentCA;
+    @FXML public TextField textFieldCalculatedMaxHP;
     @FXML public TextField textFieldMaxHP;
     @FXML public TextField textFieldCurrentHP;
     @FXML public TextField textFieldTempHP;
