@@ -15,7 +15,8 @@ public enum AddonSlot {
     RING_1(6, "Anello 1"),
     RING_2(7, "Anello 2"),
     RING_3(8, "Anello 3"),
-    RING_4(9, "Anello 4")
+    RING_4(9, "Anello 4"),
+    BACKPACK(10, "Zaino"),
     ;
 
     // Attributes

@@ -176,6 +176,7 @@ public final class ControllerSceneSheetViewer {
     @FXML public ComboBox<Addon> comboBoxEquipmentRightBracelet;
     @FXML public ComboBox<Addon> comboBoxEquipmentRing3;
     @FXML public ComboBox<Addon> comboBoxEquipmentRing4;
+    @FXML public ComboBox<Addon> comboBoxEquipmentBackpack;
     @FXML public ListView<Weapon> listViewEquippedWeapons;
 
     // TabInventory

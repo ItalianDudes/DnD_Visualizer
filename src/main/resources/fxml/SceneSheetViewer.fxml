@@ -2046,16 +2046,24 @@
                                                             <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
                                                          </columnConstraints>
                                                          <rowConstraints>
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
+                                                            <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                             <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                             <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                          </rowConstraints>
                                                          <children>
-                                                            <ComboBox fx:id="comboBoxEquipmentFullSet" maxWidth="1.7976931348623157E308" onAction="#equipmentToggleFullSet" promptText="Set Completo" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="1" />
-                                                            <Label text="Set Completo">
+                                                            <Label text="Zaino">
                                                                <font>
                                                                   <Font name="Lucida Sans Demibold" size="16.0" />
                                                                </font>
                                                             </Label>
+                                                            <ComboBox fx:id="comboBoxEquipmentBackpack" maxWidth="1.7976931348623157E308" onAction="#updateEquipmentProperties" promptText="Zaino" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="1" />
+                                                            <Label text="Set Completo" GridPane.rowIndex="2">
+                                                               <font>
+                                                                  <Font name="Lucida Sans Demibold" size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <ComboBox fx:id="comboBoxEquipmentFullSet" maxWidth="1.7976931348623157E308" onAction="#equipmentToggleFullSet" promptText="Set Completo" style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-font-family: Lucida Sans;" GridPane.rowIndex="3" />
                                                          </children>
                                                       </GridPane>
                                                    </children>

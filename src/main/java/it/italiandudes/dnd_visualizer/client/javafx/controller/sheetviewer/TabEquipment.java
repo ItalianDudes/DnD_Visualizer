@@ -163,6 +163,10 @@ public final class TabEquipment {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
         }));
+        controller.comboBoxEquipmentBackpack.getSelectionModel().selectedItemProperty().addListener((((observable, oldValue, newValue) -> {
+            if (oldValue!=null) oldValue.setEquipped(false);
+            if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
+        })));
     }
 
     // EDT
@@ -225,6 +229,8 @@ public final class TabEquipment {
         controller.comboBoxEquipmentRing3.getSelectionModel().selectFirst();
         controller.comboBoxEquipmentRing4.setItems(getEmptyAddonList());
         controller.comboBoxEquipmentRing4.getSelectionModel().selectFirst();
+        controller.comboBoxEquipmentBackpack.setItems(getEmptyAddonList());
+        controller.comboBoxEquipmentBackpack.getSelectionModel().selectFirst();
         controller.listViewEquippedWeapons.getItems().clear();
     }
     public static void reloadEquipment(@NotNull final ControllerSceneSheetViewer controller) {
@@ -257,6 +263,7 @@ public final class TabEquipment {
         Addon rightBracelet = controller.comboBoxEquipmentRightBracelet.getSelectionModel().getSelectedItem();
         Addon ring3 = controller.comboBoxEquipmentRing3.getSelectionModel().getSelectedItem();
         Addon ring4 = controller.comboBoxEquipmentRing4.getSelectionModel().getSelectedItem();
+        Addon backpack = controller.comboBoxEquipmentBackpack.getSelectionModel().getSelectedItem();
         setEmpty(controller);
         equipmentToggleFullSet(controller);
         new Service<Void>() {
@@ -592,6 +599,16 @@ public final class TabEquipment {
                                             controller.comboBoxEquipmentRing4.getItems().add(addon);
                                             if (ring4 != null && addon.getAddonID().equals(ring4.getAddonID()) || addon.isEquipped()) {
                                                 controller.comboBoxEquipmentRing4.getSelectionModel().select(addon);
+                                                addon.setEquipped(true);
+                                            }
+                                        });
+                                        break;
+
+                                    case BACKPACK:
+                                        Platform.runLater(() -> {
+                                            controller.comboBoxEquipmentBackpack.getItems().add(addon);
+                                            if (backpack != null && addon.getAddonID().equals(backpack.getAddonID()) || addon.isEquipped()) {
+                                                controller.comboBoxEquipmentBackpack.getSelectionModel().select(addon);
                                                 addon.setEquipped(true);
                                             }
                                         });
