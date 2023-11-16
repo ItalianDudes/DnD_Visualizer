@@ -4029,6 +4029,42 @@
                   </ScrollPane>
                </content>
             </Tab>
+            <Tab text="Impostazioni">
+               <content>
+                  <ScrollPane fitToHeight="true" fitToWidth="true">
+                     <content>
+                        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <children>
+                              <GridPane alignment="TOP_CENTER" layoutX="10.0" layoutY="578.0" vgap="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                    <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#settingsBackToMenu" style="-fx-text-fill: red;" text="Torna al Menu Principale">
+                                       <font>
+                                          <Font name="Lucida Sans Demibold" size="32.0" />
+                                       </font>
+                                    </Button>
+                                    <Button layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#settingsQuit" style="-fx-text-fill: red;" text="Chiudi Applicazione" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="Lucida Sans Demibold" size="32.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+               </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>

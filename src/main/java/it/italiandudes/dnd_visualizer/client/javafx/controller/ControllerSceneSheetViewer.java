@@ -399,4 +399,10 @@ public final class ControllerSceneSheetViewer {
     @FXML private void exportInventory() {
         TabInventory.exportInventory();
     }
+    @FXML private void settingsBackToMenu() {
+        TabSettings.backToMenu();
+    }
+    @FXML private void settingsQuit() {
+        TabSettings.quit();
+    }
 }
