@@ -2,11 +2,33 @@
 
 <!--suppress JavaFxDefaultTag -->
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSheetViewer">
    <children>
       <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -2491,6 +2513,7 @@
                                                             <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
                                                             <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
                                                             <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                                            <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
                                                          </columnConstraints>
                                                          <rowConstraints>
                                                             <RowConstraints valignment="CENTER" vgrow="NEVER" />
@@ -2503,12 +2526,17 @@
                                                             </TextField>
                                                             <ComboBox fx:id="comboBoxCategory" maxHeight="1.7976931348623157E308" onAction="#search" promptText="Categoria" GridPane.columnIndex="1" />
                                                             <ComboBox fx:id="comboBoxEquipmentType" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#search" promptText="Tipo Equipaggiamento" GridPane.columnIndex="2" />
-                                                            <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#resetSearchBarAndCategory" text="RESET" GridPane.columnIndex="3">
+                                                            <CheckBox fx:id="checkBoxShowOwned" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#search" text="Mostra Posseduti" GridPane.columnIndex="3">
+                                                               <font>
+                                                                  <Font name="Lucida Sans Demibold" size="16.0" />
+                                                               </font>
+                                                            </CheckBox>
+                                                            <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#resetSearchBarAndCategory" text="RESET" GridPane.columnIndex="4">
                                                                <font>
                                                                   <Font name="Lucida Sans Demibold" size="16.0" />
                                                                </font>
                                                             </Button>
-                                                            <Button mnemonicParsing="false" onAction="#search" GridPane.columnIndex="4">
+                                                            <Button mnemonicParsing="false" onAction="#search" GridPane.columnIndex="5">
                                                                <graphic>
                                                                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                                      <image>
@@ -2520,7 +2548,7 @@
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Button>
-                                                            <Button mnemonicParsing="false" onAction="#deleteElement" GridPane.columnIndex="5">
+                                                            <Button mnemonicParsing="false" onAction="#deleteElement" GridPane.columnIndex="6">
                                                                <graphic>
                                                                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                                      <image>
@@ -2532,7 +2560,7 @@
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Button>
-                                                            <Button mnemonicParsing="false" onAction="#editElement" GridPane.columnIndex="6">
+                                                            <Button mnemonicParsing="false" onAction="#editElement" GridPane.columnIndex="7">
                                                                <graphic>
                                                                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                                      <image>
@@ -2544,7 +2572,7 @@
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Button>
-                                                            <Button mnemonicParsing="false" onAction="#addElement" GridPane.columnIndex="7">
+                                                            <Button mnemonicParsing="false" onAction="#addElement" GridPane.columnIndex="8">
                                                                <graphic>
                                                                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                                      <image>

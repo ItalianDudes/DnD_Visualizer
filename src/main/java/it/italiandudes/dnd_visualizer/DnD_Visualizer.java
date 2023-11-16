@@ -22,6 +22,7 @@ public final class DnD_Visualizer {
             Logger.init();
         } catch (IOException e) {
             Logger.log("An error has occurred during Logger initialization, exit...");
+            return;
         }
 
         // Configure the shutdown hooks

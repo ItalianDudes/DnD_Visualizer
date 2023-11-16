@@ -191,6 +191,7 @@ public final class ControllerSceneSheetViewer {
     @FXML public TextField textFieldSearchBar;
     @FXML public ComboBox<Category> comboBoxCategory;
     @FXML public ComboBox<EquipmentType> comboBoxEquipmentType;
+    @FXML public CheckBox checkBoxShowOwned;
     @FXML public TableView<ElementPreview> tableViewInventory;
     @FXML public TableColumn<ElementPreview, Integer> tableColumnInventoryID;
     @FXML public TableColumn<ElementPreview, String> tableColumnInventoryName;
