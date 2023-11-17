@@ -807,6 +807,15 @@ public final class TabEquipment {
                                 }
                             }
                             ps.close();
+                            query = "SELECT e.life_effect AS life_effect, e.life_percentage_effect AS life_percentage_effect FROM items AS i JOIN equipments AS e JOIN weapons AS w ON i.id = e.item_id AND e.id = w.equipment_id WHERE e.is_equipped=1;";
+                            ps = DBManager.preparedStatement(query);
+                            if (ps == null) throw new SQLException("The database connection doesn't exist");
+                            result = ps.executeQuery();
+                            while (result.next()) {
+                                lifeEffect += result.getInt("life_effect");
+                                lifePercentageEffect += result.getDouble("life_percentage_effect");
+                            }
+                            ps.close();
                             query = "SELECT e.life_effect AS life_effect, e.life_percentage_effect AS life_percentage_effect FROM items AS i JOIN equipments AS e JOIN addons AS a ON i.id = e.item_id AND e.id = a.equipment_id WHERE e.is_equipped=1;";
                             ps = DBManager.preparedStatement(query);
                             if (ps == null) throw new SQLException("The database connection doesn't exist");
@@ -862,6 +871,15 @@ public final class TabEquipment {
                                         loadPercentageEffect += result.getDouble("load_percentage_effect");
                                     }
                                 }
+                            }
+                            ps.close();
+                            query = "SELECT e.load_effect AS load_effect, e.load_percentage_effect AS load_percentage_effect FROM items AS i JOIN equipments AS e JOIN weapons AS w ON i.id = e.item_id AND e.id = w.equipment_id WHERE e.is_equipped=1;";
+                            ps = DBManager.preparedStatement(query);
+                            if (ps == null) throw new SQLException("The database connection doesn't exist");
+                            result = ps.executeQuery();
+                            while (result.next()) {
+                                loadEffect += result.getInt("load_effect");
+                                loadPercentageEffect += result.getDouble("load_percentage_effect");
                             }
                             ps.close();
                             query = "SELECT e.load_effect AS load_effect, e.load_percentage_effect AS load_percentage_effect FROM items AS i JOIN equipments AS e JOIN addons AS a ON i.id = e.item_id AND e.id = a.equipment_id WHERE e.is_equipped=1;";
