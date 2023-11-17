@@ -276,14 +276,22 @@ public final class ControllerSceneInventoryWeapon {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli effetti sulla vita, sul carico e sulla CA devono essere dei numeri interi"));
                                 return null;
                             }
+
                             try {
                                 lifeEffectPerc = Double.parseDouble(textFieldEffectLifePerc.getText());
-                                loadEffectPerc = Double.parseDouble(textFieldEffectLoadPerc.getText());
-                                if (lifeEffectPerc <= -100 || loadEffectPerc <= -100) throw new NumberFormatException();
+                                if (lifeEffectPerc <= -100) throw new NumberFormatException();
                             } catch (NumberFormatException e) {
-                                Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli effetti percentuale sulla vita e sul carico devono essere dei numeri interi o decimali (decimale con punto) maggiori di -100"));
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "L'effetto percentuale sulla vita deve essere un numero intero o decimale (decimale con punto) maggiore di -100"));
                                 return null;
                             }
+                            try {
+                                loadEffectPerc = Double.parseDouble(textFieldEffectLoadPerc.getText());
+                                if (loadEffectPerc < -100) throw new NumberFormatException();
+                            } catch (NumberFormatException e) {
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "L'effetto percentuale sul carico deve essere un numero intero o decimale (decimale con punto) maggiore o uguale a di -100"));
+                                return null;
+                            }
+
                             String otherEffects = textAreaOtherEffects.getText();
                             String weaponCategory = textFieldWeaponCategory.getText();
                             String properties = textAreaProperties.getText();
@@ -429,14 +437,22 @@ public final class ControllerSceneInventoryWeapon {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli effetti sulla vita, sul carico e sulla CA devono essere dei numeri interi"));
                                 return null;
                             }
+
                             try {
                                 lifeEffectPerc = Double.parseDouble(textFieldEffectLifePerc.getText());
-                                loadEffectPerc = Double.parseDouble(textFieldEffectLoadPerc.getText());
-                                if (lifeEffectPerc <= -100 || loadEffectPerc <= -100) throw new NumberFormatException();
+                                if (lifeEffectPerc <= -100) throw new NumberFormatException();
                             } catch (NumberFormatException e) {
-                                Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Gli effetti percentuale sulla vita e sul carico devono essere dei numeri interi o decimali (decimale con punto) maggiori di -100"));
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "L'effetto percentuale sulla vita deve essere un numero intero o decimale (decimale con punto) maggiore di -100"));
                                 return null;
                             }
+                            try {
+                                loadEffectPerc = Double.parseDouble(textFieldEffectLoadPerc.getText());
+                                if (loadEffectPerc < -100) throw new NumberFormatException();
+                            } catch (NumberFormatException e) {
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "L'effetto percentuale sul carico deve essere un numero intero o decimale (decimale con punto) maggiore o uguale a di -100"));
+                                return null;
+                            }
+
                             String otherEffects = textAreaOtherEffects.getText();
                             String weaponCategory = textFieldWeaponCategory.getText();
                             String properties = textAreaProperties.getText();
