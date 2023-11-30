@@ -4,10 +4,8 @@ import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.*;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
 import it.italiandudes.dnd_visualizer.data.Note;
-import it.italiandudes.dnd_visualizer.data.enums.Category;
-import it.italiandudes.dnd_visualizer.data.enums.DiceRepresentation;
-import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
-import it.italiandudes.dnd_visualizer.data.enums.Rarity;
+import it.italiandudes.dnd_visualizer.data.effect.EffectPreview;
+import it.italiandudes.dnd_visualizer.data.enums.*;
 import it.italiandudes.dnd_visualizer.data.item.Addon;
 import it.italiandudes.dnd_visualizer.data.item.Armor;
 import it.italiandudes.dnd_visualizer.data.item.Weapon;
@@ -261,6 +259,19 @@ public final class ControllerSceneSheetViewer {
     @FXML public TableColumn<Note, String> tableColumnNotesCreationDate;
     @FXML public TableColumn<Note, String> tableColumnNotesLastEdit;
 
+    // TabEffects
+    @FXML public TextField textFieldEffectSearchBar;
+    @FXML public CheckBox checkBoxShowActiveEffects;
+    @FXML public TableView<EffectPreview> tableViewEffects;
+    @FXML public TableColumn<EffectPreview, Integer> tableColumnEffectID;
+    @FXML public TableColumn<EffectPreview, String> tableColumnEffectName;
+    @FXML public TableColumn<EffectPreview, String> tableColumnEffectDuration;
+    @FXML public TableColumn<EffectPreview, Integer> tableColumnEffectIntensity;
+    @FXML public TableColumn<EffectPreview, EffectKnowledge> tableColumnEffectIsTreatable;
+    @FXML public TableColumn<EffectPreview, EffectKnowledge> tableColumnEffectIsCurable;
+    @FXML public TableColumn<EffectPreview, EffectKnowledge> tableColumnEffectIsLethal;
+    @FXML public TableColumn<EffectPreview, Boolean> tableColumnEffectIsActive;
+
     // TabDiceRoller
     @FXML public ImageView imageViewToggleDiceRolling;
     @FXML public ComboBox<DiceRepresentation> comboBoxDiceFaces;
@@ -283,6 +294,7 @@ public final class ControllerSceneSheetViewer {
         TabPhysicalDescription.initialize(this);
         TabStory.initialize(this);
         TabNotes.initialize(this);
+        TabEffects.initialize(this);
         TabDiceRoller.initialize(this);
     }
 
@@ -339,7 +351,7 @@ public final class ControllerSceneSheetViewer {
         TabAbility.updateCharismaAbilities(this, Integer.parseInt(labelModCharisma.getText()), spinnerProficiencyBonus.getValue());
     }
     @FXML private void inventoryDoubleClickEdit(@NotNull final MouseEvent event) {
-        if (event.getClickCount() >= 2) editElement();
+        if (event.getClickCount() >= 2) TabInventory.editElement(this);
     }
     @FXML private void inventoryDetectEnterOnRow(@NotNull final KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER && tableViewInventory.getSelectionModel().getSelectedItem() != null) {
@@ -347,11 +359,11 @@ public final class ControllerSceneSheetViewer {
         }
     }
     @FXML private void notesDoubleClickEdit(@NotNull final MouseEvent event) {
-        if (event.getClickCount() >= 2) editNote();
+        if (event.getClickCount() >= 2) TabNotes.editNote(this);
     }
     @FXML private void notesDetectEnterOnRow(@NotNull final KeyEvent event) {
         if (event.getCode() == KeyCode.ENTER && tableViewNotes.getSelectionModel().getSelectedItem() != null) {
-            editNote();
+            TabNotes.editNote(this);
         }
     }
     @FXML private void search() {
@@ -404,5 +416,25 @@ public final class ControllerSceneSheetViewer {
     }
     @FXML private void settingsQuit() {
         TabSettings.quit();
+    }
+    @FXML private void searchEffect() {
+        TabEffects.searchEffect(this);
+    }
+    @FXML private void deleteEffect() {
+        TabEffects.deleteEffect(this);
+    }
+    @FXML private void editEffect() {
+        TabEffects.editEffect(this);
+    }
+    @FXML private void addEffect() {
+        TabEffects.addEffect(this);
+    }
+    @FXML private void effectDetectEnterOnRow(@NotNull final KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER && tableViewEffects.getSelectionModel().getSelectedItem() != null) {
+            TabEffects.editEffect(this);
+        }
+    }
+    @FXML private void effectDoubleClickEdit(@NotNull final MouseEvent event) {
+        if (event.getClickCount() >= 2) TabEffects.editEffect(this);
     }
 }

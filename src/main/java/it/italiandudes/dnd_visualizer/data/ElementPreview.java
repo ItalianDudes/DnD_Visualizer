@@ -11,7 +11,7 @@ public final class ElementPreview {
 
     // Attributes
     private final int id;
-    private final String name;
+    @NotNull private final String name;
     private final Category category;
     private final Rarity rarity;
     private final double weight;
@@ -33,6 +33,7 @@ public final class ElementPreview {
     public int getId() {
         return id;
     }
+    @NotNull
     public String getName() {
         return name;
     }

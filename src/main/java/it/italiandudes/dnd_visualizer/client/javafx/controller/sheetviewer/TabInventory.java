@@ -409,7 +409,6 @@ public final class TabInventory {
                             ps.close();
                             Platform.runLater(() -> {
                                 search(controller);
-                                updateLoad(controller);
                                 TabSpells.updateListViews(controller);
                                 TabEquipment.reloadEquipment(controller);
                             });
@@ -478,7 +477,6 @@ public final class TabInventory {
         popupStage.showAndWait();
         elementName = null;
         search(controller);
-        updateLoad(controller);
         TabSpells.updateListViews(controller);
         TabEquipment.reloadEquipment(controller);
     }
@@ -683,7 +681,6 @@ public final class TabInventory {
         Stage popupStage = Client.initPopupStage(scene);
         popupStage.showAndWait();
         search(controller);
-        updateLoad(controller);
         TabSpells.updateListViews(controller);
         TabEquipment.reloadEquipment(controller);
     }

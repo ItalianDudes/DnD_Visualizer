@@ -718,6 +718,16 @@ public final class TabEquipment {
                             }
                             ps.close();
                             ca += caAddon;
+                            query = "SELECT ca_effect AS ca FROM effects WHERE is_active=1;";
+                            ps = DBManager.preparedStatement(query);
+                            if (ps == null) throw new SQLException("The database connection doesn't exist");
+                            result = ps.executeQuery();
+                            int caEffect = 0;
+                            while (result.next()) {
+                                caEffect += result.getInt("ca");
+                            }
+                            ps.close();
+                            ca += caEffect;
                             int finalCa = ca;
                             Platform.runLater(() -> TabCharacter.updateCASymbol(controller, finalCa));
                         } catch (SQLException e) {
@@ -825,6 +835,15 @@ public final class TabEquipment {
                                 lifePercentageEffect += result.getDouble("life_percentage_effect");
                             }
                             ps.close();
+                            query = "SELECT life_effect, life_percentage_effect FROM effects WHERE is_active=1;";
+                            ps = DBManager.preparedStatement(query);
+                            if (ps == null) throw new SQLException("The database connection doesn't exist");
+                            result = ps.executeQuery();
+                            while (result.next()) {
+                                lifeEffect += result.getInt("life_effect");
+                                lifePercentageEffect += result.getDouble("life_percentage_effect");
+                            }
+                            ps.close();
                             int finalLifeEffect = lifeEffect;
                             double finalLifePercentageEffect = lifePercentageEffect;
                             Platform.runLater(() -> TabCharacter.updateCalculatedMaxHP(controller, finalLifeEffect, finalLifePercentageEffect));
@@ -891,6 +910,14 @@ public final class TabEquipment {
                                 loadPercentageEffect += result.getDouble("load_percentage_effect");
                             }
                             ps.close();
+                            query = "SELECT load_effect, load_percentage_effect FROM effects WHERE is_active=1;";
+                            ps = DBManager.preparedStatement(query);
+                            if (ps == null) throw new SQLException("The database connection doesn't exist");
+                            result = ps.executeQuery();
+                            while (result.next()) {
+                                loadEffect += result.getInt("load_effect");
+                                loadPercentageEffect += result.getDouble("load_percentage_effect");
+                            }
                             int finalLoadEffect = loadEffect;
                             double finalLoadPercentageEffect = loadPercentageEffect;
                             Platform.runLater(() -> TabInventory.updateMaxLoad(controller, finalLoadEffect, finalLoadPercentageEffect));
