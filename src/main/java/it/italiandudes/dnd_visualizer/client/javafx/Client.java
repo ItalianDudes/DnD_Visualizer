@@ -117,6 +117,12 @@ public final class Client extends Application {
             SETTINGS.remove(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE);
             SETTINGS.put(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE, true);
         }
+        try {
+            SETTINGS.getBoolean(Defs.SettingsKeys.ENABLE_EVENT_THEME);
+        } catch (JSONException e) {
+            SETTINGS.remove(Defs.SettingsKeys.ENABLE_EVENT_THEME);
+            SETTINGS.put(Defs.SettingsKeys.ENABLE_EVENT_THEME, true);
+        }
         writeJSONSettings();
     }
     public static void writeJSONSettings() throws IOException {

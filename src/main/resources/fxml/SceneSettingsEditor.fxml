@@ -3,10 +3,17 @@
 <!--suppress JavaFxDefaultTag -->
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.client.javafx.controller.ControllerSceneSettingsEditor">
    <children>
       <GridPane vgap="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -33,6 +40,7 @@
                 <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                 <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                 <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                  <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                   <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                   <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
@@ -62,6 +70,11 @@
                         <Font name="Lucida Sans Demibold" size="16.0" />
                      </font>
                   </Label>
+                  <Label text="Attiva Tema Eventi" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="Lucida Sans Demibold" size="16.0" />
+                     </font>
+                  </Label>
                   <ToggleButton fx:id="toggleButtonEnableDarkMode" mnemonicParsing="false" onAction="#toggleEnableDarkMode" GridPane.columnIndex="1">
                      <graphic>
                         <ImageView fx:id="imageViewEnableDarkMode" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
@@ -85,6 +98,11 @@
                   <ToggleButton fx:id="toggleButtonEnableDiscordRichPresence" mnemonicParsing="false" onAction="#toggleEnableDiscordRichPresence" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <graphic>
                         <ImageView fx:id="imageViewEnableDiscordRichPresence" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                  </ToggleButton>
+                  <ToggleButton fx:id="toggleButtonEnableEventTheme" mnemonicParsing="false" onAction="#toggleEnableEventTheme" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <graphic>
+                        <ImageView fx:id="imageViewEnableEventTheme" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic>
                   </ToggleButton>
                </children>

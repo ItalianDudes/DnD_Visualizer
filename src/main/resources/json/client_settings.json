@@ -3,5 +3,6 @@
   "enableLoad": true,
   "enablePassiveLoad": true,
   "coinsIncreaseLoad": true,
-  "enableDiscordRichPresence": true
+  "enableDiscordRichPresence": true,
+  "enableEventTheme": true
 }

@@ -1,6 +1,7 @@
 package it.italiandudes.dnd_visualizer.client.javafx.controller;
 
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
+import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.*;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
 import it.italiandudes.dnd_visualizer.data.Note;
@@ -9,9 +10,11 @@ import it.italiandudes.dnd_visualizer.data.enums.*;
 import it.italiandudes.dnd_visualizer.data.item.Addon;
 import it.italiandudes.dnd_visualizer.data.item.Armor;
 import it.italiandudes.dnd_visualizer.data.item.Weapon;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -19,7 +22,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Calendar;
+
 public final class ControllerSceneSheetViewer {
+
+    // Sheet Background
+    @FXML private ImageView imageViewSheetBackground;
 
     // TabCharacter
     @FXML public TextField textFieldCharacterName;
@@ -296,6 +304,25 @@ public final class ControllerSceneSheetViewer {
         TabNotes.initialize(this);
         TabEffects.initialize(this);
         TabDiceRoller.initialize(this);
+        if (Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_EVENT_THEME)) {
+            Client.getStage().widthProperty().addListener(observable -> imageViewSheetBackground.setFitWidth(Client.getStage().getWidth()));
+            Client.getStage().heightProperty().addListener(observable -> imageViewSheetBackground.setFitHeight(Client.getStage().getHeight()));
+            activateBackgroundDecoration();
+            imageViewSheetBackground.setVisible(true);
+        }
+    }
+
+    // Decoration
+    private void activateBackgroundDecoration() {
+        Calendar now = Calendar.getInstance();
+        int month = now.get(Calendar.MONTH);
+        int day = now.get(Calendar.DAY_OF_MONTH);
+        if (month == Calendar.DECEMBER || (month == Calendar.JANUARY && day <= 8)) {
+            enableXmasTheme();
+        }
+    }
+    private void enableXmasTheme() {
+        imageViewSheetBackground.setImage(new Image(Defs.Resources.getAsStream(JFXDefs.Resources.GIF.GIF_BACKGROUND_XMAS)));
     }
 
     // Direct EDT Method Calls

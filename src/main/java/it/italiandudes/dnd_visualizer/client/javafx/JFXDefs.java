@@ -47,6 +47,7 @@ public final class JFXDefs {
         public static final class GIF {
             private static final String GIF_DIR = "/gif/";
             public static final String GIF_LOADING = GIF_DIR+"loading.gif";
+            public static final String GIF_BACKGROUND_XMAS = GIF_DIR+"xmas.gif";
         }
 
         // CSS Location

@@ -35,11 +35,13 @@ public final class ControllerSceneSettingsEditor {
     @FXML private ImageView imageViewEnablePassiveLoad;
     @FXML private ImageView imageViewCoinsIncreaseLoad;
     @FXML private ImageView imageViewEnableDiscordRichPresence;
+    @FXML private ImageView imageViewEnableEventTheme;
     @FXML private ToggleButton toggleButtonEnableDarkMode;
     @FXML private ToggleButton toggleButtonEnableLoad;
     @FXML private ToggleButton toggleButtonEnablePassiveLoad;
     @FXML private ToggleButton toggleButtonCoinsIncreaseLoad;
     @FXML private ToggleButton toggleButtonEnableDiscordRichPresence;
+    @FXML private ToggleButton toggleButtonEnableEventTheme;
 
     //Initialize
     @FXML
@@ -51,6 +53,7 @@ public final class ControllerSceneSettingsEditor {
         toggleButtonEnablePassiveLoad.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_PASSIVE_LOAD));
         toggleButtonCoinsIncreaseLoad.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.COINS_INCREASE_LOAD));
         toggleButtonEnableDiscordRichPresence.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE));
+        toggleButtonEnableEventTheme.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_EVENT_THEME));
         if (toggleButtonEnableDarkMode.isSelected()) imageViewEnableDarkMode.setImage(DARK_MODE);
         else imageViewEnableDarkMode.setImage(LIGHT_MODE);
         if (toggleButtonEnableLoad.isSelected()) imageViewEnableLoad.setImage(TICK);
@@ -61,6 +64,8 @@ public final class ControllerSceneSettingsEditor {
         else imageViewCoinsIncreaseLoad.setImage(CROSS);
         if (toggleButtonEnableDiscordRichPresence.isSelected()) imageViewEnableDiscordRichPresence.setImage(WUMPUS);
         else imageViewEnableDiscordRichPresence.setImage(NO_WUMPUS);
+        if (toggleButtonEnableEventTheme.isSelected()) imageViewEnableEventTheme.setImage(TICK);
+        else imageViewEnableEventTheme.setImage(CROSS);
     }
 
     // EDT
@@ -96,6 +101,11 @@ public final class ControllerSceneSettingsEditor {
         else imageViewEnableDiscordRichPresence.setImage(NO_WUMPUS);
     }
     @FXML
+    private void toggleEnableEventTheme() {
+        if (toggleButtonEnableEventTheme.isSelected()) imageViewEnableEventTheme.setImage(TICK);
+        else imageViewEnableEventTheme.setImage(CROSS);
+    }
+    @FXML
     private void backToMenu() {
         Client.getStage().setScene(SceneMainMenu.getScene());
     }
@@ -113,6 +123,7 @@ public final class ControllerSceneSettingsEditor {
                             Client.getSettings().put(Defs.SettingsKeys.ENABLE_PASSIVE_LOAD, toggleButtonEnablePassiveLoad.isSelected());
                             Client.getSettings().put(Defs.SettingsKeys.COINS_INCREASE_LOAD, toggleButtonCoinsIncreaseLoad.isSelected());
                             Client.getSettings().put(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE, toggleButtonEnableDiscordRichPresence.isSelected());
+                            Client.getSettings().put(Defs.SettingsKeys.ENABLE_EVENT_THEME, toggleButtonEnableEventTheme.isSelected());
                         } catch (JSONException e) {
                             Logger.log(e);
                         }
