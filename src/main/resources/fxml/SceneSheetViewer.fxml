@@ -38,7 +38,7 @@
               <tabs>
                   <Tab text="Personaggio">
                     <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="transparent-scroll-pane">
                            <content>
                               <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
                                  <children>
@@ -659,7 +659,7 @@
                   </Tab>
                 <Tab text="Abilità">
                   <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="transparent-scroll-pane">
                            <content>
                               <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
                                  <children>
@@ -1725,7 +1725,7 @@
                 </Tab>
                   <Tab text="Tratti &amp; Competenze">
                      <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="transparent-scroll-pane">
                            <content>
                               <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
                                  <padding>
@@ -1883,7 +1883,7 @@
                   </Tab>
                   <Tab text="Equipaggiamento">
                      <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="transparent-scroll-pane">
                            <content>
                               <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
                                  <children>
@@ -2231,7 +2231,7 @@
                   </Tab>
                 <Tab text="Inventario">
                      <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="transparent-scroll-pane">
                            <content>
                               <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
                                  <children>
@@ -2679,7 +2679,7 @@
                 </Tab>
                   <Tab text="Incantesimi">
                      <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="transparent-scroll-pane">
                            <content>
                               <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
                                  <padding>
@@ -3530,7 +3530,7 @@
                   </Tab>
                   <Tab text="Descrizione Fisica">
                      <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="transparent-scroll-pane">
                            <content>
                               <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
                                  <padding>
@@ -3753,7 +3753,7 @@
                   </Tab>
                   <Tab text="Storia">
                      <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="transparent-scroll-pane">
                            <content>
                               <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
                                  <padding>
@@ -3869,7 +3869,7 @@
                   </Tab>
                   <Tab text="Note">
                      <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="transparent-scroll-pane">
                            <content>
                               <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
                                  <padding>
@@ -3948,7 +3948,7 @@
                   </Tab>
                   <Tab text="Effetti">
                      <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="transparent-scroll-pane">
                            <content>
                               <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
                                  <padding>
@@ -4062,7 +4062,7 @@
                   </Tab>
                   <Tab text="Dice Roller">
                      <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="transparent-scroll-pane">
                            <content>
                               <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
                                  <padding>
@@ -4155,7 +4155,7 @@
                   </Tab>
                   <Tab text="Impostazioni">
                      <content>
-                        <ScrollPane fitToHeight="true" fitToWidth="true">
+                        <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="transparent-scroll-pane">
                            <content>
                               <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
                                  <padding>
