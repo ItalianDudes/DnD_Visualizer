@@ -15,7 +15,7 @@ public final class Defs {
     public static final String APP_FILE_NAME = "DnD_Visualizer";
 
     // DB Version
-    public static final String DB_VERSION = "1.3";
+    public static final String DB_VERSION = "1.4";
 
     // Jar App Position
     public static final String JAR_POSITION;

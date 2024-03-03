@@ -1881,6 +1881,108 @@
                         </ScrollPane>
                      </content>
                   </Tab>
+                  <Tab text="Privilegi e Tratti">
+                     <content>
+                        <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="transparent-scroll-pane">
+                           <content>
+                              <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
+                                 <children>
+                                    <GridPane layoutX="5.0" layoutY="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                          <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                                       </rowConstraints>
+                                       <children>
+                                          <GridPane hgap="5.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                                <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                                             </rowConstraints>
+                                             <children>
+                                                <TextField fx:id="textFieldPrivilegesAndTraitsSearchBar" maxHeight="1.7976931348623157E308" onAction="#searchPrivilegesAndTraits" promptText="Cerca Privilegio o Tratto..." style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;">
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </TextField>
+                                                <ComboBox fx:id="comboBoxPrivilegesAndTraitsType" maxHeight="1.7976931348623157E308" onAction="#searchPrivilegesAndTraits" promptText="Tipo Elemento" GridPane.columnIndex="1" />
+                                                <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#resetPrivilegesAndTraitsSearchBar" text="RESET" GridPane.columnIndex="2">
+                                                   <font>
+                                                      <Font name="Lucida Sans Demibold" size="16.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#searchPrivilegesAndTraits" GridPane.columnIndex="3">
+                                                   <graphic>
+                                                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../image/search.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#deletePrivilegesAndTraits" GridPane.columnIndex="4">
+                                                   <graphic>
+                                                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../image/delete.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#editPrivilegesAndTraits" GridPane.columnIndex="5">
+                                                   <graphic>
+                                                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../image/edit.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </Button>
+                                                <Button mnemonicParsing="false" onAction="#addPrivilegesAndTraits" GridPane.columnIndex="6">
+                                                   <graphic>
+                                                      <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../image/new.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <font>
+                                                      <Font name="Lucida Sans Regular" size="16.0" />
+                                                   </font>
+                                                </Button>
+                                             </children>
+                                          </GridPane>
+                                          <ListView fx:id="listViewPrivilegesAndTraits" onKeyPressed="#privilegesAndTraitsDetectEnterOnRow" onMouseClicked="#privilegesAndTraitsDoubleClickEdit" style="-fx-border-color: black; -fx-border-width: 2px; -fx-border-radius: 3px;" GridPane.rowIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                     </content>
+                  </Tab>
                   <Tab text="Equipaggiamento">
                      <content>
                         <ScrollPane fitToHeight="true" fitToWidth="true" styleClass="transparent-scroll-pane">

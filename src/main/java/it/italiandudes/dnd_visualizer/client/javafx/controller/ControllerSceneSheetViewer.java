@@ -5,6 +5,7 @@ import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.*;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
 import it.italiandudes.dnd_visualizer.data.Note;
+import it.italiandudes.dnd_visualizer.data.PrivilegeOrTrait;
 import it.italiandudes.dnd_visualizer.data.effect.EffectPreview;
 import it.italiandudes.dnd_visualizer.data.enums.*;
 import it.italiandudes.dnd_visualizer.data.item.Addon;
@@ -152,6 +153,11 @@ public final class ControllerSceneSheetViewer {
     @FXML public TextArea textAreaProficiencyArmors;
     @FXML public TextArea textAreaProficiencyTools;
 
+    // TabPrivilegesAndTraits
+    @FXML public TextField textFieldPrivilegesAndTraitsSearchBar;
+    @FXML public ComboBox<PrivilegeType> comboBoxPrivilegesAndTraitsType;
+    @FXML public ListView<PrivilegeOrTrait> listViewPrivilegesAndTraits;
+
     // TabEquipment
     @FXML public ComboBox<Armor> comboBoxEquipmentHead;
     @FXML public ComboBox<Addon> comboBoxEquipmentNecklace;
@@ -296,6 +302,7 @@ public final class ControllerSceneSheetViewer {
         TabCharacter.initialize(this);
         TabAbility.initialize(this);
         TabTraitsAndProficiencies.initialize(this);
+        TabPrivilegesAndTraits.initialize(this);
         TabEquipment.initialize(this);
         TabInventory.initialize(this);
         TabSpells.initialize(this);
@@ -463,5 +470,28 @@ public final class ControllerSceneSheetViewer {
     }
     @FXML private void effectDoubleClickEdit(@NotNull final MouseEvent event) {
         if (event.getClickCount() >= 2) TabEffects.editEffect(this);
+    }
+    @FXML private void searchPrivilegesAndTraits() {
+        TabPrivilegesAndTraits.searchPrivilegesAndTraits(this);
+    }
+    @FXML private void resetPrivilegesAndTraitsSearchBar() {
+        TabPrivilegesAndTraits.resetPrivilegesAndTraitsSearchBar(this);
+    }
+    @FXML private void deletePrivilegesAndTraits() {
+        TabPrivilegesAndTraits.deletePrivilegesAndTraits(this);
+    }
+    @FXML private void editPrivilegesAndTraits() {
+        TabPrivilegesAndTraits.editPrivilegesAndTraits(this);
+    }
+    @FXML private void addPrivilegesAndTraits() {
+        TabPrivilegesAndTraits.addPrivilegesAndTraits(this);
+    }
+    @FXML private void privilegesAndTraitsDoubleClickEdit(@NotNull final MouseEvent event) {
+        if (event.getClickCount() >= 2) TabPrivilegesAndTraits.editPrivilegesAndTraits(this);
+    }
+    @FXML private void privilegesAndTraitsDetectEnterOnRow(@NotNull final KeyEvent event) {
+        if (event.getCode() == KeyCode.ENTER && listViewPrivilegesAndTraits.getSelectionModel().getSelectedItem() != null) {
+            TabPrivilegesAndTraits.editPrivilegesAndTraits(this);
+        }
     }
 }

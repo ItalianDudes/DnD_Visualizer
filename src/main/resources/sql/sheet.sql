@@ -4,6 +4,13 @@ CREATE TABLE IF NOT EXISTS key_parameters (
      param_value TEXT
 );
 
+CREATE TABLE IF NOT EXISTS privileges_and_traits (
+    id INTEGER NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL UNIQUE,
+    type INTEGER NOT NULL,
+    content TEXT
+);
+
 CREATE TABLE IF NOT EXISTS notes (
     id INTEGER NOT NULL PRIMARY KEY,
     title VARCHAR(32) NOT NULL UNIQUE,
