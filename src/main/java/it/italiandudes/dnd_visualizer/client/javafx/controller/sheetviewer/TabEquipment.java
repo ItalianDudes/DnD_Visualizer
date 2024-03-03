@@ -718,6 +718,16 @@ public final class TabEquipment {
                             }
                             ps.close();
                             ca += caAddon;
+                            query = "SELECT e.ca_effect AS ca FROM items AS i JOIN equipments AS e JOIN weapons AS w ON i.id = e.item_id AND e.id = w.equipment_id WHERE e.is_equipped=1;";
+                            ps = DBManager.preparedStatement(query);
+                            if (ps == null) throw new SQLException("The database connection doesn't exist");
+                            result = ps.executeQuery();
+                            int caWeapon = 0;
+                            while (result.next()) {
+                                caWeapon += result.getInt("ca");
+                            }
+                            ps.close();
+                            ca += caWeapon;
                             query = "SELECT ca_effect AS ca FROM effects WHERE is_active=1;";
                             ps = DBManager.preparedStatement(query);
                             if (ps == null) throw new SQLException("The database connection doesn't exist");
