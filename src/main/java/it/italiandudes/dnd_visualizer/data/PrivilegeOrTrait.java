@@ -84,7 +84,7 @@ public final class PrivilegeOrTrait implements ISavable {
             ps.setString(1, name);
             ps.setString(2, content);
             ps.setInt(3, type.getDatabaseValue());
-            ps.setInt(5, privilegeID);
+            ps.setInt(4, privilegeID);
             ps.executeUpdate();
             ps.close();
         } else { // Insert
