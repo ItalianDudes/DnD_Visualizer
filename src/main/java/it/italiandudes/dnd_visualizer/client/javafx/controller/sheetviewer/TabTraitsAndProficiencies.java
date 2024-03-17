@@ -24,7 +24,6 @@ public final class TabTraitsAndProficiencies {
                 return new Task<Void>() {
                     @Override
                     protected Void call() {
-
                         String featuresAndTraits = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabTraitsAndCompetences.FEATURES_AND_TRAITS);
                         String languages = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabTraitsAndCompetences.LANGUAGES);
                         String armors = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabTraitsAndCompetences.ARMORS);

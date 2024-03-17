@@ -161,9 +161,7 @@ public final class ControllerSceneInventoryAddon {
     private void openFileChooser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleziona un Contenuto Multimediale");
-        for (String extension : Defs.Resources.SQL.SUPPORTED_IMAGE_EXTENSIONS) {
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(extension, "*."+extension));
-        }
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image", Defs.Resources.SQL.SUPPORTED_IMAGE_EXTENSIONS));
         fileChooser.setInitialDirectory(new File(Defs.JAR_POSITION).getParentFile());
         File imagePath;
         try {
