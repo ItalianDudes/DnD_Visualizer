@@ -49,12 +49,9 @@ public final class ControllerSceneNote {
                 return new Task<Void>() {
                     @Override
                     protected Void call() {
-
                         try {
-
                             String title = textFieldTitle.getText();
                             String content = textAreaContent.getText();
-
                             String oldTitle = null;
                             if (note == null) {
                                 if (Note.checkIfExist(title)) {
@@ -78,7 +75,6 @@ public final class ControllerSceneNote {
                                         new Date(Instant.now().toEpochMilli())
                                 );
                             }
-
                             note.saveIntoDatabase(oldTitle);
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Salvataggio dei Dati", "Salvataggio dei dati completato con successo!"));
                         } catch (Exception e) {

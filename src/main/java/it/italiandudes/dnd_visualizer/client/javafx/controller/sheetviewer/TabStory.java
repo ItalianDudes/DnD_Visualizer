@@ -22,7 +22,9 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.stream.Collectors;
 
 public final class TabStory {
 
@@ -90,9 +92,7 @@ public final class TabStory {
     public static void openSymbolImageFileChooser(@NotNull final ControllerSceneSheetViewer controller) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleziona un Contenuto Multimediale");
-        for (String ext : Defs.Resources.SQL.SUPPORTED_IMAGE_EXTENSIONS) {
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(ext.toUpperCase(), "*."+ext));
-        }
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image", Arrays.stream(Defs.Resources.SQL.SUPPORTED_IMAGE_EXTENSIONS).map(ext -> "*." + ext).collect(Collectors.toList())));
         fileChooser.setInitialDirectory(new File(Defs.JAR_POSITION).getParentFile());
         File imagePath;
         try {
