@@ -14,8 +14,12 @@ import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import org.jetbrains.annotations.NotNull;
@@ -39,6 +43,14 @@ public final class TabCharacter {
     private static Rectangle hpRemoverRectangle;
     private static Rectangle caRemoverRectangle;
     private static String characterImageExtension = null;
+
+    // CA Influences
+    private static boolean caInfluenceStrength = false;
+    private static boolean caInfluenceDexterity = true;
+    private static boolean caInfluenceConstitution = false;
+    private static boolean caInfluenceIntelligence = false;
+    private static boolean caInfluenceWisdom = false;
+    private static boolean caInfluenceCharisma = false;
 
     // Methods
     public static void setCharacterImageExtension(@Nullable final String characterImageExtension) {
@@ -117,6 +129,21 @@ public final class TabCharacter {
                         String ideals = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.IDEALS);
                         String bonds = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.BONDS);
                         String flaws = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.FLAWS);
+                        String caStrength = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CA_STRENGTH);
+                        String caDexterity = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CA_DEXTERITY);
+                        String caConstitution = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CA_CONSTITUTION);
+                        String caIntelligence = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CA_INTELLIGENCE);
+                        String caWisdom = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CA_WISDOM);
+                        String caCharisma = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CA_CHARISMA);
+                        caInfluenceStrength = caStrength != null && (Integer.parseInt(caStrength) != 0);
+                        if (caDexterity != null) {
+                            caInfluenceDexterity = Integer.parseInt(caDexterity) != 0;
+                        }
+                        caInfluenceConstitution = caConstitution != null && (Integer.parseInt(caConstitution) != 0);
+                        caInfluenceIntelligence = caIntelligence != null && (Integer.parseInt(caIntelligence) != 0);
+                        caInfluenceWisdom = caWisdom != null && (Integer.parseInt(caWisdom) != 0);
+                        caInfluenceCharisma = caCharisma != null && (Integer.parseInt(caCharisma) != 0);
+
                         Image finalCharacterImage = characterImage;
                         Platform.runLater(() -> {
                             if (characterName != null) {
@@ -161,6 +188,18 @@ public final class TabCharacter {
                 };
             }
         }.start();
+    }
+
+    // CA Mods
+    public static int getCAMods(@NotNull final ControllerSceneSheetViewer controller) {
+        int mods = 0;
+        mods += caInfluenceStrength?Integer.parseInt(controller.labelModStrength.getText().replace("#", "0")):0;
+        mods += caInfluenceDexterity?Integer.parseInt(controller.labelModDexterity.getText().replace("#", "0")):0;
+        mods += caInfluenceConstitution?Integer.parseInt(controller.labelModConstitution.getText().replace("#", "0")):0;
+        mods += caInfluenceIntelligence?Integer.parseInt(controller.labelModIntelligence.getText().replace("#", "0")):0;
+        mods += caInfluenceWisdom?Integer.parseInt(controller.labelModWisdom.getText().replace("#", "0")):0;
+        mods += caInfluenceCharisma?Integer.parseInt(controller.labelModCharisma.getText().replace("#", "0")):0;
+        return mods;
     }
 
     // OnChange Triggers Setter
@@ -267,6 +306,73 @@ public final class TabCharacter {
     }
     public static void updateProficiencyBonus(@NotNull final ControllerSceneSheetViewer controller) {
         TabAbility.updateParameters(controller);
+    }
+    public static void openCAContextMenu(@NotNull final ControllerSceneSheetViewer controller, @NotNull final ContextMenuEvent event) {
+        ContextMenu caMenu = new ContextMenu();
+
+        CheckBox strength = new CheckBox("Aggiungi/Rimuovi Forza");
+        strength.setSelected(caInfluenceStrength);
+        MenuItem strengthItem = new MenuItem();
+        strengthItem.setGraphic(strength);
+        strength.setOnAction(e -> {
+            caInfluenceStrength = strength.isSelected();
+            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CA_STRENGTH, String.valueOf(caInfluenceStrength?1:0));
+            TabEquipment.updateCA(controller);
+        });
+
+        CheckBox dexterity = new CheckBox("Aggiungi/Rimuovi Destrezza");
+        dexterity.setSelected(caInfluenceDexterity);
+        MenuItem dexterityItem = new MenuItem();
+        dexterityItem.setGraphic(dexterity);
+        dexterity.setOnAction(e -> {
+            caInfluenceDexterity = dexterity.isSelected();
+            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CA_DEXTERITY, String.valueOf(caInfluenceDexterity?1:0));
+            TabEquipment.updateCA(controller);
+        });
+
+        CheckBox constitution = new CheckBox("Aggiungi/Rimuovi Costituzione");
+        constitution.setSelected(caInfluenceConstitution);
+        MenuItem constitutionItem = new MenuItem();
+        constitutionItem.setGraphic(constitution);
+        constitution.setOnAction(e -> {
+            caInfluenceConstitution = constitution.isSelected();
+            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CA_CONSTITUTION, String.valueOf(caInfluenceConstitution?1:0));
+            TabEquipment.updateCA(controller);
+        });
+
+        CheckBox intelligence = new CheckBox("Aggiungi/Rimuovi Intelligenza");
+        intelligence.setSelected(caInfluenceIntelligence);
+        MenuItem intelligenceItem = new MenuItem();
+        intelligenceItem.setGraphic(intelligence);
+        intelligence.setOnAction(e -> {
+            caInfluenceIntelligence = intelligence.isSelected();
+            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CA_INTELLIGENCE, String.valueOf(caInfluenceIntelligence?1:0));
+            TabEquipment.updateCA(controller);
+        });
+
+        CheckBox wisdom = new CheckBox("Aggiungi/Rimuovi Saggezza");
+        wisdom.setSelected(caInfluenceWisdom);
+        MenuItem wisdomItem = new MenuItem();
+        wisdomItem.setGraphic(wisdom);
+        wisdom.setOnAction(e -> {
+            caInfluenceWisdom = wisdom.isSelected();
+            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CA_WISDOM, String.valueOf(caInfluenceWisdom?1:0));
+            TabEquipment.updateCA(controller);
+        });
+
+        CheckBox charisma = new CheckBox("Aggiungi/Rimuovi Carisma");
+        charisma.setSelected(caInfluenceCharisma);
+        MenuItem charismaItem = new MenuItem();
+        charismaItem.setGraphic(charisma);
+        charisma.setOnAction(e -> {
+            caInfluenceCharisma = charisma.isSelected();
+            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CA_CHARISMA, String.valueOf(caInfluenceCharisma?1:0));
+            TabEquipment.updateCA(controller);
+        });
+
+        caMenu.getItems().addAll(strengthItem, dexterityItem, constitutionItem, intelligenceItem, wisdomItem, charismaItem);
+        caMenu.setAutoHide(true);
+        caMenu.show(Client.getStage(), event.getSceneX(), event.getSceneY());
     }
     public static void updateCASymbol(@NotNull final ControllerSceneSheetViewer controller, int CA) {
         double newCAPercentage = controller.imageViewCurrentCA.getFitHeight() - (controller.imageViewCurrentCA.getFitHeight() * CA / Defs.MAX_CA);

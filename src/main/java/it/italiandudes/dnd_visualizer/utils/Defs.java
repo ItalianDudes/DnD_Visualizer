@@ -110,6 +110,12 @@ public final class Defs {
             public static final String IDEALS = "ideals";
             public static final String BONDS = "bonds";
             public static final String FLAWS = "flaws";
+            public static final String CA_STRENGTH = "ca_strength";
+            public static final String CA_DEXTERITY = "ca_dexterity";
+            public static final String CA_CONSTITUTION = "ca_constitution";
+            public static final String CA_INTELLIGENCE = "ca_intelligence";
+            public static final String CA_WISDOM = "ca_wisdom";
+            public static final String CA_CHARISMA = "ca_charisma";
         }
         public static final class TabAbility {
             public static final String STRENGTH = "strength";

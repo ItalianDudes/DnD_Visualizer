@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -333,6 +334,9 @@ public final class ControllerSceneSheetViewer {
     }
 
     // Direct EDT Method Calls
+    @FXML private void openCAContextMenu(@NotNull final ContextMenuEvent event) {
+        TabCharacter.openCAContextMenu(this, event);
+    }
     @FXML private void validateNewCurrentLifeDiceAmount() {
         TabCharacter.validateNewCurrentLifeDiceAmount(this);
     }

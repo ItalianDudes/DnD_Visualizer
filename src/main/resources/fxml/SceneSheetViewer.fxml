@@ -247,7 +247,7 @@
                                                       <RowConstraints valignment="TOP" vgrow="NEVER" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <StackPane>
+                                                      <StackPane onContextMenuRequested="#openCAContextMenu">
                                                          <children>
                                                             <StackPane fx:id="stackPaneCurrentCA" alignment="TOP_CENTER" StackPane.alignment="TOP_CENTER">
                                                                <children>

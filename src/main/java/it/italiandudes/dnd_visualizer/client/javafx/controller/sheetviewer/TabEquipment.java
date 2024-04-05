@@ -664,8 +664,8 @@ public final class TabEquipment {
         }.start();
     }
     public static void updateCA(@NotNull final ControllerSceneSheetViewer controller) {
-        int modDexterity = Integer.parseInt(controller.labelModDexterity.getText());
-        int fleshAC = modDexterity+10;
+        int caMods = TabCharacter.getCAMods(controller);
+        int fleshAC = caMods+10;
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
@@ -691,13 +691,13 @@ public final class TabEquipment {
                                     if (slot == ArmorSlot.FULL_SET.getDatabaseValue()) {
                                         fullSet = true;
                                         caArmor = result.getInt("ca");
-                                        if (weightCategory == ArmorWeightCategory.LIGHT) caArmor+= modDexterity;
-                                        else if (weightCategory == ArmorWeightCategory.MEDIUM) caArmor += Math.min(2, modDexterity);
+                                        if (weightCategory == ArmorWeightCategory.LIGHT) caArmor+= caMods;
+                                        else if (weightCategory == ArmorWeightCategory.MEDIUM) caArmor += Math.min(2, caMods);
                                         break;
                                     } else {
                                         caArmor += result.getInt("ca")-fleshAC;
-                                        if (weightCategory == ArmorWeightCategory.LIGHT) caArmor+= modDexterity;
-                                        else if (weightCategory == ArmorWeightCategory.MEDIUM) caArmor += Math.min(2, modDexterity);
+                                        if (weightCategory == ArmorWeightCategory.LIGHT) caArmor+= caMods;
+                                        else if (weightCategory == ArmorWeightCategory.MEDIUM) caArmor += Math.min(2, caMods);
                                     }
                                 }
                             }
