@@ -380,6 +380,7 @@ public final class TabAbility {
         updateStrengthAbilities(controller, mod, controller.spinnerProficiencyBonus.getValue());
         TabSpells.updateSpellModifiers(controller);
         TabInventory.updateLoad(controller);
+        TabEquipment.updateCA(controller);
     }
     public static void updateDexterity(@NotNull final ControllerSceneSheetViewer controller) {
         int value = controller.spinnerDexterity.getValue();
@@ -397,6 +398,7 @@ public final class TabAbility {
         controller.labelModConstitution.setText(String.valueOf(mod));
         toggleSTConstitutionProficiency(controller);
         TabSpells.updateSpellModifiers(controller);
+        TabEquipment.updateCA(controller);
     }
     public static void updateIntelligence(@NotNull final ControllerSceneSheetViewer controller) {
         int value = controller.spinnerIntelligence.getValue();
@@ -405,6 +407,7 @@ public final class TabAbility {
         toggleSTIntelligenceProficiency(controller);
         updateIntelligenceAbilities(controller, mod, controller.spinnerProficiencyBonus.getValue());
         TabSpells.updateSpellModifiers(controller);
+        TabEquipment.updateCA(controller);
     }
     public static void updateWisdom(@NotNull final ControllerSceneSheetViewer controller) {
         int value = controller.spinnerWisdom.getValue();
@@ -413,6 +416,7 @@ public final class TabAbility {
         toggleSTWisdomProficiency(controller);
         updateWisdomAbilities(controller, mod, controller.spinnerProficiencyBonus.getValue());
         TabSpells.updateSpellModifiers(controller);
+        TabEquipment.updateCA(controller);
     }
     public static void updateCharisma(@NotNull final ControllerSceneSheetViewer controller) {
         int value = controller.spinnerCharisma.getValue();
@@ -421,6 +425,7 @@ public final class TabAbility {
         toggleSTCharismaProficiency(controller);
         updateCharismaAbilities(controller, mod, controller.spinnerProficiencyBonus.getValue());
         TabSpells.updateSpellModifiers(controller);
+        TabEquipment.updateCA(controller);
     }
     public static void toggleSTStrengthProficiency(@NotNull final ControllerSceneSheetViewer controller) {
         int proficiencyBonus = controller.spinnerProficiencyBonus.getValue();
