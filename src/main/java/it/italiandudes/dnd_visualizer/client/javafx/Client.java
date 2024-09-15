@@ -46,7 +46,12 @@ public final class Client extends Application {
             Logger.log("JavaFX Window Close Event fired, exiting Java process...");
             System.exit(0);
         });
-        COLOR_THEME_BACKGROUND = (Color) ((Region) Client.getStage().getScene().lookup(".root")).getBackground().getFills().get(0).getFill();
+
+        if (SETTINGS.getBoolean(Defs.SettingsKeys.ENABLE_DARK_MODE)) {
+            COLOR_THEME_BACKGROUND = Color.web("#282828");
+        } else {
+            COLOR_THEME_BACKGROUND = Color.web("#ECECEC");
+        }
 
         // Notice into the logs that the application started Successfully
         Logger.log("Application started successfully!");
