@@ -37,7 +37,7 @@
             <ComboBox fx:id="comboBoxType" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Tipo Elemento" GridPane.rowIndex="1" />
             <ScrollPane fitToHeight="true" fitToWidth="true" GridPane.rowIndex="2">
                <content>
-                  <TextArea fx:id="textAreaContent" promptText="Contenuto">
+                  <TextArea fx:id="textAreaContent" promptText="Contenuto" wrapText="true">
                      <font>
                         <Font name="Lucida Sans Regular" size="16.0" />
                      </font>

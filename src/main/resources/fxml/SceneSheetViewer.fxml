@@ -594,7 +594,7 @@
                                                             <RowConstraints vgrow="NEVER" />
                                                          </rowConstraints>
                                                          <children>
-                                                            <TextArea fx:id="textAreaPersonalityTraits">
+                                                            <TextArea fx:id="textAreaPersonalityTraits" wrapText="true">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="12.0" />
                                                                </font>
@@ -604,7 +604,7 @@
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextArea fx:id="textAreaIdeals" GridPane.rowIndex="2">
+                                                            <TextArea fx:id="textAreaIdeals" wrapText="true" GridPane.rowIndex="2">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="12.0" />
                                                                </font>
@@ -614,7 +614,7 @@
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextArea fx:id="textAreaBonds" GridPane.columnIndex="1">
+                                                            <TextArea fx:id="textAreaBonds" wrapText="true" GridPane.columnIndex="1">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="12.0" />
                                                                </font>
@@ -624,7 +624,7 @@
                                                                   <Font name="Lucida Sans Regular" size="16.0" />
                                                                </font>
                                                             </Label>
-                                                            <TextArea fx:id="textAreaFlaws" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                            <TextArea fx:id="textAreaFlaws" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                                <font>
                                                                   <Font name="Lucida Sans Regular" size="12.0" />
                                                                </font>
@@ -1750,7 +1750,7 @@
                                                 <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                              </rowConstraints>
                                              <children>
-                                                <TextArea fx:id="textAreaFeaturesAndTraits">
+                                                <TextArea fx:id="textAreaFeaturesAndTraits" wrapText="true">
                                                    <font>
                                                       <Font name="Lucida Sans Regular" size="16.0" />
                                                    </font>
@@ -1784,7 +1784,7 @@
                                                     <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                   </rowConstraints>
                                                    <children>
-                                                      <TextArea fx:id="textAreaLanguages">
+                                                      <TextArea fx:id="textAreaLanguages" wrapText="true">
                                                          <font>
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
@@ -1808,7 +1808,7 @@
                                                       <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <TextArea fx:id="textAreaProficiencyWeapons">
+                                                      <TextArea fx:id="textAreaProficiencyWeapons" wrapText="true">
                                                          <font>
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
@@ -1832,7 +1832,7 @@
                                                       <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <TextArea fx:id="textAreaProficiencyArmors">
+                                                      <TextArea fx:id="textAreaProficiencyArmors" wrapText="true">
                                                          <font>
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
@@ -1856,7 +1856,7 @@
                                                       <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                    </rowConstraints>
                                                    <children>
-                                                      <TextArea fx:id="textAreaProficiencyTools">
+                                                      <TextArea fx:id="textAreaProficiencyTools" wrapText="true">
                                                          <font>
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
@@ -3828,7 +3828,7 @@
                                                     <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                   </rowConstraints>
                                                    <children>
-                                                      <TextArea fx:id="textAreaPhysicalDescription">
+                                                      <TextArea fx:id="textAreaPhysicalDescription" wrapText="true">
                                                          <font>
                                                             <Font name="Lucida Sans Demibold" size="16.0" />
                                                          </font>
@@ -3880,7 +3880,7 @@
                                               <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                             </rowConstraints>
                                              <children>
-                                                <TextArea fx:id="textAreaBackstory">
+                                                <TextArea fx:id="textAreaBackstory" wrapText="true">
                                                    <font>
                                                       <Font name="Lucida Sans Regular" size="16.0" />
                                                    </font>
@@ -3914,7 +3914,7 @@
                                                       <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                   </rowConstraints>
                                                    <children>
-                                                      <TextArea fx:id="textAreaCult">
+                                                      <TextArea fx:id="textAreaCult" wrapText="true">
                                                          <font>
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
@@ -3944,7 +3944,7 @@
                                                     <RowConstraints valignment="CENTER" vgrow="NEVER" />
                                                   </rowConstraints>
                                                    <children>
-                                                      <TextArea fx:id="textAreaAlliesAndOrganizations">
+                                                      <TextArea fx:id="textAreaAlliesAndOrganizations" wrapText="true">
                                                          <font>
                                                             <Font name="Lucida Sans Regular" size="16.0" />
                                                          </font>
