@@ -9,6 +9,7 @@ public enum Category {
     ITEM(0, "Oggetto"),
     EQUIPMENT(1, "Equipaggiamento"),
     SPELL(2, "Incantesimo");
+    // DND_BAGS(3, "Dotazione"); TODO: SHOW AFTER IMPLEMENTATION
 
     // Attributes
     @NotNull public static final ArrayList<Category> categories = new ArrayList<>();
