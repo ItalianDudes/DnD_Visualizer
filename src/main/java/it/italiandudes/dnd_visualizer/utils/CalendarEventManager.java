@@ -9,8 +9,13 @@ public final class CalendarEventManager {
 
     private static final Calendar CALENDAR = Calendar.getInstance();
 
-    // Check for Xmas
-    public static boolean isXmas() {
+    // Event Checkers
+    public static boolean isHalloweenEvent() {
+        int month = CALENDAR.get(Calendar.MONTH);
+        int day = CALENDAR.get(Calendar.DAY_OF_MONTH);
+        return month == Calendar.OCTOBER && day >= 25;
+    }
+    public static boolean isXmasEvent() {
         int month = CALENDAR.get(Calendar.MONTH);
         int day = CALENDAR.get(Calendar.DAY_OF_MONTH);
         return month == Calendar.DECEMBER || (month == Calendar.JANUARY && day <= 8);
@@ -18,8 +23,10 @@ public final class CalendarEventManager {
 
     // Logo Selector
     public static Image getEventLogo() {
-        if (isXmas()) {
+        if (isXmasEvent()) {
             return new Image(Defs.Resources.get(JFXDefs.Resources.Image.Logo.LOGO_XMAS).toString());
+        } else if (isHalloweenEvent()) {
+            return new Image(Defs.Resources.get(JFXDefs.Resources.Image.Logo.LOGO_HALLOWEEN).toString());
         } else {
             return new Image(Defs.Resources.get(JFXDefs.Resources.Image.Logo.LOGO_MAIN).toString());
         }

@@ -321,7 +321,7 @@ public final class ControllerSceneSheetViewer {
 
     // Decoration
     private void activateBackgroundDecoration() {
-        if (CalendarEventManager.isXmas()) {
+        if (CalendarEventManager.isXmasEvent()) {
             enableXmasTheme();
         }
     }

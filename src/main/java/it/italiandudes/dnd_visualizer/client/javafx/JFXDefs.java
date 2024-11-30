@@ -64,6 +64,7 @@ public final class JFXDefs {
             public static final class Logo {
                 private static final String LOGO_DIR = IMAGE_DIR + "logo/";
                 public static final String LOGO_MAIN = LOGO_DIR + "main.png";
+                public static final String LOGO_HALLOWEEN = LOGO_DIR + "halloween.png";
                 public static final String LOGO_XMAS = LOGO_DIR + "xmas.png";
             }
             public static final String IMAGE_FILE_EXPLORER = IMAGE_DIR+"file-explorer.png";
