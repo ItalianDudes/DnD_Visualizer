@@ -1,6 +1,6 @@
 package it.italiandudes.dnd_visualizer.client.javafx;
 
-import it.italiandudes.dnd_visualizer.utils.Defs;
+import it.italiandudes.dnd_visualizer.utils.CalendarEventManager;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.stage.Screen;
@@ -8,10 +8,10 @@ import javafx.stage.Screen;
 @SuppressWarnings("unused")
 public final class JFXDefs {
 
-    //App Info
+    // App Info
     public static final class AppInfo {
         public static final String NAME = "D&D Visualizer";
-        public static final Image LOGO = new Image(Defs.Resources.get(Resources.Image.IMAGE_LOGO).toString());
+        public static final Image LOGO = CalendarEventManager.getEventLogo();
     }
 
     // System Info
@@ -21,10 +21,10 @@ public final class JFXDefs {
         public static final double SCREEN_HEIGHT = SCREEN_RESOLUTION.getHeight();
     }
 
-    //Resource Locations
+    // Resource Locations
     public static final class Resources {
 
-        //FXML Location
+        // FXML Location
         public static final class FXML {
             private static final String FXML_DIR = "/fxml/";
             public static final String FXML_LOADING = FXML_DIR + "SceneLoading.fxml";
@@ -44,7 +44,7 @@ public final class JFXDefs {
             }
         }
 
-        //GIF Location
+        // GIF Location
         public static final class GIF {
             private static final String GIF_DIR = "/gif/";
             public static final String GIF_LOADING = GIF_DIR+"loading.gif";
@@ -58,10 +58,14 @@ public final class JFXDefs {
             public static final String CSS_DARK_THEME = CSS_DIR + "dark_theme.css";
         }
 
-        //Image Location
+        // Image Location
         public static final class Image {
             private static final String IMAGE_DIR = "/image/";
-            public static final String IMAGE_LOGO = IMAGE_DIR+"app-logo.png";
+            public static final class Logo {
+                private static final String LOGO_DIR = IMAGE_DIR + "logo/";
+                public static final String LOGO_MAIN = LOGO_DIR + "main.png";
+                public static final String LOGO_XMAS = LOGO_DIR + "xmas.png";
+            }
             public static final String IMAGE_FILE_EXPLORER = IMAGE_DIR+"file-explorer.png";
             public static final String IMAGE_PLAY = IMAGE_DIR + "play.png";
             public static final String IMAGE_STOP = IMAGE_DIR + "stop.png";

@@ -1,6 +1,7 @@
 package it.italiandudes.dnd_visualizer.client.javafx.controller;
 
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
+import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ConfirmationAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.alert.InformationAlert;
@@ -19,6 +20,7 @@ import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,10 +31,14 @@ import java.util.jar.Attributes;
 
 public final class ControllerSceneMainMenu {
 
-    //Initialize
+    //Graphic Elements
+    @FXML private ImageView imageViewLogo;
+
+    // Initialize
     @FXML
     private void initialize() {
         Client.getStage().setResizable(true);
+        imageViewLogo.setImage(JFXDefs.AppInfo.LOGO);
         DiscordRichPresenceManager.updateRichPresenceState(DiscordRichPresenceManager.States.MENU);
     }
 

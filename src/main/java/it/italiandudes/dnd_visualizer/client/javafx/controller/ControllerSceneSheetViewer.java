@@ -11,6 +11,7 @@ import it.italiandudes.dnd_visualizer.data.enums.*;
 import it.italiandudes.dnd_visualizer.data.item.Addon;
 import it.italiandudes.dnd_visualizer.data.item.Armor;
 import it.italiandudes.dnd_visualizer.data.item.Weapon;
+import it.italiandudes.dnd_visualizer.utils.CalendarEventManager;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
 import javafx.fxml.FXML;
@@ -23,8 +24,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Calendar;
 
 public final class ControllerSceneSheetViewer {
 
@@ -322,10 +321,7 @@ public final class ControllerSceneSheetViewer {
 
     // Decoration
     private void activateBackgroundDecoration() {
-        Calendar now = Calendar.getInstance();
-        int month = now.get(Calendar.MONTH);
-        int day = now.get(Calendar.DAY_OF_MONTH);
-        if (month == Calendar.DECEMBER || (month == Calendar.JANUARY && day <= 8)) {
+        if (CalendarEventManager.isXmas()) {
             enableXmasTheme();
         }
     }
