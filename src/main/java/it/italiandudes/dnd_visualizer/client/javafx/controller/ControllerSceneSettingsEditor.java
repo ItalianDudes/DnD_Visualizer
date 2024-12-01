@@ -128,7 +128,6 @@ public final class ControllerSceneSettingsEditor {
                             Logger.log(e);
                         }
                         ThemeHandler.setConfigTheme();
-                        Client.updateBackgroundThemeColor();
                         if (!toggleButtonEnableDiscordRichPresence.isSelected()) {
                             DiscordRichPresenceManager.shutdownRichPresence();
                         }

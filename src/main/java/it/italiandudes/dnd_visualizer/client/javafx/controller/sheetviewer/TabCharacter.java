@@ -14,13 +14,13 @@ import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.ContextMenuEvent;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -40,8 +40,6 @@ public final class TabCharacter {
     // Attributes
     private static final Image IMAGE_CA = new Image(Defs.Resources.getAsStream(Defs.Resources.Image.IMAGE_CA));
     private static final Image IMAGE_GOLDEN_CA = new Image(Defs.Resources.getAsStream(Defs.Resources.Image.IMAGE_GOLDEN_CA));
-    private static Rectangle hpRemoverRectangle;
-    private static Rectangle caRemoverRectangle;
     private static String characterImageExtension = null;
 
     // CA Influences
@@ -70,8 +68,6 @@ public final class TabCharacter {
     // Initialize
     public static void initialize(@NotNull final ControllerSceneSheetViewer controller) {
         controller.imageViewCharacterImage.setImage(JFXDefs.AppInfo.LOGO);
-        hpRemoverRectangle = new Rectangle(controller.imageViewCurrentHP.getFitWidth(), 0, Client.getBackgroundThemeColor());
-        caRemoverRectangle = new Rectangle(controller.imageViewCurrentCA.getFitWidth(), 0, Client.getBackgroundThemeColor());
         controller.spinnerLevel.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 1, 1));
         controller.spinnerProficiencyBonus.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 6, 2, 1));
         controller.spinnerInspiration.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0, 1));
@@ -375,13 +371,18 @@ public final class TabCharacter {
         caMenu.show(Client.getStage(), event.getScreenX(), event.getScreenY());
     }
     public static void updateCASymbol(@NotNull final ControllerSceneSheetViewer controller, int CA) {
-        double newCAPercentage = controller.imageViewCurrentCA.getFitHeight() - (controller.imageViewCurrentCA.getFitHeight() * CA / Defs.MAX_CA);
-        if (newCAPercentage<0) newCAPercentage = 0;
-        if (CA >= Defs.MAX_CA) controller.imageViewCurrentCA.setImage(TabCharacter.IMAGE_GOLDEN_CA);
-        else controller.imageViewCurrentCA.setImage(TabCharacter.IMAGE_CA);
-        caRemoverRectangle.setHeight(newCAPercentage);
-        controller.stackPaneCurrentCA.getChildren().remove(caRemoverRectangle);
-        controller.stackPaneCurrentCA.getChildren().add(caRemoverRectangle);
+        if (CA >= Defs.MAX_CA) {
+            controller.imageViewCurrentCA.setImage(TabCharacter.IMAGE_GOLDEN_CA);
+        } else {
+            controller.imageViewCurrentCA.setImage(TabCharacter.IMAGE_CA);
+            double viewportHeight = Math.min(CA * controller.imageViewCurrentCA.getFitHeight() / Defs.MAX_CA, controller.imageViewCurrentCA.getFitHeight());
+            if (viewportHeight > 0) {
+                controller.imageViewCurrentCA.setVisible(true);
+                controller.imageViewCurrentCA.setViewport(new Rectangle2D(0, controller.imageViewCurrentCA.getFitHeight() - viewportHeight, controller.imageViewCurrentCA.getFitWidth(), viewportHeight));
+            } else {
+                controller.imageViewCurrentCA.setVisible(false);
+            }
+        }
         controller.labelCA.setText(String.valueOf(CA));
     }
     public static void recalculateHealthPercentage(@NotNull final ControllerSceneSheetViewer controller) {
@@ -415,13 +416,18 @@ public final class TabCharacter {
             new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "I punti ferita temporanei devono essere un numero maggiore o uguale a 0.");
             return;
         }
-        int hpPercentage = (int) (((currentHP + tempHP) / maxHP) * 100.0);
-        double newHealthPercentage = (controller.imageViewCurrentHP.getFitHeight()-25) - (controller.imageViewCurrentHP.getFitHeight() * (currentHP + tempHP) / maxHP);
-        if (newHealthPercentage<0) newHealthPercentage = 0;
-        hpRemoverRectangle.setHeight(newHealthPercentage);
-        controller.stackPaneCurrentHP.getChildren().remove(hpRemoverRectangle);
-        controller.stackPaneCurrentHP.getChildren().add(hpRemoverRectangle);
+
+        double calculatedCurrentHP = currentHP + tempHP;
+        int hpPercentage = (int) (calculatedCurrentHP / maxHP * 100);
         controller.labelHPLeftPercentage.setText(hpPercentage > 500?">500%":hpPercentage+"%");
+        calculatedCurrentHP = Math.min(calculatedCurrentHP, maxHP);
+        double viewPortHeight = Math.min(calculatedCurrentHP * controller.imageViewCurrentHP.getFitHeight() / maxHP, controller.imageViewCurrentHP.getFitHeight());
+        if (viewPortHeight > 0) {
+            controller.imageViewCurrentHP.setVisible(true);
+            controller.imageViewCurrentHP.setViewport(new Rectangle2D(0, controller.imageViewCurrentHP.getFitHeight() - viewPortHeight, controller.imageViewCurrentHP.getFitWidth(), viewPortHeight));
+        } else {
+            controller.imageViewCurrentHP.setVisible(false);
+        }
         oldValueCalculatedMaxHP = controller.textFieldCalculatedMaxHP.getText();
         oldValueCurrentHP = controller.textFieldCurrentHP.getText();
         oldValueTempHP = controller.textFieldTempHP.getText();

@@ -8,8 +8,6 @@ import it.italiandudes.idl.common.Logger;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.input.Clipboard;
-import javafx.scene.layout.Region;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -28,7 +26,6 @@ public final class Client extends Application {
     private static Clipboard SYSTEM_CLIPBOARD = null;
     private static Stage stage = null;
     private static JSONObject SETTINGS = null;
-    private static Color COLOR_THEME_BACKGROUND = null;
 
     // JavaFX Application Main
     @Override
@@ -46,12 +43,6 @@ public final class Client extends Application {
             Logger.log("JavaFX Window Close Event fired, exiting Java process...");
             System.exit(0);
         });
-
-        if (SETTINGS.getBoolean(Defs.SettingsKeys.ENABLE_DARK_MODE)) {
-            COLOR_THEME_BACKGROUND = Color.web("#282828");
-        } else {
-            COLOR_THEME_BACKGROUND = Color.web("#ECECEC");
-        }
 
         // Notice into the logs that the application started Successfully
         Logger.log("Application started successfully!");
@@ -158,13 +149,6 @@ public final class Client extends Application {
     @NotNull
     public static JSONObject getSettings() {
         return SETTINGS;
-    }
-    @NotNull
-    public static Color getBackgroundThemeColor() {
-        return COLOR_THEME_BACKGROUND;
-    }
-    public static void updateBackgroundThemeColor() {
-        COLOR_THEME_BACKGROUND = (Color) ((Region) Client.getStage().getScene().lookup(".root")).getBackground().getFills().get(0).getFill();
     }
 
 }

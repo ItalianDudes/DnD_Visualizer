@@ -227,16 +227,16 @@
                                                    <children>
                                                       <StackPane onContextMenuRequested="#openCAContextMenu">
                                                          <children>
-                                                            <StackPane fx:id="stackPaneCurrentCA" alignment="TOP_CENTER" StackPane.alignment="TOP_CENTER">
+                                                            <StackPane alignment="TOP_CENTER" StackPane.alignment="TOP_CENTER">
                                                                <children>
-                                                                  <ImageView fx:id="imageViewCurrentCA" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_CENTER">
+                                                                  <ImageView fx:id="imageViewCurrentCA" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
                                                                      <image>
                                                                         <Image url="@../image/sheet/character/ac_full.png" />
                                                                      </image>
                                                                   </ImageView>
                                                                </children>
                                                             </StackPane>
-                                                            <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_CENTER">
+                                                            <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
                                                                <image>
                                                                   <Image url="@../image/sheet/character/ac.png" />
                                                                </image>
@@ -275,16 +275,16 @@
                                                          <children>
                                                             <StackPane>
                                                                <children>
-                                                                  <StackPane fx:id="stackPaneCurrentHP" alignment="TOP_CENTER" StackPane.alignment="TOP_CENTER">
+                                                                  <StackPane alignment="TOP_CENTER" StackPane.alignment="TOP_CENTER">
                                                                      <children>
-                                                                        <ImageView fx:id="imageViewCurrentHP" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_CENTER">
+                                                                        <ImageView fx:id="imageViewCurrentHP" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
                                                                            <image>
                                                                               <Image url="@../image/sheet/character/health_full.png" />
                                                                            </image>
                                                                         </ImageView>
                                                                      </children>
                                                                   </StackPane>
-                                                                  <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_CENTER">
+                                                                  <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="BOTTOM_CENTER">
                                                                      <image>
                                                                         <Image url="@../image/sheet/character/health.png" />
                                                                      </image>

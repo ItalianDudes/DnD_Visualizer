@@ -22,7 +22,6 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.NotNull;
 
 public final class ControllerSceneSheetViewer {
@@ -42,10 +41,8 @@ public final class ControllerSceneSheetViewer {
     @FXML public ImageView imageViewCharacterImage;
     @FXML public Label labelCA;
     @FXML public ImageView imageViewCurrentHP;
-    @FXML public StackPane stackPaneCurrentHP;
     @FXML public Label labelHPLeftPercentage;
     @FXML public ImageView imageViewCurrentCA;
-    @FXML public StackPane stackPaneCurrentCA;
     @FXML public TextField textFieldCalculatedMaxHP;
     @FXML public TextField textFieldMaxHP;
     @FXML public TextField textFieldCurrentHP;
