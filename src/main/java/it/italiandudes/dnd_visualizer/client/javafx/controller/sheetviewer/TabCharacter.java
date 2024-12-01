@@ -372,7 +372,7 @@ public final class TabCharacter {
 
         caMenu.getItems().addAll(strengthItem, dexterityItem, constitutionItem, intelligenceItem, wisdomItem, charismaItem);
         caMenu.setAutoHide(true);
-        caMenu.show(Client.getStage(), event.getSceneX(), event.getSceneY());
+        caMenu.show(Client.getStage(), event.getScreenX(), event.getScreenY());
     }
     public static void updateCASymbol(@NotNull final ControllerSceneSheetViewer controller, int CA) {
         double newCAPercentage = controller.imageViewCurrentCA.getFitHeight() - (controller.imageViewCurrentCA.getFitHeight() * CA / Defs.MAX_CA);
