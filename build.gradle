@@ -4,7 +4,7 @@ plugins {
 }
 
 // Versioning
-def versionNumber = '1.3.5.1'
+def versionNumber = '1.3.5.1' // Bag Update: 1.3.6
 def versionType = 'RELEASE' // RELEASE | BETA | ALPHA
 def versionMarker = versionType.charAt(0)
 
