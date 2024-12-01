@@ -5,6 +5,7 @@ client_settings.json
 !**/src/main/**/build/
 !**/src/test/**/build/
 logs/
+notes/
 .idea/
 
 ### IntelliJ IDEA ###
