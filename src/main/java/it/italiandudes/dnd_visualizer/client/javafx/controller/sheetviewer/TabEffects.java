@@ -13,6 +13,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
@@ -42,6 +43,7 @@ public final class TabEffects {
         controller.tableColumnEffectIsCurable.setCellValueFactory(new PropertyValueFactory<>("isCurable"));
         controller.tableColumnEffectIsLethal.setCellValueFactory(new PropertyValueFactory<>("isLethal"));
         controller.tableColumnEffectIsActive.setCellValueFactory(new PropertyValueFactory<>("isActive"));
+        controller.tableViewEffects.setPlaceholder(new Label("Non ci sono effetti salvati."));
         searchEffect(controller);
     }
 

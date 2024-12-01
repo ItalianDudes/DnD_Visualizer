@@ -2649,10 +2649,6 @@
                                                                   <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
                                                                   <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
                                                                   <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
-                                                                  <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
-                                                                  <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
-                                                                  <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
-                                                                  <ColumnConstraints halignment="CENTER" hgrow="NEVER" />
                                                                </columnConstraints>
                                                                <rowConstraints>
                                                                   <RowConstraints valignment="CENTER" vgrow="NEVER" />
@@ -2663,19 +2659,7 @@
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
                                                                   </TextField>
-                                                                  <ComboBox fx:id="comboBoxCategory" maxHeight="1.7976931348623157E308" onAction="#search" promptText="Categoria" GridPane.columnIndex="1" />
-                                                                  <ComboBox fx:id="comboBoxEquipmentType" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#search" promptText="Tipo Equipaggiamento" GridPane.columnIndex="2" />
-                                                                  <CheckBox fx:id="checkBoxShowOwned" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#search" text="Mostra Posseduti" GridPane.columnIndex="3">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Demibold" size="16.0" />
-                                                                     </font>
-                                                                  </CheckBox>
-                                                                  <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#resetSearchBarAndCategory" text="RESET" GridPane.columnIndex="4">
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Demibold" size="16.0" />
-                                                                     </font>
-                                                                  </Button>
-                                                                  <Button mnemonicParsing="false" onAction="#search" GridPane.columnIndex="5">
+                                                                  <Button mnemonicParsing="false" onAction="#search" GridPane.columnIndex="1">
                                                                      <graphic>
                                                                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                                                            <image>
@@ -2687,47 +2671,18 @@
                                                                         <Font name="Lucida Sans Regular" size="16.0" />
                                                                      </font>
                                                                   </Button>
-                                                                  <Button mnemonicParsing="false" onAction="#deleteElement" GridPane.columnIndex="6">
-                                                                     <graphic>
-                                                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                                                           <image>
-                                                                              <Image url="@../image/delete.png" />
-                                                                           </image>
-                                                                        </ImageView>
-                                                                     </graphic>
+                                                                  <ComboBox fx:id="comboBoxCategory" maxHeight="1.7976931348623157E308" onAction="#search" promptText="Categoria" GridPane.columnIndex="2" />
+                                                                  <ComboBox fx:id="comboBoxEquipmentType" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#search" promptText="Tipo Equipaggiamento" GridPane.columnIndex="3" />
+                                                                  <CheckBox fx:id="checkBoxShowOwned" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#search" text="Mostra Posseduti" GridPane.columnIndex="4">
                                                                      <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
+                                                                        <Font name="Lucida Sans Demibold" size="16.0" />
                                                                      </font>
-                                                                  </Button>
-                                                                  <Button mnemonicParsing="false" onAction="#editElement" GridPane.columnIndex="7">
-                                                                     <graphic>
-                                                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                                                           <image>
-                                                                              <Image url="@../image/edit.png" />
-                                                                           </image>
-                                                                        </ImageView>
-                                                                     </graphic>
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </Button>
-                                                                  <Button mnemonicParsing="false" onAction="#addElement" GridPane.columnIndex="8">
-                                                                     <graphic>
-                                                                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                                                           <image>
-                                                                              <Image url="@../image/new.png" />
-                                                                           </image>
-                                                                        </ImageView>
-                                                                     </graphic>
-                                                                     <font>
-                                                                        <Font name="Lucida Sans Regular" size="16.0" />
-                                                                     </font>
-                                                                  </Button>
+                                                                  </CheckBox>
                                                                </children>
                                                             </GridPane>
                                                          </children>
                                                       </GridPane>
-                                                      <TableView fx:id="tableViewInventory" onKeyPressed="#inventoryDetectEnterOnRow" onMouseClicked="#inventoryDoubleClickEdit" style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.rowIndex="1">
+                                                      <TableView fx:id="tableViewInventory" onContextMenuRequested="#openInventoryContextMenu" onKeyPressed="#inventoryDetectEnterOnRow" onMouseClicked="#inventoryDoubleClickEdit" style="-fx-border-color: black; -fx-border-radius: 4px; -fx-border-width: 2px;" GridPane.rowIndex="1">
                                                         <columns>
                                                           <TableColumn fx:id="tableColumnInventoryID" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="#ID" />
                                                           <TableColumn fx:id="tableColumnInventoryName" maxWidth="1.7976931348623157E308" minWidth="500.0" prefWidth="-1.0" text="Nome" />

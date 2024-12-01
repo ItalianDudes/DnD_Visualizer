@@ -5,10 +5,14 @@ import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.data.item.Item;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public final class DnDBags {
 
     // Bag List
-    public  static final DnDBag DUNGEONEER_BAG = new DnDBag("Dotazione da Avventuriero", 0, true,
+    public  static final DnDBag DUNGEONEER_BAG = new DnDBag("Dotazione da Avventuriero", true,
             configureBagItem("Piede di Porco", 200, 2.5, 1),
             configureBagItem("Martello", 100, 1.5, 1),
             configureBagItem("Chiodo da Rocciatore", 5, 0.125, 10),
@@ -18,7 +22,7 @@ public final class DnDBags {
             configureBagItem("Otre", 20, 0.5, 1),
             configureBagItem("Corda di Canapa (15m)", 100, 5, 1)
     );
-    public static final DnDBag DIPLOMAT_BAG = new DnDBag("Dotazione da Diplomatico", 0, true,
+    public static final DnDBag DIPLOMAT_BAG = new DnDBag("Dotazione da Diplomatico", true,
             configureBagItem("Custodia per Mappe o Pergamene", 100, 0.5, 2),
             configureBagItem("Abito Pregiato", 1500, 3, 1),
             configureBagItem("Inchiostro (boccetta da 30 grammi)", 1000, 0, 1),
@@ -30,7 +34,7 @@ public final class DnDBags {
             configureBagItem("Cera per Sigillo", 50, 0, 1),
             configureBagItem("Sapone", 2, 0, 1)
     );
-    public static final DnDBag EXPLORER_BAG = new DnDBag("Dotazione da Esploratore", 0, true,
+    public static final DnDBag EXPLORER_BAG = new DnDBag("Dotazione da Esploratore", true,
             configureBagItem("Giaciglio", 100, 3.5, 1),
             configureBagItem("Gavetta", 20, 0.5, 1),
             configureBagItem("Acciarino e Pietra Focaia", 50, 0.5, 1),
@@ -39,7 +43,7 @@ public final class DnDBags {
             configureBagItem("Otre", 20, 0.5, 1),
             configureBagItem("Corda di Canapa (15m)", 100, 5, 1)
     );
-    public static final DnDBag ENTERTAINER_BAG = new DnDBag("Dotazione da Intrattenitore", 0, true,
+    public static final DnDBag ENTERTAINER_BAG = new DnDBag("Dotazione da Intrattenitore", true,
             configureBagItem("Giaciglio", 100, 3.5, 1),
             configureBagItem("Costume", 500, 2, 2),
             configureBagItem("Candela", 1, 0, 5),
@@ -47,7 +51,7 @@ public final class DnDBags {
             configureBagItem("Otre", 20, 0.5, 1),
             configureBagItem("Trucchi per il Camuffamento", 2500, 1.5, 1)
     );
-    public static final DnDBag PRIEST_BAG = new DnDBag("Dotazione da Sacerdote", 0, true,
+    public static final DnDBag PRIEST_BAG = new DnDBag("Dotazione da Sacerdote", true,
             configureBagItem("Coperta", 50, 1.5, 1),
             configureBagItem("Candela", 1, 0, 10),
             configureBagItem("Acciarino e Pietra Focaia", 50, 0.5, 1),
@@ -58,7 +62,7 @@ public final class DnDBags {
             configureBagItem("Razione Giornaliera", 50, 1, 2),
             configureBagItem("Otre", 20, 0.5, 1)
     );
-    public static final DnDBag BURGLAR_BAG = new DnDBag("Dotazione da Scassinatore", 0, true,
+    public static final DnDBag BURGLAR_BAG = new DnDBag("Dotazione da Scassinatore", true,
             configureBagItem("Sfere Metalliche (sacchetto da 1000)", 100, 1, 1),
             configureBagItem("Spago (3m)", 10, 0.1, 1),
             configureBagItem("Campanella", 100, 0, 1),
@@ -73,7 +77,7 @@ public final class DnDBags {
             configureBagItem("Otre", 20, 0.5, 1),
             configureBagItem("Corda di Canapa (15m)", 100, 5, 1)
     );
-    public static final DnDBag SCHOLAR_BAG = new DnDBag("Dotazione da Studioso", 0, true,
+    public static final DnDBag SCHOLAR_BAG = new DnDBag("Dotazione da Studioso", true,
             configureBagItem("Libro", 2500, 2.5, 1),
             configureBagItem("Inchiostro (boccetta da 30 grammi)", 1000, 0, 1),
             configureBagItem("Pennino", 2, 0, 1),
@@ -81,6 +85,9 @@ public final class DnDBags {
             configureBagItem("Sacchetto di Sabbia", 5, 0.25, 1),
             configureBagItem("Coltellino", 25, 0.6, 1)
     );
+
+    // Bag ArrayList
+    public static final List<DnDBag> BAGS = new ArrayList<>(Arrays.asList(DUNGEONEER_BAG, DIPLOMAT_BAG, EXPLORER_BAG, ENTERTAINER_BAG, PRIEST_BAG, BURGLAR_BAG, SCHOLAR_BAG));
 
     // Methods
     private static Item configureBagItem(@NotNull final String name, final int mr, final double weight, final int quantity) {

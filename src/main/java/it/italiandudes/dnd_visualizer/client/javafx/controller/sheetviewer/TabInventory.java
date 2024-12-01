@@ -11,6 +11,8 @@ import it.italiandudes.dnd_visualizer.client.javafx.util.LoadCategory;
 import it.italiandudes.dnd_visualizer.client.javafx.util.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.client.javafx.util.UIElementConfigurator;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
+import it.italiandudes.dnd_visualizer.data.bags.DnDBag;
+import it.italiandudes.dnd_visualizer.data.bags.DnDBags;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
@@ -22,15 +24,16 @@ import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.scene.Scene;
-import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -91,6 +94,8 @@ public final class TabInventory {
         controller.tableColumnInventoryWeight.setCellValueFactory(new PropertyValueFactory<>("weight"));
         controller.tableColumnInventoryCostMR.setCellValueFactory(new PropertyValueFactory<>("costCopper"));
         controller.tableColumnInventoryQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        controller.tableViewInventory.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        controller.tableViewInventory.setPlaceholder(new Label("L'inventario e' vuoto."));
         controller.comboBoxCategory.setItems(FXCollections.observableList(Category.categories));
         controller.comboBoxEquipmentType.setItems(FXCollections.observableList(EquipmentType.types));
         readTabData(controller);
@@ -152,6 +157,9 @@ public final class TabInventory {
         });
         controller.spinnerMP.focusedProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue) validateMP(controller);
+        });
+        controller.tableViewInventory.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) controller.tableViewInventory.getSelectionModel().clearSelection();
         });
     }
 
@@ -392,94 +400,8 @@ public final class TabInventory {
         controller.comboBoxEquipmentType.setDisable(true);
         search(controller);
     }
-    public static void deleteElement(@NotNull final ControllerSceneSheetViewer controller) {
-        ElementPreview element = controller.tableViewInventory.getSelectionModel().getSelectedItem();
-        if (element == null) return;
-        new Service<Void>() {
-            @Override
-            protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override
-                    protected Void call() {
-                        try {
-                            PreparedStatement ps = DBManager.preparedStatement("DELETE FROM items WHERE id=?;");
-                            if (ps == null) throw new SQLException("The database connection doesn't exist");
-                            ps.setInt(1, element.getId());
-                            ps.executeUpdate();
-                            ps.close();
-                            Platform.runLater(() -> {
-                                search(controller);
-                                TabSpells.updateListViews(controller);
-                                TabEquipment.reloadEquipment(controller);
-                            });
-                        } catch (SQLException e) {
-                            Logger.log(e);
-                            Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Rimozione", "Si e' verificato un errore durante la rimozione dell'elemento."));
-                        }
-                        return null;
-                    }
-                };
-            }
-        }.start();
-    }
-    public static Scene selectEquipmentScene(@NotNull final ControllerSceneSheetViewer controller, @Nullable final ElementPreview element) {
-        EquipmentType equipmentType;
-        if (element != null) {
-            try {
-                equipmentType = new Equipment(element.getName()).getType();
-            } catch (SQLException e) {
-                new ErrorAlert("ERRORE", "ERRORE COL DATABASE", "Si e' verificato un errore durante l'interrogazione del database.");
-                return null;
-            }
-        } else {
-            equipmentType = controller.comboBoxEquipmentType.getSelectionModel().getSelectedItem();
-            if (equipmentType == null) {
-                new ErrorAlert("ERRORE", "ERRORE DI INSERIMENTO", "Per aggiungere dell'equipaggiamento devi prima selezionare il tipo.");
-                return null;
-            }
-        }
-        switch (equipmentType) {
-            case ARMOR:
-                return SceneInventoryArmor.getScene();
-            case WEAPON:
-                return SceneInventoryWeapon.getScene();
-            case ADDON:
-                return SceneInventoryAddon.getScene();
-            default: // Invalid
-                new ErrorAlert("ERRORE", "ERRORE NEL DATABASE", "L'elemento selezionato non possiede una categoria equipaggiamento valida.");
-                return null;
-        }
-    }
-    public static void editElement(@NotNull final ControllerSceneSheetViewer controller) {
-        ElementPreview element = controller.tableViewInventory.getSelectionModel().getSelectedItem();
-        if (element == null) return;
-        elementName = element.getName();
-        Scene scene;
-        switch (element.getCategory()) {
-            case ITEM:
-                scene = SceneInventoryItem.getScene();
-                break;
 
-            case EQUIPMENT:
-                scene = selectEquipmentScene(controller, element);
-                if (scene == null) return;
-                break;
-
-            case SPELL:
-                scene = SceneInventorySpell.getScene();
-                break;
-
-            default: // Invalid
-                new ErrorAlert("ERRORE", "ERRORE NEL DATABASE", "L'elemento selezionato non possiede una categoria valida o non e' stata ancora implementata nell'applicazione.");
-                return;
-        }
-        Stage popupStage = Client.initPopupStage(scene);
-        popupStage.showAndWait();
-        elementName = null;
-        search(controller);
-        TabSpells.updateListViews(controller);
-        TabEquipment.reloadEquipment(controller);
-    }
+    // Importers & Exporters
     public static void importElementFromFile(@NotNull final ControllerSceneSheetViewer controller) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Importazione di un Elemento");
@@ -651,38 +573,6 @@ public final class TabInventory {
                 };
             }
         }.start();
-    }
-    public static void addElement(@NotNull final ControllerSceneSheetViewer controller) {
-        elementName = null;
-        Scene scene;
-        if (controller.comboBoxCategory.getSelectionModel().isEmpty()) {
-            new ErrorAlert("ERRORE", "ERRORE DI PROCEDURA", "Per aggiungere un elemento e' necessario prima selezionare una categoria.");
-            return;
-        }
-        Category category = controller.comboBoxCategory.getSelectionModel().getSelectedItem();
-        switch (category) {
-            case ITEM:
-                scene = SceneInventoryItem.getScene();
-                break;
-
-            case EQUIPMENT:
-                scene = selectEquipmentScene(controller, null);
-                if (scene == null) return;
-                break;
-
-            case SPELL:
-                scene = SceneInventorySpell.getScene();
-                break;
-
-            default: // Invalid
-                new ErrorAlert("ERRORE", "ERRORE NEL DATABASE", "L'elemento selezionato non possiede una categoria valida o non e' stata ancora implementata nell'applicazione.");
-                return;
-        }
-        Stage popupStage = Client.initPopupStage(scene);
-        popupStage.showAndWait();
-        search(controller);
-        TabSpells.updateListViews(controller);
-        TabEquipment.reloadEquipment(controller);
     }
     public static void importInventory(@NotNull final ControllerSceneSheetViewer controller) {
         FileChooser fileChooser = new FileChooser();
@@ -899,5 +789,228 @@ public final class TabInventory {
                 }
             }.start();
         }
+    }
+
+    // Edit & Remove EDT
+    public static void editElement(@NotNull final ControllerSceneSheetViewer controller) {
+        ElementPreview element = controller.tableViewInventory.getSelectionModel().getSelectedItem();
+        if (element != null) editElement(controller, element);
+    }
+    private static void editElement(@NotNull final ControllerSceneSheetViewer controller, @NotNull final ElementPreview element) {
+        elementName = element.getName();
+        Scene scene;
+        switch (element.getCategory()) {
+            case ITEM:
+                scene = SceneInventoryItem.getScene();
+                break;
+
+            case EQUIPMENT:
+                try {
+                    EquipmentType equipmentType = new Equipment(element.getName()).getType();
+                    switch (equipmentType) {
+                        case ARMOR:
+                            scene = SceneInventoryArmor.getScene();
+                            break;
+
+                        case WEAPON:
+                            scene = SceneInventoryWeapon.getScene();
+                            break;
+
+                        case ADDON:
+                            scene = SceneInventoryAddon.getScene();
+                            break;
+
+                        default: // Invalid
+                            new ErrorAlert("ERRORE", "ERRORE NEL DATABASE", "L'elemento selezionato non possiede una categoria equipaggiamento valida.");
+                            return;
+                    }
+                } catch (SQLException ex) {
+                    new ErrorAlert("ERRORE", "ERRORE COL DATABASE", "Si e' verificato un errore durante l'interrogazione del database.");
+                    return;
+                }
+                break;
+
+            case SPELL:
+                scene = SceneInventorySpell.getScene();
+                break;
+
+            default: // Invalid
+                new ErrorAlert("ERRORE", "ERRORE NEL DATABASE", "L'elemento selezionato non possiede una categoria valida o non e' stata ancora implementata nell'applicazione.");
+                return;
+        }
+        Stage popupStage = Client.initPopupStage(scene);
+        popupStage.showAndWait();
+        elementName = null;
+        search(controller);
+        TabSpells.updateListViews(controller);
+        TabEquipment.reloadEquipment(controller);
+    }
+    private static void deleteElement(@NotNull final ControllerSceneSheetViewer controller, @NotNull final ObservableList<ElementPreview> elementList) {
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        for (ElementPreview element : elementList) {
+                            try {
+                                PreparedStatement ps = DBManager.preparedStatement("DELETE FROM items WHERE id=?;");
+                                if (ps == null) throw new SQLException("The database connection doesn't exist");
+                                ps.setInt(1, element.getId());
+                                ps.executeUpdate();
+                                ps.close();
+                                Platform.runLater(() -> {
+                                    search(controller);
+                                    TabSpells.updateListViews(controller);
+                                    TabEquipment.reloadEquipment(controller);
+                                });
+                            } catch (SQLException e) {
+                                Logger.log(e);
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Rimozione", "Si e' verificato un errore durante la rimozione dell'elemento: \"" + element.getName() + "\""));
+                                return null;
+                            }
+                        }
+
+                        return null;
+                    }
+                };
+            }
+        }.start();
+    }
+
+
+    // Context Menu EDT
+    public static void openInventoryContextMenu(@NotNull final ControllerSceneSheetViewer controller, @NotNull final ContextMenuEvent event) {
+        ContextMenu menu = new ContextMenu();
+        Menu addMenu = getContextAddMenu(controller);
+        menu.getItems().add(addMenu);
+
+        ObservableList<ElementPreview> elementList = controller.tableViewInventory.getSelectionModel().getSelectedItems();
+        if (!elementList.isEmpty()) {
+            if (elementList.size() == 1) {
+                MenuItem editSelected = new MenuItem("Modifica Elemento");
+                editSelected.setOnAction((e) -> editElement(controller, elementList.get(0)));
+                menu.getItems().add(editSelected);
+            }
+            MenuItem deleteSelected = new MenuItem("Elimina Elemento");
+            deleteSelected.setOnAction((e) -> deleteElement(controller, elementList));
+            menu.getItems().add(deleteSelected);
+        }
+
+        MenuItem resetFilters = new MenuItem("Reimposta Filtri");
+        resetFilters.setOnAction((e) -> resetSearchBarAndCategory(controller));
+        menu.getItems().add(resetFilters);
+
+        menu.setAutoHide(true);
+        menu.show(Client.getStage(), event.getScreenX(), event.getScreenY());
+    }
+    private static Menu getContextAddMenu(@NotNull final ControllerSceneSheetViewer controller) {
+        Menu addMenu = new Menu("Aggiungi");
+        MenuItem addItem = new MenuItem("Oggetto");
+        addItem.setOnAction((e) -> {
+            Stage popupStage = Client.initPopupStage(SceneInventoryItem.getScene());
+            popupStage.showAndWait();
+            search(controller);
+            TabSpells.updateListViews(controller);
+            TabEquipment.reloadEquipment(controller);
+        });
+        Menu equipmentMenu = getContextAddEquipmentMenu(controller);
+        MenuItem addSpell = new MenuItem("Incantesimo");
+        addSpell.setOnAction((e) -> {
+            Stage popupStage = Client.initPopupStage(SceneInventorySpell.getScene());
+            popupStage.showAndWait();
+            search(controller);
+            TabSpells.updateListViews(controller);
+            TabEquipment.reloadEquipment(controller);
+        });
+        Menu bagMenu = getContextAddBagMenu(controller);
+        addMenu.getItems().addAll(addItem, equipmentMenu, addSpell, bagMenu);
+        return addMenu;
+    }
+    private static Menu getContextAddEquipmentMenu(@NotNull final ControllerSceneSheetViewer controller) {
+        Menu equipmentMenu = new Menu("Equipaggiamento");
+        MenuItem addArmor = new MenuItem("Armatura");
+        addArmor.setOnAction((e) -> {
+            Stage popupStage = Client.initPopupStage(SceneInventoryArmor.getScene());
+            popupStage.showAndWait();
+            search(controller);
+            TabSpells.updateListViews(controller);
+            TabEquipment.reloadEquipment(controller);
+        });
+        MenuItem addWeapon = new MenuItem("Arma");
+        addWeapon.setOnAction((e) -> {
+            Stage popupStage = Client.initPopupStage(SceneInventoryWeapon.getScene());
+            popupStage.showAndWait();
+            search(controller);
+            TabSpells.updateListViews(controller);
+            TabEquipment.reloadEquipment(controller);
+        });
+        MenuItem addAddon = new MenuItem("Addon");
+        addAddon.setOnAction((e) -> {
+            Stage popupStage = Client.initPopupStage(SceneInventoryAddon.getScene());
+            popupStage.showAndWait();
+            search(controller);
+            TabSpells.updateListViews(controller);
+            TabEquipment.reloadEquipment(controller);
+        });
+        equipmentMenu.getItems().addAll(addArmor, addWeapon, addAddon);
+        return equipmentMenu;
+    }
+    private static Menu getContextAddBagMenu(@NotNull final ControllerSceneSheetViewer controller) {
+        Menu bagMenu = new Menu("Dotazione");
+        for (DnDBag bag : DnDBags.BAGS) {
+            MenuItem item = new MenuItem(bag.getName());
+            item.setOnAction((e) -> addBagContentToInventory(controller, bag));
+            bagMenu.getItems().add(item);
+        }
+        return bagMenu;
+    }
+    private static void addBagContentToInventory(@NotNull final ControllerSceneSheetViewer controller, @NotNull final DnDBag bag) {
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        if (bag.isIncludeBag()) {
+                            try {
+                                if (Addon.checkIfExist(DnDBag.BAG.getName())) {
+                                    Item bagItem = new Addon(DnDBag.BAG.getName());
+                                    bagItem.setQuantity(bagItem.getQuantity() + 1);
+                                    bagItem.saveIntoDatabase(bagItem.getName());
+                                } else {
+                                    DnDBag.BAG.saveIntoDatabase(null);
+                                }
+                            } catch (SQLException e) {
+                                Logger.log(e);
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Database", "Si e' verificato un errore durante l'interrogazione del database."));
+                                return null;
+                            }
+                        }
+                        for (Item bagItem : bag.getItems()) {
+                            try {
+                                if (Item.checkIfExist(bagItem.getName())) {
+                                    Item invItem = new Item(bagItem.getName());
+                                    invItem.setQuantity(invItem.getQuantity() + bagItem.getQuantity());
+                                    invItem.saveIntoDatabase(invItem.getName());
+                                } else {
+                                    bagItem.saveIntoDatabase(null);
+                                }
+                            } catch (SQLException e) {
+                                Logger.log(e);
+                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Ricerca", "Si e' verificato un errore durante la ricerca dell'elemento: \"" + bagItem.getName() + "\""));
+                                return null;
+                            }
+                        }
+                        Platform.runLater(() -> {
+                            search(controller);
+                            TabSpells.updateListViews(controller);
+                            TabEquipment.reloadEquipment(controller);
+                        });
+                        return null;
+                    }
+                };
+            }
+        }.start();
     }
 }

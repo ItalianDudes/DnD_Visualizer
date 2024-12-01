@@ -12,6 +12,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
@@ -37,6 +38,7 @@ public final class TabNotes {
         controller.tableColumnNotesTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
         controller.tableColumnNotesCreationDate.setCellValueFactory(new PropertyValueFactory<>("formattedCreationDate"));
         controller.tableColumnNotesLastEdit.setCellValueFactory(new PropertyValueFactory<>("formattedLastEdit"));
+        controller.tableViewNotes.setPlaceholder(new Label("Non ci sono note salvate."));
         updateNotes(controller);
     }
 

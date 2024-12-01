@@ -403,17 +403,8 @@ public final class ControllerSceneSheetViewer {
     @FXML private void search() {
         TabInventory.search(this);
     }
-    @FXML private void resetSearchBarAndCategory() {
-        TabInventory.resetSearchBarAndCategory(this);
-    }
-    @FXML private void deleteElement() {
-        TabInventory.deleteElement(this);
-    }
-    @FXML private void editElement() {
-        TabInventory.editElement(this);
-    }
-    @FXML private void addElement() {
-        TabInventory.addElement(this);
+    @FXML private void openInventoryContextMenu(@NotNull final ContextMenuEvent event) {
+        TabInventory.openInventoryContextMenu(this, event);
     }
     @FXML private void addNote() {
         TabNotes.addNote(this);
