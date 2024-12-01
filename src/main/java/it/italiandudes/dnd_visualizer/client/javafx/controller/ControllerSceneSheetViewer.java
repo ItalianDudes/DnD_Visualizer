@@ -415,12 +415,6 @@ public final class ControllerSceneSheetViewer {
     @FXML private void editNote() {
         TabNotes.editNote(this);
     }
-    @FXML private void equipmentToggleFullSet() {
-        TabEquipment.equipmentToggleFullSet(this);
-    }
-    @FXML private void updateEquipmentProperties() {
-        TabEquipment.updateEquipmentProperties(this);
-    }
     @FXML private void importElementFromElementCode() {
         TabInventory.importElementFromElementCode(this);
     }
