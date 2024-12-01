@@ -50,130 +50,162 @@ public final class TabEquipment {
         controller.comboBoxEquipmentHead.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentNecklace.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentFullSet.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.equipmentToggleFullSet(controller);
         }));
         controller.comboBoxEquipmentLeftShoulder.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentLeftArm.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentLeftForearm.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentLeftHand.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentMantle.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentBack.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentLeftLeg.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentLeftKnee.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentLeftFoot.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentLeftEarring.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentLeftBracelet.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentRing1.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentRing2.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentRightShoulder.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentRightArm.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentRightForearm.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentRightHand.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentChest.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentAbdomen.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentRightLeg.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentRightKnee.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentRightFoot.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ARMOR_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentRightEarring.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentRightBracelet.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentRing3.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentRing4.getSelectionModel().selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         }));
         controller.comboBoxEquipmentBackpack.getSelectionModel().selectedItemProperty().addListener((((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         })));
         controller.comboBoxEquipmentBelt.getSelectionModel().selectedItemProperty().addListener((((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         })));
         controller.comboBoxEquipmentBandolier.getSelectionModel().selectedItemProperty().addListener((((observable, oldValue, newValue) -> {
             if (oldValue!=null) oldValue.setEquipped(false);
             if (newValue!=null && !newValue.equals(ADDON_EMPTY)) newValue.setEquipped(true);
+            TabEquipment.updateEquipmentProperties(controller);
         })));
     }
 
@@ -944,6 +976,7 @@ public final class TabEquipment {
             }
         }.start();
     }
+
     public static void updateEquipmentProperties(@NotNull final ControllerSceneSheetViewer controller) {
         TabInventory.updateLoad(controller);
         updateCA(controller);
