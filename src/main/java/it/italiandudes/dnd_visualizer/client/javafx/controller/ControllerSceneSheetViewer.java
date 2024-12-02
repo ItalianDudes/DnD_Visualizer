@@ -2,7 +2,9 @@ package it.italiandudes.dnd_visualizer.client.javafx.controller;
 
 import it.italiandudes.dnd_visualizer.client.javafx.Client;
 import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
+import it.italiandudes.dnd_visualizer.client.javafx.alert.YesNoAlert;
 import it.italiandudes.dnd_visualizer.client.javafx.controller.sheetviewer.*;
+import it.italiandudes.dnd_visualizer.client.javafx.scene.tutorial.SceneTutorial;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
 import it.italiandudes.dnd_visualizer.data.Note;
 import it.italiandudes.dnd_visualizer.data.PrivilegeOrTrait;
@@ -22,6 +24,7 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
 public final class ControllerSceneSheetViewer {
@@ -314,6 +317,16 @@ public final class ControllerSceneSheetViewer {
             activateBackgroundDecoration();
             imageViewSheetBackground.setVisible(true);
         }
+        if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_TUTORIAL)) return;
+        if (!ControllerSceneMainMenu.isLastOperationNewSheet()) return;
+        boolean result = new YesNoAlert("TUTORIAL", "Configurazione Guidata", "E' possibile eseguire la configurazione guidata della scheda.\nSe questa e' la tua prima esperienza con Dungeon and Dragons o con questa applicazione, e' consigliabile eseguire la configurazione guidata.\nQuesto messaggio verra' mostrato alla creazione di ogni nuova scheda.\nE' possibile disattivare questo messaggio dalle impostazioni dell'applicazione.\nVuoi eseguire la configurazione guidata?").result;
+        if (result) activateTutorialMode(this);
+    }
+
+    // Methods
+    private void activateTutorialMode(@NotNull final ControllerSceneSheetViewer controller) {
+        Stage tutorialStage = Client.initPopupStage(SceneTutorial.getScene(controller));
+        tutorialStage.showAndWait();
     }
 
     // Decoration

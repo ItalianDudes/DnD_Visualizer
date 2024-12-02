@@ -35,6 +35,7 @@ public final class Defs {
         public static final String COINS_INCREASE_LOAD = "coinsIncreaseLoad";
         public static final String ENABLE_DISCORD_RICH_PRESENCE = "enableDiscordRichPresence";
         public static final String ENABLE_EVENT_THEME = "enableEventTheme";
+        public static final String ENABLE_TUTORIAL = "enableTutorial";
     }
 
     // Resources Location

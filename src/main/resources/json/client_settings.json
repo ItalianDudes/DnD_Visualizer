@@ -4,5 +4,6 @@
   "enablePassiveLoad": true,
   "coinsIncreaseLoad": true,
   "enableDiscordRichPresence": true,
-  "enableEventTheme": true
+  "enableEventTheme": true,
+  "enableTutorial": true
 }

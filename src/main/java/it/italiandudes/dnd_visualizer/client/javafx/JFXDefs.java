@@ -42,6 +42,12 @@ public final class JFXDefs {
                 public static final String FXML_INVENTORY_WEAPON = FXML_INVENTORY_DIR + "SceneInventoryWeapon.fxml";
                 public static final String FXML_INVENTORY_ADDON = FXML_INVENTORY_DIR + "SceneInventoryAddon.fxml";
             }
+            public static final class Tutorial {
+                private static final String FXML_TUTORIAL_DIR = FXML_DIR + "tutorial/";
+                public static final String FXML_TUTORIAL = FXML_TUTORIAL_DIR + "SceneTutorial.fxml";
+                public static final String FXML_TUTORIAL_PAGE1 = FXML_TUTORIAL_DIR + "SceneTutorialPage1.fxml";
+                public static final String FXML_TUTORIAL_PAGE2 = FXML_TUTORIAL_DIR + "SceneTutorialPage2.fxml";
+            }
         }
 
         // GIF Location

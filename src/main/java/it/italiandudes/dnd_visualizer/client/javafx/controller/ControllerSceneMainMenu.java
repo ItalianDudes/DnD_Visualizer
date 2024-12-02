@@ -31,12 +31,21 @@ import java.util.jar.Attributes;
 
 public final class ControllerSceneMainMenu {
 
+    // Attributes
+    private static boolean lastOperationNewSheet = false;
+
+    // Methods
+    public static boolean isLastOperationNewSheet() {
+        return lastOperationNewSheet;
+    }
+
     //Graphic Elements
     @FXML private ImageView imageViewLogo;
 
     // Initialize
     @FXML
     private void initialize() {
+        lastOperationNewSheet = false;
         Client.getStage().setResizable(true);
         imageViewLogo.setImage(JFXDefs.AppInfo.LOGO);
         DiscordRichPresenceManager.updateRichPresenceState(DiscordRichPresenceManager.States.MENU);
@@ -176,6 +185,7 @@ public final class ControllerSceneMainMenu {
                             return null;
                         }
 
+                        lastOperationNewSheet = true;
                         Platform.runLater(() -> Client.getStage().setScene(SceneSheetViewer.getScene()));
                         return null;
                     }

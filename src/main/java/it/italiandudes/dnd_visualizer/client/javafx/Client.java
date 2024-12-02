@@ -1,5 +1,6 @@
 package it.italiandudes.dnd_visualizer.client.javafx;
 
+import it.italiandudes.dnd_visualizer.client.javafx.components.SceneController;
 import it.italiandudes.dnd_visualizer.client.javafx.scene.SceneMainMenu;
 import it.italiandudes.dnd_visualizer.client.javafx.util.ThemeHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
@@ -119,6 +120,12 @@ public final class Client extends Application {
             SETTINGS.remove(Defs.SettingsKeys.ENABLE_EVENT_THEME);
             SETTINGS.put(Defs.SettingsKeys.ENABLE_EVENT_THEME, true);
         }
+        try {
+            SETTINGS.getBoolean(Defs.SettingsKeys.ENABLE_TUTORIAL);
+        } catch (JSONException e) {
+            SETTINGS.remove(Defs.SettingsKeys.ENABLE_TUTORIAL);
+            SETTINGS.put(Defs.SettingsKeys.ENABLE_TUTORIAL, true);
+        }
         writeJSONSettings();
     }
     public static void writeJSONSettings() throws IOException {
@@ -144,6 +151,16 @@ public final class Client extends Application {
         popupStage.initOwner(getStage());
         popupStage.initModality(Modality.WINDOW_MODAL);
         popupStage.setScene(scene);
+        return popupStage;
+    }
+    @NotNull
+    public static Stage initPopupStage(@NotNull final SceneController sceneController) {
+        Stage popupStage = new Stage();
+        popupStage.getIcons().add(JFXDefs.AppInfo.LOGO);
+        popupStage.setTitle(JFXDefs.AppInfo.NAME);
+        popupStage.initOwner(stage);
+        popupStage.initModality(Modality.WINDOW_MODAL);
+        popupStage.setScene(new Scene(sceneController.getParent()));
         return popupStage;
     }
     @NotNull
