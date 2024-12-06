@@ -198,20 +198,6 @@ public final class ControllerSceneCampaignMap {
 
     }
 
-    // Map Container Corners
-    private @NotNull Point2D getMapTopLeftCorner() {
-        return new Point2D(0, 0);
-    }
-    private @NotNull Point2D getMapTopRightCorner() {
-        return new Point2D(imageViewMap.getFitWidth(), 0);
-    }
-    private @NotNull Point2D getMapBottomLeftCorner() {
-        return new Point2D(0, imageViewMap.getFitHeight());
-    }
-    private @NotNull Point2D getMapBottomRightCorner() {
-        return new Point2D(imageViewMap.getFitWidth(), imageViewMap.getFitHeight());
-    }
-
     // Waypoint Creator
     @FXML private void contextMenu(@NotNull final ContextMenuEvent event) {
         ContextMenu menu = new ContextMenu();
@@ -241,39 +227,7 @@ public final class ControllerSceneCampaignMap {
             scaledHeight = anchorPaneWaypointContainer.getHeight();
         });
 
-        MenuItem topLeft = new MenuItem("POINT: TOP LEFT");
-        topLeft.setOnAction(e -> {
-            Point2D p = getMapTopLeftCorner();
-            System.out.println(p);
-            Circle c = new Circle(p.getX(), p.getY(), 5, Color.BLUE);
-            anchorPaneWaypointContainer.getChildren().addAll(c);
-        });
-
-        MenuItem topRight = new MenuItem("POINT: TOP RIGHT");
-        topRight.setOnAction(e -> {
-            Point2D p = getMapTopRightCorner();
-            System.out.println(p);
-            Circle c = new Circle(p.getX(), p.getY(), 5, Color.BLUE);
-            anchorPaneWaypointContainer.getChildren().addAll(c);
-        });
-
-        MenuItem bottomLeft = new MenuItem("POINT: BOTTOM LEFT");
-        bottomLeft.setOnAction(e -> {
-            Point2D p = getMapBottomLeftCorner();
-            System.out.println(p);
-            Circle c = new Circle(p.getX(), p.getY(), 5, Color.BLUE);
-            anchorPaneWaypointContainer.getChildren().addAll(c);
-        });
-
-        MenuItem bottomRight = new MenuItem("POINT: BOTTOM RIGHT");
-        bottomRight.setOnAction(e -> {
-            Point2D p = getMapBottomRightCorner();
-            System.out.println(p);
-            Circle c = new Circle(p.getX(), p.getY(), 5, Color.BLUE);
-            anchorPaneWaypointContainer.getChildren().addAll(c);
-        });
-
-        menu.getItems().addAll(add, reset, topLeft, topRight, bottomLeft, bottomRight);
+        menu.getItems().addAll(add, reset);
         menu.show(Client.getStage(), event.getScreenX(), event.getScreenY());
     }
 
