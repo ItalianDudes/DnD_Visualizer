@@ -237,7 +237,7 @@ public class Item implements ISavable, ISerializable {
     public JSONObject exportElementJSON() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(SERIALIZER_ID, SerializerType.ITEM.ordinal());
-        jsonObject.put(DB_VERSION, Defs.DB_VERSION);
+        jsonObject.put(DB_VERSION, Defs.SHEET_DB_VERSION);
         jsonObject.put("base64image", base64image);
         jsonObject.put("imageExtension", imageExtension);
         jsonObject.put("name", name);

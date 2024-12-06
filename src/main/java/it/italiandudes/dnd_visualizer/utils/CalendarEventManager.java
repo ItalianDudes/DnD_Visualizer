@@ -1,6 +1,6 @@
 package it.italiandudes.dnd_visualizer.utils;
 
-import it.italiandudes.dnd_visualizer.client.javafx.JFXDefs;
+import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import javafx.scene.image.Image;
 
 import java.util.Calendar;

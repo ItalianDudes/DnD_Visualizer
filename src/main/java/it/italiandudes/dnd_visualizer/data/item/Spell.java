@@ -146,7 +146,7 @@ public final class Spell extends Item implements ISavable {
     public JSONObject exportElementJSON() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(SERIALIZER_ID, SerializerType.SPELL.ordinal());
-        jsonObject.put(DB_VERSION, Defs.DB_VERSION);
+        jsonObject.put(DB_VERSION, Defs.SHEET_DB_VERSION);
         jsonObject.put("base64image", getBase64image());
         jsonObject.put("imageExtension", getImageExtension());
         jsonObject.put("name", getName());

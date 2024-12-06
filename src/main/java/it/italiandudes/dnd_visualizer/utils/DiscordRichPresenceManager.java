@@ -3,7 +3,7 @@ package it.italiandudes.dnd_visualizer.utils;
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
-import it.italiandudes.dnd_visualizer.client.javafx.Client;
+import it.italiandudes.dnd_visualizer.javafx.Client;
 import org.jetbrains.annotations.Nullable;
 
 public final class DiscordRichPresenceManager {

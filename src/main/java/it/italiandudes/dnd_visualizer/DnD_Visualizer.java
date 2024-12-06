@@ -1,6 +1,6 @@
 package it.italiandudes.dnd_visualizer;
 
-import it.italiandudes.dnd_visualizer.client.javafx.Client;
+import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
 import it.italiandudes.idl.common.InfoFlags;

@@ -8,7 +8,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@../../css/dark_theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.client.javafx.controller.tutorial.ControllerSceneTutorial1">
+<ScrollPane fitToHeight="true" fitToWidth="true" stylesheets="@../../css/dark_theme.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.javafx.controller.tutorial.ControllerSceneTutorialPage1">
    <content>
       <GridPane vgap="10.0">
          <columnConstraints>

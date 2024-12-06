@@ -1,6 +1,6 @@
 package it.italiandudes.dnd_visualizer.db;
 
-import it.italiandudes.dnd_visualizer.client.javafx.util.SheetDataHandler;
+import it.italiandudes.dnd_visualizer.javafx.util.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import org.jetbrains.annotations.NotNull;
 
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.Scanner;
 
-@SuppressWarnings({"unused", "SqlDialectInspection"})
+@SuppressWarnings({"unused", "SqlDialectInspection", "DuplicatedCode", "SqlNoDataSourceInspection"})
 public final class DBManager {
 
     // Attributes
@@ -49,8 +49,54 @@ public final class DBManager {
     }
 
     // DB Creator
+    private static void executeCommonSQL() throws SQLException {
+        Scanner reader = new Scanner(Defs.Resources.getAsStream(Defs.Resources.SQL.SQL_COMMON), "UTF-8");
+        String query;
+        String buffer;
+        StringBuilder queryReader = new StringBuilder();
+
+        while (reader.hasNext()) {
+            buffer = reader.nextLine();
+            queryReader.append(buffer);
+            if (buffer.endsWith(";")) {
+                query = queryReader.toString();
+                PreparedStatement ps = dbConnection.prepareStatement(query);
+                ps.execute();
+                ps.close();
+                queryReader = new StringBuilder();
+            } else {
+                queryReader.append('\n');
+            }
+        }
+        reader.close();
+    }
+    public static void createCampaign(@NotNull final String DB_PATH) throws SQLException {
+        setConnection(DB_PATH);
+        executeCommonSQL();
+        Scanner reader = new Scanner(Defs.Resources.getAsStream(Defs.Resources.SQL.SQL_CAMPAIGN), "UTF-8");
+        StringBuilder queryReader = new StringBuilder();
+        String query;
+        String buffer;
+
+        while (reader.hasNext()) {
+            buffer = reader.nextLine();
+            queryReader.append(buffer);
+            if (buffer.endsWith(";")) {
+                query = queryReader.toString();
+                PreparedStatement ps = dbConnection.prepareStatement(query);
+                ps.execute();
+                ps.close();
+                queryReader = new StringBuilder();
+            } else {
+                queryReader.append('\n');
+            }
+        }
+        reader.close();
+        SheetDataHandler.writeKeyParameter(Defs.KeyParameters.DB_VERSION, Defs.CAMPAIGN_DB_VERSION);
+    }
     public static void createSheet(@NotNull final String DB_PATH) throws SQLException {
         setConnection(DB_PATH);
+        executeCommonSQL();
         Scanner reader = new Scanner(Defs.Resources.getAsStream(Defs.Resources.SQL.SQL_SHEET), "UTF-8");
         StringBuilder queryReader = new StringBuilder();
         String query;
@@ -70,7 +116,7 @@ public final class DBManager {
             }
         }
         reader.close();
-        SheetDataHandler.writeKeyParameter(Defs.KeyParameters.DB_VERSION, Defs.DB_VERSION);
+        SheetDataHandler.writeKeyParameter(Defs.KeyParameters.DB_VERSION, Defs.SHEET_DB_VERSION);
     }
 
 }

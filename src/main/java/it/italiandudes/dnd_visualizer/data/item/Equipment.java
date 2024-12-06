@@ -1,6 +1,6 @@
 package it.italiandudes.dnd_visualizer.data.item;
 
-import it.italiandudes.dnd_visualizer.client.javafx.alert.ErrorAlert;
+import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
 import it.italiandudes.dnd_visualizer.db.DBManager;
@@ -255,16 +255,13 @@ public class Equipment extends Item implements ISavable {
     @Override
     public int hashCode() {
         int result = super.hashCode();
-        long temp;
         result = 31 * result + (getEquipmentID() != null ? getEquipmentID().hashCode() : 0);
         result = 31 * result + getType().hashCode();
         result = 31 * result + getLifeEffect();
-        temp = Double.doubleToLongBits(getLifePercentageEffect());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + Double.hashCode(getLifePercentageEffect());
         result = 31 * result + getCaEffect();
         result = 31 * result + getLoadEffect();
-        temp = Double.doubleToLongBits(getLoadPercentageEffect());
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + Double.hashCode(getLoadPercentageEffect());
         result = 31 * result + (getOtherEffects() != null ? getOtherEffects().hashCode() : 0);
         result = 31 * result + (isEquipped() ? 1 : 0);
         return result;

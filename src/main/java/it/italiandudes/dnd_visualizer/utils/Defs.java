@@ -15,7 +15,8 @@ public final class Defs {
     public static final String APP_FILE_NAME = "DnD_Visualizer";
 
     // DB Version
-    public static final String DB_VERSION = "1.4";
+    public static final String SHEET_DB_VERSION = "1.4";
+    public static final String CAMPAIGN_DB_VERSION = "0.0";
 
     // Jar App Position
     public static final String JAR_POSITION;
@@ -52,6 +53,9 @@ public final class Defs {
         // Sheet Extension
         public static final String SHEET_EXTENSION = "dnd5e.sheet";
 
+        // Campaign Extension
+        public static final String CAMPAIGN_EXTENSION = "dnd5e.campaign";
+
         // Inventory Extension
         public static final String INVENTORY_EXTENSION = "dnd5e.inventory";
 
@@ -77,10 +81,44 @@ public final class Defs {
             public static final String IMAGE_NO_WUMPUS = IMAGE_DIR + "no_wumpus.png";
         }
 
+        // SVG
+        public static final class SVG {
+            private static final String SVG_DIR = "/svg/";
+            public static final class Elements {
+                private static final String ELEMENTS_DIR = SVG_DIR + "elements/";
+                public static final String ELEMENT_ADDON = ELEMENTS_DIR + "addon.svg";
+                public static final String ELEMENT_ARMOR = ELEMENTS_DIR + "armor.svg";
+                public static final String ELEMENT_ITEM = ELEMENTS_DIR + "item.svg";
+                public static final String ELEMENT_SPELL = ELEMENTS_DIR + "spell.svg";
+                public static final String ELEMENT_WEAPON = ELEMENTS_DIR + "weapon.svg";
+            }
+            public static final class Entities {
+                private static final String ENTITIES_DIR = SVG_DIR + "entities/";
+                public static final String ENTITY_PLAYER = ENTITIES_DIR + "player.svg";
+                public static final String ENTITY_NPC = ENTITIES_DIR + "npc.svg";
+                public static final String ENTITY_ENEMY = ENTITIES_DIR + "enemy.svg";
+                public static final String ENTITY_STRONG_ENEMY = ENTITIES_DIR + "strong_enemy.svg";
+                public static final String ENTITY_BOSS = ENTITIES_DIR + "boss.svg";
+            }
+            public static final class Objectives {
+                private static final String OBJECTIVES_DIR = SVG_DIR + "objectives/";
+                public static final String OBJECTIVE_MISSION = OBJECTIVES_DIR + "mission.svg";
+                public static final String OBJECTIVE_TIME_MISSION = OBJECTIVES_DIR + "time_mission.svg";
+            }
+            public static final class PointsOfInterest {
+                private static final String POI_DIR = SVG_DIR + "points_of_interest/";
+                public static final String POI_MARKET = POI_DIR + "market.svg";
+                public static final String POI_TAVERN = POI_DIR + "tavern.svg";
+                public static final String POI_OFFICE = POI_DIR + "office.svg";
+            }
+        }
+
         // SQL
         public static final class SQL {
             private static final String SQL_DIR = "/sql/";
+            public static final String SQL_COMMON = SQL_DIR + "common.sql";
             public static final String SQL_SHEET = SQL_DIR + "sheet.sql";
+            public static final String SQL_CAMPAIGN = SQL_DIR + "campaign.sql";
             public static String[] SUPPORTED_IMAGE_EXTENSIONS = {"png", "jpg", "jpeg"};
         }
     }
