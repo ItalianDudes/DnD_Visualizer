@@ -1,11 +1,10 @@
 package it.italiandudes.dnd_visualizer.javafx.controller;
 
-import it.italiandudes.dnd_visualizer.javafx.Client;
+import it.italiandudes.dnd_visualizer.data.PrivilegeOrTrait;
+import it.italiandudes.dnd_visualizer.data.enums.PrivilegeType;
 import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.alert.InformationAlert;
 import it.italiandudes.dnd_visualizer.javafx.controller.sheetviewer.TabPrivilegesAndTraits;
-import it.italiandudes.dnd_visualizer.data.PrivilegeOrTrait;
-import it.italiandudes.dnd_visualizer.data.enums.PrivilegeType;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -30,7 +29,6 @@ public final class ControllerScenePrivilegeOrTrait {
     // Initialize
     @FXML
     private void initialize() {
-        Client.getStage().setResizable(true);
         comboBoxType.setItems(FXCollections.observableList(PrivilegeType.privilege_types));
         String privilegeName = TabPrivilegesAndTraits.getPrivilegeName();
         if (privilegeName != null) initExistingPrivilegeOrTrait(privilegeName);

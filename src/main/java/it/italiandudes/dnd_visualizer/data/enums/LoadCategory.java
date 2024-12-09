@@ -1,4 +1,4 @@
-package it.italiandudes.dnd_visualizer.javafx.util;
+package it.italiandudes.dnd_visualizer.data.enums;
 
 import org.jetbrains.annotations.NotNull;
 

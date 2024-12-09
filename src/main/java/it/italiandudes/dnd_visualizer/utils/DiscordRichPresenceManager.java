@@ -3,7 +3,7 @@ package it.italiandudes.dnd_visualizer.utils;
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
-import it.italiandudes.dnd_visualizer.javafx.Client;
+import it.italiandudes.dnd_visualizer.javafx.utils.Settings;
 import org.jetbrains.annotations.Nullable;
 
 public final class DiscordRichPresenceManager {
@@ -25,7 +25,7 @@ public final class DiscordRichPresenceManager {
     // Rich Presence Initializer
     private static void initializeRichPresence() {
         try {
-            if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
+            if (!Settings.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
         } catch (Throwable e) {
             return;
         }
@@ -48,7 +48,7 @@ public final class DiscordRichPresenceManager {
     }
     public static void updateRichPresenceState(@Nullable final String state) {
         try {
-            if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
+            if (!Settings.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
         } catch (Throwable e) {
             return;
         }
@@ -58,7 +58,7 @@ public final class DiscordRichPresenceManager {
     }
     public static void updateRichPresenceDetails() {
         try {
-            if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
+            if (!Settings.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
         } catch (Throwable e) {
             return;
         }
@@ -73,7 +73,7 @@ public final class DiscordRichPresenceManager {
     }
     public static void setCharacterName(@Nullable final String characterName) {
         try {
-            if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
+            if (!Settings.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
         } catch (Throwable e) {
             return;
         }
@@ -82,7 +82,7 @@ public final class DiscordRichPresenceManager {
     }
     public static void setLevel(@Nullable final String level) {
         try {
-            if (!Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
+            if (!Settings.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE)) return;
         } catch (Throwable e) {
             return;
         }

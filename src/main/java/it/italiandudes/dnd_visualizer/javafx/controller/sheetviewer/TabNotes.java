@@ -1,12 +1,12 @@
 package it.italiandudes.dnd_visualizer.javafx.controller.sheetviewer;
 
+import it.italiandudes.dnd_visualizer.data.Note;
+import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.controller.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.javafx.scene.SceneMainMenu;
 import it.italiandudes.dnd_visualizer.javafx.scene.SceneNote;
-import it.italiandudes.dnd_visualizer.data.Note;
-import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -55,7 +55,7 @@ public final class TabNotes {
                         if (ps == null) {
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Connessione al Database", "Non e' stato possibile consultare il database");
-                                Client.getStage().setScene(SceneMainMenu.getScene());
+                                Client.setScene(SceneMainMenu.getScene());
                             });
                             return null;
                         }

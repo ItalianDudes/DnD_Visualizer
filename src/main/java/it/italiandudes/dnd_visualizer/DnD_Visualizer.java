@@ -1,18 +1,14 @@
 package it.italiandudes.dnd_visualizer;
 
-import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.db.DBManager;
+import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
 import it.italiandudes.idl.common.InfoFlags;
 import it.italiandudes.idl.common.Logger;
 
 import java.io.IOException;
-import java.util.Random;
 
 public final class DnD_Visualizer {
-
-    // Attributes
-    public static final Random RANDOMIZER = new Random();
 
     // Main Method
     public static void main(String[] args) {

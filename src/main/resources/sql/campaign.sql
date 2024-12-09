@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS maps (
     map_extension VARCHAR(5) CHECK (map_extension = 'png' OR map_extension = 'jpg' OR map_extension = 'jpeg')
 );
 
--- TABLE: Entities (unique condition with type PLAYER and same names)
+-- TABLE: Entities
 CREATE TABLE IF NOT EXISTS entities (
     id INTEGER NOT NULL PRIMARY KEY,
     map_id INTEGER NOT NULL REFERENCES maps(id),
@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS entities (
     player_visibility INTEGER NOT NULL DEFAULT 0
 );
 
+-- TABLE: Player Entities
 CREATE TABLE IF NOT EXISTS player_entities (
     id INTEGER NOT NULL PRIMARY KEY,
     map_id INTEGER NOT NULL REFERENCES maps(id),
@@ -45,7 +46,7 @@ CREATE TABLE IF NOT EXISTS player_entities (
     center_y REAL NOT NULL,
     ca INTEGER NOT NULL CHECK (ca > 0),
     hp INTEGER NOT NULL DEFAULT 0,
-    player_owner_id INTEGER NOT NULL REFERENCES registered_users(id)
+    player_owner_id INTEGER REFERENCES registered_users(id)
 );
 
 -- TABLE: Waypoints

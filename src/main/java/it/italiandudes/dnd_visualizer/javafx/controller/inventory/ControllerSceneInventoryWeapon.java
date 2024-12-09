@@ -1,17 +1,17 @@
 package it.italiandudes.dnd_visualizer.javafx.controller.inventory;
 
+import it.italiandudes.dnd_visualizer.data.enums.Category;
+import it.italiandudes.dnd_visualizer.data.enums.Rarity;
+import it.italiandudes.dnd_visualizer.data.item.Item;
+import it.italiandudes.dnd_visualizer.data.item.Weapon;
 import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.javafx.alert.ConfirmationAlert;
 import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.alert.InformationAlert;
 import it.italiandudes.dnd_visualizer.javafx.controller.sheetviewer.TabInventory;
-import it.italiandudes.dnd_visualizer.javafx.util.SheetDataHandler;
-import it.italiandudes.dnd_visualizer.javafx.util.UIElementConfigurator;
-import it.italiandudes.dnd_visualizer.data.enums.Category;
-import it.italiandudes.dnd_visualizer.data.enums.Rarity;
-import it.italiandudes.dnd_visualizer.data.item.Item;
-import it.italiandudes.dnd_visualizer.data.item.Weapon;
+import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
+import it.italiandudes.dnd_visualizer.javafx.utils.UIElementConfigurator;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.ImageHandler;
 import it.italiandudes.idl.common.Logger;
@@ -81,7 +81,6 @@ public final class ControllerSceneInventoryWeapon {
     private void initialize() {
         setOnChangeTriggers();
         onLostFocusFireActionEvent();
-        Client.getStage().setResizable(true);
         imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
         comboBoxRarity.setItems(FXCollections.observableList(Rarity.colorNames));
         comboBoxRarity.getSelectionModel().selectFirst();

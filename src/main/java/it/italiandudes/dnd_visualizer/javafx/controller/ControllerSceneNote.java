@@ -1,10 +1,9 @@
 package it.italiandudes.dnd_visualizer.javafx.controller;
 
-import it.italiandudes.dnd_visualizer.javafx.Client;
+import it.italiandudes.dnd_visualizer.data.Note;
 import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.alert.InformationAlert;
 import it.italiandudes.dnd_visualizer.javafx.controller.sheetviewer.TabNotes;
-import it.italiandudes.dnd_visualizer.data.Note;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
@@ -31,7 +30,6 @@ public final class ControllerSceneNote {
     // Initialize
     @FXML
     private void initialize() {
-        Client.getStage().setResizable(true);
         String noteTitle = TabNotes.getNoteTitle();
         if (noteTitle != null) initExistingNote(noteTitle);
     }

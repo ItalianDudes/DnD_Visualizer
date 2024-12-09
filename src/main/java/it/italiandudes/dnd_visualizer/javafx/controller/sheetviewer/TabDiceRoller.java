@@ -1,11 +1,11 @@
 package it.italiandudes.dnd_visualizer.javafx.controller.sheetviewer;
 
-import it.italiandudes.dnd_visualizer.DnD_Visualizer;
+import it.italiandudes.dnd_visualizer.data.enums.DiceRepresentation;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.javafx.controller.ControllerSceneSheetViewer;
-import it.italiandudes.dnd_visualizer.javafx.util.UIElementConfigurator;
-import it.italiandudes.dnd_visualizer.data.enums.DiceRepresentation;
+import it.italiandudes.dnd_visualizer.javafx.utils.UIElementConfigurator;
 import it.italiandudes.dnd_visualizer.utils.Defs;
+import it.italiandudes.dnd_visualizer.utils.Randomizer;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -51,7 +51,7 @@ public final class TabDiceRoller {
         controller.comboBoxDiceFaces.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             switch (newValue) {
                 case COIN:
-                    if (DnD_Visualizer.RANDOMIZER.nextBoolean()) {
+                    if (Randomizer.getRandomizer().nextBoolean()) {
                         Platform.runLater(() -> controller.imageViewDice.setImage(HEAD));
                     } else {
                         Platform.runLater(() -> controller.imageViewDice.setImage(TAIL));
@@ -120,7 +120,7 @@ public final class TabDiceRoller {
                             for (int i = 0; i < amount; i++) {
                                 for (int j = 0; j < 5; j++) {
                                     if (!diceRolling) return null;
-                                    result = DnD_Visualizer.RANDOMIZER.nextInt(diceRepresentation.getFaces()) + 1;
+                                    result = Randomizer.getRandomizer().nextInt(diceRepresentation.getFaces()) + 1;
                                     int finalResult = result;
                                     if (DiceRepresentation.COIN.getFaces() != diceRepresentation.getFaces()) Platform.runLater(() -> controller.labelDiceValue.setText(String.valueOf(finalResult)));
                                     else Platform.runLater(() -> controller.imageViewDice.setImage(finalResult == 1 ? HEAD : TAIL));

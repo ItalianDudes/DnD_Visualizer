@@ -1,19 +1,19 @@
 package it.italiandudes.dnd_visualizer.javafx.controller.sheetviewer;
 
-import it.italiandudes.dnd_visualizer.javafx.Client;
-import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
-import it.italiandudes.dnd_visualizer.javafx.controller.ControllerSceneSheetViewer;
-import it.italiandudes.dnd_visualizer.javafx.scene.SceneMainMenu;
-import it.italiandudes.dnd_visualizer.javafx.scene.ScenePrivilegeOrTrait;
 import it.italiandudes.dnd_visualizer.data.PrivilegeOrTrait;
 import it.italiandudes.dnd_visualizer.data.enums.PrivilegeType;
 import it.italiandudes.dnd_visualizer.db.DBManager;
+import it.italiandudes.dnd_visualizer.javafx.Client;
+import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
+import it.italiandudes.dnd_visualizer.javafx.components.SceneController;
+import it.italiandudes.dnd_visualizer.javafx.controller.ControllerSceneSheetViewer;
+import it.italiandudes.dnd_visualizer.javafx.scene.SceneMainMenu;
+import it.italiandudes.dnd_visualizer.javafx.scene.ScenePrivilegeOrTrait;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
@@ -57,7 +57,7 @@ public final class TabPrivilegesAndTraits {
                                 if (ps == null) {
                                     Platform.runLater(() -> {
                                         new ErrorAlert("ERRORE", "Errore di Connessione al database", "Non e' stato possibile consultare il database");
-                                        Client.getStage().setScene(SceneMainMenu.getScene());
+                                        Client.setScene(SceneMainMenu.getScene());
                                     });
                                     return null;
                                 }
@@ -68,7 +68,7 @@ public final class TabPrivilegesAndTraits {
                                 if (ps == null) {
                                     Platform.runLater(() -> {
                                         new ErrorAlert("ERRORE", "Errore di Connessione al database", "Non e' stato possibile consultare il database");
-                                        Client.getStage().setScene(SceneMainMenu.getScene());
+                                        Client.setScene(SceneMainMenu.getScene());
                                     });
                                     return null;
                                 }
@@ -125,7 +125,7 @@ public final class TabPrivilegesAndTraits {
         PrivilegeOrTrait element = controller.listViewPrivilegesAndTraits.getSelectionModel().getSelectedItem();
         if (element == null) return;
         elementName = element.getName();
-        Scene scene = ScenePrivilegeOrTrait.getScene();
+        SceneController scene = ScenePrivilegeOrTrait.getScene();
         Stage popupStage = Client.initPopupStage(scene);
         popupStage.showAndWait();
         elementName = null;
@@ -133,7 +133,7 @@ public final class TabPrivilegesAndTraits {
     }
     public static void addPrivilegesAndTraits(@NotNull final ControllerSceneSheetViewer controller) {
         elementName = null;
-        Scene scene = ScenePrivilegeOrTrait.getScene();
+        SceneController scene = ScenePrivilegeOrTrait.getScene();
         Stage popupStage = Client.initPopupStage(scene);
         popupStage.showAndWait();
         searchPrivilegesAndTraits(controller);

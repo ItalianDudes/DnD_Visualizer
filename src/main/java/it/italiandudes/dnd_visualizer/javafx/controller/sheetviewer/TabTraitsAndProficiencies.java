@@ -1,7 +1,7 @@
 package it.italiandudes.dnd_visualizer.javafx.controller.sheetviewer;
 
 import it.italiandudes.dnd_visualizer.javafx.controller.ControllerSceneSheetViewer;
-import it.italiandudes.dnd_visualizer.javafx.util.SheetDataHandler;
+import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import javafx.application.Platform;
 import javafx.concurrent.Service;

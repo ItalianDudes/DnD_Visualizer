@@ -1,17 +1,19 @@
 package it.italiandudes.dnd_visualizer.javafx.controller;
 
+import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.javafx.alert.ConfirmationAlert;
 import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.alert.InformationAlert;
+import it.italiandudes.dnd_visualizer.javafx.components.SceneController;
 import it.italiandudes.dnd_visualizer.javafx.controller.campaign.ControllerAskVaultCode;
 import it.italiandudes.dnd_visualizer.javafx.scene.SceneLoading;
 import it.italiandudes.dnd_visualizer.javafx.scene.SceneSettingsEditor;
 import it.italiandudes.dnd_visualizer.javafx.scene.SceneSheetViewer;
 import it.italiandudes.dnd_visualizer.javafx.scene.campaign.SceneCampaignMap;
-import it.italiandudes.dnd_visualizer.javafx.util.SheetDataHandler;
-import it.italiandudes.dnd_visualizer.db.DBManager;
+import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
+import it.italiandudes.dnd_visualizer.javafx.utils.ThemeHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
 import it.italiandudes.dnd_visualizer.utils.Updater;
@@ -26,6 +28,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,11 +43,12 @@ public final class ControllerSceneMainMenu {
     private static boolean lastOperationNewSheet = false;
 
     // Methods
+    @SuppressWarnings("unused")
     public static boolean isLastOperationNewSheet() {
         return lastOperationNewSheet;
     }
     @SuppressWarnings("DuplicatedCode")
-    private void updateApp(@NotNull final Scene thisScene, @NotNull final String latestVersion) {
+    private void updateApp(@NotNull final SceneController thisScene, @NotNull final String latestVersion) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Aggiornamento D&D Visualizer");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Java Executable File", "*.jar"));
@@ -58,7 +62,7 @@ public final class ControllerSceneMainMenu {
             fileNewApp = fileChooser.showSaveDialog(Client.getStage().getScene().getWindow());
         }
         if (fileNewApp == null) {
-            Client.getStage().setScene(thisScene);
+            Client.setScene(thisScene);
             return;
         }
         File finalFileNewApp = fileNewApp;
@@ -74,14 +78,14 @@ public final class ControllerSceneMainMenu {
                                 if (new ConfirmationAlert("AGGIORNAMENTO", "Aggiornamento", "Download della nuova versione completato! Vuoi chiudere questa app?").result) {
                                     System.exit(0);
                                 } else {
-                                    Client.getStage().setScene(thisScene);
+                                    Client.setScene(thisScene);
                                 }
                             });
                         } catch (IOException e) {
                             Logger.log(e);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Download", "Si e' verificato un errore durante il download della nuova versione dell'app.");
-                                Client.getStage().setScene(thisScene);
+                                Client.setScene(thisScene);
                             });
                         }
                         return null;
@@ -91,7 +95,7 @@ public final class ControllerSceneMainMenu {
         }.start();
     }
 
-    //Graphic Elements
+    // Graphic Elements
     @FXML private ImageView imageViewLogo;
     @FXML private Button buttonNewCampaign;
     @FXML private Button buttonOpenCampaign;
@@ -101,7 +105,6 @@ public final class ControllerSceneMainMenu {
     @FXML
     private void initialize() {
         lastOperationNewSheet = false;
-        Client.getStage().setResizable(true);
         imageViewLogo.setImage(JFXDefs.AppInfo.LOGO);
         DiscordRichPresenceManager.updateRichPresenceState(DiscordRichPresenceManager.States.MENU);
     }
@@ -109,8 +112,8 @@ public final class ControllerSceneMainMenu {
     // EDT
     @FXML
     private void checkForUpdates() {
-        Scene thisScene = Client.getStage().getScene();
-        Client.getStage().setScene(SceneLoading.getScene());
+        SceneController thisScene = Client.getScene();
+        Client.setScene(SceneLoading.getScene());
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
@@ -121,7 +124,7 @@ public final class ControllerSceneMainMenu {
                         if (latestVersion == null) {
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Connessione", "Si e' verificato un errore durante il controllo della versione.");
-                                Client.getStage().setScene(thisScene);
+                                Client.setScene(thisScene);
                             });
                             return null;
                         }
@@ -137,7 +140,7 @@ public final class ControllerSceneMainMenu {
                         if (Updater.getLatestVersion(currentVersion, latestVersion).equals(currentVersion)) {
                             Platform.runLater(() -> {
                                 new InformationAlert("AGGIORNAMENTO", "Controllo Versione", "La versione corrente e' la piu' recente.");
-                                Client.getStage().setScene(thisScene);
+                                Client.setScene(thisScene);
                             });
                             return null;
                         }
@@ -147,7 +150,7 @@ public final class ControllerSceneMainMenu {
                             if (new ConfirmationAlert("AGGIORNAMENTO", "Trovata Nuova Versione", "E' stata trovata una nuova versione. Vuoi scaricarla?\nVersione Corrente: "+ finalCurrentVersion +"\nNuova Versione: "+latestVersion).result) {
                                 updateApp(thisScene, latestVersion);
                             } else {
-                                Platform.runLater(() -> Client.getStage().setScene(thisScene));
+                                Platform.runLater(() -> Client.setScene(thisScene));
                             }
 
                         });
@@ -172,8 +175,8 @@ public final class ControllerSceneMainMenu {
         }
         if (fileSheet == null) return;
 
-        Scene thisScene = Client.getStage().getScene();
-        Client.getStage().setScene(SceneLoading.getScene());
+        SceneController thisScene = Client.getScene();
+        Client.setScene(SceneLoading.getScene());
 
         File finalSheetDB = fileSheet;
         new Service<Void>() {
@@ -188,13 +191,13 @@ public final class ControllerSceneMainMenu {
                             Logger.log(e);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERROR", "I/O Error", "An error has occurred during sheet opening");
-                                Client.getStage().setScene(thisScene);
+                                Client.setScene(thisScene);
                             });
                             return null;
                         }
 
                         lastOperationNewSheet = true;
-                        Platform.runLater(() -> Client.getStage().setScene(SceneSheetViewer.getScene()));
+                        Platform.runLater(() -> Client.setScene(SceneSheetViewer.getScene()));
                         return null;
                     }
                 };
@@ -216,8 +219,8 @@ public final class ControllerSceneMainMenu {
         }
         if (fileSheet == null) return;
 
-        Scene thisScene = Client.getStage().getScene();
-        Client.getStage().setScene(SceneLoading.getScene());
+        SceneController thisScene = Client.getScene();
+        Client.setScene(SceneLoading.getScene());
 
         File finalSheetDB = fileSheet;
         new Service<Void>() {
@@ -232,7 +235,7 @@ public final class ControllerSceneMainMenu {
                             Logger.log(e);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di I/O", "Si e' verificato un errore durante l'apertura della scheda.");
-                                Client.getStage().setScene(thisScene);
+                                Client.setScene(thisScene);
                             });
                             return null;
                         }
@@ -244,12 +247,12 @@ public final class ControllerSceneMainMenu {
                             String supportedVersion = Defs.SHEET_DB_VERSION;
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore della Scheda", "La versione della scheda selezionata non e' supportata.\nVersione Supportata: "+supportedVersion+"\nVersione Scheda: "+sheetVersion);
-                                Client.getStage().setScene(thisScene);
+                                Client.setScene(thisScene);
                             });
                             return null;
                         }
 
-                        Platform.runLater(() -> Client.getStage().setScene(SceneSheetViewer.getScene()));
+                        Platform.runLater(() -> Client.setScene(SceneSheetViewer.getScene()));
                         return null;
                     }
                 };
@@ -259,7 +262,13 @@ public final class ControllerSceneMainMenu {
     @FXML
     private void askVaultCode() {
         try {
-            Stage popupStage = Client.initPopupStage(new Scene(FXMLLoader.load(Defs.Resources.get("/fxml/campaign/AskVaultCode.fxml"))));
+            Stage popupStage = new Stage();
+            popupStage.getIcons().add(JFXDefs.AppInfo.LOGO);
+            popupStage.setTitle(JFXDefs.AppInfo.NAME);
+            popupStage.initOwner(Client.getStage());
+            popupStage.initModality(Modality.WINDOW_MODAL);
+            popupStage.setScene(new Scene(FXMLLoader.load(Defs.Resources.get("/fxml/campaign/AskVaultCode.fxml"))));
+            ThemeHandler.loadConfigTheme(popupStage.getScene());
             popupStage.setResizable(false);
             popupStage.showAndWait();
             if (ControllerAskVaultCode.USER_ATTEMPT == null) return;
@@ -293,8 +302,8 @@ public final class ControllerSceneMainMenu {
         }
         if (fileSheet == null) return;
 
-        Scene thisScene = Client.getStage().getScene();
-        Client.getStage().setScene(SceneLoading.getScene());
+        SceneController thisScene = Client.getScene();
+        Client.setScene(SceneLoading.getScene());
 
         File finalSheetDB = fileSheet;
         new Service<Void>() {
@@ -309,12 +318,12 @@ public final class ControllerSceneMainMenu {
                             Logger.log(e);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di I/O", "Si e' verificato un errore durante l'apertura della campagna.");
-                                Client.getStage().setScene(thisScene);
+                                Client.setScene(thisScene);
                             });
                             return null;
                         }
 
-                        Platform.runLater(() -> Client.getStage().setScene(SceneCampaignMap.getScene()));
+                        Platform.runLater(() -> Client.setScene(SceneCampaignMap.getScene()));
                         return null;
                     }
                 };
@@ -336,8 +345,8 @@ public final class ControllerSceneMainMenu {
         }
         if (fileSheet == null) return;
 
-        Scene thisScene = Client.getStage().getScene();
-        Client.getStage().setScene(SceneLoading.getScene());
+        SceneController thisScene = Client.getScene();
+        Client.setScene(SceneLoading.getScene());
 
         File finalSheetDB = fileSheet;
         new Service<Void>() {
@@ -352,7 +361,7 @@ public final class ControllerSceneMainMenu {
                             Logger.log(e);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di I/O", "Si e' verificato un errore durante l'apertura della campagna.");
-                                Client.getStage().setScene(thisScene);
+                                Client.setScene(thisScene);
                             });
                             return null;
                         }
@@ -364,12 +373,12 @@ public final class ControllerSceneMainMenu {
                             String supportedVersion = Defs.CAMPAIGN_DB_VERSION;
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore della Campagna", "La versione della campagna selezionata non e' supportata.\nVersione Supportata: "+supportedVersion+"\nVersione Scheda: "+campaignVersion);
-                                Client.getStage().setScene(thisScene);
+                                Client.setScene(thisScene);
                             });
                             return null;
                         }
 
-                        Platform.runLater(() -> Client.getStage().setScene(SceneCampaignMap.getScene()));
+                        Platform.runLater(() -> Client.setScene(SceneCampaignMap.getScene()));
                         return null;
                     }
                 };
@@ -378,6 +387,6 @@ public final class ControllerSceneMainMenu {
     }
     @FXML
     private void openSettingsEditor() {
-        Client.getStage().setScene(SceneSettingsEditor.getScene());
+        Client.setScene(SceneSettingsEditor.getScene());
     }
 }

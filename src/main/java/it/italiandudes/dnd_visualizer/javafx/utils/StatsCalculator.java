@@ -1,4 +1,4 @@
-package it.italiandudes.dnd_visualizer.javafx.util;
+package it.italiandudes.dnd_visualizer.javafx.utils;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;

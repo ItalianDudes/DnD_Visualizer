@@ -1,9 +1,5 @@
 package it.italiandudes.dnd_visualizer.javafx.controller;
 
-import it.italiandudes.dnd_visualizer.javafx.Client;
-import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
-import it.italiandudes.dnd_visualizer.javafx.controller.sheetviewer.*;
-import it.italiandudes.dnd_visualizer.javafx.scene.tutorial.SceneTutorial;
 import it.italiandudes.dnd_visualizer.data.ElementPreview;
 import it.italiandudes.dnd_visualizer.data.Note;
 import it.italiandudes.dnd_visualizer.data.PrivilegeOrTrait;
@@ -12,6 +8,11 @@ import it.italiandudes.dnd_visualizer.data.enums.*;
 import it.italiandudes.dnd_visualizer.data.item.Addon;
 import it.italiandudes.dnd_visualizer.data.item.Armor;
 import it.italiandudes.dnd_visualizer.data.item.Weapon;
+import it.italiandudes.dnd_visualizer.javafx.Client;
+import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
+import it.italiandudes.dnd_visualizer.javafx.controller.sheetviewer.*;
+import it.italiandudes.dnd_visualizer.javafx.scene.tutorial.SceneTutorial;
+import it.italiandudes.dnd_visualizer.javafx.utils.Settings;
 import it.italiandudes.dnd_visualizer.utils.CalendarEventManager;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
@@ -296,7 +297,6 @@ public final class ControllerSceneSheetViewer {
     //Initialize
     @FXML
     private void initialize() {
-        Client.getStage().setResizable(true);
         DiscordRichPresenceManager.updateRichPresenceState(DiscordRichPresenceManager.States.IN_GAME);
         TabCharacter.initialize(this);
         TabAbility.initialize(this);
@@ -310,7 +310,9 @@ public final class ControllerSceneSheetViewer {
         TabNotes.initialize(this);
         TabEffects.initialize(this);
         TabDiceRoller.initialize(this);
-        if (Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_EVENT_THEME)) {
+        if (Settings.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_EVENT_THEME)) {
+            imageViewSheetBackground.setFitWidth(Client.getStage().getWidth());
+            imageViewSheetBackground.setFitHeight(Client.getStage().getHeight());
             Client.getStage().widthProperty().addListener(observable -> imageViewSheetBackground.setFitWidth(Client.getStage().getWidth()));
             Client.getStage().heightProperty().addListener(observable -> imageViewSheetBackground.setFitHeight(Client.getStage().getHeight()));
             activateBackgroundDecoration();
@@ -325,6 +327,7 @@ public final class ControllerSceneSheetViewer {
     }
 
     // Methods
+    @SuppressWarnings("unused")
     private void activateTutorialMode(@NotNull final ControllerSceneSheetViewer controller) {
         Stage tutorialStage = Client.initPopupStage(SceneTutorial.getScene(controller));
         tutorialStage.showAndWait();

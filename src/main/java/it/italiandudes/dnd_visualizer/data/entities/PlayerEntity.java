@@ -12,11 +12,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.SVGPath;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 @SuppressWarnings("unused")
 public final class PlayerEntity extends StackPane {
@@ -32,7 +34,7 @@ public final class PlayerEntity extends StackPane {
     @NotNull private Point2D center;
     private int ca;
     private int hp;
-    @NotNull private RegisteredUser owner;
+    @Nullable private RegisteredUser owner;
 
     // Constructors
     public PlayerEntity(final int playerEntityID) throws SQLException, IOException {
@@ -58,7 +60,8 @@ public final class PlayerEntity extends StackPane {
             this.ca = result.getInt("ca");
             this.hp = result.getInt("hp");
             int playerID = result.getInt("player_owner_id");
-            this.owner = new RegisteredUser(playerID);
+            if (result.wasNull()) this.owner = null;
+            else this.owner = new RegisteredUser(playerID);
         } else {
             ps.close();
             throw new SQLException("PlayerEntityID not found");
@@ -89,7 +92,8 @@ public final class PlayerEntity extends StackPane {
             this.ca = result.getInt("ca");
             this.hp = result.getInt("hp");
             int playerID = result.getInt("player_owner_id");
-            this.owner = new RegisteredUser(playerID);
+            if (result.wasNull()) this.owner = null;
+            else this.owner = new RegisteredUser(playerID);
         } else {
             ps.close();
             throw new SQLException("PlayerEntity not found");
@@ -168,10 +172,10 @@ public final class PlayerEntity extends StackPane {
     public void setHP(int hp) {
         this.hp = hp;
     }
-    public @NotNull RegisteredUser getOwner() {
+    public @Nullable RegisteredUser getOwner() {
         return owner;
     }
-    public void setOwner(@NotNull RegisteredUser owner) {
+    public void setOwner(@Nullable RegisteredUser owner) {
         this.owner = owner;
     }
     @Override
@@ -179,7 +183,7 @@ public final class PlayerEntity extends StackPane {
         if (!(o instanceof PlayerEntity)) return false;
 
         PlayerEntity that = (PlayerEntity) o;
-        return getPlayerEntityID() == that.getPlayerEntityID() && getCreationDate() == that.getCreationDate() && getLevel() == that.getLevel() && ca == that.ca && hp == that.hp && getMap().equals(that.getMap()) && getName().equals(that.getName()) && getRace().equals(that.getRace()) && getEntityClass().equals(that.getEntityClass()) && getCenter().equals(that.getCenter()) && getOwner().equals(that.getOwner());
+        return getPlayerEntityID() == that.getPlayerEntityID() && getCreationDate() == that.getCreationDate() && getLevel() == that.getLevel() && ca == that.ca && hp == that.hp && getMap().equals(that.getMap()) && getName().equals(that.getName()) && getRace().equals(that.getRace()) && getEntityClass().equals(that.getEntityClass()) && getCenter().equals(that.getCenter()) && Objects.equals(getOwner(), that.getOwner());
     }
     @Override
     public int hashCode() {
@@ -193,7 +197,7 @@ public final class PlayerEntity extends StackPane {
         result = 31 * result + getCenter().hashCode();
         result = 31 * result + ca;
         result = 31 * result + hp;
-        result = 31 * result + getOwner().hashCode();
+        result = 31 * result + Objects.hashCode(getOwner());
         return result;
     }
     @Override @NotNull

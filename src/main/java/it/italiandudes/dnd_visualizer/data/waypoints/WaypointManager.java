@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unused")
 public final class WaypointManager {
 
-    // Map
+    // List
     @NotNull private final HashSet<@NotNull Waypoint> waypointList;
 
     // Instance

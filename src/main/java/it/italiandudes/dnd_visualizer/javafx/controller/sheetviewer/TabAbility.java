@@ -1,8 +1,8 @@
 package it.italiandudes.dnd_visualizer.javafx.controller.sheetviewer;
 
 import it.italiandudes.dnd_visualizer.javafx.controller.ControllerSceneSheetViewer;
-import it.italiandudes.dnd_visualizer.javafx.util.SheetDataHandler;
-import it.italiandudes.dnd_visualizer.javafx.util.StatsCalculator;
+import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
+import it.italiandudes.dnd_visualizer.javafx.utils.StatsCalculator;
 import it.italiandudes.dnd_visualizer.utils.Defs.KeyParameters;
 import javafx.application.Platform;
 import javafx.concurrent.Service;

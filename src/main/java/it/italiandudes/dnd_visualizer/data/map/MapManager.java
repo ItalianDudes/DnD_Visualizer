@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unused")
 public final class MapManager {
 
-    // Map
+    // List
     @NotNull private final HashSet<@NotNull Map> mapList;
 
     // Instance

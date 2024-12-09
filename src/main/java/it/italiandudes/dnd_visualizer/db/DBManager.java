@@ -1,6 +1,6 @@
 package it.italiandudes.dnd_visualizer.db;
 
-import it.italiandudes.dnd_visualizer.javafx.util.SheetDataHandler;
+import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import org.jetbrains.annotations.NotNull;
 

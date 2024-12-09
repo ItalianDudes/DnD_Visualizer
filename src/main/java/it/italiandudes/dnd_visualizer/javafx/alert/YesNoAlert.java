@@ -1,7 +1,7 @@
 package it.italiandudes.dnd_visualizer.javafx.alert;
 
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
-import it.italiandudes.dnd_visualizer.javafx.util.ThemeHandler;
+import it.italiandudes.dnd_visualizer.javafx.utils.ThemeHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;

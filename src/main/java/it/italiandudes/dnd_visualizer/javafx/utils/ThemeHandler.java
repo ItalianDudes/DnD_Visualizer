@@ -1,6 +1,5 @@
-package it.italiandudes.dnd_visualizer.javafx.util;
+package it.italiandudes.dnd_visualizer.javafx.utils;
 
-import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import javafx.scene.Scene;
@@ -13,7 +12,7 @@ public final class ThemeHandler {
 
     // Methods
     public static void setConfigTheme() {
-        if (Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DARK_MODE)) {
+        if (Settings.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DARK_MODE)) {
             configTheme = Defs.Resources.get(JFXDefs.Resources.CSS.CSS_DARK_THEME).toExternalForm();
         } else {
             configTheme = Defs.Resources.get(JFXDefs.Resources.CSS.CSS_LIGHT_THEME).toExternalForm();
@@ -22,6 +21,7 @@ public final class ThemeHandler {
 
     // Config Theme
     public static void loadConfigTheme(@NotNull final Scene scene) {
+        if (configTheme == null) setConfigTheme();
         scene.getStylesheets().clear();
         scene.getStylesheets().add(configTheme);
     }

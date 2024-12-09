@@ -1,25 +1,23 @@
 package it.italiandudes.dnd_visualizer.javafx.controller.sheetviewer;
 
+import it.italiandudes.dnd_visualizer.data.ElementPreview;
+import it.italiandudes.dnd_visualizer.data.bags.DnDBag;
+import it.italiandudes.dnd_visualizer.data.bags.DnDBags;
+import it.italiandudes.dnd_visualizer.data.enums.*;
+import it.italiandudes.dnd_visualizer.data.item.*;
+import it.italiandudes.dnd_visualizer.db.DBManager;
+import it.italiandudes.dnd_visualizer.interfaces.ISerializable;
 import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.alert.InformationAlert;
+import it.italiandudes.dnd_visualizer.javafx.components.SceneController;
 import it.italiandudes.dnd_visualizer.javafx.controller.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.javafx.scene.SceneLoading;
 import it.italiandudes.dnd_visualizer.javafx.scene.SceneMainMenu;
 import it.italiandudes.dnd_visualizer.javafx.scene.inventory.*;
-import it.italiandudes.dnd_visualizer.javafx.util.LoadCategory;
-import it.italiandudes.dnd_visualizer.javafx.util.SheetDataHandler;
-import it.italiandudes.dnd_visualizer.javafx.util.UIElementConfigurator;
-import it.italiandudes.dnd_visualizer.data.ElementPreview;
-import it.italiandudes.dnd_visualizer.data.bags.DnDBag;
-import it.italiandudes.dnd_visualizer.data.bags.DnDBags;
-import it.italiandudes.dnd_visualizer.data.enums.Category;
-import it.italiandudes.dnd_visualizer.data.enums.EquipmentType;
-import it.italiandudes.dnd_visualizer.data.enums.Rarity;
-import it.italiandudes.dnd_visualizer.data.enums.SerializerType;
-import it.italiandudes.dnd_visualizer.data.item.*;
-import it.italiandudes.dnd_visualizer.db.DBManager;
-import it.italiandudes.dnd_visualizer.interfaces.ISerializable;
+import it.italiandudes.dnd_visualizer.javafx.utils.Settings;
+import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
+import it.italiandudes.dnd_visualizer.javafx.utils.UIElementConfigurator;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
@@ -27,7 +25,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ContextMenuEvent;
@@ -176,7 +173,7 @@ public final class TabInventory {
                 return new Task<Void>() {
                     @Override
                     protected Void call() {
-                        if (!(boolean) Client.getSettings().get("enableLoad")) {
+                        if (!(boolean) Settings.getSettings().get("enableLoad")) {
                             return null;
                         }
                         String query;
@@ -185,8 +182,8 @@ public final class TabInventory {
                         try {
                             double inventoryWeight = 0;
                             double totalWeight;
-                            if ((boolean) Client.getSettings().get("enablePassiveLoad")) {
-                                if ((boolean) Client.getSettings().get("coinsIncreaseLoad")) {
+                            if ((boolean) Settings.getSettings().get("enablePassiveLoad")) {
+                                if ((boolean) Settings.getSettings().get("coinsIncreaseLoad")) {
                                     inventoryWeight += (controller.spinnerMR.getValueFactory().getValue()/Defs.Load.COIN_LOAD_DIVISOR) + (controller.spinnerMA.getValueFactory().getValue()/Defs.Load.COIN_LOAD_DIVISOR) + (controller.spinnerME.getValueFactory().getValue()/Defs.Load.COIN_LOAD_DIVISOR) + (controller.spinnerMO.getValueFactory().getValue()/Defs.Load.COIN_LOAD_DIVISOR) + (controller.spinnerMP.getValueFactory().getValue()/Defs.Load.COIN_LOAD_DIVISOR);
                                 }
                                 query = "SELECT weight, quantity FROM items WHERE quantity>0 AND weight>0;";
@@ -334,7 +331,7 @@ public final class TabInventory {
                                     if (ps == null) {
                                         Platform.runLater(() -> {
                                             new ErrorAlert("ERRORE", "Errore di Connessione al database", "Non e' stato possibile consultare il database");
-                                            Client.getStage().setScene(SceneMainMenu.getScene());
+                                            Client.setScene(SceneMainMenu.getScene());
                                         });
                                         return null;
                                     }
@@ -346,7 +343,7 @@ public final class TabInventory {
                                     if (ps == null) {
                                         Platform.runLater(() -> {
                                             new ErrorAlert("ERRORE", "Errore di Connessione al database", "Non e' stato possibile consultare il database");
-                                            Client.getStage().setScene(SceneMainMenu.getScene());
+                                            Client.setScene(SceneMainMenu.getScene());
                                         });
                                         return null;
                                     }
@@ -358,7 +355,7 @@ public final class TabInventory {
                                 if (ps == null) {
                                     Platform.runLater(() -> {
                                         new ErrorAlert("ERRORE", "Errore di Connessione al database", "Non e' stato possibile consultare il database");
-                                        Client.getStage().setScene(SceneMainMenu.getScene());
+                                        Client.setScene(SceneMainMenu.getScene());
                                     });
                                     return null;
                                 }
@@ -454,8 +451,8 @@ public final class TabInventory {
         importElement(controller, elementCode);
     }
     private static void importElement(@NotNull final ControllerSceneSheetViewer controller, @NotNull final String elementCode) {
-        Scene thisScene = Client.getStage().getScene();
-        Client.getStage().setScene(SceneLoading.getScene());
+        SceneController thisScene = Client.getScene();
+        Client.setScene(SceneLoading.getScene());
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
@@ -474,7 +471,7 @@ public final class TabInventory {
                                 String inventoryVersion = (dbVersion!=null?dbVersion:"NA");
                                 Platform.runLater(() -> {
                                     new ErrorAlert("ERRORE", "Errore di Importazione", "La versione di database dell'elemento non e' supportata.\nVersione Supportata: "+supportedVersion+"\nVersione Elemento: "+inventoryVersion);
-                                    Client.getStage().setScene(thisScene);
+                                    Client.setScene(thisScene);
                                 });
                                 return null;
                             }
@@ -515,7 +512,7 @@ public final class TabInventory {
                                 int finalErrored = errored;
                                 Platform.runLater(() -> {
                                     new InformationAlert("IMPORTAZIONE COMPLETATA", "Importazione Inventario", "Importazione completata!\nSuccessi: "+ finalSuccess +"\nFallimenti: "+ finalErrored);
-                                    Client.getStage().setScene(thisScene);
+                                    Client.setScene(thisScene);
                                     search(controller);
                                     updateLoad(controller);
                                     TabSpells.updateListViews(controller);
@@ -524,7 +521,7 @@ public final class TabInventory {
                             } else {
                                 elementStructure = element;
                                 Platform.runLater(() -> {
-                                    Scene newScene = null;
+                                    SceneController newScene = null;
                                     switch (serializerType) {
                                         case ITEM:
                                             newScene = SceneInventoryItem.getScene();
@@ -549,10 +546,10 @@ public final class TabInventory {
                                         default:
                                             elementStructure = null;
                                             new ErrorAlert("ERRORE", "Errore di Importazione", "Struttura dati non riconosciuta, importazione fallita.");
-                                            Client.getStage().setScene(thisScene);
+                                            Client.setScene(thisScene);
                                             break;
                                     }
-                                    Client.getStage().setScene(thisScene);
+                                    Client.setScene(thisScene);
                                     Stage popupScene = Client.initPopupStage(newScene);
                                     popupScene.showAndWait();
                                     elementStructure = null;
@@ -565,7 +562,7 @@ public final class TabInventory {
                         } catch (IllegalArgumentException | JSONException e) {
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Importazione", "Il codice elemento non e' valido, inserire un codice valido.");
-                                Client.getStage().setScene(thisScene);
+                                Client.setScene(thisScene);
                             });
                         }
                         return null;
@@ -587,8 +584,8 @@ public final class TabInventory {
             invPath = fileChooser.showOpenDialog(Client.getStage().getScene().getWindow());
         }
         if (invPath!=null) {
-            Scene thisScene = Client.getStage().getScene();
-            Client.getStage().setScene(SceneLoading.getScene());
+            SceneController thisScene = Client.getScene();
+            Client.setScene(SceneLoading.getScene());
             File finalInvPath = invPath;
             new Service<Void>() {
                 @Override
@@ -608,7 +605,7 @@ public final class TabInventory {
                                 Logger.log(e);
                                 Platform.runLater(() -> {
                                     new ErrorAlert("ERRORE", "Errore di I/O", "Il file specificato non esiste.");
-                                    Client.getStage().setScene(thisScene);
+                                    Client.setScene(thisScene);
                                 });
                                 return null;
                             }
@@ -625,7 +622,7 @@ public final class TabInventory {
                                     String inventoryVersion = (dbVersion!=null?dbVersion:"NA");
                                     Platform.runLater(() -> {
                                         new ErrorAlert("ERRORE", "Errore di Importazione", "La versione di database dell'inventario non e' supportata.\nVersione Supportata: "+supportedVersion+"\nVersione Inventario: "+inventoryVersion);
-                                        Client.getStage().setScene(thisScene);
+                                        Client.setScene(thisScene);
                                     });
                                     return null;
                                 }
@@ -667,7 +664,7 @@ public final class TabInventory {
                                     int finalErrored = errored;
                                     Platform.runLater(() -> {
                                         new InformationAlert("IMPORTAZIONE COMPLETATA", "Importazione Inventario", "Importazione completata!\nSuccessi: "+ finalSuccess +"\nFallimenti: "+ finalErrored);
-                                        Client.getStage().setScene(thisScene);
+                                        Client.setScene(thisScene);
                                         search(controller);
                                         updateLoad(controller);
                                         TabSpells.updateListViews(controller);
@@ -676,14 +673,14 @@ public final class TabInventory {
                                 } else {
                                     Platform.runLater(() -> {
                                         new ErrorAlert("ERRORE", "Errore di Procedura", "Il file contiene del codice elemento, non del codice inventario.");
-                                        Client.getStage().setScene(thisScene);
+                                        Client.setScene(thisScene);
                                     });
                                 }
                             } catch (IllegalArgumentException | JSONException e) {
                                 Logger.log(e);
                                 Platform.runLater(() -> {
                                     new ErrorAlert("ERRORE", "Errore di Importazione", "Il codice di importazione dell'inventario contenuto nel file non e' valido.");
-                                    Client.getStage().setScene(thisScene);
+                                    Client.setScene(thisScene);
                                 });
                             }
                             return null;
@@ -798,7 +795,7 @@ public final class TabInventory {
     }
     private static void editElement(@NotNull final ControllerSceneSheetViewer controller, @NotNull final ElementPreview element) {
         elementName = element.getName();
-        Scene scene;
+        SceneController scene;
         switch (element.getCategory()) {
             case ITEM:
                 scene = SceneInventoryItem.getScene();

@@ -4,7 +4,8 @@ import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.alert.InformationAlert;
 import it.italiandudes.dnd_visualizer.javafx.scene.SceneMainMenu;
-import it.italiandudes.dnd_visualizer.javafx.util.ThemeHandler;
+import it.italiandudes.dnd_visualizer.javafx.utils.Settings;
+import it.italiandudes.dnd_visualizer.javafx.utils.ThemeHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
 import it.italiandudes.idl.common.Logger;
@@ -46,14 +47,13 @@ public final class ControllerSceneSettingsEditor {
     // Initialize
     @FXML
     private void initialize() {
-        Client.getStage().setResizable(true);
         DiscordRichPresenceManager.updateRichPresenceState(DiscordRichPresenceManager.States.SETTINGS);
-        toggleButtonEnableDarkMode.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DARK_MODE));
-        toggleButtonEnableLoad.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_LOAD));
-        toggleButtonEnablePassiveLoad.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_PASSIVE_LOAD));
-        toggleButtonCoinsIncreaseLoad.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.COINS_INCREASE_LOAD));
-        toggleButtonEnableDiscordRichPresence.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE));
-        toggleButtonEnableEventTheme.setSelected(Client.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_EVENT_THEME));
+        toggleButtonEnableDarkMode.setSelected(Settings.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DARK_MODE));
+        toggleButtonEnableLoad.setSelected(Settings.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_LOAD));
+        toggleButtonEnablePassiveLoad.setSelected(Settings.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_PASSIVE_LOAD));
+        toggleButtonCoinsIncreaseLoad.setSelected(Settings.getSettings().getBoolean(Defs.SettingsKeys.COINS_INCREASE_LOAD));
+        toggleButtonEnableDiscordRichPresence.setSelected(Settings.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE));
+        toggleButtonEnableEventTheme.setSelected(Settings.getSettings().getBoolean(Defs.SettingsKeys.ENABLE_EVENT_THEME));
         if (toggleButtonEnableDarkMode.isSelected()) imageViewEnableDarkMode.setImage(DARK_MODE);
         else imageViewEnableDarkMode.setImage(LIGHT_MODE);
         if (toggleButtonEnableLoad.isSelected()) imageViewEnableLoad.setImage(TICK);
@@ -107,7 +107,7 @@ public final class ControllerSceneSettingsEditor {
     }
     @FXML
     private void backToMenu() {
-        Client.getStage().setScene(SceneMainMenu.getScene());
+        Client.setScene(SceneMainMenu.getScene());
     }
     @FXML
     private void save() {
@@ -118,12 +118,12 @@ public final class ControllerSceneSettingsEditor {
                     @Override
                     protected Void call() {
                         try {
-                            Client.getSettings().put(Defs.SettingsKeys.ENABLE_DARK_MODE, toggleButtonEnableDarkMode.isSelected());
-                            Client.getSettings().put(Defs.SettingsKeys.ENABLE_LOAD, toggleButtonEnableLoad.isSelected());
-                            Client.getSettings().put(Defs.SettingsKeys.ENABLE_PASSIVE_LOAD, toggleButtonEnablePassiveLoad.isSelected());
-                            Client.getSettings().put(Defs.SettingsKeys.COINS_INCREASE_LOAD, toggleButtonCoinsIncreaseLoad.isSelected());
-                            Client.getSettings().put(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE, toggleButtonEnableDiscordRichPresence.isSelected());
-                            Client.getSettings().put(Defs.SettingsKeys.ENABLE_EVENT_THEME, toggleButtonEnableEventTheme.isSelected());
+                            Settings.getSettings().put(Defs.SettingsKeys.ENABLE_DARK_MODE, toggleButtonEnableDarkMode.isSelected());
+                            Settings.getSettings().put(Defs.SettingsKeys.ENABLE_LOAD, toggleButtonEnableLoad.isSelected());
+                            Settings.getSettings().put(Defs.SettingsKeys.ENABLE_PASSIVE_LOAD, toggleButtonEnablePassiveLoad.isSelected());
+                            Settings.getSettings().put(Defs.SettingsKeys.COINS_INCREASE_LOAD, toggleButtonCoinsIncreaseLoad.isSelected());
+                            Settings.getSettings().put(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE, toggleButtonEnableDiscordRichPresence.isSelected());
+                            Settings.getSettings().put(Defs.SettingsKeys.ENABLE_EVENT_THEME, toggleButtonEnableEventTheme.isSelected());
                         } catch (JSONException e) {
                             Logger.log(e);
                         }
@@ -132,7 +132,7 @@ public final class ControllerSceneSettingsEditor {
                             DiscordRichPresenceManager.shutdownRichPresence();
                         }
                         try {
-                            Client.writeJSONSettings();
+                            Settings.writeJSONSettings();
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Salvataggio Impostazioni", "Impostazioni salvate e applicate con successo!"));
                         } catch (IOException e) {
                             Logger.log(e);

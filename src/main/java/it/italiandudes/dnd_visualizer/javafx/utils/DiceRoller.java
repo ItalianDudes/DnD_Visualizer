@@ -1,4 +1,4 @@
-package it.italiandudes.dnd_visualizer.javafx.util;
+package it.italiandudes.dnd_visualizer.javafx.utils;
 
 import java.util.Random;
 import java.util.stream.IntStream;

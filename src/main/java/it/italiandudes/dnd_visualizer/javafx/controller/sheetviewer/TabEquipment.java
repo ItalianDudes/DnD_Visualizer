@@ -1,12 +1,12 @@
 package it.italiandudes.dnd_visualizer.javafx.controller.sheetviewer;
 
-import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
-import it.italiandudes.dnd_visualizer.javafx.controller.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.data.enums.*;
 import it.italiandudes.dnd_visualizer.data.item.Addon;
 import it.italiandudes.dnd_visualizer.data.item.Armor;
 import it.italiandudes.dnd_visualizer.data.item.Weapon;
 import it.italiandudes.dnd_visualizer.db.DBManager;
+import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
+import it.italiandudes.dnd_visualizer.javafx.controller.ControllerSceneSheetViewer;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

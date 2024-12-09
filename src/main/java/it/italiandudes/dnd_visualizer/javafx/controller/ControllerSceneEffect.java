@@ -1,12 +1,11 @@
 package it.italiandudes.dnd_visualizer.javafx.controller;
 
-import it.italiandudes.dnd_visualizer.javafx.Client;
+import it.italiandudes.dnd_visualizer.data.effect.Effect;
+import it.italiandudes.dnd_visualizer.data.enums.EffectKnowledge;
 import it.italiandudes.dnd_visualizer.javafx.alert.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.alert.InformationAlert;
 import it.italiandudes.dnd_visualizer.javafx.controller.sheetviewer.TabEffects;
-import it.italiandudes.dnd_visualizer.javafx.util.UIElementConfigurator;
-import it.italiandudes.dnd_visualizer.data.effect.Effect;
-import it.italiandudes.dnd_visualizer.data.enums.EffectKnowledge;
+import it.italiandudes.dnd_visualizer.javafx.utils.UIElementConfigurator;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -40,7 +39,6 @@ public final class ControllerSceneEffect {
     // Initialize
     @FXML
     private void initialize() {
-        Client.getStage().setResizable(true);
         spinnerIntensity.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 10, 0, 1));
         spinnerIntensity.getEditor().setTextFormatter(UIElementConfigurator.configureNewIntegerTextFormatter());
         comboBoxIsTreatable.setItems(FXCollections.observableList(EffectKnowledge.knowledge));

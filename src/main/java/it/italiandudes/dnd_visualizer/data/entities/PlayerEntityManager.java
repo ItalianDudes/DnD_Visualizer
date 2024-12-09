@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @SuppressWarnings("unused")
 public final class PlayerEntityManager {
 
-    // Map
+    // List
     @NotNull private final ArrayList<@NotNull PlayerEntity> playerEntityList;
 
     // Instance
