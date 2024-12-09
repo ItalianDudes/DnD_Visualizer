@@ -2,10 +2,13 @@ package it.italiandudes.dnd_visualizer.javafx.controller.campaign;
 
 import it.italiandudes.dnd_visualizer.data.map.Map;
 import it.italiandudes.dnd_visualizer.javafx.Client;
+import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
@@ -15,6 +18,7 @@ import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
@@ -52,6 +56,23 @@ public final class ControllerSceneCampaignMap {
 
     // Initialize
     @FXML private void initialize() {
+
+        // DELETE FROM HERE
+        imageViewMap.setImage(JFXDefs.AppInfo.LOGO);
+        imageViewMap.setFitWidth(imageViewMap.getImage().getWidth());
+        imageViewMap.setFitHeight(imageViewMap.getImage().getHeight());
+        anchorPaneWaypointContainer.setPrefWidth(imageViewMap.getFitWidth());
+        anchorPaneWaypointContainer.setPrefHeight(imageViewMap.getFitHeight());
+        scaledWidth = anchorPaneWaypointContainer.getWidth();
+        scaledHeight = anchorPaneWaypointContainer.getHeight();
+        Rectangle clip = new Rectangle(anchorPaneMapContainer.getPrefWidth(), anchorPaneMapContainer.getPrefHeight());
+        clip.widthProperty().bind(anchorPaneMapContainer.widthProperty());
+        clip.heightProperty().bind(anchorPaneMapContainer.heightProperty());
+        anchorPaneMapContainer.setClip(clip);
+        anchorPaneWaypointContainer.widthProperty().addListener((observable, oldValue, newValue) -> scaledWidth = newValue.doubleValue() * anchorPaneWaypointContainer.getScaleX());
+        anchorPaneWaypointContainer.heightProperty().addListener((observable, oldValue, newValue) -> scaledHeight = newValue.doubleValue() * anchorPaneWaypointContainer.getScaleY());
+        // TO HERE
+
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
@@ -67,6 +88,10 @@ public final class ControllerSceneCampaignMap {
                         anchorPaneWaypointContainer.setPrefHeight(imageViewMap.getFitHeight());
                         scaledWidth = anchorPaneWaypointContainer.getWidth();
                         scaledHeight = anchorPaneWaypointContainer.getHeight();
+                        Rectangle clip = new Rectangle(anchorPaneMapContainer.getPrefWidth(), anchorPaneMapContainer.getPrefHeight());
+                        clip.widthProperty().bind(anchorPaneMapContainer.widthProperty());
+                        clip.heightProperty().bind(anchorPaneMapContainer.heightProperty());
+                        anchorPaneMapContainer.setClip(clip);
                         anchorPaneWaypointContainer.widthProperty().addListener((observable, oldValue, newValue) -> scaledWidth = newValue.doubleValue() * anchorPaneWaypointContainer.getScaleX());
                         anchorPaneWaypointContainer.heightProperty().addListener((observable, oldValue, newValue) -> scaledHeight = newValue.doubleValue() * anchorPaneWaypointContainer.getScaleY());
                         return null;
