@@ -52,9 +52,7 @@ public final class WaypointManager {
                 Item item = null;
                 if (!result.wasNull()) item = new Item(itemID);
                 boolean playerVisibility = result.getInt("player_visibility") != 0;
-                System.out.println("Adding " + name);
                 waypointList.add(new Waypoint(waypointID, map, creationDate, name, center, type, item, playerVisibility));
-
             }
         } catch (SQLException | IOException e) {
             Logger.log(e);
@@ -71,8 +69,6 @@ public final class WaypointManager {
     public @NotNull HashSet<@NotNull Waypoint> getMapWaypoints(@NotNull final Map map) {
         return waypointList.stream().filter(waypoint -> waypoint.getMap().equals(map)).collect(Collectors.toCollection(HashSet::new));
     }
-
-    // Methods
     @Nullable
     public Waypoint registerWaypoint(@NotNull final Map map, @NotNull final String name, @NotNull final Point2D center, @NotNull final WaypointType type, @Nullable final Item item, final boolean isVisibleToPlayers) throws SQLException, IOException {
         if (getWaypoint(map, name, type) != null) return null;
@@ -106,6 +102,15 @@ public final class WaypointManager {
         PreparedStatement ps = DBManager.preparedStatement(query);
         if (ps == null) throw new SQLException("Prepared Statement is null");
         ps.setInt(1, waypoint.getWaypointID());
+        ps.executeUpdate();
+        ps.close();
+    }
+    public void unregisterAllMapWaypoints(@NotNull final Map map) throws SQLException {
+        waypointList.removeAll(getMapWaypoints(map));
+        String query = "DELETE FROM waypoints WHERE map_id=?;";
+        PreparedStatement ps = DBManager.preparedStatement(query);
+        if (ps == null) throw new SQLException("Prepared Statement is null");
+        ps.setInt(1, map.getMapID());
         ps.executeUpdate();
         ps.close();
     }
