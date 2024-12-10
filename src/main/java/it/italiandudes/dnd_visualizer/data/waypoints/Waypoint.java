@@ -6,10 +6,7 @@ import it.italiandudes.dnd_visualizer.data.map.Map;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.shape.SVGPath;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -124,13 +121,23 @@ public final class Waypoint extends StackPane {
         pane.getStyleClass().add("waypoint-icon");
         getChildren().add(pane);
         setAlignment(Pos.CENTER);
-        setBackground(new Background(new BackgroundFill(type.getColor(), null, null)));
+        setBackground(new Background(new BackgroundFill(type.getColor(), new CornerRadii(5), null)));
         getStyleClass().add("waypoint");
-        setLayoutX(center.getX());
-        setLayoutY(center.getY());
+        setMinWidth(32);
+        setMinHeight(32);
+        setPrefWidth(32);
+        setPrefHeight(32);
+        setMaxWidth(32);
+        setMaxHeight(32);
+        setLayoutX(center.getX() - getPrefWidth()/2);
+        setLayoutY(center.getY() - getPrefHeight()/2);
     }
 
     // Methods
+    private void updateWaypointLayoutCenter() {
+        setLayoutX(center.getX() - getPrefWidth()/2);
+        setLayoutY(center.getY() - getPrefHeight()/2);
+    }
     public int getWaypointID() {
         return waypointID;
     }
@@ -149,8 +156,17 @@ public final class Waypoint extends StackPane {
     public @NotNull Point2D getCenter() {
         return center;
     }
-    public void setCenter(@NotNull Point2D center) {
+    public void setCenter(@NotNull Point2D center) throws SQLException { // Live DB Operation, must be fast
         this.center = center;
+        updateWaypointLayoutCenter();
+        String query = "UPDATE waypoints SET center_x=?, center_y=? WHERE id=?;";
+        PreparedStatement ps = DBManager.preparedStatement(query);
+        if (ps == null) throw new SQLException("Database connection is null");
+        ps.setDouble(1, center.getX());
+        ps.setDouble(2, center.getY());
+        ps.setInt(3, waypointID);
+        ps.executeUpdate();
+        ps.close();
     }
     public @NotNull WaypointType getType() {
         return type;
@@ -167,25 +183,13 @@ public final class Waypoint extends StackPane {
     public void setVisibleToPlayers(boolean visibleToPlayers) {
         isVisibleToPlayers = visibleToPlayers;
     }
-    @Override
-    public boolean equals(Object o) {
+    public boolean waypointEquals(Object o) {
         if (!(o instanceof Waypoint)) return false;
 
         Waypoint waypoint = (Waypoint) o;
         return getWaypointID() == waypoint.getWaypointID() && getCreationDate() == waypoint.getCreationDate() && isVisibleToPlayers() == waypoint.isVisibleToPlayers() && getMap().equals(waypoint.getMap()) && getName().equals(waypoint.getName()) && getCenter().equals(waypoint.getCenter()) && getType() == waypoint.getType() && Objects.equals(getItem(), waypoint.getItem());
     }
-    @Override
-    public int hashCode() {
-        int result = getWaypointID();
-        result = 31 * result + getMap().hashCode();
-        result = 31 * result + Long.hashCode(getCreationDate());
-        result = 31 * result + getName().hashCode();
-        result = 31 * result + getCenter().hashCode();
-        result = 31 * result + getType().hashCode();
-        result = 31 * result + Objects.hashCode(getItem());
-        result = 31 * result + Boolean.hashCode(isVisibleToPlayers());
-        return result;
-    }
+    // NOTE: DO NOT OVERRIDE EQUALS AND HASHCODE
     @Override @NotNull
     public String toString() {
         return getName();
