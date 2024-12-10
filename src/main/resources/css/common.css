@@ -18,6 +18,10 @@
     -fx-background-color: transparent;
 }
 
+.list-view {
+    -fx-focus-traversable: false;
+}
+
 .waypoint-icon {
     -fx-border-width: 2px;
     -fx-border-radius: 4px;

@@ -2,7 +2,7 @@ package it.italiandudes.dnd_visualizer.javafx.scene.inventory;
 
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.javafx.components.SceneController;
-import it.italiandudes.dnd_visualizer.javafx.controller.inventory.ControllerSceneInventoryAddon;
+import it.italiandudes.dnd_visualizer.javafx.controllers.inventory.ControllerSceneInventoryAddon;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
 import javafx.fxml.FXMLLoader;

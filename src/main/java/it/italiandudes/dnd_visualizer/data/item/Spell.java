@@ -4,7 +4,7 @@ import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.data.enums.SerializerType;
 import it.italiandudes.dnd_visualizer.db.DBManager;
-import it.italiandudes.dnd_visualizer.interfaces.ISavable;
+import it.italiandudes.dnd_visualizer.data.interfaces.ISavable;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

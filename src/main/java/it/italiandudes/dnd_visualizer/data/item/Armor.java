@@ -2,7 +2,7 @@ package it.italiandudes.dnd_visualizer.data.item;
 
 import it.italiandudes.dnd_visualizer.data.enums.*;
 import it.italiandudes.dnd_visualizer.db.DBManager;
-import it.italiandudes.dnd_visualizer.interfaces.ISavable;
+import it.italiandudes.dnd_visualizer.data.interfaces.ISavable;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

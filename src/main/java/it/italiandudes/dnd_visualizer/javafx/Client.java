@@ -1,7 +1,9 @@
 package it.italiandudes.dnd_visualizer.javafx;
 
 import it.italiandudes.dnd_visualizer.db.DBManager;
+import it.italiandudes.dnd_visualizer.javafx.alerts.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.components.SceneController;
+import it.italiandudes.dnd_visualizer.javafx.scene.SceneLoading;
 import it.italiandudes.dnd_visualizer.javafx.scene.SceneMainMenu;
 import it.italiandudes.dnd_visualizer.javafx.utils.Settings;
 import it.italiandudes.dnd_visualizer.javafx.utils.ThemeHandler;
@@ -95,6 +97,17 @@ public final class Client extends Application {
         popupStage.setScene(new Scene(sceneController.getParent()));
         ThemeHandler.loadConfigTheme(popupStage.getScene());
         return popupStage;
+    }
+    public static void showMessageAndGoToMenu(@NotNull final Throwable t) {
+        Logger.log(t);
+        Platform.runLater(() -> {
+            new ErrorAlert("ERRORE", "Errore di Database", "Si e' verificato un errore durante la comunicazione con il database, ritorno al menu principale.");
+            setScene(SceneLoading.getScene());
+            DBManager.closeConnection();
+            setScene(SceneMainMenu.getScene());
+        });
+
+
     }
     public static void exit() {
         Logger.log("Exit Method Called, exiting Java process...");

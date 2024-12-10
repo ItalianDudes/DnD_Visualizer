@@ -20,7 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "DuplicatedCode"})
 public final class Waypoint extends StackPane {
 
     // Attributes
@@ -34,6 +34,20 @@ public final class Waypoint extends StackPane {
     private boolean isVisibleToPlayers;
 
     // Constructors
+    public Waypoint(
+            final int waypointID, @NotNull final Map map, final long creationDate, @NotNull final String name,
+            @NotNull final Point2D center, @NotNull final WaypointType type, @Nullable final Item item,
+            final boolean isVisibleToPlayers) {
+        this.waypointID = waypointID;
+        this.map = map;
+        this.creationDate = creationDate;
+        this.name = name;
+        this.center = center;
+        this.type = type;
+        this.item = item;
+        this.isVisibleToPlayers = isVisibleToPlayers;
+        finishConfiguration();
+    }
     public Waypoint(final int id) throws SQLException, IOException {
         super();
         String query = "SELECT * FROM waypoints WHERE id=?;";

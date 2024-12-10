@@ -20,6 +20,14 @@ public final class Map {
     @NotNull private final String mapExtension;
 
     // Constructors
+    public Map(final int mapID, @NotNull final String name, final long creationDate,
+               @NotNull final String base64map, @NotNull final String mapExtension) throws IOException {
+        this.mapID = mapID;
+        this.name = name;
+        this.creationDate = creationDate;
+        this.map = ImageUtils.fromBase64ToFXImage(base64map);
+        this.mapExtension = mapExtension;
+    }
     public Map(final int mapID) throws SQLException, IOException {
         String query = "SELECT * FROM maps WHERE id=?;";
         PreparedStatement ps = DBManager.preparedStatement(query);
@@ -90,16 +98,14 @@ public final class Map {
     public boolean equals(Object o) {
         if (!(o instanceof Map)) return false;
 
-        Map map1 = (Map) o;
-        return getMapID() == map1.getMapID() && getCreationDate() == map1.getCreationDate() && getName().equals(map1.getName()) && getMap().equals(map1.getMap()) && getMapExtension().equals(map1.getMapExtension());
+        Map map = (Map) o;
+        return getMapID() == map.getMapID() && getCreationDate() == map.getCreationDate() && getName().equals(map.getName());
     }
     @Override
     public int hashCode() {
         int result = getMapID();
         result = 31 * result + getName().hashCode();
         result = 31 * result + Long.hashCode(getCreationDate());
-        result = 31 * result + getMap().hashCode();
-        result = 31 * result + getMapExtension().hashCode();
         return result;
     }
     @Override @NotNull

@@ -1,13 +1,16 @@
 package it.italiandudes.dnd_visualizer.data.map;
 
 import it.italiandudes.dnd_visualizer.db.DBManager;
+import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.utils.ImageUtils;
+import it.italiandudes.idl.common.Logger;
 import javafx.scene.image.Image;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
@@ -34,6 +37,21 @@ public final class MapManager {
     // Constructor
     private MapManager() {
         this.mapList = new HashSet<>();
+        try {
+            ResultSet result = DBManager.dbAllRowsSearch("maps");
+            while (result.next()) {
+                int mapID = result.getInt("id");
+                String name = result.getString("name");
+                long creationDate = result.getLong("creation_date");
+                String base64map = result.getString("base64map");
+                String mapExtension = result.getString("map_extension");
+                mapList.add(new Map(mapID, name, creationDate, base64map, mapExtension));
+            }
+            result.close();
+        } catch (SQLException | IOException e) {
+            Logger.log(e);
+            Client.exit();
+        }
     }
 
     // Methods
@@ -48,7 +66,7 @@ public final class MapManager {
     @Nullable
     public Map registerMap(@NotNull final String name, @NotNull final Image mapImage, @NotNull final String mapExtension) throws SQLException, IOException {
         if (getMap(name) != null) return null;
-        String query = "INSERT INTO entities (name, creation_date, base64map, map_extension) VALUES (?, ?, ?, ?);";
+        String query = "INSERT INTO maps (name, creation_date, base64map, map_extension) VALUES (?, ?, ?, ?);";
         PreparedStatement ps = DBManager.preparedStatement(query);
         if (ps == null) throw new SQLException("Prepared Statement is null");
         ps.setString(1, name);

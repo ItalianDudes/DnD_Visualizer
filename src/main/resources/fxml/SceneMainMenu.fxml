@@ -3,11 +3,17 @@
 <!--suppress JavaFxDefaultTag -->
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<ScrollPane fitToHeight="true" fitToWidth="true" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.javafx.controller.ControllerSceneMainMenu">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.javafx.controllers.ControllerSceneMainMenu">
    <content>
       <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0">
          <children>
@@ -54,12 +60,12 @@
                                     <Font name="Lucida Sans Demibold" size="16.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="buttonNewCampaign" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#newCampaign" text="Nuova Campagna" GridPane.rowIndex="2">
+                              <Button fx:id="buttonNewCampaign" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#newCampaign" text="Nuova Campagna" GridPane.rowIndex="2">
                                  <font>
                                     <Font name="Lucida Sans Demibold" size="16.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="buttonOpenCampaign" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openCampaign" text="Apri Campagna" GridPane.rowIndex="3">
+                              <Button fx:id="buttonOpenCampaign" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openCampaign" text="Apri Campagna" GridPane.rowIndex="3">
                                  <font>
                                     <Font name="Lucida Sans Demibold" size="16.0" />
                                  </font>

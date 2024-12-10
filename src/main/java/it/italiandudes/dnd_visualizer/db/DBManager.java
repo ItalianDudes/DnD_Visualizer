@@ -26,6 +26,13 @@ public final class DBManager {
     }
 
     // Methods
+    @SuppressWarnings("resource")
+    public static ResultSet dbAllRowsSearch(@NotNull final String tableName) throws SQLException {
+        String query = "SELECT * FROM " + tableName + ";";
+        PreparedStatement ps = DBManager.preparedStatement(query);
+        if (ps == null) throw new SQLException("Database connection is null");
+        return ps.executeQuery();
+    }
     public static void connectToDB(@NotNull final File DB_PATH) throws IOException, SQLException {
         if (!DB_PATH.exists() || DB_PATH.isDirectory()) throw new IOException("This db doesn't exist");
         setConnection(DB_PATH.getAbsolutePath());
