@@ -12,8 +12,6 @@ import java.sql.SQLException;
 
 public final class Map {
 
-    private String test;
-
     // Attributes
     private final int mapID;
     @NotNull private String name;
