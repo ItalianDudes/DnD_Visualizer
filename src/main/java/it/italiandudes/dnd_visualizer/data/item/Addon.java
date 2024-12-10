@@ -20,7 +20,7 @@ import java.sql.SQLException;
 import java.util.Base64;
 
 @SuppressWarnings("unused")
-public class Addon extends Equipment implements ISavable, ISerializable {
+public final class Addon extends Equipment implements ISavable, ISerializable {
 
     // Attributes
     @Nullable private Integer addonID;
