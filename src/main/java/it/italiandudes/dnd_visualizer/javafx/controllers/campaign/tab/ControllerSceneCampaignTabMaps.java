@@ -6,7 +6,6 @@ import it.italiandudes.dnd_visualizer.data.enums.ElementType;
 import it.italiandudes.dnd_visualizer.data.enums.WaypointType;
 import it.italiandudes.dnd_visualizer.data.item.Item;
 import it.italiandudes.dnd_visualizer.data.item.ItemContainer;
-import it.italiandudes.dnd_visualizer.data.item.Weapon;
 import it.italiandudes.dnd_visualizer.data.map.Map;
 import it.italiandudes.dnd_visualizer.data.map.MapManager;
 import it.italiandudes.dnd_visualizer.data.waypoints.Waypoint;
@@ -551,7 +550,6 @@ public final class ControllerSceneCampaignTabMaps {
     }
     private void addElement(@NotNull final Point2D center, @NotNull final ElementType type) {
         Item item = showElementCreator(type);
-        System.out.println(item instanceof Weapon);
         if (item == null) return;
         try {
             Element element = ElementManager.getInstance().registerElement(map, center, type, item, false);
