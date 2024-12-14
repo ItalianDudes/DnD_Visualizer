@@ -13,7 +13,8 @@ public enum WaypointType {
     SPECIAL_MISSION("Missione Speciale", SVG.Objectives.OBJECTIVE_MISSION, Color.YELLOW),
     POINT_OF_INTEREST_MARKET("Negozio", SVG.PointsOfInterest.POI_MARKET, Color.GREEN),
     POINT_OF_INTEREST_TAVERN("Taverna", SVG.PointsOfInterest.POI_TAVERN, Color.GREEN),
-    POINT_OF_INTEREST_OFFICE("Ufficio", SVG.PointsOfInterest.POI_OFFICE, Color.GREEN);
+    POINT_OF_INTEREST_OFFICE("Ufficio", SVG.PointsOfInterest.POI_OFFICE, Color.GREEN),
+    POINT_OF_INTEREST_HOME("Casa", SVG.PointsOfInterest.POI_HOME, Color.GREEN);
 
     // Attributes
     @NotNull private final String name;
