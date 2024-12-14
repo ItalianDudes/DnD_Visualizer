@@ -57,6 +57,24 @@ CREATE TABLE IF NOT EXISTS player_entities (
     ON DELETE CASCADE
 );
 
+-- TABLE: Elements
+CREATE TABLE IF NOT EXISTS elements (
+    id INTEGER NOT NULL PRIMARY KEY,
+    map_id INTEGER NOT NULL REFERENCES maps(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+    creation_date BIGINT NOT NULL UNIQUE,
+    name TEXT NOT NULL,
+    center_x REAL NOT NULL,
+    center_y REAL NOT NULL,
+    type INTEGER NOT NULL DEFAULT 0,
+    item_id INTEGER NOT NULL REFERENCES items(id)
+    ON UPDATE CASCADE
+    ON DELETE CASCADE,
+    player_visibility INTEGER NOT NULL DEFAULT 0,
+    UNIQUE(map_id, name)
+);
+
 -- TABLE: Waypoints
 CREATE TABLE IF NOT EXISTS waypoints (
     id INTEGER NOT NULL PRIMARY KEY,
@@ -68,9 +86,6 @@ CREATE TABLE IF NOT EXISTS waypoints (
     center_x REAL NOT NULL,
     center_y REAL NOT NULL,
     type INTEGER NOT NULL DEFAULT 0,
-    item_id INTEGER REFERENCES items(id)
-    ON UPDATE CASCADE
-    ON DELETE CASCADE,
     player_visibility INTEGER NOT NULL DEFAULT 0,
     UNIQUE(map_id, name, type)
 );
