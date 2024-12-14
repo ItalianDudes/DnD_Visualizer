@@ -3,6 +3,7 @@ package it.italiandudes.dnd_visualizer.javafx.controllers.inventory;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.data.item.Item;
+import it.italiandudes.dnd_visualizer.data.item.ItemContainer;
 import it.italiandudes.dnd_visualizer.data.item.Weapon;
 import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
@@ -49,10 +50,25 @@ public final class ControllerSceneInventoryWeapon {
     // Attributes
     private Weapon weapon = null;
     private String imageExtension = null;
+    private String weaponName = null;
+    private ItemContainer itemContainer = null;
+    private volatile boolean configurationComplete = false;
+
+    // Methods
+    public void setItemContainer(@NotNull final ItemContainer itemContainer) {
+        this.itemContainer = itemContainer;
+    }
+    public void setWeaponName(@NotNull final String weaponName) {
+        this.weaponName = weaponName;
+    }
+    public void configurationComplete() {
+        configurationComplete = true;
+    }
 
     // Graphics Elements
-    @FXML
-    private TextField textFieldName;
+    @FXML private Button buttonExport;
+    @FXML private Button buttonSave;
+    @FXML private TextField textFieldName;
     @FXML private TextField textFieldWeight;
     @FXML private Spinner<Integer> spinnerQuantity;
     @FXML private ComboBox<String> comboBoxRarity;
@@ -119,10 +135,31 @@ public final class ControllerSceneInventoryWeapon {
                 }
             };
         }, comboBoxRarity.valueProperty()));
-        String weaponName = TabInventory.getElementName();
-        JSONObject weaponStructure = TabInventory.getElementStructure();
-        if (weaponName != null) initExistingWeapon(weaponName);
-        else if (weaponStructure != null) initExistingWeapon(weaponStructure);
+
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        //noinspection StatementWithEmptyBody
+                        while (!configurationComplete);
+
+                        if (weaponName == null) weaponName = TabInventory.getElementName();
+                        JSONObject weaponStructure = TabInventory.getElementStructure();
+
+                        Platform.runLater(() -> {
+                            if (weaponName != null) initExistingWeapon(weaponName);
+                            else if (weaponStructure != null) initExistingWeapon(weaponStructure);
+                            buttonExport.setDisable(false);
+                            buttonSave.setDisable(false);
+                        });
+
+                        return null;
+                    }
+                };
+            }
+        }.start();
     }
 
     // OnChange Triggers Setter
@@ -347,6 +384,7 @@ public final class ControllerSceneInventoryWeapon {
                                 );
                             }
                             weapon.saveIntoDatabase(oldName);
+                            if (itemContainer != null) itemContainer.setItem(weapon);
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Salvataggio dei Dati", "Salvataggio dei dati completato con successo!"));
                         } catch (Exception e) {
                             Logger.log(e);
@@ -584,6 +622,73 @@ public final class ControllerSceneInventoryWeapon {
             }
         }.start();
     }
+    private void initExistingWeapon() {
+        try {
+            imageExtension = weapon.getImageExtension();
+            int CC = weapon.getCostCopper();
+            int CP = CC / 1000;
+            CC -= CP * 1000;
+            int CG = CC / 100;
+            CC -= CG * 100;
+            int CE = CC / 50;
+            CC -= CE * 50;
+            int CS = CC / 10;
+            CC -= CS * 10;
+
+            BufferedImage bufferedImage = null;
+            try {
+                if (weapon.getBase64image() != null && imageExtension != null) {
+                    byte[] imageBytes = Base64.getDecoder().decode(weapon.getBase64image());
+                    ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
+                    bufferedImage = ImageIO.read(imageStream);
+                } else if (weapon.getBase64image() != null && imageExtension == null) {
+                    throw new IllegalArgumentException("Image without declared extension");
+                }
+            } catch (IllegalArgumentException e) {
+                Logger.log(e);
+                weapon.setBase64image(null);
+                weapon.setImageExtension(null);
+                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
+                return;
+            }
+
+            int finalCC = CC;
+            BufferedImage finalBufferedImage = bufferedImage;
+            Platform.runLater(() -> {
+                textFieldName.setText(weapon.getName());
+                textFieldWeight.setText(String.valueOf(weapon.getWeight()));
+                comboBoxRarity.getSelectionModel().select(weapon.getRarity().getTextedRarity());
+                textFieldMR.setText(String.valueOf(finalCC));
+                textFieldMA.setText(String.valueOf(CS));
+                textFieldME.setText(String.valueOf(CE));
+                textFieldMO.setText(String.valueOf(CG));
+                textFieldMP.setText(String.valueOf(CP));
+                textAreaDescription.setText(weapon.getDescription());
+                if (finalBufferedImage != null && imageExtension != null) {
+                    imageViewItem.setImage(SwingFXUtils.toFXImage(finalBufferedImage, null));
+                } else {
+                    imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
+                }
+                spinnerQuantity.getValueFactory().setValue(weapon.getQuantity());
+                textFieldWeaponCategory.setText(weapon.getWeaponCategory());
+                textFieldEffectCA.setText(String.valueOf(weapon.getCaEffect()));
+                textFieldEffectLife.setText(String.valueOf(weapon.getLifeEffect()));
+                textFieldEffectLifePerc.setText(String.valueOf(weapon.getLifePercentageEffect()));
+                textFieldEffectLoad.setText(String.valueOf(weapon.getLoadEffect()));
+                textFieldEffectLoadPerc.setText(String.valueOf(weapon.getLoadPercentageEffect()));
+                textAreaOtherEffects.setText(weapon.getOtherEffects());
+                textAreaProperties.setText(weapon.getProperties());
+                checkBoxEquipped.setSelected(weapon.isEquipped());
+            });
+
+        } catch (Exception e) {
+            Logger.log(e);
+            Platform.runLater(() -> {
+                new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
+                textFieldName.getScene().getWindow().hide();
+            });
+        }
+    }
     private void initExistingWeapon(@NotNull final String weaponName) {
         new Service<Void>() {
             @Override
@@ -593,64 +698,7 @@ public final class ControllerSceneInventoryWeapon {
                     protected Void call() {
                         try {
                             weapon = new Weapon(weaponName);
-
-                            imageExtension = weapon.getImageExtension();
-                            int CC = weapon.getCostCopper();
-                            int CP = CC / 1000;
-                            CC -= CP * 1000;
-                            int CG = CC / 100;
-                            CC -= CG * 100;
-                            int CE = CC / 50;
-                            CC -= CE * 50;
-                            int CS = CC / 10;
-                            CC -= CS * 10;
-
-                            BufferedImage bufferedImage = null;
-                            try {
-                                if (weapon.getBase64image() != null && imageExtension != null) {
-                                    byte[] imageBytes = Base64.getDecoder().decode(weapon.getBase64image());
-                                    ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
-                                    bufferedImage = ImageIO.read(imageStream);
-                                } else if (weapon.getBase64image() != null && imageExtension == null) {
-                                    throw new IllegalArgumentException("Image without declared extension");
-                                }
-                            } catch (IllegalArgumentException e) {
-                                Logger.log(e);
-                                weapon.setBase64image(null);
-                                weapon.setImageExtension(null);
-                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
-                                return null;
-                            }
-
-                            int finalCC = CC;
-                            BufferedImage finalBufferedImage = bufferedImage;
-                            Platform.runLater(() -> {
-                                textFieldName.setText(weapon.getName());
-                                textFieldWeight.setText(String.valueOf(weapon.getWeight()));
-                                comboBoxRarity.getSelectionModel().select(weapon.getRarity().getTextedRarity());
-                                textFieldMR.setText(String.valueOf(finalCC));
-                                textFieldMA.setText(String.valueOf(CS));
-                                textFieldME.setText(String.valueOf(CE));
-                                textFieldMO.setText(String.valueOf(CG));
-                                textFieldMP.setText(String.valueOf(CP));
-                                textAreaDescription.setText(weapon.getDescription());
-                                if (finalBufferedImage != null && imageExtension != null) {
-                                    imageViewItem.setImage(SwingFXUtils.toFXImage(finalBufferedImage, null));
-                                } else {
-                                    imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
-                                }
-                                spinnerQuantity.getValueFactory().setValue(weapon.getQuantity());
-                                textFieldWeaponCategory.setText(weapon.getWeaponCategory());
-                                textFieldEffectCA.setText(String.valueOf(weapon.getCaEffect()));
-                                textFieldEffectLife.setText(String.valueOf(weapon.getLifeEffect()));
-                                textFieldEffectLifePerc.setText(String.valueOf(weapon.getLifePercentageEffect()));
-                                textFieldEffectLoad.setText(String.valueOf(weapon.getLoadEffect()));
-                                textFieldEffectLoadPerc.setText(String.valueOf(weapon.getLoadPercentageEffect()));
-                                textAreaOtherEffects.setText(weapon.getOtherEffects());
-                                textAreaProperties.setText(weapon.getProperties());
-                                checkBoxEquipped.setSelected(weapon.isEquipped());
-                            });
-
+                            initExistingWeapon();
                         } catch (Exception e) {
                             Logger.log(e);
                             Platform.runLater(() -> {

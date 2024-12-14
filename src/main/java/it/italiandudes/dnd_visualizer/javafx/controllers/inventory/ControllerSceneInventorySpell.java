@@ -3,6 +3,7 @@ package it.italiandudes.dnd_visualizer.javafx.controllers.inventory;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.data.item.Item;
+import it.italiandudes.dnd_visualizer.data.item.ItemContainer;
 import it.italiandudes.dnd_visualizer.data.item.Spell;
 import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
@@ -22,10 +23,7 @@ import javafx.concurrent.Task;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.Background;
@@ -52,8 +50,24 @@ public final class ControllerSceneInventorySpell {
     // Attributes
     private Spell spell = null;
     private String imageExtension = null;
+    private String spellName = null;
+    private ItemContainer itemContainer = null;
+    private volatile boolean configurationComplete = false;
+
+    // Methods
+    public void setItemContainer(@NotNull final ItemContainer itemContainer) {
+        this.itemContainer = itemContainer;
+    }
+    public void setSpellName(@NotNull final String spellName) {
+        this.spellName = spellName;
+    }
+    public void configurationComplete() {
+        configurationComplete = true;
+    }
 
     // Graphic Elements
+    @FXML private Button buttonExport;
+    @FXML private Button buttonSave;
     @FXML private TextField textFieldName;
     @FXML private ComboBox<String> comboBoxRarity;
     @FXML private TextField textFieldMR;
@@ -108,10 +122,32 @@ public final class ControllerSceneInventorySpell {
                 }
             };
         }, comboBoxRarity.valueProperty()));
-        String spellName = TabInventory.getElementName();
-        JSONObject spellStructure = TabInventory.getElementStructure();
-        if (spellName != null) initExistingSpell(spellName);
-        else if (spellStructure != null) initExistingSpell(spellStructure);
+
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        //noinspection StatementWithEmptyBody
+                        while (!configurationComplete);
+
+                        if (spellName == null) spellName = TabInventory.getElementName();
+                        JSONObject spellStructure = TabInventory.getElementStructure();
+
+                        Platform.runLater(() -> {
+                            if (spellName != null) initExistingSpell(spellName);
+                            else if (spellStructure != null) initExistingSpell(spellStructure);
+                            else if (spell != null) initExistingSpell();
+                            buttonExport.setDisable(false);
+                            buttonSave.setDisable(false);
+                        });
+
+                        return null;
+                    }
+                };
+            }
+        }.start();
     }
 
     // EDT
@@ -291,6 +327,7 @@ public final class ControllerSceneInventorySpell {
                             }
 
                             spell.saveIntoDatabase(oldName);
+                            if (itemContainer != null) itemContainer.setItem(spell);
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Aggiornamento Dati", "Aggiornamento dei dati effettuato con successo!"));
                         } catch (Exception e) {
                             Logger.log(e);
@@ -502,71 +539,80 @@ public final class ControllerSceneInventorySpell {
             }
         }.start();
     }
+    private void initExistingSpell() {
+        try {
+            imageExtension = spell.getImageExtension();
+            int CC = spell.getCostCopper();
+            int CP = CC / 1000;
+            CC -= CP * 1000;
+            int CG = CC / 100;
+            CC -= CG * 100;
+            int CE = CC / 50;
+            CC -= CE * 50;
+            int CS = CC / 10;
+            CC -= CS * 10;
+
+            BufferedImage bufferedImage = null;
+            try {
+                if (spell.getBase64image() != null && imageExtension != null) {
+                    byte[] imageBytes = Base64.getDecoder().decode(spell.getBase64image());
+                    ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
+                    bufferedImage = ImageIO.read(imageStream);
+                } else if (spell.getBase64image() != null && imageExtension == null) {
+                    throw new IllegalArgumentException("Image without declared extension");
+                }
+            } catch (IllegalArgumentException e) {
+                Logger.log(e);
+                spell.setBase64image(null);
+                spell.setImageExtension(null);
+                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
+                return;
+            }
+
+            int finalCC = CC;
+            BufferedImage finalBufferedImage = bufferedImage;
+            Platform.runLater(() -> {
+
+                textFieldName.setText(spell.getName());
+                comboBoxRarity.getSelectionModel().select(spell.getRarity().getTextedRarity());
+                textFieldMR.setText(String.valueOf(finalCC));
+                textFieldMA.setText(String.valueOf(CS));
+                textFieldME.setText(String.valueOf(CE));
+                textFieldMO.setText(String.valueOf(CG));
+                textFieldMP.setText(String.valueOf(CP));
+                textAreaDescription.setText(spell.getDescription());
+                if (finalBufferedImage != null && imageExtension != null) {
+                    imageViewItem.setImage(SwingFXUtils.toFXImage(finalBufferedImage, null));
+                } else {
+                    imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
+                }
+
+                textFieldCastTime.setText(spell.getCastTime());
+                textFieldDuration.setText(spell.getDuration());
+                textFieldComponents.setText(spell.getComponents());
+                textFieldLevel.setText(String.valueOf(spell.getLevel()));
+                textFieldSpellRange.setText(spell.getRange());
+                textFieldType.setText(spell.getType());
+            });
+
+        } catch (Exception e) {
+            Logger.log(e);
+            Platform.runLater(() -> {
+                new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
+                textFieldName.getScene().getWindow().hide();
+            });
+        }
+    }
     private void initExistingSpell(@NotNull final String spellName) {
-        Service<Void> itemInitializerService = new Service<Void>() {
+        new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
                 return new Task<Void>() {
                     @Override @SuppressWarnings("DuplicatedCode")
                     protected Void call() throws Exception {
                         try {
-
                             spell = new Spell(spellName);
-
-                            imageExtension = spell.getImageExtension();
-                            int CC = spell.getCostCopper();
-                            int CP = CC / 1000;
-                            CC -= CP * 1000;
-                            int CG = CC / 100;
-                            CC -= CG * 100;
-                            int CE = CC / 50;
-                            CC -= CE * 50;
-                            int CS = CC / 10;
-                            CC -= CS * 10;
-
-                            BufferedImage bufferedImage = null;
-                            try {
-                                if (spell.getBase64image() != null && imageExtension != null) {
-                                    byte[] imageBytes = Base64.getDecoder().decode(spell.getBase64image());
-                                    ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
-                                    bufferedImage = ImageIO.read(imageStream);
-                                } else if (spell.getBase64image() != null && imageExtension == null) {
-                                    throw new IllegalArgumentException("Image without declared extension");
-                                }
-                            } catch (IllegalArgumentException e) {
-                                Logger.log(e);
-                                spell.setBase64image(null);
-                                spell.setImageExtension(null);
-                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
-                                return null;
-                            }
-
-                            int finalCC = CC;
-                            BufferedImage finalBufferedImage = bufferedImage;
-                            Platform.runLater(() -> {
-
-                                textFieldName.setText(spell.getName());
-                                comboBoxRarity.getSelectionModel().select(spell.getRarity().getTextedRarity());
-                                textFieldMR.setText(String.valueOf(finalCC));
-                                textFieldMA.setText(String.valueOf(CS));
-                                textFieldME.setText(String.valueOf(CE));
-                                textFieldMO.setText(String.valueOf(CG));
-                                textFieldMP.setText(String.valueOf(CP));
-                                textAreaDescription.setText(spell.getDescription());
-                                if (finalBufferedImage != null && imageExtension != null) {
-                                    imageViewItem.setImage(SwingFXUtils.toFXImage(finalBufferedImage, null));
-                                } else {
-                                    imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
-                                }
-
-                                textFieldCastTime.setText(spell.getCastTime());
-                                textFieldDuration.setText(spell.getDuration());
-                                textFieldComponents.setText(spell.getComponents());
-                                textFieldLevel.setText(String.valueOf(spell.getLevel()));
-                                textFieldSpellRange.setText(spell.getRange());
-                                textFieldType.setText(spell.getType());
-                            });
-
+                            initExistingSpell();
                         } catch (Exception e) {
                             Logger.log(e);
                             Platform.runLater(() -> {
@@ -579,8 +625,6 @@ public final class ControllerSceneInventorySpell {
                     }
                 };
             }
-        };
-
-        itemInitializerService.start();
+        }.start();
     }
 }

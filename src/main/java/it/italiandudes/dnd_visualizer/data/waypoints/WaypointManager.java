@@ -1,7 +1,6 @@
 package it.italiandudes.dnd_visualizer.data.waypoints;
 
 import it.italiandudes.dnd_visualizer.data.enums.WaypointType;
-import it.italiandudes.dnd_visualizer.data.item.Item;
 import it.italiandudes.dnd_visualizer.data.map.Map;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.javafx.Client;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,11 +46,8 @@ public final class WaypointManager {
                 String name = result.getString("name");
                 Point2D center = new Point2D(result.getDouble("center_x"), result.getDouble("center_y"));
                 WaypointType type = WaypointType.values()[result.getInt("type")];
-                int itemID = result.getInt("item_id");
-                Item item = null;
-                if (!result.wasNull()) item = new Item(itemID);
                 boolean playerVisibility = result.getInt("player_visibility") != 0;
-                waypointList.add(new Waypoint(waypointID, map, creationDate, name, center, type, item, playerVisibility));
+                waypointList.add(new Waypoint(waypointID, map, creationDate, name, center, type, playerVisibility));
             }
         } catch (SQLException | IOException e) {
             Logger.log(e);
@@ -70,9 +65,9 @@ public final class WaypointManager {
         return waypointList.stream().filter(waypoint -> waypoint.getMap().equals(map)).collect(Collectors.toCollection(HashSet::new));
     }
     @Nullable
-    public Waypoint registerWaypoint(@NotNull final Map map, @NotNull final String name, @NotNull final Point2D center, @NotNull final WaypointType type, @Nullable final Item item, final boolean isVisibleToPlayers) throws SQLException, IOException {
+    public Waypoint registerWaypoint(@NotNull final Map map, @NotNull final String name, @NotNull final Point2D center, @NotNull final WaypointType type, final boolean isVisibleToPlayers) throws SQLException, IOException {
         if (getWaypoint(map, name, type) != null) return null;
-        String query = "INSERT INTO waypoints (map_id, name, creation_date, center_x, center_y, type, item_id, player_visibility) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+        String query = "INSERT INTO waypoints (map_id, name, creation_date, center_x, center_y, type, player_visibility) VALUES (?, ?, ?, ?, ?, ?, ?);";
         long creationDate;
         PreparedStatement ps = DBManager.preparedStatement(query);
         if (ps == null) throw new SQLException("Prepared Statement is null");
@@ -83,12 +78,7 @@ public final class WaypointManager {
         ps.setDouble(4, center.getX());
         ps.setDouble(5, center.getY());
         ps.setInt(6, type.ordinal());
-        if (item == null) ps.setNull(7, Types.INTEGER);
-        else {
-            assert item.getItemID() != null;
-            ps.setInt(7, item.getItemID());
-        }
-        ps.setInt(8, isVisibleToPlayers ? 1 : 0);
+        ps.setInt(7, isVisibleToPlayers ? 1 : 0);
         ps.executeUpdate();
         ps.close();
         Waypoint waypoint = new Waypoint(creationDate);

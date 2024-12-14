@@ -6,6 +6,7 @@ import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.data.item.Armor;
 import it.italiandudes.dnd_visualizer.data.item.Item;
+import it.italiandudes.dnd_visualizer.data.item.ItemContainer;
 import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.javafx.alerts.ConfirmationAlert;
@@ -51,8 +52,24 @@ public final class ControllerSceneInventoryArmor {
     // Attributes
     private Armor armor = null;
     private String imageExtension = null;
+    private String armorName = null;
+    private ItemContainer itemContainer = null;
+    private volatile boolean configurationComplete = false;
+
+    // Methods
+    public void setItemContainer(@NotNull final ItemContainer itemContainer) {
+        this.itemContainer = itemContainer;
+    }
+    public void setArmorName(@NotNull final String armorName) {
+        this.armorName = armorName;
+    }
+    public void configurationComplete() {
+        configurationComplete = true;
+    }
 
     // Graphics Elements
+    @FXML private Button buttonExport;
+    @FXML private Button buttonSave;
     @FXML private TextField textFieldName;
     @FXML private TextField textFieldWeight;
     @FXML private ComboBox<ArmorWeightCategory> comboBoxWeightCategory;
@@ -123,10 +140,32 @@ public final class ControllerSceneInventoryArmor {
         }, comboBoxRarity.valueProperty()));
         comboBoxSlot.setItems(FXCollections.observableList(ArmorSlot.ARMOR_SLOTS));
         comboBoxSlot.getSelectionModel().selectFirst();
-        String armorName = TabInventory.getElementName();
-        JSONObject armorStructure = TabInventory.getElementStructure();
-        if (armorName != null) initExistingArmor(armorName);
-        else if (armorStructure != null) initExistingArmor(armorStructure);
+
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        //noinspection StatementWithEmptyBody
+                        while (!configurationComplete);
+
+                        if (armorName == null) armorName = TabInventory.getElementName();
+                        JSONObject armorStructure = TabInventory.getElementStructure();
+
+                        Platform.runLater(() -> {
+                            if (armorName != null) initExistingArmor(armorName);
+                            else if (armorStructure != null) initExistingArmor(armorStructure);
+                            else if (armor != null) initExistingArmor();
+                            buttonExport.setDisable(false);
+                            buttonSave.setDisable(false);
+                        });
+
+                        return null;
+                    }
+                };
+            }
+        }.start();
     }
 
     // OnChange Triggers Setter
@@ -487,6 +526,7 @@ public final class ControllerSceneInventoryArmor {
                             }
 
                             armor.saveIntoDatabase(oldName);
+                            if (itemContainer != null) itemContainer.setItem(armor);
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Salvataggio dei Dati", "Salvataggio dei dati completato con successo!"));
                         } catch (Exception e) {
                             Logger.log(e);
@@ -582,6 +622,71 @@ public final class ControllerSceneInventoryArmor {
             }
         }.start();
     }
+    private void initExistingArmor() {
+        try {
+            imageExtension = armor.getImageExtension();
+            int CC = armor.getCostCopper();
+            int CP = CC / 1000;
+            CC -= CP * 1000;
+            int CG = CC / 100;
+            CC -= CG * 100;
+            int CE = CC / 50;
+            CC -= CE * 50;
+            int CS = CC / 10;
+            CC -= CS * 10;
+
+            BufferedImage bufferedImage = null;
+            try {
+                if (armor.getBase64image() != null && imageExtension != null) {
+                    byte[] imageBytes = Base64.getDecoder().decode(armor.getBase64image());
+                    ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
+                    bufferedImage = ImageIO.read(imageStream);
+                } else if (armor.getBase64image() != null && imageExtension == null) {
+                    throw new IllegalArgumentException("Image without declared extension");
+                }
+            } catch (IllegalArgumentException e) {
+                Logger.log(e);
+                armor.setBase64image(null);
+                armor.setImageExtension(null);
+                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
+                return;
+            }
+
+            int finalCC = CC;
+            BufferedImage finalBufferedImage = bufferedImage;
+            Platform.runLater(() -> {
+                textFieldName.setText(armor.getName());
+                textFieldWeight.setText(String.valueOf(armor.getWeight()));
+                comboBoxRarity.getSelectionModel().select(armor.getRarity().getTextedRarity());
+                textFieldMR.setText(String.valueOf(finalCC));
+                textFieldMA.setText(String.valueOf(CS));
+                textFieldME.setText(String.valueOf(CE));
+                textFieldMO.setText(String.valueOf(CG));
+                textFieldMP.setText(String.valueOf(CP));
+                textAreaDescription.setText(armor.getDescription());
+                if (finalBufferedImage != null && imageExtension != null) {
+                    imageViewItem.setImage(SwingFXUtils.toFXImage(finalBufferedImage, null));
+                } else {
+                    imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
+                }
+                spinnerQuantity.getValueFactory().setValue(armor.getQuantity());
+                comboBoxSlot.getSelectionModel().select(armor.getSlot());
+                textFieldEffectCA.setText(String.valueOf(armor.getCaEffect()));
+                textFieldEffectLife.setText(String.valueOf(armor.getLifeEffect()));
+                textFieldEffectLifePerc.setText(String.valueOf(armor.getLifePercentageEffect()));
+                textFieldEffectLoad.setText(String.valueOf(armor.getLoadEffect()));
+                textFieldEffectLoadPerc.setText(String.valueOf(armor.getLoadPercentageEffect()));
+                textAreaOtherEffects.setText(armor.getOtherEffects());
+                comboBoxWeightCategory.getSelectionModel().select(armor.getWeightCategory());
+            });
+        } catch (Exception e) {
+            Logger.log(e);
+            Platform.runLater(() -> {
+                new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
+                textFieldName.getScene().getWindow().hide();
+            });
+        }
+    }
     private void initExistingArmor(@NotNull final String armorName) {
         new Service<Void>() {
             @Override
@@ -591,62 +696,7 @@ public final class ControllerSceneInventoryArmor {
                     protected Void call() {
                         try {
                             armor = new Armor(armorName);
-
-                            imageExtension = armor.getImageExtension();
-                            int CC = armor.getCostCopper();
-                            int CP = CC / 1000;
-                            CC -= CP * 1000;
-                            int CG = CC / 100;
-                            CC -= CG * 100;
-                            int CE = CC / 50;
-                            CC -= CE * 50;
-                            int CS = CC / 10;
-                            CC -= CS * 10;
-
-                            BufferedImage bufferedImage = null;
-                            try {
-                                if (armor.getBase64image() != null && imageExtension != null) {
-                                    byte[] imageBytes = Base64.getDecoder().decode(armor.getBase64image());
-                                    ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
-                                    bufferedImage = ImageIO.read(imageStream);
-                                } else if (armor.getBase64image() != null && imageExtension == null) {
-                                    throw new IllegalArgumentException("Image without declared extension");
-                                }
-                            } catch (IllegalArgumentException e) {
-                                Logger.log(e);
-                                armor.setBase64image(null);
-                                armor.setImageExtension(null);
-                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
-                                return null;
-                            }
-
-                            int finalCC = CC;
-                            BufferedImage finalBufferedImage = bufferedImage;
-                            Platform.runLater(() -> {
-                                textFieldName.setText(armor.getName());
-                                textFieldWeight.setText(String.valueOf(armor.getWeight()));
-                                comboBoxRarity.getSelectionModel().select(armor.getRarity().getTextedRarity());
-                                textFieldMR.setText(String.valueOf(finalCC));
-                                textFieldMA.setText(String.valueOf(CS));
-                                textFieldME.setText(String.valueOf(CE));
-                                textFieldMO.setText(String.valueOf(CG));
-                                textFieldMP.setText(String.valueOf(CP));
-                                textAreaDescription.setText(armor.getDescription());
-                                if (finalBufferedImage != null && imageExtension != null) {
-                                    imageViewItem.setImage(SwingFXUtils.toFXImage(finalBufferedImage, null));
-                                } else {
-                                    imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
-                                }
-                                spinnerQuantity.getValueFactory().setValue(armor.getQuantity());
-                                comboBoxSlot.getSelectionModel().select(armor.getSlot());
-                                textFieldEffectCA.setText(String.valueOf(armor.getCaEffect()));
-                                textFieldEffectLife.setText(String.valueOf(armor.getLifeEffect()));
-                                textFieldEffectLifePerc.setText(String.valueOf(armor.getLifePercentageEffect()));
-                                textFieldEffectLoad.setText(String.valueOf(armor.getLoadEffect()));
-                                textFieldEffectLoadPerc.setText(String.valueOf(armor.getLoadPercentageEffect()));
-                                textAreaOtherEffects.setText(armor.getOtherEffects());
-                                comboBoxWeightCategory.getSelectionModel().select(armor.getWeightCategory());
-                            });
+                            initExistingArmor();
                         } catch (Exception e) {
                             Logger.log(e);
                             Platform.runLater(() -> {

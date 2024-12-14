@@ -82,8 +82,15 @@ public final class Map {
     public @NotNull String getName() {
         return name;
     }
-    public void setName(@NotNull String name) {
+    public void setName(@NotNull String name) throws SQLException { // Live DB Operation, must be fast
         this.name = name;
+        String query = "UPDATE maps SET name=? WHERE id=?;";
+        PreparedStatement ps = DBManager.preparedStatement(query);
+        if (ps == null) throw new SQLException("Database connection is null");
+        ps.setString(1, name);
+        ps.setInt(3, mapID);
+        ps.executeUpdate();
+        ps.close();
     }
     public long getCreationDate() {
         return creationDate;

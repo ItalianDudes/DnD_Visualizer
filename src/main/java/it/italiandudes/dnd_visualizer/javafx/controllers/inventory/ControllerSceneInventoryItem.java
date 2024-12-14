@@ -3,6 +3,7 @@ package it.italiandudes.dnd_visualizer.javafx.controllers.inventory;
 import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.data.item.Item;
+import it.italiandudes.dnd_visualizer.data.item.ItemContainer;
 import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.javafx.alerts.ConfirmationAlert;
@@ -48,6 +49,20 @@ public class ControllerSceneInventoryItem {
     // Attributes
     private Item item = null;
     private String imageExtension = null;
+    private String itemName = null;
+    private ItemContainer itemContainer = null;
+    private volatile boolean configurationComplete = false;
+
+    // Methods
+    public void setItemContainer(@NotNull final ItemContainer itemContainer) {
+        this.itemContainer = itemContainer;
+    }
+    public void setItemName(@NotNull final String itemName) {
+        this.itemName = itemName;
+    }
+    public void configurationComplete() {
+        configurationComplete = true;
+    }
 
     // Graphic Elements
     @FXML private TextField textFieldName;
@@ -61,6 +76,8 @@ public class ControllerSceneInventoryItem {
     @FXML private TextField textFieldMP;
     @FXML private TextArea textAreaDescription;
     @FXML private ImageView imageViewItem;
+    @FXML private Button buttonExport;
+    @FXML private Button buttonSave;
 
     // Old Values
     private int oldValueQuantity = 0;
@@ -108,10 +125,32 @@ public class ControllerSceneInventoryItem {
                 }
             };
         }, comboBoxRarity.valueProperty()));
-        String itemName = TabInventory.getElementName();
-        JSONObject itemStructure = TabInventory.getElementStructure();
-        if (itemName != null) initExistingItem(itemName);
-        else if (itemStructure != null) initExistingItem(itemStructure);
+
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        //noinspection StatementWithEmptyBody
+                        while (!configurationComplete);
+
+                        if (itemName == null) itemName = TabInventory.getElementName();
+                        JSONObject itemStructure = TabInventory.getElementStructure();
+
+                        Platform.runLater(() -> {
+                            if (itemName != null) initExistingItem(itemName);
+                            else if (itemStructure != null) initExistingItem(itemStructure);
+                            else if (item != null) initExistingItem();
+                            buttonExport.setDisable(false);
+                            buttonSave.setDisable(false);
+                        });
+
+                        return null;
+                    }
+                };
+            }
+        }.start();
     }
 
     // OnChange Triggers Setter
@@ -296,6 +335,7 @@ public class ControllerSceneInventoryItem {
                             }
 
                             item.saveIntoDatabase(oldName);
+                            if (itemContainer != null) itemContainer.setItem(item);
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Salvataggio dei Dati", "Salvataggio dei dati completato con successo!"));
                         } catch (Exception e) {
                             Logger.log(e);
@@ -493,7 +533,7 @@ public class ControllerSceneInventoryItem {
             }
         }.start();
     }
-    private void initExistingItem(@NotNull final String itemName) {
+    private void initExistingItem() {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
@@ -501,8 +541,6 @@ public class ControllerSceneInventoryItem {
                     @Override @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
-                            item = new Item(itemName);
-
                             imageExtension = item.getImageExtension();
                             int CC = item.getCostCopper();
                             int CP = CC / 1000;
@@ -552,6 +590,29 @@ public class ControllerSceneInventoryItem {
                                 spinnerQuantity.getValueFactory().setValue(item.getQuantity());
                             });
 
+                        } catch (Exception e) {
+                            Logger.log(e);
+                            Platform.runLater(() -> {
+                                new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
+                                textFieldName.getScene().getWindow().hide();
+                            });
+                        }
+                        return null;
+                    }
+                };
+            }
+        }.start();
+    }
+    private void initExistingItem(@NotNull final String itemName) {
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override @SuppressWarnings("DuplicatedCode")
+                    protected Void call() {
+                        try {
+                            item = new Item(itemName);
+                            initExistingItem();
                         } catch (Exception e) {
                             Logger.log(e);
                             Platform.runLater(() -> {

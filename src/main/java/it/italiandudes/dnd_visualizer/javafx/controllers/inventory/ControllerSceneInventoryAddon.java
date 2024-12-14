@@ -5,6 +5,7 @@ import it.italiandudes.dnd_visualizer.data.enums.Category;
 import it.italiandudes.dnd_visualizer.data.enums.Rarity;
 import it.italiandudes.dnd_visualizer.data.item.Addon;
 import it.italiandudes.dnd_visualizer.data.item.Item;
+import it.italiandudes.dnd_visualizer.data.item.ItemContainer;
 import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.javafx.alerts.ConfirmationAlert;
@@ -50,10 +51,25 @@ public final class ControllerSceneInventoryAddon {
     // Attributes
     private Addon addon = null;
     private String imageExtension = null;
+    private String addonName = null;
+    private ItemContainer itemContainer = null;
+    private volatile boolean configurationComplete = false;
+
+    // Methods
+    public void setItemContainer(@NotNull final ItemContainer itemContainer) {
+        this.itemContainer = itemContainer;
+    }
+    public void setAddonName(@NotNull final String addonName) {
+        this.addonName = addonName;
+    }
+    public void configurationComplete() {
+        configurationComplete = true;
+    }
 
     // Graphics Elements
-    @FXML
-    private TextField textFieldName;
+    @FXML private Button buttonExport;
+    @FXML private Button buttonSave;
+    @FXML private TextField textFieldName;
     @FXML private TextField textFieldWeight;
     @FXML private Spinner<Integer> spinnerQuantity;
     @FXML private ComboBox<String> comboBoxRarity;
@@ -121,10 +137,32 @@ public final class ControllerSceneInventoryAddon {
         }, comboBoxRarity.valueProperty()));
         comboBoxSlot.setItems(FXCollections.observableList(AddonSlot.ADDON_SLOTS));
         comboBoxSlot.getSelectionModel().selectFirst();
-        String addonName = TabInventory.getElementName();
-        JSONObject addonStructure = TabInventory.getElementStructure();
-        if (addonName != null) initExistingAddon(addonName);
-        else if (addonStructure != null) initExistingAddon(addonStructure);
+
+        new Service<Void>() {
+            @Override
+            protected Task<Void> createTask() {
+                return new Task<Void>() {
+                    @Override
+                    protected Void call() {
+                        //noinspection StatementWithEmptyBody
+                        while (!configurationComplete);
+
+                        if (addonName == null) addonName = TabInventory.getElementName();
+                        JSONObject addonStructure = TabInventory.getElementStructure();
+
+                        Platform.runLater(() -> {
+                            if (addonName != null) initExistingAddon(addonName);
+                            else if (addonStructure != null) initExistingAddon(addonStructure);
+                            else if (addon != null) initExistingAddon();
+                            buttonExport.setDisable(false);
+                            buttonSave.setDisable(false);
+                        });
+
+                        return null;
+                    }
+                };
+            }
+        }.start();
     }
 
     // OnChange Triggers Setter
@@ -353,6 +391,7 @@ public final class ControllerSceneInventoryAddon {
                             }
 
                             addon.saveIntoDatabase(oldName);
+                            if (itemContainer != null) itemContainer.setItem(addon);
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Salvataggio dei Dati", "Salvataggio dei dati completato con successo!"));
                         } catch (Exception e) {
                             Logger.log(e);
@@ -588,6 +627,70 @@ public final class ControllerSceneInventoryAddon {
             }
         }.start();
     }
+    private void initExistingAddon() {
+        try {
+            imageExtension = addon.getImageExtension();
+            int CC = addon.getCostCopper();
+            int CP = CC / 1000;
+            CC -= CP * 1000;
+            int CG = CC / 100;
+            CC -= CG * 100;
+            int CE = CC / 50;
+            CC -= CE * 50;
+            int CS = CC / 10;
+            CC -= CS * 10;
+
+            BufferedImage bufferedImage = null;
+            try {
+                if (addon.getBase64image() != null && imageExtension != null) {
+                    byte[] imageBytes = Base64.getDecoder().decode(addon.getBase64image());
+                    ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
+                    bufferedImage = ImageIO.read(imageStream);
+                } else if (addon.getBase64image() != null && imageExtension == null) {
+                    throw new IllegalArgumentException("Image without declared extension");
+                }
+            } catch (IllegalArgumentException e) {
+                Logger.log(e);
+                addon.setBase64image(null);
+                addon.setImageExtension(null);
+                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
+                return;
+            }
+
+            int finalCC = CC;
+            BufferedImage finalBufferedImage = bufferedImage;
+            Platform.runLater(() -> {
+                textFieldName.setText(addon.getName());
+                textFieldWeight.setText(String.valueOf(addon.getWeight()));
+                comboBoxRarity.getSelectionModel().select(addon.getRarity().getTextedRarity());
+                textFieldMR.setText(String.valueOf(finalCC));
+                textFieldMA.setText(String.valueOf(CS));
+                textFieldME.setText(String.valueOf(CE));
+                textFieldMO.setText(String.valueOf(CG));
+                textFieldMP.setText(String.valueOf(CP));
+                textAreaDescription.setText(addon.getDescription());
+                if (finalBufferedImage != null && imageExtension != null) {
+                    imageViewItem.setImage(SwingFXUtils.toFXImage(finalBufferedImage, null));
+                } else {
+                    imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
+                }
+                spinnerQuantity.getValueFactory().setValue(addon.getQuantity());
+                comboBoxSlot.getSelectionModel().select(addon.getSlot());
+                textFieldEffectCA.setText(String.valueOf(addon.getCaEffect()));
+                textFieldEffectLife.setText(String.valueOf(addon.getLifeEffect()));
+                textFieldEffectLifePerc.setText(String.valueOf(addon.getLifePercentageEffect()));
+                textFieldEffectLoad.setText(String.valueOf(addon.getLoadEffect()));
+                textFieldEffectLoadPerc.setText(String.valueOf(addon.getLoadPercentageEffect()));
+                textAreaOtherEffects.setText(addon.getOtherEffects());
+            });
+        } catch (Exception e) {
+            Logger.log(e);
+            Platform.runLater(() -> {
+                new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
+                textFieldName.getScene().getWindow().hide();
+            });
+        }
+    }
     private void initExistingAddon(@NotNull final String addonName) {
         new Service<Void>() {
             @Override
@@ -597,61 +700,7 @@ public final class ControllerSceneInventoryAddon {
                     protected Void call() {
                         try {
                             addon = new Addon(addonName);
-
-                            imageExtension = addon.getImageExtension();
-                            int CC = addon.getCostCopper();
-                            int CP = CC / 1000;
-                            CC -= CP * 1000;
-                            int CG = CC / 100;
-                            CC -= CG * 100;
-                            int CE = CC / 50;
-                            CC -= CE * 50;
-                            int CS = CC / 10;
-                            CC -= CS * 10;
-
-                            BufferedImage bufferedImage = null;
-                            try {
-                                if (addon.getBase64image() != null && imageExtension != null) {
-                                    byte[] imageBytes = Base64.getDecoder().decode(addon.getBase64image());
-                                    ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
-                                    bufferedImage = ImageIO.read(imageStream);
-                                } else if (addon.getBase64image() != null && imageExtension == null) {
-                                    throw new IllegalArgumentException("Image without declared extension");
-                                }
-                            } catch (IllegalArgumentException e) {
-                                Logger.log(e);
-                                addon.setBase64image(null);
-                                addon.setImageExtension(null);
-                                Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
-                                return null;
-                            }
-
-                            int finalCC = CC;
-                            BufferedImage finalBufferedImage = bufferedImage;
-                            Platform.runLater(() -> {
-                                textFieldName.setText(addon.getName());
-                                textFieldWeight.setText(String.valueOf(addon.getWeight()));
-                                comboBoxRarity.getSelectionModel().select(addon.getRarity().getTextedRarity());
-                                textFieldMR.setText(String.valueOf(finalCC));
-                                textFieldMA.setText(String.valueOf(CS));
-                                textFieldME.setText(String.valueOf(CE));
-                                textFieldMO.setText(String.valueOf(CG));
-                                textFieldMP.setText(String.valueOf(CP));
-                                textAreaDescription.setText(addon.getDescription());
-                                if (finalBufferedImage != null && imageExtension != null) {
-                                    imageViewItem.setImage(SwingFXUtils.toFXImage(finalBufferedImage, null));
-                                } else {
-                                    imageViewItem.setImage(JFXDefs.AppInfo.LOGO);
-                                }
-                                spinnerQuantity.getValueFactory().setValue(addon.getQuantity());
-                                comboBoxSlot.getSelectionModel().select(addon.getSlot());
-                                textFieldEffectCA.setText(String.valueOf(addon.getCaEffect()));
-                                textFieldEffectLife.setText(String.valueOf(addon.getLifeEffect()));
-                                textFieldEffectLifePerc.setText(String.valueOf(addon.getLifePercentageEffect()));
-                                textFieldEffectLoad.setText(String.valueOf(addon.getLoadEffect()));
-                                textFieldEffectLoadPerc.setText(String.valueOf(addon.getLoadPercentageEffect()));
-                                textAreaOtherEffects.setText(addon.getOtherEffects());
-                            });
+                            initExistingAddon();
                         } catch (Exception e) {
                             Logger.log(e);
                             Platform.runLater(() -> {

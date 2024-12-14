@@ -7,11 +7,6 @@ import org.jetbrains.annotations.NotNull;
 
 public enum WaypointType {
     GENERIC_WAYPOINT("Waypoint", SVG.Entities.ENTITY_NPC, Color.WHITE),
-    ELEMENT_ITEM("Oggetto", SVG.Elements.ELEMENT_ITEM, Color.GRAY),
-    ELEMENT_SPELL("Incantesimo", SVG.Elements.ELEMENT_SPELL, Color.GRAY),
-    ELEMENT_ARMOR("Armatura", SVG.Elements.ELEMENT_ARMOR, Color.GRAY),
-    ELEMENT_ADDON("Addon", SVG.Elements.ELEMENT_ADDON, Color.GRAY),
-    ELEMENT_WEAPON("Arma", SVG.Elements.ELEMENT_WEAPON, Color.GRAY),
     OBJECTIVE_MISSION_PRIMARY("Missione Primaria", SVG.Objectives.OBJECTIVE_MISSION, Color.YELLOW),
     SECONDARY_MISSION("Missione Secondaria", SVG.Objectives.OBJECTIVE_MISSION, Color.ORANGE),
     TIME_MISSION("Missione Evento", SVG.Objectives.OBJECTIVE_TIME_MISSION, Color.LIGHTBLUE),
