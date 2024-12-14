@@ -1,8 +1,8 @@
 package it.italiandudes.dnd_visualizer.data.effect;
 
 import it.italiandudes.dnd_visualizer.data.enums.EffectKnowledge;
-import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.data.interfaces.ISavable;
+import it.italiandudes.dnd_visualizer.db.DBManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

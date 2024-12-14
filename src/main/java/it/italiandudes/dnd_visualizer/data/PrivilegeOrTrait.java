@@ -1,8 +1,8 @@
 package it.italiandudes.dnd_visualizer.data;
 
 import it.italiandudes.dnd_visualizer.data.enums.PrivilegeType;
-import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.data.interfaces.ISavable;
+import it.italiandudes.dnd_visualizer.db.DBManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
