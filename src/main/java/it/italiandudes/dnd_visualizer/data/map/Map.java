@@ -88,7 +88,7 @@ public final class Map {
         PreparedStatement ps = DBManager.preparedStatement(query);
         if (ps == null) throw new SQLException("Database connection is null");
         ps.setString(1, name);
-        ps.setInt(3, mapID);
+        ps.setInt(2, mapID);
         ps.executeUpdate();
         ps.close();
     }
