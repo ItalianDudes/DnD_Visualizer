@@ -1,5 +1,7 @@
 package it.italiandudes.dnd_visualizer.javafx.controllers.campaign.tab;
 
+import it.italiandudes.dnd_visualizer.data.coin_deposits.CoinDeposit;
+import it.italiandudes.dnd_visualizer.data.coin_deposits.CoinDepositManager;
 import it.italiandudes.dnd_visualizer.data.elements.Element;
 import it.italiandudes.dnd_visualizer.data.elements.ElementManager;
 import it.italiandudes.dnd_visualizer.data.enums.ElementType;
@@ -57,7 +59,7 @@ public final class ControllerSceneCampaignTabMaps {
     private boolean mapChanging = false;
 
     // Graphic
-    @FXML private AnchorPane anchorPaneMarkerContainer;
+    @FXML private AnchorPane anchorPaneMarkerLabelContainer;
     @FXML private Label labelMarkerName;
     @FXML private AnchorPane anchorPaneMapContainer;
     @FXML private AnchorPane anchorPaneWaypointContainer; // The container of the map and of all it's waypoints
@@ -190,6 +192,10 @@ public final class ControllerSceneCampaignTabMaps {
         addElementMenu.getItems().addAll(addItem, addEquipmentMenu, addSpell);
         contextMenu.getItems().add(addElementMenu);
 
+        MenuItem addCoinDeposit = new MenuItem("Aggiungi Deposito di Monete");
+        addCoinDeposit.setOnAction(e -> addCoinDeposit(center));
+        contextMenu.getItems().add(addCoinDeposit);
+
         if (event.getSource() instanceof Element) {
             Element element = (Element) event.getSource();
 
@@ -229,6 +235,60 @@ public final class ControllerSceneCampaignTabMaps {
             removeWaypoint.setOnAction(e -> removeWaypoint(waypoint));
 
             contextMenu.getItems().addAll(renameWaypointMenu, changeVisibilityMenu, removeWaypoint);
+        } else if (event.getSource() instanceof CoinDeposit) {
+            CoinDeposit coinDeposit = (CoinDeposit) event.getSource();
+
+            Menu editMRMenu = new Menu("Modifica Monete di Rame");
+            TextField mrTextField = new TextField();
+            mrTextField.setPromptText("Monete di Rame");
+            MenuItem mrOption = new MenuItem();
+            mrOption.setGraphic(mrTextField);
+            mrOption.setOnAction(e -> editMR(coinDeposit, mrTextField));
+            editMRMenu.getItems().add(mrOption);
+
+            Menu editMAMenu = new Menu("Modifica Monete di Argento");
+            TextField maTextField = new TextField();
+            maTextField.setPromptText("Monete di Argento");
+            MenuItem maOption = new MenuItem();
+            maOption.setGraphic(maTextField);
+            maOption.setOnAction(e -> editMA(coinDeposit, maTextField));
+            editMAMenu.getItems().add(maOption);
+
+            Menu editMEMenu = new Menu("Modifica Monete di Electrum");
+            TextField meTextField = new TextField();
+            meTextField.setPromptText("Monete di Electrum");
+            MenuItem meOption = new MenuItem();
+            meOption.setGraphic(meTextField);
+            meOption.setOnAction(e -> editME(coinDeposit, meTextField));
+            editMEMenu.getItems().add(meOption);
+
+            Menu editMOMenu = new Menu("Modifica Monete d'Oro");
+            TextField moTextField = new TextField();
+            moTextField.setPromptText("Monete d'Oro");
+            MenuItem moOption = new MenuItem();
+            moOption.setGraphic(moTextField);
+            moOption.setOnAction(e -> editMO(coinDeposit, moTextField));
+            editMOMenu.getItems().add(moOption);
+
+            Menu editMPMenu = new Menu("Modifica Monete di Platino");
+            TextField mpTextField = new TextField();
+            mpTextField.setPromptText("Monete di Platino");
+            MenuItem mpOption = new MenuItem();
+            mpOption.setGraphic(mpTextField);
+            mpOption.setOnAction(e -> editMP(coinDeposit, mpTextField));
+            editMPMenu.getItems().add(mpOption);
+
+            Menu changeVisibilityMenu = new Menu("Modifica Visibilita'");
+            MenuItem visibilityOn = new MenuItem("Rendi Visibile ai Giocatori");
+            visibilityOn.setOnAction(e -> editCoinDepositPlayerVisibility(coinDeposit, true));
+            MenuItem visibilityOff = new MenuItem("Rendi Invisibile ai Giocatori");
+            visibilityOff.setOnAction(e -> editCoinDepositPlayerVisibility(coinDeposit, false));
+            changeVisibilityMenu.getItems().addAll(visibilityOn, visibilityOff);
+
+            MenuItem removeCoinDeposit = new MenuItem("Rimuovi Deposito di Monete");
+            removeCoinDeposit.setOnAction(e -> removeCoinDeposit(coinDeposit));
+
+            contextMenu.getItems().addAll(editMRMenu, editMAMenu, editMEMenu, editMOMenu, editMPMenu, changeVisibilityMenu, removeCoinDeposit);
         }
 
         MenuItem reset = new MenuItem("Reimposta Mappa");
@@ -309,6 +369,7 @@ public final class ControllerSceneCampaignTabMaps {
             changeMap(null);
             WaypointManager.getInstance().unregisterAllMapWaypoints(map);
             ElementManager.getInstance().unregisterAllMapElements(map);
+            CoinDepositManager.getInstance().unregisterAllMapCoinDeposits(map);
             MapManager.getInstance().unregisterMap(map);
             listViewMaps.getItems().remove(map);
         } catch (SQLException ex) {
@@ -418,6 +479,12 @@ public final class ControllerSceneCampaignTabMaps {
                 elements.forEach(element -> element.setOnContextMenuRequested(this::openMapContextMenu));
                 elements.forEach(this::configureElementHover);
                 anchorPaneWaypointContainer.getChildren().addAll(elements);
+                HashSet<CoinDeposit> coinDeposits = CoinDepositManager.getInstance().getMapCoinDeposits(map);
+                coinDeposits.forEach(deposit -> deposit.setOnScroll(this::mouseWheelZoom));
+                coinDeposits.forEach(deposit -> deposit.setOnMouseDragged(ev -> moveCoinDeposit(ev, deposit)));
+                coinDeposits.forEach(deposit -> deposit.setOnContextMenuRequested(this::openMapContextMenu));
+                coinDeposits.forEach(this::configureCoinDepositHover);
+                anchorPaneWaypointContainer.getChildren().addAll(coinDeposits);
             }
             mapChanging = false;
         });
@@ -430,12 +497,12 @@ public final class ControllerSceneCampaignTabMaps {
                 waypoint.setScaleX(2);
                 waypoint.setScaleY(2);
                 labelMarkerName.setText(waypoint.getName());
-                anchorPaneMarkerContainer.setVisible(true);
+                anchorPaneMarkerLabelContainer.setVisible(true);
             } else {
                 waypoint.setScaleX(1);
                 waypoint.setScaleY(1);
                 labelMarkerName.setText("");
-                anchorPaneMarkerContainer.setVisible(false);
+                anchorPaneMarkerLabelContainer.setVisible(false);
             }
         });
     }
@@ -505,17 +572,16 @@ public final class ControllerSceneCampaignTabMaps {
                 element.setScaleX(2);
                 element.setScaleY(2);
                 labelMarkerName.setText(element.getName());
-                anchorPaneMarkerContainer.setVisible(true);
+                anchorPaneMarkerLabelContainer.setVisible(true);
             } else {
                 element.setScaleX(1);
                 element.setScaleY(1);
                 labelMarkerName.setText("");
-                anchorPaneMarkerContainer.setVisible(false);
+                anchorPaneMarkerLabelContainer.setVisible(false);
             }
         });
     }
-    @Nullable
-    private Item showElementCreator(@NotNull final ElementType type) {
+    private @Nullable Item showElementCreator(@NotNull final ElementType type) {
         SceneController scene;
         ItemContainer container = new ItemContainer();
         switch (type) {
@@ -630,6 +696,118 @@ public final class ControllerSceneCampaignTabMaps {
             if (newCenterY < 0) newCenterY = 0;
             else if (newCenterY >= anchorPaneWaypointContainer.getPrefHeight()) newCenterY = anchorPaneWaypointContainer.getPrefHeight();
             element.setCenter(new Point2D(newCenterX, newCenterY));
+        } catch (SQLException e) {
+            Client.showMessageAndGoToMenu(e);
+        }
+    }
+
+    // Coin Deposits
+    private void configureCoinDepositHover(@NotNull final CoinDeposit coinDeposit) {
+        coinDeposit.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                coinDeposit.setScaleX(2);
+                coinDeposit.setScaleY(2);
+                labelMarkerName.setText(coinDeposit.toString());
+                anchorPaneMarkerLabelContainer.setVisible(true);
+            } else {
+                coinDeposit.setScaleX(1);
+                coinDeposit.setScaleY(1);
+                labelMarkerName.setText("");
+                anchorPaneMarkerLabelContainer.setVisible(false);
+            }
+        });
+    }
+    private void addCoinDeposit(@NotNull final Point2D center) {
+        try {
+            CoinDeposit deposit = CoinDepositManager.getInstance().registerCoinDeposit(map, center, false);
+            if (deposit != null) {
+                deposit.setOnScroll(this::mouseWheelZoom);
+                deposit.setOnMouseDragged(ev -> moveCoinDeposit(ev, deposit));
+                deposit.setOnContextMenuRequested(this::openMapContextMenu);
+                configureCoinDepositHover(deposit);
+                anchorPaneWaypointContainer.getChildren().add(deposit);
+            } else {
+                new ErrorAlert("ERRORE", "Errore di Inserimento", "Un deposito di monete con queste caratteristiche e' gia' presente.");
+            }
+        } catch (SQLException | IOException ex) {
+            Client.showMessageAndGoToMenu(ex);
+        }
+    }
+    private void removeCoinDeposit(@NotNull final CoinDeposit coinDeposit) {
+        try {
+            CoinDepositManager.getInstance().unregisterCoinDeposit(coinDeposit);
+            anchorPaneWaypointContainer.getChildren().remove(coinDeposit);
+        } catch (SQLException ex) {
+            Client.showMessageAndGoToMenu(ex);
+        }
+    }
+    private void editMR(@NotNull final CoinDeposit coinDeposit, @NotNull final TextField coinField) {
+        String content = coinField.getText();
+        try {
+            int coins = Integer.parseInt(content);
+            if (coins < 0) return;
+            coinDeposit.setMr(coins);
+        } catch (NumberFormatException | SQLException e) {
+            Client.showMessageAndGoToMenu(e);
+        }
+    }
+    private void editMA(@NotNull final CoinDeposit coinDeposit, @NotNull final TextField coinField) {
+        String content = coinField.getText();
+        try {
+            int coins = Integer.parseInt(content);
+            if (coins < 0) return;
+            coinDeposit.setMa(coins);
+        } catch (NumberFormatException | SQLException e) {
+            Client.showMessageAndGoToMenu(e);
+        }
+    }
+    private void editME(@NotNull final CoinDeposit coinDeposit, @NotNull final TextField coinField) {
+        String content = coinField.getText();
+        try {
+            int coins = Integer.parseInt(content);
+            if (coins < 0) return;
+            coinDeposit.setMe(coins);
+        } catch (NumberFormatException | SQLException e) {
+            Client.showMessageAndGoToMenu(e);
+        }
+    }
+    private void editMO(@NotNull final CoinDeposit coinDeposit, @NotNull final TextField coinField) {
+        String content = coinField.getText();
+        try {
+            int coins = Integer.parseInt(content);
+            if (coins < 0) return;
+            coinDeposit.setMo(coins);
+        } catch (NumberFormatException | SQLException e) {
+            Client.showMessageAndGoToMenu(e);
+        }
+    }
+    private void editMP(@NotNull final CoinDeposit coinDeposit, @NotNull final TextField coinField) {
+        String content = coinField.getText();
+        try {
+            int coins = Integer.parseInt(content);
+            if (coins < 0) return;
+            coinDeposit.setMp(coins);
+        } catch (NumberFormatException | SQLException e) {
+            Client.showMessageAndGoToMenu(e);
+        }
+    }
+    private void editCoinDepositPlayerVisibility(@NotNull final CoinDeposit coinDeposit, final boolean visibility) {
+        try {
+            coinDeposit.setVisibleToPlayers(visibility);
+        } catch (SQLException e) {
+            Client.showMessageAndGoToMenu(e);
+        }
+    }
+    private void moveCoinDeposit(@NotNull final MouseEvent event, @NotNull final CoinDeposit coinDeposit) {
+        try {
+            Point2D center = anchorPaneWaypointContainer.screenToLocal(event.getScreenX(), event.getScreenY());
+            double newCenterX = center.getX();
+            double newCenterY = center.getY();
+            if (newCenterX < 0) newCenterX = 0;
+            else if (newCenterX >= anchorPaneWaypointContainer.getPrefWidth()) newCenterX = anchorPaneWaypointContainer.getPrefWidth();
+            if (newCenterY < 0) newCenterY = 0;
+            else if (newCenterY >= anchorPaneWaypointContainer.getPrefHeight()) newCenterY = anchorPaneWaypointContainer.getPrefHeight();
+            coinDeposit.setCenter(new Point2D(newCenterX, newCenterY));
         } catch (SQLException e) {
             Client.showMessageAndGoToMenu(e);
         }

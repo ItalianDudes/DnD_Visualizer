@@ -111,6 +111,7 @@ public final class Defs {
                 public static final String POI_TAVERN = POI_DIR + "tavern.svg";
                 public static final String POI_OFFICE = POI_DIR + "office.svg";
             }
+            public static final String SVG_COIN_DEPOSIT = SVG_DIR + "coin_deposit.svg";
         }
 
         // SQL

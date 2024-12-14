@@ -36,7 +36,7 @@
                               <ImageView fx:id="imageViewMap" fitHeight="200.0" fitWidth="200.0" onContextMenuRequested="#openMapContextMenu" onMouseClicked="#askFocus" onMouseDragged="#moveMap" onMousePressed="#startMove" onMouseReleased="#stopMove" onScroll="#mouseWheelZoom" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="anchorPaneMarkerContainer" maxHeight="-Infinity" maxWidth="-Infinity" mouseTransparent="true" pickOnBounds="false" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane fx:id="anchorPaneMarkerLabelContainer" maxHeight="-Infinity" maxWidth="-Infinity" mouseTransparent="true" pickOnBounds="false" visible="false" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <AnchorPane style="-fx-background-color: white; -fx-background-radius: 2px;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
