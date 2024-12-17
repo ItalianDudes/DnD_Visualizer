@@ -178,27 +178,10 @@ public final class PlayerEntity extends StackPane {
     public void setOwner(@Nullable RegisteredUser owner) {
         this.owner = owner;
     }
-    @Override
-    public boolean equals(Object o) {
+    public boolean playerEntityEquals(Object o) {
         if (!(o instanceof PlayerEntity)) return false;
-
         PlayerEntity that = (PlayerEntity) o;
-        return getPlayerEntityID() == that.getPlayerEntityID() && getCreationDate() == that.getCreationDate() && getLevel() == that.getLevel() && ca == that.ca && hp == that.hp && getMap().equals(that.getMap()) && getName().equals(that.getName()) && getRace().equals(that.getRace()) && getEntityClass().equals(that.getEntityClass()) && getCenter().equals(that.getCenter()) && Objects.equals(getOwner(), that.getOwner());
-    }
-    @Override
-    public int hashCode() {
-        int result = getPlayerEntityID();
-        result = 31 * result + getMap().hashCode();
-        result = 31 * result + Long.hashCode(getCreationDate());
-        result = 31 * result + getName().hashCode();
-        result = 31 * result + getRace().hashCode();
-        result = 31 * result + getEntityClass().hashCode();
-        result = 31 * result + getLevel();
-        result = 31 * result + getCenter().hashCode();
-        result = 31 * result + ca;
-        result = 31 * result + hp;
-        result = 31 * result + Objects.hashCode(getOwner());
-        return result;
+        return getPlayerEntityID() == that.getPlayerEntityID() && getCreationDate() == that.getCreationDate() && getLevel() == that.getLevel() && ca == that.ca && hp == that.hp && Objects.equals(getMap(), that.getMap()) && Objects.equals(getName(), that.getName()) && Objects.equals(getRace(), that.getRace()) && Objects.equals(getEntityClass(), that.getEntityClass()) && Objects.equals(getCenter(), that.getCenter()) && Objects.equals(getOwner(), that.getOwner());
     }
     @Override @NotNull
     public String toString() {

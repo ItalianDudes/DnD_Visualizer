@@ -21,7 +21,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
-public class Entity extends StackPane {
+public final class Entity extends StackPane {
 
     // Attributes
     private final int entityID;
@@ -198,29 +198,10 @@ public class Entity extends StackPane {
     public void setVisibileToPlayers(boolean visibileToPlayers) {
         isVisibileToPlayers = visibileToPlayers;
     }
-    @Override
-    public final boolean equals(Object o) {
+    public boolean entityEquals(Object o) {
         if (!(o instanceof Entity)) return false;
-
         Entity entity = (Entity) o;
-        return getEntityID() == entity.getEntityID() && getCreationDate() == entity.getCreationDate() && getLevel() == entity.getLevel() && ca == entity.ca && hp == entity.hp && isVisibileToPlayers() == entity.isVisibileToPlayers() && getMap().equals(entity.getMap()) && getName().equals(entity.getName()) && getRace().equals(entity.getRace()) && Objects.equals(getEntityClass(), entity.getEntityClass()) && getType() == entity.getType() && getCenter().equals(entity.getCenter()) && Objects.equals(getOwner(), entity.getOwner());
-    }
-    @Override
-    public int hashCode() {
-        int result = getEntityID();
-        result = 31 * result + getMap().hashCode();
-        result = 31 * result + Long.hashCode(getCreationDate());
-        result = 31 * result + getName().hashCode();
-        result = 31 * result + getRace().hashCode();
-        result = 31 * result + Objects.hashCode(getEntityClass());
-        result = 31 * result + getLevel();
-        result = 31 * result + getType().hashCode();
-        result = 31 * result + getCenter().hashCode();
-        result = 31 * result + ca;
-        result = 31 * result + hp;
-        result = 31 * result + Objects.hashCode(getOwner());
-        result = 31 * result + Boolean.hashCode(isVisibileToPlayers());
-        return result;
+        return getEntityID() == entity.getEntityID() && getCreationDate() == entity.getCreationDate() && getLevel() == entity.getLevel() && ca == entity.ca && hp == entity.hp && isVisibileToPlayers() == entity.isVisibileToPlayers() && Objects.equals(getMap(), entity.getMap()) && Objects.equals(getName(), entity.getName()) && Objects.equals(getRace(), entity.getRace()) && Objects.equals(getEntityClass(), entity.getEntityClass()) && getType() == entity.getType() && Objects.equals(getCenter(), entity.getCenter()) && Objects.equals(getOwner(), entity.getOwner());
     }
     @Override @NotNull
     public String toString() {

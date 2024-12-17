@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
-public class Effect implements ISavable {
+public final class Effect implements ISavable {
 
     // Attributes
     private Integer id = null;
