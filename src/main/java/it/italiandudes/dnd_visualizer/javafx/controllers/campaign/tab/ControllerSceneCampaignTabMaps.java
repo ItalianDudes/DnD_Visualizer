@@ -4,7 +4,10 @@ import it.italiandudes.dnd_visualizer.data.coin_deposits.CoinDeposit;
 import it.italiandudes.dnd_visualizer.data.coin_deposits.CoinDepositManager;
 import it.italiandudes.dnd_visualizer.data.elements.Element;
 import it.italiandudes.dnd_visualizer.data.elements.ElementManager;
+import it.italiandudes.dnd_visualizer.data.entities.Entity;
+import it.italiandudes.dnd_visualizer.data.entities.EntityManager;
 import it.italiandudes.dnd_visualizer.data.enums.ElementType;
+import it.italiandudes.dnd_visualizer.data.enums.EntityType;
 import it.italiandudes.dnd_visualizer.data.enums.WaypointType;
 import it.italiandudes.dnd_visualizer.data.item.Item;
 import it.italiandudes.dnd_visualizer.data.item.ItemContainer;
@@ -15,6 +18,8 @@ import it.italiandudes.dnd_visualizer.data.waypoints.WaypointManager;
 import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.javafx.alerts.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.components.SceneController;
+import it.italiandudes.dnd_visualizer.javafx.controllers.campaign.ControllerSceneCampaignEntity;
+import it.italiandudes.dnd_visualizer.javafx.scene.campaign.SceneCampaignEntity;
 import it.italiandudes.dnd_visualizer.javafx.scene.inventory.*;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.ImageHandler;
@@ -170,11 +175,29 @@ public final class ControllerSceneCampaignTabMaps {
         Menu addWaypointMenu = new Menu("Aggiungi Waypoint");
         TextField waypointNameField = new TextField();
         waypointNameField.setPromptText("Nome");
-        MenuItem addWaypointOption = new MenuItem();
-        addWaypointOption.setGraphic(waypointNameField);
-        addWaypointOption.setOnAction(e -> addWaypoint(waypointNameField, center));
-        addWaypointMenu.getItems().add(addWaypointOption);
+        for (WaypointType type : WaypointType.values()) {
+            Menu waypointMenu = new Menu(type.getName());
+            MenuItem item = new MenuItem();
+            item.setGraphic(waypointNameField);
+            item.setOnAction(e -> addWaypoint(waypointNameField, center, type));
+            waypointMenu.getItems().add(item);
+            addWaypointMenu.getItems().add(waypointMenu);
+        }
         contextMenu.getItems().add(addWaypointMenu);
+
+        Menu addEntityMenu = new Menu("Aggiungi Entita'");
+        for (EntityType type : EntityType.values()) {
+            if (type == EntityType.ENTITY_PLAYER) continue;
+            Menu addMenu = new Menu("Aggiungi " + type.getName());
+            MenuItem option = new MenuItem();
+            TextField nameField = new TextField();
+            nameField.setPromptText("Nome");
+            option.setGraphic(nameField);
+            // option.setOnAction(e -> addEntity(nameField, center, type));
+            addEntityMenu.getItems().add(addMenu);
+        }
+        contextMenu.getItems().add(addEntityMenu);
+
 
         Menu addElementMenu = new Menu("Aggiungi Elemento");
         MenuItem addItem = new MenuItem("Aggiungi Oggetto");
@@ -491,6 +514,75 @@ public final class ControllerSceneCampaignTabMaps {
     }
 
     // Waypoint
+    private void configureEntityHover(@NotNull final Entity entity) {
+        entity.hoverProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                entity.setScaleX(2);
+                entity.setScaleY(2);
+                labelMarkerName.setText(entity.getName());
+                anchorPaneMarkerLabelContainer.setVisible(true);
+            } else {
+                entity.setScaleX(1);
+                entity.setScaleY(1);
+                labelMarkerName.setText("");
+                anchorPaneMarkerLabelContainer.setVisible(false);
+            }
+        });
+    }
+    private @Nullable Entity showEntityCreator(@NotNull final EntityType type) {
+        SceneController scene = SceneCampaignEntity.getScene(type);
+        Stage popupStage = Client.initPopupStage(scene);
+        popupStage.showAndWait();
+        return ((ControllerSceneCampaignEntity) scene.getController()).getEntity();
+    }
+    private void addEntity(@NotNull final Point2D center, @NotNull final EntityType type) {
+        /*
+        try {
+            Entity entity = showEntityCreator(type);
+            if (entity != null) {
+                entity.setOnScroll(this::mouseWheelZoom);
+                entity.setOnMouseDragged(ev -> moveEntity(ev, entity));
+                entity.setOnContextMenuRequested(this::openMapContextMenu);
+                configureEntityHover(entity);
+                anchorPaneWaypointContainer.getChildren().add(entity);
+            } else {
+                new ErrorAlert("ERRORE", "Errore di Inserimento", "Un entita' con queste caratteristiche e' gia' presente.");
+            }
+        } catch (SQLException | IOException ex) {
+            Client.showMessageAndGoToMenu(ex);
+        }*/
+    }
+    private void editEntityPlayerVisibility(@NotNull final Entity entity, final boolean visibility) {
+        try {
+            entity.setVisibleToPlayers(visibility);
+        } catch (SQLException e) {
+            Client.showMessageAndGoToMenu(e);
+        }
+    }
+    private void removeEntity(@NotNull final Entity entity) {
+        try {
+            EntityManager.getInstance().unregisterEntity(entity);
+            anchorPaneWaypointContainer.getChildren().remove(entity);
+        } catch (SQLException ex) {
+            Client.showMessageAndGoToMenu(ex);
+        }
+    }
+    private void moveEntity(@NotNull final MouseEvent event, @NotNull final Entity entity) {
+        try {
+            Point2D center = anchorPaneWaypointContainer.screenToLocal(event.getScreenX(), event.getScreenY());
+            double newCenterX = center.getX();
+            double newCenterY = center.getY();
+            if (newCenterX < 0) newCenterX = 0;
+            else if (newCenterX >= anchorPaneWaypointContainer.getPrefWidth()) newCenterX = anchorPaneWaypointContainer.getPrefWidth();
+            if (newCenterY < 0) newCenterY = 0;
+            else if (newCenterY >= anchorPaneWaypointContainer.getPrefHeight()) newCenterY = anchorPaneWaypointContainer.getPrefHeight();
+            entity.setCenter(new Point2D(newCenterX, newCenterY));
+        } catch (SQLException e) {
+            Client.showMessageAndGoToMenu(e);
+        }
+    }
+
+    // Waypoint
     private void configureWaypointHover(@NotNull final Waypoint waypoint) {
         waypoint.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
@@ -506,11 +598,11 @@ public final class ControllerSceneCampaignTabMaps {
             }
         });
     }
-    private void addWaypoint(@NotNull final TextField nameField, @NotNull final Point2D center) {
+    private void addWaypoint(@NotNull final TextField nameField, @NotNull final Point2D center, @NotNull final WaypointType type) {
         String name = nameField.getText();
         if (name.isEmpty() || name.replace("\t","").replace(" ", "").isEmpty()) return;
         try {
-            Waypoint waypoint = WaypointManager.getInstance().registerWaypoint(map, name, center, WaypointType.GENERIC_WAYPOINT, false);
+            Waypoint waypoint = WaypointManager.getInstance().registerWaypoint(map, name, center, type, false);
             if (waypoint != null) {
                 waypoint.setOnScroll(this::mouseWheelZoom);
                 waypoint.setOnMouseDragged(ev -> moveWaypoint(ev, waypoint));

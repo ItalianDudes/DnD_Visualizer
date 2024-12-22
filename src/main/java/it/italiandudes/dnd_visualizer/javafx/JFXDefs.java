@@ -51,6 +51,7 @@ public final class JFXDefs {
             public static final class Campaign {
                 private static final String FXML_CAMPAIGN_DIR = FXML_DIR + "campaign/";
                 public static final String FXML_CAMPAIGN_VIEWER = FXML_CAMPAIGN_DIR + "SceneCampaignViewer.fxml";
+                public static final String FXML_CAMPAIGN_ENTITY = FXML_CAMPAIGN_DIR + "SceneCampaignEntity.fxml";
                 public static final class Tab {
                     private static final String FXML_CAMPAIGN_TAB_DIR = FXML_CAMPAIGN_DIR + "tab/";
                     public static final String FXML_CAMPAIGN_TAB_MAPS = FXML_CAMPAIGN_TAB_DIR + "SceneCampaignTabMaps.fxml";

@@ -79,40 +79,41 @@ public final class Defs {
             public static final String IMAGE_CROSS = IMAGE_DIR + "cross.png";
             public static final String IMAGE_WUMPUS = IMAGE_DIR + "wumpus.png";
             public static final String IMAGE_NO_WUMPUS = IMAGE_DIR + "no_wumpus.png";
-        }
 
-        // SVG
-        public static final class SVG {
-            private static final String SVG_DIR = "/svg/";
-            public static final class Elements {
-                private static final String ELEMENTS_DIR = SVG_DIR + "elements/";
-                public static final String ELEMENT_ADDON = ELEMENTS_DIR + "addon.svg";
-                public static final String ELEMENT_ARMOR = ELEMENTS_DIR + "armor.svg";
-                public static final String ELEMENT_ITEM = ELEMENTS_DIR + "item.svg";
-                public static final String ELEMENT_SPELL = ELEMENTS_DIR + "spell.svg";
-                public static final String ELEMENT_WEAPON = ELEMENTS_DIR + "weapon.svg";
+            public static final class MapMarkers {
+                private static final String MAP_MARKERS_DIR = IMAGE_DIR + "markers/";
+                public static final class Elements {
+                    private static final String ELEMENTS_DIR = MAP_MARKERS_DIR + "elements/";
+                    public static final String ELEMENT_ADDON = ELEMENTS_DIR + "addon.png";
+                    public static final String ELEMENT_ARMOR = ELEMENTS_DIR + "armor.png";
+                    public static final String ELEMENT_ITEM = ELEMENTS_DIR + "item.png";
+                    public static final String ELEMENT_SPELL = ELEMENTS_DIR + "spell.png";
+                    public static final String ELEMENT_WEAPON = ELEMENTS_DIR + "weapon.png";
+                }
+                public static final class Entities {
+                    private static final String ENTITIES_DIR = MAP_MARKERS_DIR + "entities/";
+                    public static final String ENTITY_ALLY = ENTITIES_DIR + "ally.png";
+                    public static final String ENTITY_BOSS = ENTITIES_DIR + "boss.png";
+                    public static final String ENTITY_ENEMY = ENTITIES_DIR + "enemy.png";
+                    public static final String ENTITY_NPC = ENTITIES_DIR + "npc.png";
+                    public static final String ENTITY_PLAYER = ENTITIES_DIR + "player.png";
+                    public static final String ENTITY_STRONG_ENEMY = ENTITIES_DIR + "strong_enemy.png";
+                }
+                public static final class Objectives {
+                    private static final String OBJECTIVES_DIR = MAP_MARKERS_DIR + "objectives/";
+                    public static final String OBJECTIVE_MISSION = OBJECTIVES_DIR + "mission.png";
+                    public static final String OBJECTIVE_TIME_MISSION = OBJECTIVES_DIR + "time_mission.png";
+                }
+                public static final class PointsOfInterest {
+                    private static final String POI_DIR = MAP_MARKERS_DIR + "points_of_interest/";
+                    public static final String POI_MARKET = POI_DIR + "market.png";
+                    public static final String POI_TAVERN = POI_DIR + "tavern.png";
+                    public static final String POI_OFFICE = POI_DIR + "office.png";
+                    public static final String POI_HOME = POI_DIR + "home.png";
+                }
+                public static final String MARKER_GENERIC = MAP_MARKERS_DIR + "generic.png";
+                public static final String MARKER_COIN_DEPOSIT = MAP_MARKERS_DIR + "coin_deposit.png";
             }
-            public static final class Entities {
-                private static final String ENTITIES_DIR = SVG_DIR + "entities/";
-                public static final String ENTITY_PLAYER = ENTITIES_DIR + "player.svg";
-                public static final String ENTITY_NPC = ENTITIES_DIR + "npc.svg";
-                public static final String ENTITY_ENEMY = ENTITIES_DIR + "enemy.svg";
-                public static final String ENTITY_STRONG_ENEMY = ENTITIES_DIR + "strong_enemy.svg";
-                public static final String ENTITY_BOSS = ENTITIES_DIR + "boss.svg";
-            }
-            public static final class Objectives {
-                private static final String OBJECTIVES_DIR = SVG_DIR + "objectives/";
-                public static final String OBJECTIVE_MISSION = OBJECTIVES_DIR + "mission.svg";
-                public static final String OBJECTIVE_TIME_MISSION = OBJECTIVES_DIR + "time_mission.svg";
-            }
-            public static final class PointsOfInterest {
-                private static final String POI_DIR = SVG_DIR + "points_of_interest/";
-                public static final String POI_MARKET = POI_DIR + "market.svg";
-                public static final String POI_TAVERN = POI_DIR + "tavern.svg";
-                public static final String POI_OFFICE = POI_DIR + "office.svg";
-                public static final String POI_HOME = POI_DIR + "home.svg";
-            }
-            public static final String SVG_COIN_DEPOSIT = SVG_DIR + "coin_deposit.svg";
         }
 
         // SQL

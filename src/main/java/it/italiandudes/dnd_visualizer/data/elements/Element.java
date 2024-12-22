@@ -6,8 +6,8 @@ import it.italiandudes.dnd_visualizer.data.map.Map;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.shape.SVGPath;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -149,21 +149,19 @@ public final class Element extends StackPane {
 
     // Finish Configuration
     private void finishConfiguration() {
-        SVGPath icon = new SVGPath();
-        icon.setContent(type.getSVGContent());
-        Pane pane = new Pane();
-        pane.setShape(icon);
-        pane.getStyleClass().add("waypoint-icon");
-        getChildren().add(pane);
+        ImageView image = new ImageView(type.getImage());
+        image.setFitWidth(32);
+        image.setFitHeight(32);
+        getChildren().add(image);
         setAlignment(Pos.CENTER);
         setBackground(new Background(new BackgroundFill(type.getColor(), new CornerRadii(5), null)));
         getStyleClass().add("waypoint");
-        setMinWidth(32);
-        setMinHeight(32);
-        setPrefWidth(32);
-        setPrefHeight(32);
-        setMaxWidth(32);
-        setMaxHeight(32);
+        setMinWidth(42);
+        setMinHeight(42);
+        setPrefWidth(42);
+        setPrefHeight(42);
+        setMaxWidth(42);
+        setMaxHeight(42);
         updateElementLayoutCenter();
     }
 

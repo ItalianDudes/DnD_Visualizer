@@ -3,12 +3,12 @@ package it.italiandudes.dnd_visualizer.data.coin_deposits;
 import it.italiandudes.dnd_visualizer.data.map.Map;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.utils.Defs;
-import it.italiandudes.dnd_visualizer.utils.SVGReader;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.SVGPath;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -21,7 +21,7 @@ import java.util.Objects;
 public final class CoinDeposit extends StackPane {
 
     // Constants
-    public static final String COIN_DEPOSIT_SVG = SVGReader.readSVGFileFromJar(Defs.Resources.SVG.SVG_COIN_DEPOSIT);
+    public static final Image COIN_DEPOSIT_IMAGE = new Image(Defs.Resources.getAsStream(Defs.Resources.Image.MapMarkers.MARKER_COIN_DEPOSIT));
     public static final Color COLOR = Color.YELLOW;
 
     // Attributes
@@ -116,21 +116,19 @@ public final class CoinDeposit extends StackPane {
 
     // Finish Configuration
     private void finishConfiguration() {
-        SVGPath icon = new SVGPath();
-        icon.setContent(COIN_DEPOSIT_SVG);
-        Pane pane = new Pane();
-        pane.setShape(icon);
-        pane.getStyleClass().add("waypoint-icon");
-        getChildren().add(pane);
+        ImageView image = new ImageView(COIN_DEPOSIT_IMAGE);
+        image.setFitWidth(32);
+        image.setFitHeight(32);
+        getChildren().add(image);
         setAlignment(Pos.CENTER);
         setBackground(new Background(new BackgroundFill(COLOR, new CornerRadii(5), null)));
         getStyleClass().add("waypoint");
-        setMinWidth(32);
-        setMinHeight(32);
-        setPrefWidth(32);
-        setPrefHeight(32);
-        setMaxWidth(32);
-        setMaxHeight(32);
+        setMinWidth(42);
+        setMinHeight(42);
+        setPrefWidth(42);
+        setPrefHeight(42);
+        setMaxWidth(42);
+        setMaxHeight(42);
         updateCoinDepositLayoutCenter();
     }
 

@@ -6,11 +6,8 @@ import it.italiandudes.dnd_visualizer.data.user.RegisteredUser;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Pane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.SVGPath;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -104,20 +101,26 @@ public final class PlayerEntity extends StackPane {
 
     // Finish Configuration
     private void finishConfiguration() {
-        SVGPath icon = new SVGPath();
-        icon.setContent(EntityType.ENTITY_PLAYER.getSVGContent());
-        Pane pane = new Pane();
-        pane.setShape(icon);
-        pane.getStyleClass().add("waypoint-icon");
-        getChildren().add(pane);
+        ImageView image = new ImageView(EntityType.ENTITY_PLAYER.getImage());
+        image.setFitWidth(32);
+        image.setFitHeight(32);
+        getChildren().add(image);
         setAlignment(Pos.CENTER);
-        setBackground(new Background(new BackgroundFill(EntityType.ENTITY_PLAYER.getColor(), null, null)));
         getStyleClass().add("waypoint");
-        setLayoutX(center.getX());
-        setLayoutY(center.getY());
+        setMinWidth(42);
+        setMinHeight(42);
+        setPrefWidth(42);
+        setPrefHeight(42);
+        setMaxWidth(42);
+        setMaxHeight(42);
+        updateEntityLayoutCenter();
     }
 
     // Methods
+    private void updateEntityLayoutCenter() {
+        setLayoutX(center.getX() - getPrefWidth()/2);
+        setLayoutY(center.getY() - getPrefHeight()/2);
+    }
     public int getPlayerEntityID() {
         return playerEntityID;
     }
@@ -157,8 +160,17 @@ public final class PlayerEntity extends StackPane {
     public @NotNull Point2D getCenter() {
         return center;
     }
-    public void setCenter(@NotNull Point2D center) {
+    public void setCenter(@NotNull Point2D center) throws SQLException { // Live DB Operation, must be fast
         this.center = center;
+        updateEntityLayoutCenter();
+        String query = "UPDATE player_entities SET center_x=?, center_y=? WHERE id=?;";
+        PreparedStatement ps = DBManager.preparedStatement(query);
+        if (ps == null) throw new SQLException("Database connection is null");
+        ps.setDouble(1, center.getX());
+        ps.setDouble(2, center.getY());
+        ps.setInt(3, playerEntityID);
+        ps.executeUpdate();
+        ps.close();
     }
     public int getCA() {
         return ca;

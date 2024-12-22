@@ -22,14 +22,7 @@
     -fx-focus-traversable: false;
 }
 
-.waypoint-icon {
-    -fx-border-width: 2px;
-    -fx-border-radius: 4px;
-    -fx-border-color: black;
-}
-
 .waypoint {
-    -fx-padding: 5px;
     -fx-border-width: 2px;
     -fx-border-color: black;
     -fx-border-radius: 4px;

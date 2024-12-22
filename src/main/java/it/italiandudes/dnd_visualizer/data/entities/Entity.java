@@ -6,11 +6,11 @@ import it.italiandudes.dnd_visualizer.data.user.RegisteredUser;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.StackPane;
-import javafx.scene.shape.SVGPath;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,7 +36,7 @@ public final class Entity extends StackPane {
     private int ca;
     private int hp;
     @Nullable private RegisteredUser owner;
-    private boolean isVisibileToPlayers;
+    private boolean isVisibleToPlayers;
 
     // Constructors
     public Entity(final int entityID) throws SQLException, IOException {
@@ -66,7 +66,7 @@ public final class Entity extends StackPane {
             int playerID = result.getInt("player_owner_id");
             if (result.wasNull()) this.owner = null;
             else this.owner = new RegisteredUser(playerID);
-            this.isVisibileToPlayers = result.getInt("player_visibility") != 0;
+            this.isVisibleToPlayers = result.getInt("player_visibility") != 0;
         } else {
             ps.close();
             throw new SQLException("EntityID not found");
@@ -101,7 +101,7 @@ public final class Entity extends StackPane {
             int playerID = result.getInt("player_owner_id");
             if (result.wasNull()) this.owner = null;
             else this.owner = new RegisteredUser(playerID);
-            this.isVisibileToPlayers = result.getInt("player_visibility") != 0;
+            this.isVisibleToPlayers = result.getInt("player_visibility") != 0;
         } else {
             ps.close();
             throw new SQLException("Entity not found");
@@ -112,20 +112,29 @@ public final class Entity extends StackPane {
 
     // Finish Configuration
     private void finishConfiguration() {
-        SVGPath icon = new SVGPath();
-        icon.setContent(type.getSVGContent());
-        Pane pane = new Pane();
-        pane.setShape(icon);
-        pane.getStyleClass().add("waypoint-icon");
-        getChildren().add(pane);
+        ImageView image = new ImageView(type.getImage());
+        image.setFitWidth(32);
+        image.setFitHeight(32);
+        getChildren().add(image);
         setAlignment(Pos.CENTER);
-        setBackground(new Background(new BackgroundFill(type.getColor(), null, null)));
+        if (type == EntityType.ENTITY_STRONG_ENEMY || type == EntityType.ENTITY_BOSS) {
+            setBackground(new Background(new BackgroundFill(type.getColor(), new CornerRadii(5), null)));
+        }
         getStyleClass().add("waypoint");
-        setLayoutX(center.getX());
-        setLayoutY(center.getY());
+        setMinWidth(42);
+        setMinHeight(42);
+        setPrefWidth(42);
+        setPrefHeight(42);
+        setMaxWidth(42);
+        setMaxHeight(42);
+        updateEntityLayoutCenter();
     }
 
     // Methods
+    private void updateEntityLayoutCenter() {
+        setLayoutX(center.getX() - getPrefWidth()/2);
+        setLayoutY(center.getY() - getPrefHeight()/2);
+    }
     public int getEntityID() {
         return entityID;
     }
@@ -141,8 +150,15 @@ public final class Entity extends StackPane {
     public @NotNull String getName() {
         return name;
     }
-    public void setName(@NotNull String name) {
+    public void setName(@NotNull final String name) throws SQLException { // Live DB Operation, must be fast
         this.name = name;
+        String query = "UPDATE entities SET name=? WHERE id=?;";
+        PreparedStatement ps = DBManager.preparedStatement(query);
+        if (ps == null) throw new SQLException("Database connection is null");
+        ps.setString(1, name);
+        ps.setInt(1, entityID);
+        ps.executeUpdate();
+        ps.close();
     }
     public @NotNull String getRace() {
         return race;
@@ -171,8 +187,17 @@ public final class Entity extends StackPane {
     public @NotNull Point2D getCenter() {
         return center;
     }
-    public void setCenter(@NotNull Point2D center) {
+    public void setCenter(@NotNull final Point2D center) throws SQLException { // Live DB Operation, must be fast
         this.center = center;
+        updateEntityLayoutCenter();
+        String query = "UPDATE entities SET center_x=?, center_y=? WHERE id=?;";
+        PreparedStatement ps = DBManager.preparedStatement(query);
+        if (ps == null) throw new SQLException("Database connection is null");
+        ps.setDouble(1, center.getX());
+        ps.setDouble(2, center.getY());
+        ps.setInt(3, entityID);
+        ps.executeUpdate();
+        ps.close();
     }
     public int getCA() {
         return ca;
@@ -189,19 +214,27 @@ public final class Entity extends StackPane {
     public @Nullable RegisteredUser getOwner() {
         return owner;
     }
-    public void setOwner(@Nullable RegisteredUser owner) {
+    public void setOwner(@Nullable final RegisteredUser owner) {
         this.owner = owner;
     }
-    public boolean isVisibileToPlayers() {
-        return isVisibileToPlayers;
+    public boolean isVisibleToPlayers() {
+        return isVisibleToPlayers;
     }
-    public void setVisibileToPlayers(boolean visibileToPlayers) {
-        isVisibileToPlayers = visibileToPlayers;
+    public void setVisibleToPlayers(boolean visibleToPlayers) throws SQLException { // Live DB Operation, must be fast
+        if (isVisibleToPlayers == visibleToPlayers) return;
+        isVisibleToPlayers = visibleToPlayers;
+        String query = "UPDATE entities SET player_visibility=? WHERE id=?;";
+        PreparedStatement ps = DBManager.preparedStatement(query);
+        if (ps == null) throw new SQLException("Database connection is null");
+        ps.setInt(1, visibleToPlayers?1:0);
+        ps.setInt(2, entityID);
+        ps.executeUpdate();
+        ps.close();
     }
     public boolean entityEquals(Object o) {
         if (!(o instanceof Entity)) return false;
         Entity entity = (Entity) o;
-        return getEntityID() == entity.getEntityID() && getCreationDate() == entity.getCreationDate() && getLevel() == entity.getLevel() && ca == entity.ca && hp == entity.hp && isVisibileToPlayers() == entity.isVisibileToPlayers() && Objects.equals(getMap(), entity.getMap()) && Objects.equals(getName(), entity.getName()) && Objects.equals(getRace(), entity.getRace()) && Objects.equals(getEntityClass(), entity.getEntityClass()) && getType() == entity.getType() && Objects.equals(getCenter(), entity.getCenter()) && Objects.equals(getOwner(), entity.getOwner());
+        return getEntityID() == entity.getEntityID() && getCreationDate() == entity.getCreationDate() && getLevel() == entity.getLevel() && ca == entity.ca && hp == entity.hp && isVisibleToPlayers() == entity.isVisibleToPlayers() && Objects.equals(getMap(), entity.getMap()) && Objects.equals(getName(), entity.getName()) && Objects.equals(getRace(), entity.getRace()) && Objects.equals(getEntityClass(), entity.getEntityClass()) && getType() == entity.getType() && Objects.equals(getCenter(), entity.getCenter()) && Objects.equals(getOwner(), entity.getOwner());
     }
     @Override @NotNull
     public String toString() {
