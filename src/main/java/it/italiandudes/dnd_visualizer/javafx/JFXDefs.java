@@ -1,6 +1,7 @@
 package it.italiandudes.dnd_visualizer.javafx;
 
 import it.italiandudes.dnd_visualizer.utils.CalendarEventManager;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.stage.Screen;
@@ -26,7 +27,7 @@ public final class JFXDefs {
 
         // FXML Location
         public static final class FXML {
-            private static final String FXML_DIR = "/fxml/";
+            private static final String FXML_DIR = Defs.Resources.PROJECT_RESOURCES_ROOT + "fxml/";
             public static final String FXML_LOADING = FXML_DIR + "SceneLoading.fxml";
             public static final String FXML_MAIN_MENU = FXML_DIR + "SceneMainMenu.fxml";
             public static final String FXML_SHEET_VIEWER = FXML_DIR + "SceneSheetViewer.fxml";
@@ -66,21 +67,21 @@ public final class JFXDefs {
 
         // GIF Location
         public static final class GIF {
-            private static final String GIF_DIR = "/gif/";
+            private static final String GIF_DIR = Defs.Resources.PROJECT_RESOURCES_ROOT + "gif/";
             public static final String GIF_LOADING = GIF_DIR+"loading.gif";
             public static final String GIF_BACKGROUND_XMAS = GIF_DIR+"xmas.gif";
         }
 
         // CSS Location
         public static final class CSS {
-            private static final String CSS_DIR = "/css/";
+            private static final String CSS_DIR = Defs.Resources.PROJECT_RESOURCES_ROOT + "css/";
             public static final String CSS_LIGHT_THEME = CSS_DIR + "light_theme.css";
             public static final String CSS_DARK_THEME = CSS_DIR + "dark_theme.css";
         }
 
         // Image Location
         public static final class Image {
-            private static final String IMAGE_DIR = "/image/";
+            private static final String IMAGE_DIR = Defs.Resources.PROJECT_RESOURCES_ROOT + "image/";
             public static final class Logo {
                 private static final String LOGO_DIR = IMAGE_DIR + "logo/";
                 public static final String LOGO_MAIN = LOGO_DIR + "main.png";

@@ -39,7 +39,7 @@ shadowJar {
         attributes "Version-Type" : versionType
         attributes "Version-Marker" : versionMarker
         attributes "Timestamp" : new Date().format("dd/MM/yyyy HH:mm:ss.sss")
-        attributes "IDL-Launcher-Enabled" : true
+        attributes "ID-Launcher-Enabled" : true
     }
     archiveFileName = getRootDir().getName()+"-"+archiveVersion.get()+".jar"
 }

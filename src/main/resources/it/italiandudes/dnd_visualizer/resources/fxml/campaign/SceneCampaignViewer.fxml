@@ -2,15 +2,18 @@
 
 <!--suppress JavaFxDefaultTag -->
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
 <AnchorPane xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.italiandudes.dnd_visualizer.javafx.controllers.campaign.ControllerSceneCampaignViewer">
    <children>
       <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
             <Tab fx:id="tabMaps" text="Mappe" />
-            <Tab fx:id="tabEntities" text="Entita'" />
-            <Tab fx:id="tabElements" text="Elementi" />
+            <Tab fx:id="tabFight" text="Combattimento" />
+            <Tab fx:id="tabMusic" text="Musica" />
+            <Tab fx:id="tabMasterPage" text="Master Page" />
             <Tab fx:id="tabNotes" text="Note" />
             <Tab fx:id="tabSettings" text="Impostazioni" />
         </tabs>

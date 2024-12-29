@@ -42,6 +42,9 @@ public final class Defs {
     // Resources Location
     public static final class Resources {
 
+        // Project Resources Root
+        public static final String PROJECT_RESOURCES_ROOT = "/it/italiandudes/dnd_visualizer/resources/";
+
         //Resource Getters
         public static URL get(@NotNull final String resourceConst) {
             return Objects.requireNonNull(DnD_Visualizer.class.getResource(resourceConst));
@@ -65,12 +68,12 @@ public final class Defs {
         // JSON
         public static final class JSON {
             public static final String JSON_CLIENT_SETTINGS = "client_settings.json";
-            public static final String DEFAULT_JSON_CLIENT_SETTINGS = "/json/" + JSON_CLIENT_SETTINGS;
+            public static final String DEFAULT_JSON_CLIENT_SETTINGS = PROJECT_RESOURCES_ROOT + "json/" + JSON_CLIENT_SETTINGS;
         }
 
         // Images
         public static final class Image {
-            private static final String IMAGE_DIR = "/image/";
+            private static final String IMAGE_DIR = PROJECT_RESOURCES_ROOT + "image/";
             public static final String IMAGE_CA = IMAGE_DIR + "sheet/character/ac_full.png";
             public static final String IMAGE_GOLDEN_CA = IMAGE_DIR + "sheet/character/ac_overflow.png";
             public static final String IMAGE_DARK_MODE = IMAGE_DIR + "dark_mode.png";
@@ -118,7 +121,7 @@ public final class Defs {
 
         // SQL
         public static final class SQL {
-            private static final String SQL_DIR = "/sql/";
+            private static final String SQL_DIR = PROJECT_RESOURCES_ROOT + "sql/";
             public static final String SQL_COMMON = SQL_DIR + "common.sql";
             public static final String SQL_SHEET = SQL_DIR + "sheet.sql";
             public static final String SQL_CAMPAIGN = SQL_DIR + "campaign.sql";
