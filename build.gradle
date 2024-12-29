@@ -38,7 +38,7 @@ shadowJar {
         attributes "Version-Number" : archiveVersion.get()
         attributes "Version-Type" : versionType
         attributes "Version-Marker" : versionMarker
-        attributes "Timestamp" : new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        attributes "Timestamp" : new Date().format("dd/MM/yyyy HH:mm:ss.sss")
     }
     archiveFileName = getRootDir().getName()+"-"+archiveVersion.get()+".jar"
 }
