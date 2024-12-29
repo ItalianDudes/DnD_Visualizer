@@ -5,10 +5,27 @@ import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
 import it.italiandudes.idl.common.InfoFlags;
 import it.italiandudes.idl.common.Logger;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 
 public final class DnD_Visualizer {
+
+    // Launcher Class Loader
+    @Nullable private static ClassLoader launcherClassLoader = null;
+
+    // Methods
+    public static @Nullable ClassLoader getLauncherClassLoader() {
+        return launcherClassLoader;
+    }
+
+    // Launcher Main Method
+    @SuppressWarnings("unused")
+    public static void launcherMain(ClassLoader loader, String[] args) {
+        launcherClassLoader = loader;
+        if (loader != null) Thread.currentThread().setContextClassLoader(loader);
+        main(args);
+    }
 
     // Main Method
     public static void main(String[] args) {

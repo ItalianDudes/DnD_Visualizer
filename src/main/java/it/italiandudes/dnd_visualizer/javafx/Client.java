@@ -1,5 +1,6 @@
 package it.italiandudes.dnd_visualizer.javafx;
 
+import it.italiandudes.dnd_visualizer.DnD_Visualizer;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.javafx.alerts.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.components.SceneController;
@@ -32,6 +33,9 @@ public final class Client extends Application {
     // JavaFX Application Main
     @Override
     public void start(Stage stage) {
+        if (DnD_Visualizer.getLauncherClassLoader() != null) {
+            Thread.currentThread().setContextClassLoader(DnD_Visualizer.getLauncherClassLoader());
+        }
         SYSTEM_CLIPBOARD = Clipboard.getSystemClipboard();
         Client.STAGE = stage;
         stage.setResizable(true);
