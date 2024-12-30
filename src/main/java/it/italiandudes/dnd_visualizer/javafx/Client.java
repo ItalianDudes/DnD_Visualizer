@@ -8,6 +8,7 @@ import it.italiandudes.dnd_visualizer.javafx.scene.SceneLoading;
 import it.italiandudes.dnd_visualizer.javafx.scene.SceneMainMenu;
 import it.italiandudes.dnd_visualizer.javafx.utils.Settings;
 import it.italiandudes.dnd_visualizer.javafx.utils.ThemeHandler;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Application;
@@ -39,10 +40,10 @@ public final class Client extends Application {
     // Initial Stage Configuration
     private static void startupApplicationStageConfiguration(@NotNull final Stage stage) {
         if (DnD_Visualizer.getLauncherClassLoader() != null) {
-            Logger.log("Application started from launcher, changing ContextClassLoader to Launcher...");
+            Logger.log("Application started from launcher, changing ContextClassLoader to Launcher...", Defs.LOGGER_CONTEXT);
             Thread.currentThread().setContextClassLoader(DnD_Visualizer.getLauncherClassLoader());
         }
-        Logger.log("Initializing JavaFX Stage...");
+        Logger.log("Initializing JavaFX Stage...", Defs.LOGGER_CONTEXT);
         SYSTEM_CLIPBOARD = Clipboard.getSystemClipboard();
         Client.STAGE = stage;
         stage.setResizable(true);
@@ -50,10 +51,10 @@ public final class Client extends Application {
         stage.getIcons().add(JFXDefs.AppInfo.LOGO);
         SCENE = Objects.requireNonNull(SceneMainMenu.getScene());
         stage.setScene(new Scene(SCENE.getParent()));
-        Logger.log("Loading Theme...");
+        Logger.log("Loading Theme...", Defs.LOGGER_CONTEXT);
         ThemeHandler.loadConfigTheme(stage.getScene());
         stage.show();
-        Logger.log("JavaFX Stage Initialized! Post initialization...");
+        Logger.log("JavaFX Stage Initialized! Post initialization...", Defs.LOGGER_CONTEXT);
         stage.setX((JFXDefs.SystemGraphicInfo.SCREEN_WIDTH - stage.getWidth()) / 2);
         stage.setY((JFXDefs.SystemGraphicInfo.SCREEN_HEIGHT - stage.getHeight()) / 2);
         stage.getScene().getWindow().addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> exit());
@@ -73,7 +74,7 @@ public final class Client extends Application {
         });
 
         // Notice into the logs that the application started Successfully
-        Logger.log("Post completed, D&D Visualizer started successfully!");
+        Logger.log("Post completed, D&D Visualizer started successfully!", Defs.LOGGER_CONTEXT);
     }
 
     // Start Method
@@ -113,7 +114,7 @@ public final class Client extends Application {
         return popupStage;
     }
     public static void showMessageAndGoToMenu(@NotNull final Throwable t) {
-        Logger.log(t);
+        Logger.log(t, Defs.LOGGER_CONTEXT);
         Platform.runLater(() -> {
             new ErrorAlert("ERRORE", "Errore di Database", "Si e' verificato un errore durante la comunicazione con il database, ritorno al menu principale.");
             setScene(SceneLoading.getScene());
@@ -124,7 +125,7 @@ public final class Client extends Application {
 
     }
     public static void exit() {
-        Logger.log("Exit Method Called, exiting D&D Visualizer...");
+        Logger.log("Exit Method Called, exiting D&D Visualizer...", Defs.LOGGER_CONTEXT);
         Platform.runLater(() -> STAGE.hide());
         DBManager.closeConnection();
         DiscordRichPresenceManager.shutdownRichPresence();

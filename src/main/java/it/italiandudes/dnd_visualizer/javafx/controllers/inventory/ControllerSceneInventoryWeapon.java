@@ -259,7 +259,7 @@ public final class ControllerSceneInventoryWeapon {
                                     if (weight < 0) throw new NumberFormatException("The weight is less than 0");
                                 }
                             } catch (NumberFormatException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Il peso deve essere un numero a virgola mobile positivo!"));
                                 return null;
                             }
@@ -387,7 +387,7 @@ public final class ControllerSceneInventoryWeapon {
                             if (itemContainer != null) itemContainer.setItem(weapon);
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Salvataggio dei Dati", "Salvataggio dei dati completato con successo!"));
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Salvataggio", "Si e' verificato un errore durante il salvataggio dei dati");
                                 textFieldName.getScene().getWindow().hide();
@@ -422,7 +422,7 @@ public final class ControllerSceneInventoryWeapon {
                                     if (weight < 0) throw new NumberFormatException("The weight is less than 0");
                                 }
                             } catch (NumberFormatException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Il peso deve essere un numero a virgola mobile positivo!"));
                                 return null;
                             }
@@ -528,7 +528,7 @@ public final class ControllerSceneInventoryWeapon {
                                 }
                             });
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Esportazione", "Si e' verificato un errore durante l'esportazione dei dati");
                                 textFieldName.getScene().getWindow().hide();
@@ -574,7 +574,7 @@ public final class ControllerSceneInventoryWeapon {
                                     throw new IllegalArgumentException("Image without declared extension");
                                 }
                             } catch (IllegalArgumentException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 tempWeapon.setBase64image(null);
                                 tempWeapon.setImageExtension(null);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
@@ -610,7 +610,7 @@ public final class ControllerSceneInventoryWeapon {
                                 textFieldWeaponCategory.setText(tempWeapon.getWeaponCategory());
                             });
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Importazione", "La struttura dei dati non e' valida.");
                                 textFieldName.getScene().getWindow().hide();
@@ -645,7 +645,7 @@ public final class ControllerSceneInventoryWeapon {
                     throw new IllegalArgumentException("Image without declared extension");
                 }
             } catch (IllegalArgumentException e) {
-                Logger.log(e);
+                Logger.log(e, Defs.LOGGER_CONTEXT);
                 weapon.setBase64image(null);
                 weapon.setImageExtension(null);
                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
@@ -682,7 +682,7 @@ public final class ControllerSceneInventoryWeapon {
             });
 
         } catch (Exception e) {
-            Logger.log(e);
+            Logger.log(e, Defs.LOGGER_CONTEXT);
             Platform.runLater(() -> {
                 new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
                 textFieldName.getScene().getWindow().hide();
@@ -700,7 +700,7 @@ public final class ControllerSceneInventoryWeapon {
                             weapon = new Weapon(weaponName);
                             initExistingWeapon();
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
                                 textFieldName.getScene().getWindow().hide();

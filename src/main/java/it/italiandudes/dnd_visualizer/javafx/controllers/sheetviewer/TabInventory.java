@@ -235,7 +235,7 @@ public final class TabInventory {
                             try {
                                 if (ps != null) ps.close();
                             } catch (SQLException ignored) {}
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
                         }
                         return null;
@@ -381,7 +381,7 @@ public final class TabInventory {
                             ps.close();
                             Platform.runLater(() -> controller.tableViewInventory.setItems(FXCollections.observableList(resultList)));
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             new ErrorAlert("ERRORE", "ERRORE DI CONNESSIONE", "Si e' verificato un errore durante la comunicazione con il database.");
                         }
                         return null;
@@ -505,7 +505,7 @@ public final class TabInventory {
                                         success++;
                                     } catch (SQLException | JSONException e) {
                                         errored++;
-                                        Logger.log(e);
+                                        Logger.log(e, Defs.LOGGER_CONTEXT);
                                     }
                                 }
                                 int finalSuccess = success;
@@ -602,7 +602,7 @@ public final class TabInventory {
                                 }
                                 invReader.close();
                             } catch (FileNotFoundException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 Platform.runLater(() -> {
                                     new ErrorAlert("ERRORE", "Errore di I/O", "Il file specificato non esiste.");
                                     Client.setScene(thisScene);
@@ -657,7 +657,7 @@ public final class TabInventory {
                                             success++;
                                         } catch (SQLException | JSONException e) {
                                             errored++;
-                                            Logger.log(e);
+                                            Logger.log(e, Defs.LOGGER_CONTEXT);
                                         }
                                     }
                                     int finalSuccess = success;
@@ -677,7 +677,7 @@ public final class TabInventory {
                                     });
                                 }
                             } catch (IllegalArgumentException | JSONException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 Platform.runLater(() -> {
                                     new ErrorAlert("ERRORE", "Errore di Importazione", "Il codice di importazione dell'inventario contenuto nel file non e' valido.");
                                     Client.setScene(thisScene);
@@ -764,7 +764,7 @@ public final class TabInventory {
                                     if (ps != null) ps.close();
                                 } catch (SQLException ignored) {
                                 }
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database."));
                                 return null;
                             }
@@ -777,7 +777,7 @@ public final class TabInventory {
                                 writer.close();
                                 Platform.runLater(() -> new InformationAlert("SUCCESSO", "Esportazione Inventario", "Esportazione dell'inventario effettuata con successo!"));
                             } catch (IOException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI SCRITTURA", "Si e' verificato un errore durante la scrittura del file dell'inventario."));
                             }
                             return null;
@@ -862,7 +862,7 @@ public final class TabInventory {
                                     TabEquipment.reloadEquipment(controller);
                                 });
                             } catch (SQLException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Rimozione", "Si e' verificato un errore durante la rimozione dell'elemento: \"" + element.getName() + "\""));
                                 return null;
                             }
@@ -979,7 +979,7 @@ public final class TabInventory {
                                     DnDBag.BAG.saveIntoDatabase(null);
                                 }
                             } catch (SQLException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Database", "Si e' verificato un errore durante l'interrogazione del database."));
                                 return null;
                             }
@@ -994,7 +994,7 @@ public final class TabInventory {
                                     bagItem.saveIntoDatabase(null);
                                 }
                             } catch (SQLException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Ricerca", "Si e' verificato un errore durante la ricerca dell'elemento: \"" + bagItem.getName() + "\""));
                                 return null;
                             }

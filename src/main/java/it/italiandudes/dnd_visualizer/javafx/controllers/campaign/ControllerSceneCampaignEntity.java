@@ -157,7 +157,7 @@ public final class ControllerSceneCampaignEntity {
                         try {
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Salvataggio dei Dati", "Salvataggio dei dati completato con successo!"));
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Salvataggio", "Si e' verificato un errore durante il salvataggio dei dati");
                                 textFieldName.getScene().getWindow().hide();
@@ -192,7 +192,7 @@ public final class ControllerSceneCampaignEntity {
                                     throw new IllegalArgumentException("Image without declared extension");
                                 }
                             } catch (IllegalArgumentException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 item.setBase64image(null);
                                 item.setImageExtension(null);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
@@ -211,7 +211,7 @@ public final class ControllerSceneCampaignEntity {
                             });
 
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
                                 textFieldName.getScene().getWindow().hide();

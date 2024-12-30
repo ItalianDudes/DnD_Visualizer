@@ -3,6 +3,7 @@ package it.italiandudes.dnd_visualizer.data.coin_deposits;
 import it.italiandudes.dnd_visualizer.data.map.Map;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.javafx.Client;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
 import javafx.geometry.Point2D;
 import org.jetbrains.annotations.NotNull;
@@ -53,7 +54,7 @@ public final class CoinDepositManager {
                 coinDepositList.add(new CoinDeposit(coinDepositsID, map, creationDate, center, playerVisibility, mr, ma, me, mo, mp));
             }
         } catch (SQLException | IOException e) {
-            Logger.log(e);
+            Logger.log(e, Defs.LOGGER_CONTEXT);
             Client.exit();
         }
     }

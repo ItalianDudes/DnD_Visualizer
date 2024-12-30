@@ -23,7 +23,7 @@ public final class Settings {
             try {
                 JarHandler.copyFileFromJar(new File(Defs.JAR_POSITION), Defs.Resources.JSON.DEFAULT_JSON_CLIENT_SETTINGS, settingsFile, true);
             } catch (IOException e) {
-                Logger.log(e);
+                Logger.log(e, Defs.LOGGER_CONTEXT);
                 return;
             }
         }
@@ -31,7 +31,7 @@ public final class Settings {
             SETTINGS = JSONManager.readJSON(settingsFile);
             fixJSONSettings();
         } catch (IOException | JSONException e) {
-            Logger.log(e);
+            Logger.log(e, Defs.LOGGER_CONTEXT);
         }
     }
 

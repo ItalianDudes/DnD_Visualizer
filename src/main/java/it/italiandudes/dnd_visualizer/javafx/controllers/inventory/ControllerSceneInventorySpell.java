@@ -330,7 +330,7 @@ public final class ControllerSceneInventorySpell {
                             if (itemContainer != null) itemContainer.setItem(spell);
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Aggiornamento Dati", "Aggiornamento dei dati effettuato con successo!"));
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Salvataggio", "Si e' verificato un errore durante il salvataggio dei dati");
                                 textFieldName.getScene().getWindow().hide();
@@ -449,7 +449,7 @@ public final class ControllerSceneInventorySpell {
                                 }
                             });
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Esportazione", "Si e' verificato un errore durante l'esportazione dei dati");
                                 textFieldName.getScene().getWindow().hide();
@@ -495,7 +495,7 @@ public final class ControllerSceneInventorySpell {
                                     throw new IllegalArgumentException("Image without declared extension");
                                 }
                             } catch (IllegalArgumentException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 tempSpell.setBase64image(null);
                                 tempSpell.setImageExtension(null);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
@@ -527,7 +527,7 @@ public final class ControllerSceneInventorySpell {
                                 textFieldDuration.setText(tempSpell.getDuration());
                             });
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Importazione", "La struttura dei dati non e' valida.");
                                 textFieldName.getScene().getWindow().hide();
@@ -562,7 +562,7 @@ public final class ControllerSceneInventorySpell {
                     throw new IllegalArgumentException("Image without declared extension");
                 }
             } catch (IllegalArgumentException e) {
-                Logger.log(e);
+                Logger.log(e, Defs.LOGGER_CONTEXT);
                 spell.setBase64image(null);
                 spell.setImageExtension(null);
                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
@@ -596,7 +596,7 @@ public final class ControllerSceneInventorySpell {
             });
 
         } catch (Exception e) {
-            Logger.log(e);
+            Logger.log(e, Defs.LOGGER_CONTEXT);
             Platform.runLater(() -> {
                 new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
                 textFieldName.getScene().getWindow().hide();
@@ -614,7 +614,7 @@ public final class ControllerSceneInventorySpell {
                             spell = new Spell(spellName);
                             initExistingSpell();
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
                                 textFieldName.getScene().getWindow().hide();

@@ -4,6 +4,7 @@ import it.italiandudes.dnd_visualizer.data.Note;
 import it.italiandudes.dnd_visualizer.javafx.alerts.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.alerts.InformationAlert;
 import it.italiandudes.dnd_visualizer.javafx.controllers.sheetviewer.TabNotes;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
@@ -76,7 +77,7 @@ public final class ControllerSceneNote {
                             note.saveIntoDatabase(oldTitle);
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Salvataggio dei Dati", "Salvataggio dei dati completato con successo!"));
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
                                 textFieldTitle.getScene().getWindow().hide();
@@ -110,7 +111,7 @@ public final class ControllerSceneNote {
                                 textFieldLastEdit.setText(note.getFormattedLastEdit());
                             });
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
                                 textFieldTitle.getScene().getWindow().hide();

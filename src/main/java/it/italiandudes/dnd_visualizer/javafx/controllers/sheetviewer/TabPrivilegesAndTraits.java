@@ -9,6 +9,7 @@ import it.italiandudes.dnd_visualizer.javafx.components.SceneController;
 import it.italiandudes.dnd_visualizer.javafx.controllers.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.javafx.scene.SceneMainMenu;
 import it.italiandudes.dnd_visualizer.javafx.scene.ScenePrivilegeOrTrait;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -81,7 +82,7 @@ public final class TabPrivilegesAndTraits {
                             ps.close();
                             Platform.runLater(() -> controller.listViewPrivilegesAndTraits.setItems(FXCollections.observableList(resultList)));
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             new ErrorAlert("ERRORE", "ERRORE DI CONNESSIONE", "Si e' verificato un errore durante la comunicazione con il database.");
                         }
                         return null;
@@ -112,7 +113,7 @@ public final class TabPrivilegesAndTraits {
                             ps.close();
                             Platform.runLater(() -> searchPrivilegesAndTraits(controller));
                         } catch (SQLException e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Rimozione", "Si e' verificato un errore durante la rimozione dell'elemento."));
                         }
                         return null;

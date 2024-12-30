@@ -263,7 +263,7 @@ public final class ControllerSceneInventoryAddon {
                                     if (weight < 0) throw new NumberFormatException("The weight is less than 0");
                                 }
                             } catch (NumberFormatException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Il peso deve essere un numero a virgola mobile positivo!"));
                                 return null;
                             }
@@ -394,7 +394,7 @@ public final class ControllerSceneInventoryAddon {
                             if (itemContainer != null) itemContainer.setItem(addon);
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Salvataggio dei Dati", "Salvataggio dei dati completato con successo!"));
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Salvataggio", "Si e' verificato un errore durante il salvataggio dei dati");
                                 textFieldName.getScene().getWindow().hide();
@@ -429,7 +429,7 @@ public final class ControllerSceneInventoryAddon {
                                     if (weight < 0) throw new NumberFormatException("The weight is less than 0");
                                 }
                             } catch (NumberFormatException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Il peso deve essere un numero a virgola mobile positivo!"));
                                 return null;
                             }
@@ -534,7 +534,7 @@ public final class ControllerSceneInventoryAddon {
                                 }
                             });
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Esportazione", "Si e' verificato un errore durante l'esportazione dei dati");
                                 textFieldName.getScene().getWindow().hide();
@@ -580,7 +580,7 @@ public final class ControllerSceneInventoryAddon {
                                     throw new IllegalArgumentException("Image without declared extension");
                                 }
                             } catch (IllegalArgumentException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 tempAddon.setBase64image(null);
                                 tempAddon.setImageExtension(null);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
@@ -615,7 +615,7 @@ public final class ControllerSceneInventoryAddon {
                                 textAreaOtherEffects.setText(tempAddon.getOtherEffects());
                             });
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Importazione", "La struttura dei dati non e' valida.");
                                 textFieldName.getScene().getWindow().hide();
@@ -650,7 +650,7 @@ public final class ControllerSceneInventoryAddon {
                     throw new IllegalArgumentException("Image without declared extension");
                 }
             } catch (IllegalArgumentException e) {
-                Logger.log(e);
+                Logger.log(e, Defs.LOGGER_CONTEXT);
                 addon.setBase64image(null);
                 addon.setImageExtension(null);
                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
@@ -684,7 +684,7 @@ public final class ControllerSceneInventoryAddon {
                 textAreaOtherEffects.setText(addon.getOtherEffects());
             });
         } catch (Exception e) {
-            Logger.log(e);
+            Logger.log(e, Defs.LOGGER_CONTEXT);
             Platform.runLater(() -> {
                 new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
                 textFieldName.getScene().getWindow().hide();
@@ -702,7 +702,7 @@ public final class ControllerSceneInventoryAddon {
                             addon = new Addon(addonName);
                             initExistingAddon();
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
                                 textFieldName.getScene().getWindow().hide();

@@ -8,6 +8,7 @@ import it.italiandudes.dnd_visualizer.javafx.alerts.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.controllers.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.javafx.scene.SceneEffect;
 import it.italiandudes.dnd_visualizer.javafx.scene.SceneMainMenu;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -89,7 +90,7 @@ public final class TabEffects {
                             ps.close();
                             Platform.runLater(() -> controller.tableViewEffects.setItems(FXCollections.observableList(resultList)));
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             new ErrorAlert("ERRORE", "ERRORE DI CONNESSIONE", "Si e' verificato un errore durante la comunicazione con il database.");
                         }
                         return null;
@@ -118,7 +119,7 @@ public final class TabEffects {
                                 TabEquipment.updateEquipmentProperties(controller);
                             });
                         } catch (SQLException e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Rimozione", "Si e' verificato un errore durante la rimozione dell'elemento."));
                         }
                         return null;

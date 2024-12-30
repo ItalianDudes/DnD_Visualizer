@@ -5,6 +5,7 @@ import it.italiandudes.dnd_visualizer.data.item.Item;
 import it.italiandudes.dnd_visualizer.data.map.Map;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.javafx.Client;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
 import javafx.geometry.Point2D;
 import org.jetbrains.annotations.NotNull;
@@ -52,7 +53,7 @@ public final class ElementManager {
                 elementList.add(new Element(elementID, map, creationDate, name, center, type, item, playerVisibility));
             }
         } catch (SQLException | IOException e) {
-            Logger.log(e);
+            Logger.log(e, Defs.LOGGER_CONTEXT);
             Client.exit();
         }
     }

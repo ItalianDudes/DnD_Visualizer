@@ -7,6 +7,7 @@ import it.italiandudes.dnd_visualizer.javafx.alerts.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.controllers.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.javafx.utils.UIElementConfigurator;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.dnd_visualizer.utils.Defs.KeyParameters;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
@@ -650,7 +651,7 @@ public final class TabSpells {
                             try {
                                 if (ps != null) ps.close();
                             } catch (SQLException ignored) {}
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
                         }
                         return null;

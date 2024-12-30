@@ -82,7 +82,7 @@ public final class ControllerSceneMainMenu {
                                 }
                             });
                         } catch (IOException e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Download", "Si e' verificato un errore durante il download della nuova versione dell'app.");
                                 Client.setScene(thisScene);
@@ -134,7 +134,7 @@ public final class ControllerSceneMainMenu {
                             Attributes attributes = JarHandler.ManifestReader.readJarManifest(Defs.JAR_POSITION);
                             currentVersion = JarHandler.ManifestReader.getValue(attributes, "Version");
                         } catch (IOException e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                         }
 
                         if (Updater.getLatestVersion(currentVersion, latestVersion).equals(currentVersion)) {
@@ -188,7 +188,7 @@ public final class ControllerSceneMainMenu {
                         try {
                             DBManager.createSheet(finalSheetDB.getAbsolutePath());
                         } catch (SQLException e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERROR", "I/O Error", "An error has occurred during sheet opening");
                                 Client.setScene(thisScene);
@@ -232,7 +232,7 @@ public final class ControllerSceneMainMenu {
                         try {
                             DBManager.connectToDB(finalSheetDB);
                         } catch (IOException | SQLException e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di I/O", "Si e' verificato un errore durante l'apertura della scheda.");
                                 Client.setScene(thisScene);
@@ -283,7 +283,7 @@ public final class ControllerSceneMainMenu {
             ControllerAskVaultCode.USER_ATTEMPT = null;
 
         } catch (IOException e) {
-            Logger.log(e);
+            Logger.log(e, Defs.LOGGER_CONTEXT);
             System.exit(-1);
         }
     }
@@ -315,7 +315,7 @@ public final class ControllerSceneMainMenu {
                         try {
                             DBManager.createCampaign(finalSheetDB.getAbsolutePath());
                         } catch (SQLException e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di I/O", "Si e' verificato un errore durante l'apertura della campagna.");
                                 Client.setScene(thisScene);
@@ -358,7 +358,7 @@ public final class ControllerSceneMainMenu {
                         try {
                             DBManager.connectToDB(finalSheetDB);
                         } catch (IOException | SQLException e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di I/O", "Si e' verificato un errore durante l'apertura della campagna.");
                                 Client.setScene(thisScene);

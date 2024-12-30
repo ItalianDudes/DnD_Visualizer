@@ -29,7 +29,7 @@ public final class Updater {
             connection.disconnect();
             return connection.getURL().toString().split("/tag/")[1];
         } catch (IOException e) {
-            Logger.log(e);
+            Logger.log(e, Defs.LOGGER_CONTEXT);
         }
         return null;
     }

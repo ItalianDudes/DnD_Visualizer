@@ -62,7 +62,7 @@ public final class SheetDataHandler {
                             try (FileWriter writer = new FileWriter(finalElementPath)) {
                                 writer.append(elementCode);
                             } catch (IOException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di I/O", "Si e' verificato un errore durante la scrittura dell'elemento."));
                                 return null;
                             }
@@ -81,7 +81,7 @@ public final class SheetDataHandler {
             writeKeyParameter(imageKey, Base64.getEncoder().encodeToString(imageByteStream.toByteArray()));
             writeKeyParameter(imageExtensionKey, imageExtension);
         } catch (IOException e) {
-            Logger.log(e);
+            Logger.log(e, Defs.LOGGER_CONTEXT);
             Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI SCRITTURA", "L'immagine e' corrotta o non e' scrivibile."));
         }
     }
@@ -114,7 +114,7 @@ public final class SheetDataHandler {
                             try {
                                 if (ps != null) ps.close();
                             } catch (SQLException ignored) {}
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI SCRITTURA", "Si e' verificato un errore durante la scrittura di un parametro.\nKEY: "+KEY+"\nVALUE: "+VALUE));
                         }
                         return null;
@@ -143,7 +143,7 @@ public final class SheetDataHandler {
             try {
                 if (ps != null) ps.close();
             } catch (SQLException ignored) {}
-            Logger.log(e);
+            Logger.log(e, Defs.LOGGER_CONTEXT);
             Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI LETTURA", "Si e' verificato un errore durante la lettura di un parametro."));
             return null;
         }

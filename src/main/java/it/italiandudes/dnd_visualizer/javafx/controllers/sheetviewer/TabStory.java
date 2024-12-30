@@ -61,7 +61,7 @@ public final class TabStory {
                                 cultImage = SwingFXUtils.toFXImage(bufferedImageCharacter, null);
                             }
                         } catch (IllegalArgumentException | IOException e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI LETTURA", "L'immagine ricevuta dal database non è leggibile."));
                         }
                         String alliesAndOrganizations = SheetDataHandler.readKeyParameter(KeyParameters.TabStory.ALLIES_AND_ORGANIZATIONS);

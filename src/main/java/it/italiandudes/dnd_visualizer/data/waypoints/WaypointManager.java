@@ -4,6 +4,7 @@ import it.italiandudes.dnd_visualizer.data.enums.WaypointType;
 import it.italiandudes.dnd_visualizer.data.map.Map;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.javafx.Client;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
 import javafx.geometry.Point2D;
 import org.jetbrains.annotations.NotNull;
@@ -50,7 +51,7 @@ public final class WaypointManager {
                 waypointList.add(new Waypoint(waypointID, map, creationDate, name, center, type, playerVisibility));
             }
         } catch (SQLException | IOException e) {
-            Logger.log(e);
+            Logger.log(e, Defs.LOGGER_CONTEXT);
             Client.exit();
         }
     }

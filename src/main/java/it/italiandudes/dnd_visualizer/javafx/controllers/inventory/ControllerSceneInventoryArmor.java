@@ -265,7 +265,7 @@ public final class ControllerSceneInventoryArmor {
                                     if (weight < 0) throw new NumberFormatException("The weight is less than 0");
                                 }
                             } catch (NumberFormatException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Il peso deve essere un numero a virgola mobile positivo!"));
                                 return null;
                             }
@@ -363,7 +363,7 @@ public final class ControllerSceneInventoryArmor {
                                 }
                             });
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Esportazione", "Si e' verificato un errore durante l'esportazione dei dati");
                                 textFieldName.getScene().getWindow().hide();
@@ -398,7 +398,7 @@ public final class ControllerSceneInventoryArmor {
                                     if (weight < 0) throw new NumberFormatException("The weight is less than 0");
                                 }
                             } catch (NumberFormatException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Il peso deve essere un numero a virgola mobile positivo!"));
                                 return null;
                             }
@@ -529,7 +529,7 @@ public final class ControllerSceneInventoryArmor {
                             if (itemContainer != null) itemContainer.setItem(armor);
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Salvataggio dei Dati", "Salvataggio dei dati completato con successo!"));
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Salvataggio", "Si e' verificato un errore durante il salvataggio dei dati");
                                 textFieldName.getScene().getWindow().hide();
@@ -574,7 +574,7 @@ public final class ControllerSceneInventoryArmor {
                                     throw new IllegalArgumentException("Image without declared extension");
                                 }
                             } catch (IllegalArgumentException e) {
-                                Logger.log(e);
+                                Logger.log(e, Defs.LOGGER_CONTEXT);
                                 tempArmor.setBase64image(null);
                                 tempArmor.setImageExtension(null);
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
@@ -610,7 +610,7 @@ public final class ControllerSceneInventoryArmor {
                                 comboBoxWeightCategory.getSelectionModel().select(tempArmor.getWeightCategory());
                             });
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Importazione", "La struttura dei dati non e' valida.");
                                 textFieldName.getScene().getWindow().hide();
@@ -645,7 +645,7 @@ public final class ControllerSceneInventoryArmor {
                     throw new IllegalArgumentException("Image without declared extension");
                 }
             } catch (IllegalArgumentException e) {
-                Logger.log(e);
+                Logger.log(e, Defs.LOGGER_CONTEXT);
                 armor.setBase64image(null);
                 armor.setImageExtension(null);
                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di lettura", "L'immagine ricevuta dal database non è leggibile"));
@@ -680,7 +680,7 @@ public final class ControllerSceneInventoryArmor {
                 comboBoxWeightCategory.getSelectionModel().select(armor.getWeightCategory());
             });
         } catch (Exception e) {
-            Logger.log(e);
+            Logger.log(e, Defs.LOGGER_CONTEXT);
             Platform.runLater(() -> {
                 new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
                 textFieldName.getScene().getWindow().hide();
@@ -698,7 +698,7 @@ public final class ControllerSceneInventoryArmor {
                             armor = new Armor(armorName);
                             initExistingArmor();
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
                                 textFieldName.getScene().getWindow().hide();

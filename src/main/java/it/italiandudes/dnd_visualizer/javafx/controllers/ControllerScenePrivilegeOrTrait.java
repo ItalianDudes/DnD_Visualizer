@@ -5,6 +5,7 @@ import it.italiandudes.dnd_visualizer.data.enums.PrivilegeType;
 import it.italiandudes.dnd_visualizer.javafx.alerts.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.alerts.InformationAlert;
 import it.italiandudes.dnd_visualizer.javafx.controllers.sheetviewer.TabPrivilegesAndTraits;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -83,7 +84,7 @@ public final class ControllerScenePrivilegeOrTrait {
                             privilegeOrTrait.saveIntoDatabase(oldName);
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Salvataggio dei Dati", "Salvataggio dei dati completato con successo!"));
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
                                 textFieldName.getScene().getWindow().hide();
@@ -116,7 +117,7 @@ public final class ControllerScenePrivilegeOrTrait {
                                 textAreaContent.setText(privilegeOrTrait.getContent());
                             });
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> {
                                 new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere l'elemento dal database");
                                 textFieldName.getScene().getWindow().hide();

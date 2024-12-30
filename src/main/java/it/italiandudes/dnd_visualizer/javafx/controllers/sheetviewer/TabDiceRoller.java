@@ -153,7 +153,7 @@ public final class TabDiceRoller {
                                 Platform.runLater(() -> controller.textAreaDiceSum.setText(sumBuilder.toString()));
                             }
                         } catch (Exception e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                         }
                         diceRolling = false;
                         Platform.runLater(() -> {

@@ -2,6 +2,7 @@ package it.italiandudes.dnd_visualizer.data.map;
 
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.javafx.Client;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.dnd_visualizer.utils.ImageUtils;
 import it.italiandudes.idl.common.Logger;
 import javafx.scene.image.Image;
@@ -49,7 +50,7 @@ public final class MapManager {
             }
             result.close();
         } catch (SQLException | IOException e) {
-            Logger.log(e);
+            Logger.log(e, Defs.LOGGER_CONTEXT);
             Client.exit();
         }
     }

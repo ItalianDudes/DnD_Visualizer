@@ -22,7 +22,7 @@ public final class ScenePrivilegeOrTrait {
             ControllerScenePrivilegeOrTrait controller = loader.getController();
             return new SceneController(root, controller);
         } catch (IOException e) {
-            Logger.log(e);
+            Logger.log(e, Defs.LOGGER_CONTEXT);
             System.exit(-1);
             return null;
         }

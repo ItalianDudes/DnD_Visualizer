@@ -125,7 +125,7 @@ public final class ControllerSceneSettingsEditor {
                             Settings.getSettings().put(Defs.SettingsKeys.ENABLE_DISCORD_RICH_PRESENCE, toggleButtonEnableDiscordRichPresence.isSelected());
                             Settings.getSettings().put(Defs.SettingsKeys.ENABLE_EVENT_THEME, toggleButtonEnableEventTheme.isSelected());
                         } catch (JSONException e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                         }
                         ThemeHandler.setConfigTheme();
                         if (!toggleButtonEnableDiscordRichPresence.isSelected()) {
@@ -135,7 +135,7 @@ public final class ControllerSceneSettingsEditor {
                             Settings.writeJSONSettings();
                             Platform.runLater(() -> new InformationAlert("SUCCESSO", "Salvataggio Impostazioni", "Impostazioni salvate e applicate con successo!"));
                         } catch (IOException e) {
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di I/O", "Si e' verificato un errore durante il salvataggio delle impostazioni."));
                         }
                         return null;

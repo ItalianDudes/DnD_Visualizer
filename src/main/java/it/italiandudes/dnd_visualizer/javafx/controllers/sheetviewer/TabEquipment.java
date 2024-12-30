@@ -7,6 +7,7 @@ import it.italiandudes.dnd_visualizer.data.item.Weapon;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.javafx.alerts.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.controllers.ControllerSceneSheetViewer;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -686,7 +687,7 @@ public final class TabEquipment {
                             try {
                                 if (ps != null) ps.close();
                             } catch (SQLException ignored) {}
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
                         }
                         return null;
@@ -776,7 +777,7 @@ public final class TabEquipment {
                             try {
                                 if (ps != null) ps.close();
                             } catch (SQLException ignored) {}
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
                         }
                         return null;
@@ -893,7 +894,7 @@ public final class TabEquipment {
                             try {
                                 if (ps != null) ps.close();
                             } catch (SQLException ignored) {}
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
                         }
                         return null;
@@ -967,7 +968,7 @@ public final class TabEquipment {
                             try {
                                 if (ps != null) ps.close();
                             } catch (SQLException ignored) {}
-                            Logger.log(e);
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
                             new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
                         }
                         return null;

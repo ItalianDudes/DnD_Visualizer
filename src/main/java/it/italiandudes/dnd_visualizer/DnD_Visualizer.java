@@ -2,6 +2,7 @@ package it.italiandudes.dnd_visualizer;
 
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.javafx.Client;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
 import it.italiandudes.idl.common.InfoFlags;
 import it.italiandudes.idl.common.Logger;
@@ -33,26 +34,26 @@ public final class DnD_Visualizer {
         // Initializing the logger
         try {
             Logger.init();
-            Logger.log("Logger initialized!");
+            Logger.log("Logger initialized!", Defs.LOGGER_CONTEXT);
         } catch (IOException e) {
-            Logger.log("An error has occurred during Logger initialization, exit...");
+            Logger.log("An error has occurred during Logger initialization, exit...", Defs.LOGGER_CONTEXT);
             return;
         }
 
         // Configure the shutdown hooks
-        Logger.log("Configuring Shutdown Hooks...");
+        Logger.log("Configuring Shutdown Hooks...", Defs.LOGGER_CONTEXT);
         Runtime.getRuntime().addShutdownHook(new Thread(Logger::close));
         Runtime.getRuntime().addShutdownHook(new Thread(DBManager::closeConnection));
         Runtime.getRuntime().addShutdownHook(new Thread(DiscordRichPresenceManager::shutdownRichPresence));
-        Logger.log("Shutdown Hooks configured!");
+        Logger.log("Shutdown Hooks configured!", Defs.LOGGER_CONTEXT);
 
         // Start the client
         try {
-            Logger.log("Starting UI...");
+            Logger.log("Starting UI...", Defs.LOGGER_CONTEXT);
             Client.start(args);
         } catch (NoClassDefFoundError e) {
-            Logger.log("ERROR: TO RUN THIS JAR YOU NEED JAVA 8 WITH BUILT-IN JAVAFX!", new InfoFlags(true, true, true, true));
-            Logger.log(e);
+            Logger.log("ERROR: TO RUN THIS JAR YOU NEED JAVA 8 WITH BUILT-IN JAVAFX!", new InfoFlags(true, true, true, true), Defs.LOGGER_CONTEXT);
+            Logger.log(e, Defs.LOGGER_CONTEXT);
             System.exit(0);
         }
     }
