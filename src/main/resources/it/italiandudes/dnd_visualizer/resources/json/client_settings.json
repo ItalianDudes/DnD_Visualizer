@@ -1,0 +1,9 @@
+{
+  "enableDarkMode": true,
+  "enableLoad": true,
+  "enablePassiveLoad": true,
+  "coinsIncreaseLoad": true,
+  "enableDiscordRichPresence": true,
+  "enableEventTheme": true,
+  "enableTutorial": true
+}
