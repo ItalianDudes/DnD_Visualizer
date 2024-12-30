@@ -30,12 +30,19 @@ public final class Client extends Application {
     private static Stage STAGE = null;
     private static SceneController SCENE = null;
 
-    // JavaFX Application Main
+    // JavaFX Entry Point
     @Override
     public void start(Stage stage) {
+        startupApplicationStageConfiguration(stage);
+    }
+
+    // Initial Stage Configuration
+    private static void startupApplicationStageConfiguration(@NotNull final Stage stage) {
         if (DnD_Visualizer.getLauncherClassLoader() != null) {
+            Logger.log("Application started from launcher, changing ContextClassLoader to Launcher...");
             Thread.currentThread().setContextClassLoader(DnD_Visualizer.getLauncherClassLoader());
         }
+        Logger.log("Initializing JavaFX Stage...");
         SYSTEM_CLIPBOARD = Clipboard.getSystemClipboard();
         Client.STAGE = stage;
         stage.setResizable(true);
@@ -43,8 +50,10 @@ public final class Client extends Application {
         stage.getIcons().add(JFXDefs.AppInfo.LOGO);
         SCENE = Objects.requireNonNull(SceneMainMenu.getScene());
         stage.setScene(new Scene(SCENE.getParent()));
+        Logger.log("Loading Theme...");
         ThemeHandler.loadConfigTheme(stage.getScene());
         stage.show();
+        Logger.log("JavaFX Stage Initialized! Post initialization...");
         stage.setX((JFXDefs.SystemGraphicInfo.SCREEN_WIDTH - stage.getWidth()) / 2);
         stage.setY((JFXDefs.SystemGraphicInfo.SCREEN_HEIGHT - stage.getHeight()) / 2);
         stage.getScene().getWindow().addEventHandler(WindowEvent.WINDOW_CLOSE_REQUEST, event -> exit());
@@ -64,13 +73,14 @@ public final class Client extends Application {
         });
 
         // Notice into the logs that the application started Successfully
-        Logger.log("Application started successfully!");
+        Logger.log("Post completed, D&D Visualizer started successfully!");
     }
 
-    // Start Methods
+    // Start Method
     public static void start(String[] args) {
         Settings.loadSettingsFile();
-        launch(args);
+        if (DnD_Visualizer.getLauncherClassLoader() == null) launch(args);
+        else Platform.runLater(() -> startupApplicationStageConfiguration(new Stage()));
     }
 
     // Methods
@@ -114,7 +124,7 @@ public final class Client extends Application {
 
     }
     public static void exit() {
-        Logger.log("Exit Method Called, exiting Java process...");
+        Logger.log("Exit Method Called, exiting D&D Visualizer...");
         Platform.runLater(() -> STAGE.hide());
         DBManager.closeConnection();
         DiscordRichPresenceManager.shutdownRichPresence();

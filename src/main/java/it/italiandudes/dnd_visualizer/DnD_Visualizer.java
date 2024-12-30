@@ -33,18 +33,22 @@ public final class DnD_Visualizer {
         // Initializing the logger
         try {
             Logger.init();
+            Logger.log("Logger initialized!");
         } catch (IOException e) {
             Logger.log("An error has occurred during Logger initialization, exit...");
             return;
         }
 
         // Configure the shutdown hooks
+        Logger.log("Configuring Shutdown Hooks...");
         Runtime.getRuntime().addShutdownHook(new Thread(Logger::close));
         Runtime.getRuntime().addShutdownHook(new Thread(DBManager::closeConnection));
         Runtime.getRuntime().addShutdownHook(new Thread(DiscordRichPresenceManager::shutdownRichPresence));
+        Logger.log("Shutdown Hooks configured!");
 
         // Start the client
         try {
+            Logger.log("Starting UI...");
             Client.start(args);
         } catch (NoClassDefFoundError e) {
             Logger.log("ERROR: TO RUN THIS JAR YOU NEED JAVA 8 WITH BUILT-IN JAVAFX!", new InfoFlags(true, true, true, true));
