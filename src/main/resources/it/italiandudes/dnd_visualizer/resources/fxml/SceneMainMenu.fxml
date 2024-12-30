@@ -54,12 +54,12 @@
                                     <Font name="Lucida Sans Demibold" size="16.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="buttonNewCampaign" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#newCampaign" text="Nuova Campagna" GridPane.rowIndex="2">
+                              <Button fx:id="buttonNewCampaign" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#newCampaign" text="Nuova Campagna" GridPane.rowIndex="2">
                                  <font>
                                     <Font name="Lucida Sans Demibold" size="16.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="buttonOpenCampaign" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openCampaign" text="Apri Campagna" GridPane.rowIndex="3">
+                              <Button fx:id="buttonOpenCampaign" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openCampaign" text="Apri Campagna" GridPane.rowIndex="3">
                                  <font>
                                     <Font name="Lucida Sans Demibold" size="16.0" />
                                  </font>
