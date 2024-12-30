@@ -34,11 +34,15 @@ public final class ControllerSceneCampaignEntity {
     private Entity entity = null;
     private String imageExtension = null;
     private EntityType entityType = null;
+    private String name = null;
     private volatile boolean configurationComplete = false;
 
     // Methods
     public void setEntityType(@NotNull final EntityType type) {
         this.entityType = type;
+    }
+    public void setName(@NotNull final String name) {
+        this.name = name;
     }
     @Nullable
     public Entity getEntity() {
@@ -78,7 +82,7 @@ public final class ControllerSceneCampaignEntity {
                         //noinspection StatementWithEmptyBody
                         while (!configurationComplete);
                         Platform.runLater(() -> {
-                            // if (entity != null) initExistingEntity();
+                            // if (name != null) initExistingEntity();
                             buttonSave.setDisable(false);
                         });
                         return null;

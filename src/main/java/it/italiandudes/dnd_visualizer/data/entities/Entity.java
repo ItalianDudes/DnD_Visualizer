@@ -112,6 +112,7 @@ public final class Entity extends StackPane {
 
     // Finish Configuration
     private void finishConfiguration() {
+        getChildren().clear();
         ImageView image = new ImageView(type.getImage());
         image.setFitWidth(32);
         image.setFitHeight(32);
@@ -120,6 +121,7 @@ public final class Entity extends StackPane {
         if (type == EntityType.ENTITY_STRONG_ENEMY || type == EntityType.ENTITY_BOSS) {
             setBackground(new Background(new BackgroundFill(type.getColor(), new CornerRadii(5), null)));
         }
+        getStyleClass().clear();
         getStyleClass().add("waypoint");
         setMinWidth(42);
         setMinHeight(42);
@@ -181,8 +183,16 @@ public final class Entity extends StackPane {
     public @NotNull EntityType getType() {
         return type;
     }
-    public void setType(@NotNull EntityType type) {
+    public void setType(@NotNull EntityType type) throws SQLException { // Live DB Operation, must be fast
         this.type = type;
+        String query = "UPDATE entities SET type=? WHERE id=?;";
+        PreparedStatement ps = DBManager.preparedStatement(query);
+        if (ps == null) throw new SQLException("Database connection is null");
+        ps.setString(1, name);
+        ps.setInt(1, type.ordinal());
+        ps.executeUpdate();
+        ps.close();
+        finishConfiguration();
     }
     public @NotNull Point2D getCenter() {
         return center;

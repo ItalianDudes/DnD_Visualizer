@@ -30,4 +30,19 @@ public final class SceneCampaignEntity {
             return null;
         }
     }
+    @NotNull
+    public static SceneController getScene(@NotNull final String name) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Defs.Resources.get(JFXDefs.Resources.FXML.Campaign.FXML_CAMPAIGN_ENTITY));
+            Parent root = loader.load();
+            ControllerSceneCampaignEntity controller = loader.getController();
+            controller.setName(name);
+            controller.configurationComplete();
+            return new SceneController(root, controller);
+        } catch (IOException e) {
+            Logger.log(e);
+            System.exit(-1);
+            return null;
+        }
+    }
 }

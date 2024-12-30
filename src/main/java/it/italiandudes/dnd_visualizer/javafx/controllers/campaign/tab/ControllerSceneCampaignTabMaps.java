@@ -188,13 +188,9 @@ public final class ControllerSceneCampaignTabMaps {
         Menu addEntityMenu = new Menu("Aggiungi Entita'");
         for (EntityType type : EntityType.values()) {
             if (type == EntityType.ENTITY_PLAYER) continue;
-            Menu addMenu = new Menu("Aggiungi " + type.getName());
-            MenuItem option = new MenuItem();
-            TextField nameField = new TextField();
-            nameField.setPromptText("Nome");
-            option.setGraphic(nameField);
-            // option.setOnAction(e -> addEntity(nameField, center, type));
-            addEntityMenu.getItems().add(addMenu);
+            MenuItem add = new MenuItem("Aggiungi " + type.getName());
+            add.setOnAction(e -> addEntity(center, type));
+            addEntityMenu.getItems().add(add);
         }
         contextMenu.getItems().add(addEntityMenu);
 
@@ -219,7 +215,25 @@ public final class ControllerSceneCampaignTabMaps {
         addCoinDeposit.setOnAction(e -> addCoinDeposit(center));
         contextMenu.getItems().add(addCoinDeposit);
 
-        if (event.getSource() instanceof Element) {
+        if (event.getSource() instanceof Entity) {
+            Entity entity = (Entity) event.getSource();
+
+            MenuItem editEntity = new MenuItem("Modifica Entita'");
+            editEntity.setOnAction(e -> editEntity(entity));
+
+            Menu changeVisibilityMenu = new Menu("Modifica Visibilita'");
+            MenuItem visibilityOn = new MenuItem("Rendi Visibile ai Giocatori");
+            visibilityOn.setOnAction(e -> editEntityPlayerVisibility(entity, true));
+            MenuItem visibilityOff = new MenuItem("Rendi Invisibile ai Giocatori");
+            visibilityOff.setOnAction(e -> editEntityPlayerVisibility(entity, false));
+            changeVisibilityMenu.getItems().addAll(visibilityOn, visibilityOff);
+
+            MenuItem removeEntity = new MenuItem("Rimuovi Entita'");
+            removeEntity.setOnAction(e -> removeEntity(entity));
+
+            contextMenu.getItems().addAll(editEntity, changeVisibilityMenu, removeEntity);
+
+        } else if (event.getSource() instanceof Element) {
             Element element = (Element) event.getSource();
 
             MenuItem editElement = new MenuItem("Modifica Elemento");
@@ -513,7 +527,7 @@ public final class ControllerSceneCampaignTabMaps {
         });
     }
 
-    // Waypoint
+    // Entity
     private void configureEntityHover(@NotNull final Entity entity) {
         entity.hoverProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
@@ -536,10 +550,10 @@ public final class ControllerSceneCampaignTabMaps {
         return ((ControllerSceneCampaignEntity) scene.getController()).getEntity();
     }
     private void addEntity(@NotNull final Point2D center, @NotNull final EntityType type) {
-        /*
+        Entity entity = showEntityCreator(type);
         try {
-            Entity entity = showEntityCreator(type);
             if (entity != null) {
+                EntityManager.getInstance().registerEntity(map, entity, center, null, false);
                 entity.setOnScroll(this::mouseWheelZoom);
                 entity.setOnMouseDragged(ev -> moveEntity(ev, entity));
                 entity.setOnContextMenuRequested(this::openMapContextMenu);
@@ -548,9 +562,15 @@ public final class ControllerSceneCampaignTabMaps {
             } else {
                 new ErrorAlert("ERRORE", "Errore di Inserimento", "Un entita' con queste caratteristiche e' gia' presente.");
             }
-        } catch (SQLException | IOException ex) {
-            Client.showMessageAndGoToMenu(ex);
-        }*/
+        } catch (SQLException | IOException e) {
+            Client.showMessageAndGoToMenu(e);
+        }
+    }
+    private void editEntity(@NotNull final Entity entity) {
+        SceneController scene = SceneCampaignEntity.getScene(entity.getName());
+        Stage popupStage = Client.initPopupStage(scene);
+        popupStage.showAndWait();
+        Entity newEntity = ((ControllerSceneCampaignEntity) scene.getController()).getEntity();
     }
     private void editEntityPlayerVisibility(@NotNull final Entity entity, final boolean visibility) {
         try {
