@@ -9,12 +9,11 @@ import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
@@ -74,10 +73,10 @@ public final class SheetDataHandler {
             }.start();
         }
     }
-    public static void writeKeyParameter(@NotNull final String imageKey, @NotNull final String imageExtensionKey, @NotNull final Image image, @NotNull final String imageExtension) {
+    public static void writeKeyParameter(@NotNull final String imageKey, @NotNull final String imageExtensionKey, @NotNull final BufferedImage image, @NotNull final String imageExtension) {
         ByteArrayOutputStream imageByteStream = new ByteArrayOutputStream();
         try {
-            ImageIO.write(SwingFXUtils.fromFXImage(image, null), imageExtension, imageByteStream);
+            ImageIO.write(image, imageExtension, imageByteStream);
             writeKeyParameter(imageKey, Base64.getEncoder().encodeToString(imageByteStream.toByteArray()));
             writeKeyParameter(imageExtensionKey, imageExtension);
         } catch (IOException e) {

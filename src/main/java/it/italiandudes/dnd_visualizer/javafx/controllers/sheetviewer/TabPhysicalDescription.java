@@ -109,7 +109,7 @@ public final class TabPhysicalDescription {
                                     controller.imageViewCharacterImage.setImage(fxImage);
                                 });
                                 TabCharacter.setCharacterImageExtension(ImageHandler.getImageExtension(finalImagePath.getAbsolutePath()));
-                                SheetDataHandler.writeKeyParameter(KeyParameters.CHARACTER_IMAGE, KeyParameters.CHARACTER_IMAGE_EXTENSION, fxImage, TabCharacter.getCharacterImageExtension());
+                                SheetDataHandler.writeKeyParameter(KeyParameters.CHARACTER_IMAGE, KeyParameters.CHARACTER_IMAGE_EXTENSION, img, TabCharacter.getCharacterImageExtension());
                             }catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }

@@ -482,7 +482,7 @@ public final class TabCharacter {
                                     controller.imageViewCharacterBodyImage.setImage(fxImage);
                                 });
                                 characterImageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
-                                SheetDataHandler.writeKeyParameter(KeyParameters.CHARACTER_IMAGE, KeyParameters.CHARACTER_IMAGE_EXTENSION, fxImage, characterImageExtension);
+                                SheetDataHandler.writeKeyParameter(KeyParameters.CHARACTER_IMAGE, KeyParameters.CHARACTER_IMAGE_EXTENSION, img, characterImageExtension);
                             }catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }

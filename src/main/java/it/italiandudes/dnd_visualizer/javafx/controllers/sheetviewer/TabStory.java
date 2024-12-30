@@ -83,7 +83,6 @@ public final class TabStory {
     private static void setOnChangeTriggers(@NotNull final ControllerSceneSheetViewer controller) {
         controller.textAreaBackstory.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabStory.CHARACTER_BACKSTORY, newValue));
         controller.textAreaCult.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabStory.CULT_DESCRIPTION, newValue));
-        controller.imageViewSymbolImage.imageProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabStory.CULT_IMAGE, KeyParameters.TabStory.CULT_IMAGE_EXTENSION, newValue, symbolImageExtension));
         controller.textAreaAlliesAndOrganizations.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabStory.ALLIES_AND_ORGANIZATIONS, newValue));
     }
 
@@ -117,6 +116,7 @@ public final class TabStory {
                                 }
                                 Platform.runLater(() -> controller.imageViewSymbolImage.setImage(SwingFXUtils.toFXImage(img, null)));
                                 symbolImageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
+                                SheetDataHandler.writeKeyParameter(KeyParameters.TabStory.CULT_IMAGE, KeyParameters.TabStory.CULT_IMAGE_EXTENSION, img, symbolImageExtension);
                             }catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }
