@@ -7,7 +7,10 @@ import it.italiandudes.dnd_visualizer.db.DBManager;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.StackPane;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
