@@ -7,7 +7,6 @@ import it.italiandudes.dnd_visualizer.data.elements.ElementManager;
 import it.italiandudes.dnd_visualizer.data.entities.Entity;
 import it.italiandudes.dnd_visualizer.data.entities.EntityManager;
 import it.italiandudes.dnd_visualizer.data.enums.ElementType;
-import it.italiandudes.dnd_visualizer.data.enums.EntityType;
 import it.italiandudes.dnd_visualizer.data.enums.WaypointType;
 import it.italiandudes.dnd_visualizer.data.item.Item;
 import it.italiandudes.dnd_visualizer.data.item.ItemContainer;
@@ -47,6 +46,7 @@ import java.nio.file.Files;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("DuplicatedCode")
@@ -185,15 +185,9 @@ public final class ControllerSceneCampaignTabMaps {
         }
         contextMenu.getItems().add(addWaypointMenu);
 
-        Menu addEntityMenu = new Menu("Aggiungi Entita'");
-        for (EntityType type : EntityType.values()) {
-            if (type == EntityType.ENTITY_PLAYER) continue;
-            MenuItem add = new MenuItem("Aggiungi " + type.getName());
-            add.setOnAction(e -> addEntity(center, type));
-            addEntityMenu.getItems().add(add);
-        }
-        contextMenu.getItems().add(addEntityMenu);
-
+        MenuItem addEntity = new MenuItem("Aggiungi Entita'");
+        addEntity.setOnAction(e -> addEntity(center));
+        contextMenu.getItems().add(addEntity);
 
         Menu addElementMenu = new Menu("Aggiungi Elemento");
         MenuItem addItem = new MenuItem("Aggiungi Oggetto");
@@ -510,18 +504,27 @@ public final class ControllerSceneCampaignTabMaps {
                 waypoints.forEach(waypoint -> waypoint.setOnContextMenuRequested(this::openMapContextMenu));
                 waypoints.forEach(this::configureWaypointHover);
                 anchorPaneWaypointContainer.getChildren().addAll(waypoints);
+
                 HashSet<Element> elements = ElementManager.getInstance().getMapElements(map);
                 elements.forEach(element -> element.setOnScroll(this::mouseWheelZoom));
                 elements.forEach(element -> element.setOnMouseDragged(ev -> moveElement(ev, element)));
                 elements.forEach(element -> element.setOnContextMenuRequested(this::openMapContextMenu));
                 elements.forEach(this::configureElementHover);
                 anchorPaneWaypointContainer.getChildren().addAll(elements);
+
                 HashSet<CoinDeposit> coinDeposits = CoinDepositManager.getInstance().getMapCoinDeposits(map);
                 coinDeposits.forEach(deposit -> deposit.setOnScroll(this::mouseWheelZoom));
                 coinDeposits.forEach(deposit -> deposit.setOnMouseDragged(ev -> moveCoinDeposit(ev, deposit)));
                 coinDeposits.forEach(deposit -> deposit.setOnContextMenuRequested(this::openMapContextMenu));
                 coinDeposits.forEach(this::configureCoinDepositHover);
                 anchorPaneWaypointContainer.getChildren().addAll(coinDeposits);
+
+                List<Entity> entities = EntityManager.getInstance().getEntitiesFromMap(map);
+                entities.forEach(entity -> entity.setOnScroll(this::mouseWheelZoom));
+                entities.forEach(entity -> entity.setOnMouseDragged(ev -> moveEntity(ev, entity)));
+                entities.forEach(entity -> entity.setOnContextMenuRequested(this::openMapContextMenu));
+                entities.forEach(this::configureEntityHover);
+                anchorPaneWaypointContainer.getChildren().addAll(entities);
             }
             mapChanging = false;
         });
@@ -543,34 +546,25 @@ public final class ControllerSceneCampaignTabMaps {
             }
         });
     }
-    private @Nullable Entity showEntityCreator(@NotNull final EntityType type) {
-        SceneController scene = SceneCampaignEntity.getScene(type);
+    private @Nullable Entity showEntityCreator(@NotNull final Point2D center) {
+        SceneController scene = SceneCampaignEntity.getScene(map, center);
         Stage popupStage = Client.initPopupStage(scene);
         popupStage.showAndWait();
         return ((ControllerSceneCampaignEntity) scene.getController()).getEntity();
     }
-    private void addEntity(@NotNull final Point2D center, @NotNull final EntityType type) {
-        Entity entity = showEntityCreator(type);
-        try {
-            if (entity != null) {
-                EntityManager.getInstance().registerEntity(map, entity, center, null, false);
-                entity.setOnScroll(this::mouseWheelZoom);
-                entity.setOnMouseDragged(ev -> moveEntity(ev, entity));
-                entity.setOnContextMenuRequested(this::openMapContextMenu);
-                configureEntityHover(entity);
-                anchorPaneWaypointContainer.getChildren().add(entity);
-            } else {
-                new ErrorAlert("ERRORE", "Errore di Inserimento", "Un entita' con queste caratteristiche e' gia' presente.");
-            }
-        } catch (SQLException | IOException e) {
-            Client.showMessageAndGoToMenu(e);
-        }
+    private void addEntity(@NotNull final Point2D center) {
+        Entity entity = showEntityCreator(center);
+        if (entity == null) return;
+        entity.setOnScroll(this::mouseWheelZoom);
+        entity.setOnMouseDragged(ev -> moveEntity(ev, entity));
+        entity.setOnContextMenuRequested(this::openMapContextMenu);
+        configureEntityHover(entity);
+        anchorPaneWaypointContainer.getChildren().add(entity);
     }
     private void editEntity(@NotNull final Entity entity) {
-        SceneController scene = SceneCampaignEntity.getScene(entity.getName());
+        SceneController scene = SceneCampaignEntity.getScene(entity);
         Stage popupStage = Client.initPopupStage(scene);
         popupStage.showAndWait();
-        Entity newEntity = ((ControllerSceneCampaignEntity) scene.getController()).getEntity();
     }
     private void editEntityPlayerVisibility(@NotNull final Entity entity, final boolean visibility) {
         try {

@@ -29,8 +29,13 @@ CREATE TABLE IF NOT EXISTS entities (
     type INTEGER NOT NULL DEFAULT 0,
     center_x REAL NOT NULL,
     center_y REAL NOT NULL,
+    base64image TEXT,
+    image_extension TEXT CHECK (image_extension = 'png' OR image_extension = 'jpg' OR image_extension = 'jpeg'),
     ca INTEGER NOT NULL CHECK (ca > 0),
     hp INTEGER NOT NULL DEFAULT 0,
+    max_hp INTEGER NOT NULL DEFAULT 0,
+    temp_hp INTEGER NOT NULL DEFAULT 0,
+    description TEXT,
     player_owner_id INTEGER REFERENCES registered_users(id)
     ON UPDATE CASCADE
     ON DELETE CASCADE,

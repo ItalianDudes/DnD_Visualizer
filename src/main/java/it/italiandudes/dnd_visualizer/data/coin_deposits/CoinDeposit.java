@@ -3,6 +3,7 @@ package it.italiandudes.dnd_visualizer.data.coin_deposits;
 import it.italiandudes.dnd_visualizer.data.map.Map;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.utils.Defs;
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -54,7 +55,7 @@ public final class CoinDeposit extends StackPane {
         this.me = me;
         this.mo = mo;
         this.mp = mp;
-        finishConfiguration();
+        Platform.runLater(this::finishConfiguration);
     }
     public CoinDeposit(final int id) throws SQLException, IOException {
         super();
@@ -84,7 +85,7 @@ public final class CoinDeposit extends StackPane {
             throw new SQLException("CoinDepositID non trovato");
         }
         ps.close();
-        finishConfiguration();
+        Platform.runLater(this::finishConfiguration);
     }
     public CoinDeposit(final long creationDate) throws SQLException, IOException {
         super();
@@ -114,7 +115,7 @@ public final class CoinDeposit extends StackPane {
             throw new SQLException("CoinDeposit non trovato");
         }
         ps.close();
-        finishConfiguration();
+        Platform.runLater(this::finishConfiguration);
     }
 
     // Finish Configuration

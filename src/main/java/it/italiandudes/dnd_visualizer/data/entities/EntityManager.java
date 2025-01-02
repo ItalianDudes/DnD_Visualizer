@@ -1,16 +1,18 @@
 package it.italiandudes.dnd_visualizer.data.entities;
 
+import it.italiandudes.dnd_visualizer.data.enums.EntityType;
 import it.italiandudes.dnd_visualizer.data.map.Map;
-import it.italiandudes.dnd_visualizer.data.user.RegisteredUser;
 import it.italiandudes.dnd_visualizer.db.DBManager;
+import it.italiandudes.dnd_visualizer.javafx.Client;
+import it.italiandudes.dnd_visualizer.utils.Defs;
+import it.italiandudes.idl.common.Logger;
 import javafx.geometry.Point2D;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,6 +38,14 @@ public final class EntityManager {
     // Constructor
     private EntityManager() {
         this.entityList = new ArrayList<>();
+        try (ResultSet result = DBManager.dbAllRowsSearch("entities")) {
+            while (result.next()) {
+                entityList.add(new Entity(result.getInt("id")));
+            }
+        } catch (SQLException | IOException e) {
+            Logger.log(e, Defs.LOGGER_CONTEXT);
+            Client.exit();
+        }
     }
 
     // Methods
@@ -44,33 +54,28 @@ public final class EntityManager {
         return entityList.stream().filter(entity -> entity.getMap().equals(map)).collect(Collectors.toList());
     }
     @NotNull
-    public Entity registerEntity(@NotNull final Map map, @NotNull final Entity entity, @NotNull Point2D center, @Nullable final RegisteredUser owner, final boolean isVisibileToPlayers) throws SQLException, IOException {
-        String query = "INSERT INTO entities (map_id, creation_date name, race, class, level, type, center_x, center_y, ca, hp, player_owner_id, player_visibility) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    public Entity registerEntity(@NotNull final Map map, @NotNull final String name, @NotNull final String race, final int level, @NotNull final EntityType type, @NotNull Point2D center, final int ca, final int hp, final int maxHP, final int tempHP) throws SQLException, IOException {
+        String query = "INSERT INTO entities (map_id, creation_date, name, race, level, type, center_x, center_y, ca, hp, max_hp, temp_hp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = DBManager.preparedStatement(query);
         if (ps == null) throw new SQLException("Prepared Statement is null");
         ps.setInt(1, map.getMapID());
         long creationDate = System.currentTimeMillis();
         ps.setLong(2, creationDate);
-        ps.setString(3, entity.getName());
-        ps.setString(4, entity.getRace());
-
-        if (entity.getEntityClass() == null) ps.setNull(5, Types.VARCHAR);
-        else ps.setString(5, entity.getEntityClass());
-
-        ps.setInt(6, entity.getLevel());
-        ps.setInt(7, entity.getType().ordinal());
-        ps.setDouble(8, center.getX());
-        ps.setDouble(9, center.getY());
-        ps.setInt(10, entity.getCA());
-        ps.setInt(11, entity.getHP());
-        if (owner == null) ps.setNull(12, Types.INTEGER);
-        else ps.setInt(12, owner.getPlayerID());
-        ps.setInt(13, isVisibileToPlayers?1:0);
+        ps.setString(3, name);
+        ps.setString(4, race);
+        ps.setInt(5, level);
+        ps.setInt(6, type.ordinal());
+        ps.setDouble(7, center.getX());
+        ps.setDouble(8, center.getY());
+        ps.setInt(9, ca);
+        ps.setInt(10, hp);
+        ps.setInt(11, maxHP);
+        ps.setInt(12, tempHP);
         ps.executeUpdate();
         ps.close();
         Entity dbEntity = new Entity(creationDate);
-        entityList.add(entity);
-        return entity;
+        entityList.add(dbEntity);
+        return dbEntity;
     }
     public void unregisterEntity(@NotNull final Entity entity) throws SQLException {
         if (!entityList.contains(entity)) return;

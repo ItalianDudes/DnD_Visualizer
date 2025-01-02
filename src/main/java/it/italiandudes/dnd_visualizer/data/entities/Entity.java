@@ -4,6 +4,7 @@ import it.italiandudes.dnd_visualizer.data.enums.EntityType;
 import it.italiandudes.dnd_visualizer.data.map.Map;
 import it.italiandudes.dnd_visualizer.data.user.RegisteredUser;
 import it.italiandudes.dnd_visualizer.db.DBManager;
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.Objects;
 
 @SuppressWarnings("unused")
@@ -33,8 +35,13 @@ public final class Entity extends StackPane {
     private int level;
     @NotNull private EntityType type;
     @NotNull private Point2D center;
+    @Nullable private String base64image;
+    @Nullable private String imageExtension;
     private int ca;
     private int hp;
+    private int maxHP;
+    private int tempHP;
+    @Nullable private String description;
     @Nullable private RegisteredUser owner;
     private boolean isVisibleToPlayers;
 
@@ -61,8 +68,22 @@ public final class Entity extends StackPane {
             this.level = result.getInt("level");
             this.type = EntityType.values()[result.getInt("type")];
             this.center = new Point2D(result.getDouble("center_x"), result.getDouble("center_y"));
+            String base64image = result.getString("base64image");
+            if (result.wasNull()) base64image = null;
+            String imageExtension = result.getString("image_extension");
+            if (result.wasNull()) imageExtension = null;
+            if (base64image != null && imageExtension != null) {
+                this.base64image = base64image;
+                this.imageExtension = imageExtension;
+            } else {
+                this.base64image = null;
+                this.imageExtension = null;
+            }
             this.ca = result.getInt("ca");
             this.hp = result.getInt("hp");
+            this.maxHP = result.getInt("max_hp");
+            this.tempHP = result.getInt("temp_hp");
+            this.description = result.getString("description");
             int playerID = result.getInt("player_owner_id");
             if (result.wasNull()) this.owner = null;
             else this.owner = new RegisteredUser(playerID);
@@ -72,7 +93,7 @@ public final class Entity extends StackPane {
             throw new SQLException("EntityID not found");
         }
         ps.close();
-        finishConfiguration();
+        Platform.runLater(this::finishConfiguration);
     }
     public Entity(final long creationDate) throws SQLException, IOException {
         String query = "SELECT * FROM entities WHERE creation_date=?;";
@@ -96,8 +117,22 @@ public final class Entity extends StackPane {
             this.level = result.getInt("level");
             this.type = EntityType.values()[result.getInt("type")];
             this.center = new Point2D(result.getDouble("center_x"), result.getDouble("center_y"));
+            String base64image = result.getString("base64image");
+            if (result.wasNull()) base64image = null;
+            String imageExtension = result.getString("image_extension");
+            if (result.wasNull()) imageExtension = null;
+            if (base64image != null && imageExtension != null) {
+                this.base64image = base64image;
+                this.imageExtension = imageExtension;
+            } else {
+                this.base64image = null;
+                this.imageExtension = null;
+            }
+            this.description = result.getString("description");
             this.ca = result.getInt("ca");
             this.hp = result.getInt("hp");
+            this.maxHP = result.getInt("max_hp");
+            this.tempHP = result.getInt("temp_hp");
             int playerID = result.getInt("player_owner_id");
             if (result.wasNull()) this.owner = null;
             else this.owner = new RegisteredUser(playerID);
@@ -107,7 +142,7 @@ public final class Entity extends StackPane {
             throw new SQLException("Entity not found");
         }
         ps.close();
-        finishConfiguration();
+        Platform.runLater(this::finishConfiguration);
     }
 
     // Finish Configuration
@@ -133,6 +168,31 @@ public final class Entity extends StackPane {
     }
 
     // Methods
+    public void saveEntityData() throws SQLException { // Non-EDT Compatible
+        String query = "UPDATE entities SET name=?, race=?, class=?, level=?, type=?, base64image=?, image_extension=?, ca=?, hp=?, max_hp=?, temp_hp=?, description=? WHERE id=?";
+        PreparedStatement ps = DBManager.preparedStatement(query);
+        if (ps == null) throw new SQLException("The database connection doesn't exist");
+        ps.setString(1, name);
+        ps.setString(2, race);
+        ps.setString(3, entityClass);
+        ps.setInt(4, level);
+        ps.setInt(5, type.ordinal());
+        if (base64image != null && imageExtension != null) {
+            ps.setString(6, base64image);
+            ps.setString(7, imageExtension);
+        } else {
+            ps.setNull(6, Types.VARCHAR);
+            ps.setNull(7, Types.VARCHAR);
+        }
+        ps.setInt(8, ca);
+        ps.setInt(9, hp);
+        ps.setInt(10, maxHP);
+        ps.setInt(11, tempHP);
+        ps.setString(12, description);
+        ps.setInt(13, entityID);
+        ps.executeUpdate();
+        ps.close();
+    }
     private void updateEntityLayoutCenter() {
         setLayoutX(center.getX() - getPrefWidth()/2);
         setLayoutY(center.getY() - getPrefHeight()/2);
@@ -192,7 +252,13 @@ public final class Entity extends StackPane {
         ps.setInt(1, type.ordinal());
         ps.executeUpdate();
         ps.close();
-        finishConfiguration();
+        Platform.runLater(this::finishConfiguration);
+    }
+    public @Nullable String getDescription() {
+        return description;
+    }
+    public void setDescription(@Nullable String description) {
+        this.description = description;
     }
     public @NotNull Point2D getCenter() {
         return center;
@@ -209,6 +275,18 @@ public final class Entity extends StackPane {
         ps.executeUpdate();
         ps.close();
     }
+    public @Nullable String getBase64image() {
+        return base64image;
+    }
+    public void setBase64image(@Nullable String base64image) {
+        this.base64image = base64image;
+    }
+    public @Nullable String getImageExtension() {
+        return imageExtension;
+    }
+    public void setImageExtension(@Nullable String imageExtension) {
+        this.imageExtension = imageExtension;
+    }
     public int getCA() {
         return ca;
     }
@@ -220,6 +298,18 @@ public final class Entity extends StackPane {
     }
     public void setHP(int hp) {
         this.hp = hp;
+    }
+    public int getMaxHP() {
+        return maxHP;
+    }
+    public void setMaxHP(int maxHP) {
+        this.maxHP = maxHP;
+    }
+    public int getTempHP() {
+        return tempHP;
+    }
+    public void setTempHP(int tempHP) {
+        this.tempHP = tempHP;
     }
     public @Nullable RegisteredUser getOwner() {
         return owner;
@@ -243,8 +333,9 @@ public final class Entity extends StackPane {
     }
     public boolean entityEquals(Object o) {
         if (!(o instanceof Entity)) return false;
+
         Entity entity = (Entity) o;
-        return getEntityID() == entity.getEntityID() && getCreationDate() == entity.getCreationDate() && getLevel() == entity.getLevel() && ca == entity.ca && hp == entity.hp && isVisibleToPlayers() == entity.isVisibleToPlayers() && Objects.equals(getMap(), entity.getMap()) && Objects.equals(getName(), entity.getName()) && Objects.equals(getRace(), entity.getRace()) && Objects.equals(getEntityClass(), entity.getEntityClass()) && getType() == entity.getType() && Objects.equals(getCenter(), entity.getCenter()) && Objects.equals(getOwner(), entity.getOwner());
+        return getEntityID() == entity.getEntityID() && getCreationDate() == entity.getCreationDate() && getLevel() == entity.getLevel() && ca == entity.ca && hp == entity.hp && getMaxHP() == entity.getMaxHP() && getTempHP() == entity.getTempHP() && isVisibleToPlayers() == entity.isVisibleToPlayers() && getMap().equals(entity.getMap()) && getName().equals(entity.getName()) && getRace().equals(entity.getRace()) && Objects.equals(getEntityClass(), entity.getEntityClass()) && getType() == entity.getType() && getCenter().equals(entity.getCenter()) && Objects.equals(getBase64image(), entity.getBase64image()) && Objects.equals(getImageExtension(), entity.getImageExtension()) && Objects.equals(getDescription(), entity.getDescription()) && Objects.equals(getOwner(), entity.getOwner());
     }
     @Override @NotNull
     public String toString() {

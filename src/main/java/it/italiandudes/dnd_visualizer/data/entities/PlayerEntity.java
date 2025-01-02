@@ -4,6 +4,7 @@ import it.italiandudes.dnd_visualizer.data.enums.EntityType;
 import it.italiandudes.dnd_visualizer.data.map.Map;
 import it.italiandudes.dnd_visualizer.data.user.RegisteredUser;
 import it.italiandudes.dnd_visualizer.db.DBManager;
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
@@ -64,7 +65,7 @@ public final class PlayerEntity extends StackPane {
             throw new SQLException("PlayerEntityID not found");
         }
         ps.close();
-        finishConfiguration();
+        Platform.runLater(this::finishConfiguration);
     }
     public PlayerEntity(final long creationDate) throws SQLException, IOException {
         String query = "SELECT * FROM player_entities WHERE creation_date=?;";
@@ -96,7 +97,7 @@ public final class PlayerEntity extends StackPane {
             throw new SQLException("PlayerEntity not found");
         }
         ps.close();
-        finishConfiguration();
+        Platform.runLater(this::finishConfiguration);
     }
 
     // Finish Configuration

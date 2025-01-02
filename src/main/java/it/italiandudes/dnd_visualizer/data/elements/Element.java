@@ -4,6 +4,7 @@ import it.italiandudes.dnd_visualizer.data.enums.ElementType;
 import it.italiandudes.dnd_visualizer.data.item.*;
 import it.italiandudes.dnd_visualizer.data.map.Map;
 import it.italiandudes.dnd_visualizer.db.DBManager;
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
@@ -45,7 +46,7 @@ public final class Element extends StackPane {
         this.type = type;
         this.item = item;
         this.isVisibleToPlayers = isVisibleToPlayers;
-        finishConfiguration();
+        Platform.runLater(this::finishConfiguration);
     }
     public Element(final int id) throws SQLException, IOException {
         super();
@@ -96,7 +97,7 @@ public final class Element extends StackPane {
             throw new SQLException("ElementID non trovato");
         }
         ps.close();
-        finishConfiguration();
+        Platform.runLater(this::finishConfiguration);
     }
     public Element(final long creationDate) throws SQLException, IOException {
         super();
@@ -147,7 +148,7 @@ public final class Element extends StackPane {
             throw new SQLException("Elemento non trovato");
         }
         ps.close();
-        finishConfiguration();
+        Platform.runLater(this::finishConfiguration);
     }
 
     // Finish Configuration

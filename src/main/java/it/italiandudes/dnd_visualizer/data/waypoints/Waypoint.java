@@ -3,6 +3,7 @@ package it.italiandudes.dnd_visualizer.data.waypoints;
 import it.italiandudes.dnd_visualizer.data.enums.WaypointType;
 import it.italiandudes.dnd_visualizer.data.map.Map;
 import it.italiandudes.dnd_visualizer.db.DBManager;
+import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
@@ -40,7 +41,7 @@ public final class Waypoint extends StackPane {
         this.center = center;
         this.type = type;
         this.isVisibleToPlayers = isVisibleToPlayers;
-        finishConfiguration();
+        Platform.runLater(this::finishConfiguration);
     }
     public Waypoint(final int id) throws SQLException, IOException {
         super();
@@ -67,7 +68,7 @@ public final class Waypoint extends StackPane {
             throw new SQLException("WaypointID non trovato");
         }
         ps.close();
-        finishConfiguration();
+        Platform.runLater(this::finishConfiguration);
     }
     public Waypoint(final long creationDate) throws SQLException, IOException {
         super();
@@ -94,7 +95,7 @@ public final class Waypoint extends StackPane {
             throw new SQLException("Waypoint non trovato");
         }
         ps.close();
-        finishConfiguration();
+        Platform.runLater(this::finishConfiguration);
     }
 
     // Finish Configuration

@@ -1,12 +1,14 @@
 package it.italiandudes.dnd_visualizer.javafx.scene.campaign;
 
-import it.italiandudes.dnd_visualizer.data.enums.EntityType;
+import it.italiandudes.dnd_visualizer.data.entities.Entity;
+import it.italiandudes.dnd_visualizer.data.map.Map;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.javafx.components.SceneController;
 import it.italiandudes.dnd_visualizer.javafx.controllers.campaign.ControllerSceneCampaignEntity;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.idl.common.Logger;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,12 +18,13 @@ public final class SceneCampaignEntity {
 
     // Scene Generator
     @NotNull
-    public static SceneController getScene(@NotNull final EntityType type) {
+    public static SceneController getScene(@NotNull final Map map, @NotNull final Point2D center) {
         try {
             FXMLLoader loader = new FXMLLoader(Defs.Resources.get(JFXDefs.Resources.FXML.Campaign.FXML_CAMPAIGN_ENTITY));
             Parent root = loader.load();
             ControllerSceneCampaignEntity controller = loader.getController();
-            controller.setEntityType(type);
+            controller.setMap(map);
+            controller.setCenter(center);
             controller.configurationComplete();
             return new SceneController(root, controller);
         } catch (IOException e) {
@@ -31,12 +34,12 @@ public final class SceneCampaignEntity {
         }
     }
     @NotNull
-    public static SceneController getScene(@NotNull final String name) {
+    public static SceneController getScene(@NotNull final Entity entity) {
         try {
             FXMLLoader loader = new FXMLLoader(Defs.Resources.get(JFXDefs.Resources.FXML.Campaign.FXML_CAMPAIGN_ENTITY));
             Parent root = loader.load();
             ControllerSceneCampaignEntity controller = loader.getController();
-            controller.setName(name);
+            controller.setEntity(entity);
             controller.configurationComplete();
             return new SceneController(root, controller);
         } catch (IOException e) {
