@@ -6,7 +6,7 @@ import it.italiandudes.dnd_visualizer.javafx.alerts.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.controllers.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
-import it.italiandudes.dnd_visualizer.utils.Defs.KeyParameters;
+import it.italiandudes.dnd_visualizer.db.SheetKeyParameters;
 import it.italiandudes.idl.common.ImageHandler;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
@@ -40,13 +40,13 @@ public final class TabPhysicalDescription {
                 return new Task<Void>() {
                     @Override
                     protected Void call() {
-                        String age = SheetDataHandler.readKeyParameter(KeyParameters.TabPhysicalDescription.AGE);
-                        String height = SheetDataHandler.readKeyParameter(KeyParameters.TabPhysicalDescription.HEIGHT);
-                        String weight = SheetDataHandler.readKeyParameter(KeyParameters.TabPhysicalDescription.WEIGHT);
-                        String eyes = SheetDataHandler.readKeyParameter(KeyParameters.TabPhysicalDescription.EYES);
-                        String skin = SheetDataHandler.readKeyParameter(KeyParameters.TabPhysicalDescription.SKIN);
-                        String hair = SheetDataHandler.readKeyParameter(KeyParameters.TabPhysicalDescription.HAIR);
-                        String physicalDescription = SheetDataHandler.readKeyParameter(KeyParameters.TabPhysicalDescription.PHYSICAL_DESCRIPTION);
+                        String age = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabPhysicalDescription.AGE);
+                        String height = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabPhysicalDescription.HEIGHT);
+                        String weight = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabPhysicalDescription.WEIGHT);
+                        String eyes = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabPhysicalDescription.EYES);
+                        String skin = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabPhysicalDescription.SKIN);
+                        String hair = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabPhysicalDescription.HAIR);
+                        String physicalDescription = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabPhysicalDescription.PHYSICAL_DESCRIPTION);
                         Platform.runLater(() -> {
                             if (age != null) controller.textFieldAge.setText(age);
                             if (height != null) controller.textFieldHeight.setText(height);
@@ -66,13 +66,13 @@ public final class TabPhysicalDescription {
 
     // OnChange Triggers Setter
     private static void setOnChangeTriggers(@NotNull final ControllerSceneSheetViewer controller) {
-        controller.textFieldAge.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabPhysicalDescription.AGE, newValue));
-        controller.textFieldHeight.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabPhysicalDescription.HEIGHT, newValue));
-        controller.textFieldWeight.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabPhysicalDescription.WEIGHT, newValue));
-        controller.textFieldEyes.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabPhysicalDescription.EYES, newValue));
-        controller.textFieldSkin.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabPhysicalDescription.SKIN, newValue));
-        controller.textFieldHair.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabPhysicalDescription.HAIR, newValue));
-        controller.textAreaPhysicalDescription.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabPhysicalDescription.PHYSICAL_DESCRIPTION, newValue));
+        controller.textFieldAge.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabPhysicalDescription.AGE, newValue));
+        controller.textFieldHeight.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabPhysicalDescription.HEIGHT, newValue));
+        controller.textFieldWeight.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabPhysicalDescription.WEIGHT, newValue));
+        controller.textFieldEyes.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabPhysicalDescription.EYES, newValue));
+        controller.textFieldSkin.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabPhysicalDescription.SKIN, newValue));
+        controller.textFieldHair.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabPhysicalDescription.HAIR, newValue));
+        controller.textAreaPhysicalDescription.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabPhysicalDescription.PHYSICAL_DESCRIPTION, newValue));
     }
 
     // EDT
@@ -109,7 +109,7 @@ public final class TabPhysicalDescription {
                                     controller.imageViewCharacterImage.setImage(fxImage);
                                 });
                                 TabCharacter.setCharacterImageExtension(ImageHandler.getImageExtension(finalImagePath.getAbsolutePath()));
-                                SheetDataHandler.writeKeyParameter(KeyParameters.CHARACTER_IMAGE, KeyParameters.CHARACTER_IMAGE_EXTENSION, img, TabCharacter.getCharacterImageExtension());
+                                SheetDataHandler.writeKeyParameter(SheetKeyParameters.CHARACTER_IMAGE, SheetKeyParameters.CHARACTER_IMAGE_EXTENSION, img, TabCharacter.getCharacterImageExtension());
                             }catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }

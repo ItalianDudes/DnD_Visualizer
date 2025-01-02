@@ -16,6 +16,7 @@ import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.javafx.utils.ThemeHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
 import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
+import it.italiandudes.dnd_visualizer.db.SheetKeyParameters;
 import it.italiandudes.dnd_visualizer.utils.Updater;
 import it.italiandudes.idl.common.JarHandler;
 import it.italiandudes.idl.common.Logger;
@@ -240,7 +241,7 @@ public final class ControllerSceneMainMenu {
                             return null;
                         }
 
-                        String dbVersion = SheetDataHandler.readKeyParameter(Defs.KeyParameters.DB_VERSION);
+                        String dbVersion = SheetDataHandler.readKeyParameter(SheetKeyParameters.DB_VERSION);
 
                         if  (dbVersion == null || !dbVersion.equals(Defs.SHEET_DB_VERSION)) {
                             String sheetVersion = (dbVersion!=null?dbVersion:"NA");
@@ -366,7 +367,7 @@ public final class ControllerSceneMainMenu {
                             return null;
                         }
 
-                        String dbVersion = SheetDataHandler.readKeyParameter(Defs.KeyParameters.DB_VERSION);
+                        String dbVersion = SheetDataHandler.readKeyParameter(SheetKeyParameters.DB_VERSION);
 
                         if  (dbVersion == null || !dbVersion.equals(Defs.CAMPAIGN_DB_VERSION)) {
                             String campaignVersion = (dbVersion!=null?dbVersion:"NA");

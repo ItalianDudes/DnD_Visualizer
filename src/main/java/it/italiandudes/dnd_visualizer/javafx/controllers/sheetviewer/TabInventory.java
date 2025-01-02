@@ -19,6 +19,7 @@ import it.italiandudes.dnd_visualizer.javafx.utils.Settings;
 import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.javafx.utils.UIElementConfigurator;
 import it.italiandudes.dnd_visualizer.utils.Defs;
+import it.italiandudes.dnd_visualizer.db.SheetKeyParameters;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -109,11 +110,11 @@ public final class TabInventory {
                 return new Task<Void>() {
                     @Override
                     protected Void call() {
-                        String copperCoins = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabInventory.COPPER_COINS);
-                        String silverCoins = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabInventory.SILVER_COINS);
-                        String electrumCoins = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabInventory.ELECTRUM_COINS);
-                        String goldCoins = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabInventory.GOLD_COINS);
-                        String platinumCoins = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabInventory.PLATINUM_COINS);
+                        String copperCoins = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabInventory.COPPER_COINS);
+                        String silverCoins = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabInventory.SILVER_COINS);
+                        String electrumCoins = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabInventory.ELECTRUM_COINS);
+                        String goldCoins = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabInventory.GOLD_COINS);
+                        String platinumCoins = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabInventory.PLATINUM_COINS);
                         Platform.runLater(() -> {
                             if (copperCoins != null) controller.spinnerMR.getValueFactory().setValue(Integer.parseInt(copperCoins));
                             if (silverCoins != null) controller.spinnerMA.getValueFactory().setValue(Integer.parseInt(silverCoins));
@@ -252,7 +253,7 @@ public final class TabInventory {
             if (qty < 0) throw new NumberFormatException();
             oldValueMR = qty;
             controller.spinnerMR.getValueFactory().setValue(qty);
-            SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabInventory.COPPER_COINS, String.valueOf(qty));
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabInventory.COPPER_COINS, String.valueOf(qty));
             updateLoad(controller);
         } catch (NumberFormatException e) {
             controller.spinnerMR.getValueFactory().setValue(oldValueMR);
@@ -265,7 +266,7 @@ public final class TabInventory {
             if (qty < 0) throw new NumberFormatException();
             oldValueMA = qty;
             controller.spinnerMA.getValueFactory().setValue(qty);
-            SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabInventory.SILVER_COINS, String.valueOf(qty));
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabInventory.SILVER_COINS, String.valueOf(qty));
             updateLoad(controller);
         } catch (NumberFormatException e) {
             controller.spinnerMA.getValueFactory().setValue(oldValueMA);
@@ -278,7 +279,7 @@ public final class TabInventory {
             if (qty < 0) throw new NumberFormatException();
             oldValueME = qty;
             controller.spinnerME.getValueFactory().setValue(qty);
-            SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabInventory.ELECTRUM_COINS, String.valueOf(qty));
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabInventory.ELECTRUM_COINS, String.valueOf(qty));
             updateLoad(controller);
         } catch (NumberFormatException e) {
             controller.spinnerME.getValueFactory().setValue(oldValueME);
@@ -291,7 +292,7 @@ public final class TabInventory {
             if (qty < 0) throw new NumberFormatException();
             oldValueMO = qty;
             controller.spinnerMO.getValueFactory().setValue(qty);
-            SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabInventory.GOLD_COINS, String.valueOf(qty));
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabInventory.GOLD_COINS, String.valueOf(qty));
             updateLoad(controller);
         } catch (NumberFormatException e) {
             controller.spinnerMO.getValueFactory().setValue(oldValueMO);
@@ -304,7 +305,7 @@ public final class TabInventory {
             if (qty < 0) throw new NumberFormatException();
             oldValueMP = qty;
             controller.spinnerMP.getValueFactory().setValue(qty);
-            SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabInventory.PLATINUM_COINS, String.valueOf(qty));
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabInventory.PLATINUM_COINS, String.valueOf(qty));
             updateLoad(controller);
         } catch (NumberFormatException e) {
             controller.spinnerMP.getValueFactory().setValue(oldValueMP);

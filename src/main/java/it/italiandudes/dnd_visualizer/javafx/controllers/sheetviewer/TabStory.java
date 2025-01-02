@@ -6,7 +6,7 @@ import it.italiandudes.dnd_visualizer.javafx.alerts.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.controllers.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
-import it.italiandudes.dnd_visualizer.utils.Defs.KeyParameters;
+import it.italiandudes.dnd_visualizer.db.SheetKeyParameters;
 import it.italiandudes.idl.common.ImageHandler;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
@@ -47,10 +47,10 @@ public final class TabStory {
                 return new Task<Void>() {
                     @Override
                     protected Void call() {
-                        String characterBackstory = SheetDataHandler.readKeyParameter(KeyParameters.TabStory.CHARACTER_BACKSTORY);
-                        String cultDescription = SheetDataHandler.readKeyParameter(KeyParameters.TabStory.CULT_DESCRIPTION);
-                        String base64CultImage = SheetDataHandler.readKeyParameter(KeyParameters.TabStory.CULT_IMAGE);
-                        String cultImageExtension = SheetDataHandler.readKeyParameter(KeyParameters.TabStory.CULT_IMAGE_EXTENSION);
+                        String characterBackstory = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabStory.CHARACTER_BACKSTORY);
+                        String cultDescription = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabStory.CULT_DESCRIPTION);
+                        String base64CultImage = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabStory.CULT_IMAGE);
+                        String cultImageExtension = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabStory.CULT_IMAGE_EXTENSION);
                         Image cultImage = null;
                         try {
                             if (base64CultImage != null) {
@@ -64,7 +64,7 @@ public final class TabStory {
                             Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI LETTURA", "L'immagine ricevuta dal database non è leggibile."));
                         }
-                        String alliesAndOrganizations = SheetDataHandler.readKeyParameter(KeyParameters.TabStory.ALLIES_AND_ORGANIZATIONS);
+                        String alliesAndOrganizations = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabStory.ALLIES_AND_ORGANIZATIONS);
                         Image finalCultImage = cultImage;
                         Platform.runLater(() -> {
                             if (characterBackstory != null) controller.textAreaBackstory.setText(characterBackstory);
@@ -81,9 +81,9 @@ public final class TabStory {
 
     // OnChange Triggers Setter
     private static void setOnChangeTriggers(@NotNull final ControllerSceneSheetViewer controller) {
-        controller.textAreaBackstory.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabStory.CHARACTER_BACKSTORY, newValue));
-        controller.textAreaCult.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabStory.CULT_DESCRIPTION, newValue));
-        controller.textAreaAlliesAndOrganizations.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabStory.ALLIES_AND_ORGANIZATIONS, newValue));
+        controller.textAreaBackstory.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabStory.CHARACTER_BACKSTORY, newValue));
+        controller.textAreaCult.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabStory.CULT_DESCRIPTION, newValue));
+        controller.textAreaAlliesAndOrganizations.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabStory.ALLIES_AND_ORGANIZATIONS, newValue));
     }
 
     // EDT
@@ -116,7 +116,7 @@ public final class TabStory {
                                 }
                                 Platform.runLater(() -> controller.imageViewSymbolImage.setImage(SwingFXUtils.toFXImage(img, null)));
                                 symbolImageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
-                                SheetDataHandler.writeKeyParameter(KeyParameters.TabStory.CULT_IMAGE, KeyParameters.TabStory.CULT_IMAGE_EXTENSION, img, symbolImageExtension);
+                                SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabStory.CULT_IMAGE, SheetKeyParameters.TabStory.CULT_IMAGE_EXTENSION, img, symbolImageExtension);
                             }catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }

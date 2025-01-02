@@ -99,7 +99,7 @@ public final class DBManager {
             }
         }
         reader.close();
-        SheetDataHandler.writeKeyParameter(Defs.KeyParameters.DB_VERSION, Defs.CAMPAIGN_DB_VERSION);
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.DB_VERSION, Defs.CAMPAIGN_DB_VERSION);
     }
     public static void createSheet(@NotNull final String DB_PATH) throws SQLException {
         setConnection(DB_PATH);
@@ -123,7 +123,7 @@ public final class DBManager {
             }
         }
         reader.close();
-        SheetDataHandler.writeKeyParameter(Defs.KeyParameters.DB_VERSION, Defs.SHEET_DB_VERSION);
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.DB_VERSION, Defs.SHEET_DB_VERSION);
     }
 
 }

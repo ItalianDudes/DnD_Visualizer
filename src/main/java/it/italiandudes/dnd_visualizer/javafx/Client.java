@@ -39,7 +39,7 @@ public final class Client extends Application {
 
     // Initial Stage Configuration
     private static void startupApplicationStageConfiguration(@NotNull final Stage stage) {
-        if (DnD_Visualizer.getLauncherClassLoader() != null) {
+        if (DnD_Visualizer.isStartedFromLauncher()) {
             Logger.log("Application started from launcher, changing ContextClassLoader to Launcher...", Defs.LOGGER_CONTEXT);
             Thread.currentThread().setContextClassLoader(DnD_Visualizer.getLauncherClassLoader());
         }
@@ -80,7 +80,7 @@ public final class Client extends Application {
     // Start Method
     public static void start(String[] args) {
         Settings.loadSettingsFile();
-        if (DnD_Visualizer.getLauncherClassLoader() == null) launch(args);
+        if (!DnD_Visualizer.isStartedFromLauncher()) launch(args);
         else Platform.runLater(() -> startupApplicationStageConfiguration(new Stage()));
     }
 

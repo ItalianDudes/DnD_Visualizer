@@ -6,8 +6,8 @@ import it.italiandudes.dnd_visualizer.javafx.alerts.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.controllers.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
-import it.italiandudes.dnd_visualizer.utils.Defs.KeyParameters;
 import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
+import it.italiandudes.dnd_visualizer.db.SheetKeyParameters;
 import it.italiandudes.idl.common.ImageHandler;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
@@ -90,16 +90,16 @@ public final class TabCharacter {
                 return new Task<Void>() {
                     @Override
                     protected Void call() {
-                        String characterName = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CHARACTER_NAME);
-                        String characterClass = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CLASS);
-                        String level = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.LEVEL);
-                        String background = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.BACKGROUND);
-                        String playerName = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.PLAYER_NAME);
-                        String race = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.RACE);
-                        String alignment = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.ALIGNMENT);
-                        String exp = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.EXP);
-                        String base64CharacterImage = SheetDataHandler.readKeyParameter(KeyParameters.CHARACTER_IMAGE);
-                        String characterImageExtension = SheetDataHandler.readKeyParameter(KeyParameters.CHARACTER_IMAGE_EXTENSION);
+                        String characterName = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.CHARACTER_NAME);
+                        String characterClass = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.CLASS);
+                        String level = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.LEVEL);
+                        String background = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.BACKGROUND);
+                        String playerName = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.PLAYER_NAME);
+                        String race = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.RACE);
+                        String alignment = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.ALIGNMENT);
+                        String exp = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.EXP);
+                        String base64CharacterImage = SheetDataHandler.readKeyParameter(SheetKeyParameters.CHARACTER_IMAGE);
+                        String characterImageExtension = SheetDataHandler.readKeyParameter(SheetKeyParameters.CHARACTER_IMAGE_EXTENSION);
                         Image characterImage = null;
                         try {
                             if (base64CharacterImage != null) {
@@ -113,24 +113,24 @@ public final class TabCharacter {
                             Logger.log(e, Defs.LOGGER_CONTEXT);
                             Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI LETTURA", "L'immagine ricevuta dal database non è leggibile."));
                         }
-                        String maxHP = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.MAX_HP);
-                        String currentHP = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CURRENT_HP);
-                        String tempHP = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.TEMP_HP);
-                        String currentLifeDicesAmount = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CURRENT_LIFE_DICES);
-                        String lifeDiceFaces = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.LIFE_DICE_FACES);
-                        String proficiencyBonus = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.PROFICIENCY_BONUS);
-                        String inspiration = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.INSPIRATION);
-                        String speed = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.SPEED);
-                        String personalityTraits = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.PERSONALITY_TRAITS);
-                        String ideals = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.IDEALS);
-                        String bonds = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.BONDS);
-                        String flaws = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.FLAWS);
-                        String caStrength = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CA_STRENGTH);
-                        String caDexterity = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CA_DEXTERITY);
-                        String caConstitution = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CA_CONSTITUTION);
-                        String caIntelligence = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CA_INTELLIGENCE);
-                        String caWisdom = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CA_WISDOM);
-                        String caCharisma = SheetDataHandler.readKeyParameter(KeyParameters.TabCharacter.CA_CHARISMA);
+                        String maxHP = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.MAX_HP);
+                        String currentHP = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.CURRENT_HP);
+                        String tempHP = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.TEMP_HP);
+                        String currentLifeDicesAmount = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.CURRENT_LIFE_DICES);
+                        String lifeDiceFaces = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.LIFE_DICE_FACES);
+                        String proficiencyBonus = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.PROFICIENCY_BONUS);
+                        String inspiration = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.INSPIRATION);
+                        String speed = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.SPEED);
+                        String personalityTraits = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.PERSONALITY_TRAITS);
+                        String ideals = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.IDEALS);
+                        String bonds = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.BONDS);
+                        String flaws = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.FLAWS);
+                        String caStrength = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.CA_STRENGTH);
+                        String caDexterity = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.CA_DEXTERITY);
+                        String caConstitution = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.CA_CONSTITUTION);
+                        String caIntelligence = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.CA_INTELLIGENCE);
+                        String caWisdom = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.CA_WISDOM);
+                        String caCharisma = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.CA_CHARISMA);
                         caInfluenceStrength = caStrength != null && (Integer.parseInt(caStrength) != 0);
                         if (caDexterity != null) {
                             caInfluenceDexterity = Integer.parseInt(caDexterity) != 0;
@@ -203,48 +203,48 @@ public final class TabCharacter {
         controller.textFieldCharacterName.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.replace(" ", "").isEmpty()) DiscordRichPresenceManager.setCharacterName(null);
             else DiscordRichPresenceManager.setCharacterName(newValue);
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CHARACTER_NAME, newValue);
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.CHARACTER_NAME, newValue);
         });
         controller.textFieldClass.textProperty().addListener((observable, oldValue, newValue) -> {
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CLASS, newValue);
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.CLASS, newValue);
             controller.textFieldSpellCasterClass.setText(newValue);
         });
         controller.spinnerLevel.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.LEVEL, newValue);
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.LEVEL, newValue);
             if (newValue.replace(" ", "").isEmpty()) DiscordRichPresenceManager.setLevel(null);
             else DiscordRichPresenceManager.setLevel(newValue);
             controller.textFieldTotalLifeDiceAmount.setText(newValue);
             updateLifeDiceAmount(controller);
         });
-        controller.textFieldBackground.textProperty().addListener(((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.BACKGROUND, newValue)));
-        controller.textFieldPlayerName.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.PLAYER_NAME, newValue));
-        controller.textFieldRace.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.RACE, newValue));
-        controller.textFieldAlignment.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.ALIGNMENT, newValue));
-        controller.textFieldExperience.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.EXP, newValue));
+        controller.textFieldBackground.textProperty().addListener(((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.BACKGROUND, newValue)));
+        controller.textFieldPlayerName.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.PLAYER_NAME, newValue));
+        controller.textFieldRace.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.RACE, newValue));
+        controller.textFieldAlignment.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.ALIGNMENT, newValue));
+        controller.textFieldExperience.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.EXP, newValue));
         controller.textFieldMaxHP.textProperty().addListener((observable, oldValue, newValue) -> {
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.MAX_HP, newValue);
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.MAX_HP, newValue);
             TabEquipment.updateMaxCalculatedHP(controller);
         });
         controller.textFieldCurrentHP.textProperty().addListener((observable, oldValue, newValue) -> {
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CURRENT_HP, newValue);
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.CURRENT_HP, newValue);
             recalculateHealthPercentage(controller);
         });
         controller.textFieldTempHP.textProperty().addListener((observable, oldValue, newValue) -> {
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.TEMP_HP, newValue);
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.TEMP_HP, newValue);
             recalculateHealthPercentage(controller);
         });
-        controller.textFieldCurrentLifeDiceFaces.textProperty().addListener(((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.LIFE_DICE_FACES, newValue)));
-        controller.textFieldCurrentLifeDiceAmount.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CURRENT_LIFE_DICES, newValue));
+        controller.textFieldCurrentLifeDiceFaces.textProperty().addListener(((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.LIFE_DICE_FACES, newValue)));
+        controller.textFieldCurrentLifeDiceAmount.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.CURRENT_LIFE_DICES, newValue));
         controller.spinnerProficiencyBonus.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.PROFICIENCY_BONUS, newValue);
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.PROFICIENCY_BONUS, newValue);
             updateProficiencyBonus(controller);
         });
-        controller.spinnerInspiration.getEditor().textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.INSPIRATION, newValue));
-        controller.textFieldSpeed.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.SPEED, newValue));
-        controller.textAreaPersonalityTraits.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.PERSONALITY_TRAITS, newValue));
-        controller.textAreaIdeals.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.IDEALS, newValue));
-        controller.textAreaBonds.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.BONDS, newValue));
-        controller.textAreaFlaws.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.FLAWS, newValue));
+        controller.spinnerInspiration.getEditor().textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.INSPIRATION, newValue));
+        controller.textFieldSpeed.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.SPEED, newValue));
+        controller.textAreaPersonalityTraits.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.PERSONALITY_TRAITS, newValue));
+        controller.textAreaIdeals.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.IDEALS, newValue));
+        controller.textAreaBonds.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.BONDS, newValue));
+        controller.textAreaFlaws.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.FLAWS, newValue));
     }
 
     // Lost Focus On Action Fire Event
@@ -312,7 +312,7 @@ public final class TabCharacter {
         strengthItem.setGraphic(strength);
         strength.setOnAction(e -> {
             caInfluenceStrength = strength.isSelected();
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CA_STRENGTH, String.valueOf(caInfluenceStrength?1:0));
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.CA_STRENGTH, String.valueOf(caInfluenceStrength?1:0));
             TabEquipment.updateCA(controller);
         });
 
@@ -322,7 +322,7 @@ public final class TabCharacter {
         dexterityItem.setGraphic(dexterity);
         dexterity.setOnAction(e -> {
             caInfluenceDexterity = dexterity.isSelected();
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CA_DEXTERITY, String.valueOf(caInfluenceDexterity?1:0));
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.CA_DEXTERITY, String.valueOf(caInfluenceDexterity?1:0));
             TabEquipment.updateCA(controller);
         });
 
@@ -332,7 +332,7 @@ public final class TabCharacter {
         constitutionItem.setGraphic(constitution);
         constitution.setOnAction(e -> {
             caInfluenceConstitution = constitution.isSelected();
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CA_CONSTITUTION, String.valueOf(caInfluenceConstitution?1:0));
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.CA_CONSTITUTION, String.valueOf(caInfluenceConstitution?1:0));
             TabEquipment.updateCA(controller);
         });
 
@@ -342,7 +342,7 @@ public final class TabCharacter {
         intelligenceItem.setGraphic(intelligence);
         intelligence.setOnAction(e -> {
             caInfluenceIntelligence = intelligence.isSelected();
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CA_INTELLIGENCE, String.valueOf(caInfluenceIntelligence?1:0));
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.CA_INTELLIGENCE, String.valueOf(caInfluenceIntelligence?1:0));
             TabEquipment.updateCA(controller);
         });
 
@@ -352,7 +352,7 @@ public final class TabCharacter {
         wisdomItem.setGraphic(wisdom);
         wisdom.setOnAction(e -> {
             caInfluenceWisdom = wisdom.isSelected();
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CA_WISDOM, String.valueOf(caInfluenceWisdom?1:0));
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.CA_WISDOM, String.valueOf(caInfluenceWisdom?1:0));
             TabEquipment.updateCA(controller);
         });
 
@@ -362,7 +362,7 @@ public final class TabCharacter {
         charismaItem.setGraphic(charisma);
         charisma.setOnAction(e -> {
             caInfluenceCharisma = charisma.isSelected();
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabCharacter.CA_CHARISMA, String.valueOf(caInfluenceCharisma?1:0));
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabCharacter.CA_CHARISMA, String.valueOf(caInfluenceCharisma?1:0));
             TabEquipment.updateCA(controller);
         });
 
@@ -482,7 +482,7 @@ public final class TabCharacter {
                                     controller.imageViewCharacterBodyImage.setImage(fxImage);
                                 });
                                 characterImageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
-                                SheetDataHandler.writeKeyParameter(KeyParameters.CHARACTER_IMAGE, KeyParameters.CHARACTER_IMAGE_EXTENSION, img, characterImageExtension);
+                                SheetDataHandler.writeKeyParameter(SheetKeyParameters.CHARACTER_IMAGE, SheetKeyParameters.CHARACTER_IMAGE_EXTENSION, img, characterImageExtension);
                             }catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }

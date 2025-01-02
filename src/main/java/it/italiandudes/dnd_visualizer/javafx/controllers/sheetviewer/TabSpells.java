@@ -8,7 +8,7 @@ import it.italiandudes.dnd_visualizer.javafx.controllers.ControllerSceneSheetVie
 import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.javafx.utils.UIElementConfigurator;
 import it.italiandudes.dnd_visualizer.utils.Defs;
-import it.italiandudes.dnd_visualizer.utils.Defs.KeyParameters;
+import it.italiandudes.dnd_visualizer.db.SheetKeyParameters;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -103,61 +103,61 @@ public final class TabSpells {
                         slot5Spent = -1, slot6Tot = -1, slot6Spent = -1, slot7Tot = -1, slot7Spent = -1,
                         slot8Tot = -1, slot8Spent = -1, slot9Tot = -1, slot9Spent = -1;
                         try {
-                            casterStat = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.CASTER_STAT));
+                            casterStat = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.CASTER_STAT));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot1Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_1));
+                            slot1Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_1));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot1Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_1));
+                            slot1Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_1));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot2Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_2));
+                            slot2Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_2));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot2Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_2));
+                            slot2Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_2));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot3Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_3));
+                            slot3Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_3));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot3Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_3));
+                            slot3Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_3));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot4Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_4));
+                            slot4Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_4));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot4Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_4));
+                            slot4Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_4));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot5Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_5));
+                            slot5Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_5));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot5Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_5));
+                            slot5Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_5));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot6Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_6));
+                            slot6Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_6));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot6Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_6));
+                            slot6Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_6));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot7Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_7));
+                            slot7Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_7));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot7Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_7));
+                            slot7Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_7));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot8Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_8));
+                            slot8Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_8));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot8Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_8));
+                            slot8Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_8));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot9Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_9));
+                            slot9Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_9));
                         } catch (NumberFormatException ignored) {}
                         try {
-                            slot9Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_9));
+                            slot9Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_9));
                         } catch (NumberFormatException ignored) {}
                         int finalSlot1Tot = slot1Tot;
                         int finalSlot1Spent = slot1Spent;
@@ -210,7 +210,7 @@ public final class TabSpells {
     private static void setOnChangeTriggers(@NotNull final ControllerSceneSheetViewer controller) {
         controller.comboBoxSpellCasterStat.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             updateSpellModifiers(controller);
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.CASTER_STAT, String.valueOf(newValue.intValue()));
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.CASTER_STAT, String.valueOf(newValue.intValue()));
         });
         controller.spinnerSpell1SlotTot.getEditor().textProperty().addListener((observable -> validateLevel1Slots(controller)));
         controller.spinnerSpell1SlotCurrent.getEditor().textProperty().addListener((observable -> validateLevel1Slots(controller)));
@@ -339,7 +339,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell1SlotTot.getValueFactory().setValue(maxSlot);
         oldValueSpell1Tot = maxSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_1, String.valueOf(maxSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_1, String.valueOf(maxSlot));
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell1SlotCurrent.getEditor().getText());
@@ -354,7 +354,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell1SlotCurrent.getValueFactory().setValue(currentSlot);
         oldValueSpell1Current = currentSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_1, String.valueOf(currentSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_1, String.valueOf(currentSlot));
     }
     public static void validateLevel2Slots(@NotNull final ControllerSceneSheetViewer controller) {
         int maxSlot;
@@ -368,7 +368,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell2SlotTot.getValueFactory().setValue(maxSlot);
         oldValueSpell2Tot = maxSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_2, String.valueOf(maxSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_2, String.valueOf(maxSlot));
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell2SlotCurrent.getEditor().getText());
@@ -383,7 +383,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell2SlotCurrent.getValueFactory().setValue(currentSlot);
         oldValueSpell2Current = currentSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_2, String.valueOf(currentSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_2, String.valueOf(currentSlot));
     }
     public static void validateLevel3Slots(@NotNull final ControllerSceneSheetViewer controller) {
         int maxSlot;
@@ -397,7 +397,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell3SlotTot.getValueFactory().setValue(maxSlot);
         oldValueSpell3Tot = maxSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_3, String.valueOf(maxSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_3, String.valueOf(maxSlot));
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell3SlotCurrent.getEditor().getText());
@@ -411,7 +411,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell3SlotCurrent.getValueFactory().setValue(currentSlot);
         oldValueSpell3Current = currentSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_3, String.valueOf(currentSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_3, String.valueOf(currentSlot));
     }
     public static void validateLevel4Slots(@NotNull final ControllerSceneSheetViewer controller) {
         int maxSlot;
@@ -425,7 +425,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell4SlotTot.getValueFactory().setValue(maxSlot);
         oldValueSpell4Tot = maxSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_4, String.valueOf(maxSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_4, String.valueOf(maxSlot));
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell4SlotCurrent.getEditor().getText());
@@ -439,7 +439,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell4SlotCurrent.getValueFactory().setValue(currentSlot);
         oldValueSpell4Current = currentSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_4, String.valueOf(currentSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_4, String.valueOf(currentSlot));
     }
     public static void validateLevel5Slots(@NotNull final ControllerSceneSheetViewer controller) {
         int maxSlot;
@@ -453,7 +453,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell5SlotTot.getValueFactory().setValue(maxSlot);
         oldValueSpell5Tot = maxSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_5, String.valueOf(maxSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_5, String.valueOf(maxSlot));
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell5SlotCurrent.getEditor().getText());
@@ -467,7 +467,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell5SlotCurrent.getValueFactory().setValue(currentSlot);
         oldValueSpell5Current = currentSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_5, String.valueOf(currentSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_5, String.valueOf(currentSlot));
     }
     public static void validateLevel6Slots(@NotNull final ControllerSceneSheetViewer controller) {
         int maxSlot;
@@ -481,7 +481,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell6SlotTot.getValueFactory().setValue(maxSlot);
         oldValueSpell6Tot = maxSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_6, String.valueOf(maxSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_6, String.valueOf(maxSlot));
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell6SlotCurrent.getEditor().getText());
@@ -495,7 +495,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell6SlotCurrent.getValueFactory().setValue(currentSlot);
         oldValueSpell6Current = currentSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_6, String.valueOf(currentSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_6, String.valueOf(currentSlot));
     }
     public static void validateLevel7Slots(@NotNull final ControllerSceneSheetViewer controller) {
         int maxSlot;
@@ -509,7 +509,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell7SlotTot.getValueFactory().setValue(maxSlot);
         oldValueSpell7Tot = maxSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_7, String.valueOf(maxSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_7, String.valueOf(maxSlot));
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell7SlotCurrent.getEditor().getText());
@@ -523,7 +523,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell7SlotCurrent.getValueFactory().setValue(currentSlot);
         oldValueSpell7Current = currentSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_7, String.valueOf(currentSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_7, String.valueOf(currentSlot));
     }
     public static void validateLevel8Slots(@NotNull final ControllerSceneSheetViewer controller) {
         int maxSlot;
@@ -537,7 +537,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell8SlotTot.getValueFactory().setValue(maxSlot);
         oldValueSpell8Tot = maxSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_8, String.valueOf(maxSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_8, String.valueOf(maxSlot));
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell8SlotCurrent.getEditor().getText());
@@ -551,7 +551,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell8SlotCurrent.getValueFactory().setValue(currentSlot);
         oldValueSpell8Current = currentSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_8, String.valueOf(currentSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_8, String.valueOf(currentSlot));
     }
     public static void validateLevel9Slots(@NotNull final ControllerSceneSheetViewer controller) {
         int maxSlot;
@@ -565,7 +565,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell9SlotTot.getValueFactory().setValue(maxSlot);
         oldValueSpell9Tot = maxSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_TOTAL_9, String.valueOf(maxSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_9, String.valueOf(maxSlot));
         int currentSlot;
         try {
             currentSlot = Integer.parseInt(controller.spinnerSpell9SlotCurrent.getEditor().getText());
@@ -579,7 +579,7 @@ public final class TabSpells {
         }
         controller.spinnerSpell9SlotCurrent.getValueFactory().setValue(currentSlot);
         oldValueSpell9Current = currentSlot;
-        SheetDataHandler.writeKeyParameter(KeyParameters.TabSpells.SLOT_SPENT_9, String.valueOf(currentSlot));
+        SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_9, String.valueOf(currentSlot));
     }
     public static void updateListViews(@NotNull final ControllerSceneSheetViewer controller) {
         controller.listViewSpellCantrips.getItems().clear();

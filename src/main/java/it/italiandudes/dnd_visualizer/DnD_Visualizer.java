@@ -15,9 +15,12 @@ public final class DnD_Visualizer {
     // Launcher Class Loader
     @Nullable private static ClassLoader launcherClassLoader = null;
 
-    // Methods
+    // Launcher Methods
     public static @Nullable ClassLoader getLauncherClassLoader() {
         return launcherClassLoader;
+    }
+    public static boolean isStartedFromLauncher() {
+        return launcherClassLoader != null;
     }
 
     // Launcher Main Method

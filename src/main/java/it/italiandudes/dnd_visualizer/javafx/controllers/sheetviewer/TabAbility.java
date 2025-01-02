@@ -3,7 +3,7 @@ package it.italiandudes.dnd_visualizer.javafx.controllers.sheetviewer;
 import it.italiandudes.dnd_visualizer.javafx.controllers.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.javafx.utils.StatsCalculator;
-import it.italiandudes.dnd_visualizer.utils.Defs.KeyParameters;
+import it.italiandudes.dnd_visualizer.db.SheetKeyParameters;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -33,59 +33,59 @@ public final class TabAbility {
                 return new Task<Void>() {
                     @Override
                     protected Void call() {
-                        String strength = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.STRENGTH);
-                        String dexterity = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.DEXTERITY);
-                        String constitution = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.CONSTITUTION);
-                        String intelligence = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.INTELLIGENCE);
-                        String wisdom = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.WISDOM);
-                        String charisma = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.CHARISMA);
-                        String strProfSTStrength = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_ST_STRENGTH);
+                        String strength = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.STRENGTH);
+                        String dexterity = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.DEXTERITY);
+                        String constitution = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.CONSTITUTION);
+                        String intelligence = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.INTELLIGENCE);
+                        String wisdom = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.WISDOM);
+                        String charisma = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.CHARISMA);
+                        String strProfSTStrength = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_ST_STRENGTH);
                         boolean profSTStrength = strProfSTStrength != null && Integer.parseInt(strProfSTStrength) != 0;
-                        String strProfSTDexterity = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_ST_DEXTERITY);
+                        String strProfSTDexterity = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_ST_DEXTERITY);
                         boolean profSTDexterity = strProfSTDexterity != null && Integer.parseInt(strProfSTDexterity) != 0;
-                        String strProfConstitution = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_ST_CONSTITUTION);
+                        String strProfConstitution = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_ST_CONSTITUTION);
                         boolean profSTConstitution = strProfConstitution != null && Integer.parseInt(strProfConstitution) != 0;
-                        String strProfIntelligence = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_ST_INTELLIGENCE);
+                        String strProfIntelligence = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_ST_INTELLIGENCE);
                         boolean profSTIntelligence = strProfIntelligence != null && Integer.parseInt(strProfIntelligence) != 0;
-                        String strProfWisdom = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_ST_WISDOM);
+                        String strProfWisdom = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_ST_WISDOM);
                         boolean profSTWisdom = strProfWisdom != null && Integer.parseInt(strProfWisdom) != 0;
-                        String strProfCharisma = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_ST_CHARISMA);
+                        String strProfCharisma = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_ST_CHARISMA);
                         boolean profSTCharisma = strProfCharisma != null && Integer.parseInt(strProfCharisma) != 0;
-                        String strProfAthletics = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_ATHLETICS);
+                        String strProfAthletics = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_ATHLETICS);
                         int profAthletics = strProfAthletics != null ? Integer.parseInt(strProfAthletics) : 0;
-                        String strProfAcrobatics = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_ACROBATICS);
+                        String strProfAcrobatics = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_ACROBATICS);
                         int profAcrobatics = strProfAcrobatics != null ? Integer.parseInt(strProfAcrobatics) : 0;
-                        String strProfStealth = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_STEALTH);
+                        String strProfStealth = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_STEALTH);
                         int profStealth = strProfStealth != null ? Integer.parseInt(strProfStealth) : 0;
-                        String strProfSleightOfHand = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_SLEIGHT_OF_HAND);
+                        String strProfSleightOfHand = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_SLEIGHT_OF_HAND);
                         int profSleightOfHand = strProfSleightOfHand != null ? Integer.parseInt(strProfSleightOfHand) : 0;
-                        String strProfArcana = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_ARCANA);
+                        String strProfArcana = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_ARCANA);
                         int profArcana = strProfArcana != null ? Integer.parseInt(strProfArcana) : 0;
-                        String strProfInvestigation = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_INVESTIGATION);
+                        String strProfInvestigation = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_INVESTIGATION);
                         int profInvestigation = strProfInvestigation != null ? Integer.parseInt(strProfInvestigation) : 0;
-                        String strProfNature = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_NATURE);
+                        String strProfNature = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_NATURE);
                         int profNature = strProfNature != null ? Integer.parseInt(strProfNature) : 0;
-                        String strProfReligion = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_RELIGION);
+                        String strProfReligion = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_RELIGION);
                         int profReligion = strProfReligion != null ? Integer.parseInt(strProfReligion) : 0;
-                        String strProfHistory = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_HISTORY);
+                        String strProfHistory = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_HISTORY);
                         int profHistory = strProfHistory != null ? Integer.parseInt(strProfHistory) : 0;
-                        String strProfAnimalHandling = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_ANIMAL_HANDLING);
+                        String strProfAnimalHandling = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_ANIMAL_HANDLING);
                         int profAnimalHandling = strProfAnimalHandling != null ? Integer.parseInt(strProfAnimalHandling) : 0;
-                        String strProfInsight = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_INSIGHT);
+                        String strProfInsight = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_INSIGHT);
                         int profInsight = strProfInsight != null ? Integer.parseInt(strProfInsight) : 0;
-                        String strProfMedicine = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_MEDICINE);
+                        String strProfMedicine = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_MEDICINE);
                         int profMedicine = strProfMedicine != null ? Integer.parseInt(strProfMedicine) : 0;
-                        String strProfPerception = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_PERCEPTION);
+                        String strProfPerception = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_PERCEPTION);
                         int profPerception = strProfPerception != null ? Integer.parseInt(strProfPerception) : 0;
-                        String strProfSurvival = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_SURVIVAL);
+                        String strProfSurvival = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_SURVIVAL);
                         int profSurvival = strProfSurvival != null ? Integer.parseInt(strProfSurvival) : 0;
-                        String strProfDeception = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_DECEPTION);
+                        String strProfDeception = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_DECEPTION);
                         int profDeception = strProfDeception != null ? Integer.parseInt(strProfDeception) : 0;
-                        String strProfIntimidation = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_INTIMIDATION);
+                        String strProfIntimidation = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_INTIMIDATION);
                         int profIntimidation = strProfIntimidation != null ? Integer.parseInt(strProfIntimidation) : 0;
-                        String strProfPerformance = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_PERFORMANCE);
+                        String strProfPerformance = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_PERFORMANCE);
                         int profPerformance = strProfPerformance != null ? Integer.parseInt(strProfPerformance) : 0;
-                        String strProfPersuasion = SheetDataHandler.readKeyParameter(KeyParameters.TabAbility.PROF_PERSUASION);
+                        String strProfPersuasion = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.PROF_PERSUASION);
                         int profPersuasion = strProfPersuasion != null ? Integer.parseInt(strProfPersuasion) : 0;
 
                         Platform.runLater(() -> {
@@ -152,214 +152,214 @@ public final class TabAbility {
     // OnChange Triggers Setter
     public static void setOnChangeTriggers(@NotNull final ControllerSceneSheetViewer controller) {
         controller.spinnerStrength.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.STRENGTH, newValue);
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.STRENGTH, newValue);
             updateStrength(controller);
         });
         controller.spinnerDexterity.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.DEXTERITY, newValue);
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.DEXTERITY, newValue);
             updateDexterity(controller);
         });
         controller.spinnerConstitution.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.CONSTITUTION, newValue);
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.CONSTITUTION, newValue);
             updateConstitution(controller);
         });
         controller.spinnerIntelligence.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.INTELLIGENCE, newValue);
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.INTELLIGENCE, newValue);
             updateIntelligence(controller);
         });
         controller.spinnerWisdom.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.WISDOM, newValue);
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.WISDOM, newValue);
             updateWisdom(controller);
         });
         controller.spinnerCharisma.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-            SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.CHARISMA, newValue);
+            SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.CHARISMA, newValue);
             updateCharisma(controller);
         });
-        controller.radioButtonSTStrengthProficiency.selectedProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ST_STRENGTH, String.valueOf(newValue?1:0)));
-        controller.radioButtonSTDexterityProficiency.selectedProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ST_DEXTERITY, String.valueOf(newValue?1:0)));
-        controller.radioButtonSTConstitutionProficiency.selectedProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ST_CONSTITUTION, String.valueOf(newValue?1:0)));
-        controller.radioButtonSTIntelligenceProficiency.selectedProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ST_INTELLIGENCE, String.valueOf(newValue?1:0)));
-        controller.radioButtonSTWisdomProficiency.selectedProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ST_WISDOM, String.valueOf(newValue?1:0)));
-        controller.radioButtonSTCharismaProficiency.selectedProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ST_CHARISMA, String.valueOf(newValue?1:0)));
+        controller.radioButtonSTStrengthProficiency.selectedProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ST_STRENGTH, String.valueOf(newValue?1:0)));
+        controller.radioButtonSTDexterityProficiency.selectedProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ST_DEXTERITY, String.valueOf(newValue?1:0)));
+        controller.radioButtonSTConstitutionProficiency.selectedProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ST_CONSTITUTION, String.valueOf(newValue?1:0)));
+        controller.radioButtonSTIntelligenceProficiency.selectedProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ST_INTELLIGENCE, String.valueOf(newValue?1:0)));
+        controller.radioButtonSTWisdomProficiency.selectedProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ST_WISDOM, String.valueOf(newValue?1:0)));
+        controller.radioButtonSTCharismaProficiency.selectedProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ST_CHARISMA, String.valueOf(newValue?1:0)));
         controller.radioButtonProficiencyAthletics.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasteryAthletics.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ATHLETICS, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ATHLETICS, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ATHLETICS, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ATHLETICS, newValue?"1":"0");
         });
         controller.radioButtonMasteryAthletics.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencyAthletics.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ATHLETICS, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ATHLETICS, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ATHLETICS, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ATHLETICS, proficiency?"1":"0");
         });
         controller.radioButtonProficiencyAcrobatics.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasteryAcrobatics.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ACROBATICS, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ACROBATICS, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ACROBATICS, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ACROBATICS, newValue?"1":"0");
         });
         controller.radioButtonMasteryAcrobatics.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencyAcrobatics.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ACROBATICS, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ACROBATICS, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ACROBATICS, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ACROBATICS, proficiency?"1":"0");
         });
         controller.radioButtonProficiencyStealth.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasteryStealth.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_STEALTH, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_STEALTH, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_STEALTH, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_STEALTH, newValue?"1":"0");
         });
         controller.radioButtonMasteryStealth.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencyStealth.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_STEALTH, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_STEALTH, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_STEALTH, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_STEALTH, proficiency?"1":"0");
         });
         controller.radioButtonProficiencySleightOfHand.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasterySleightOfHand.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_SLEIGHT_OF_HAND, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_SLEIGHT_OF_HAND, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_SLEIGHT_OF_HAND, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_SLEIGHT_OF_HAND, newValue?"1":"0");
         });
         controller.radioButtonMasterySleightOfHand.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencySleightOfHand.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_SLEIGHT_OF_HAND, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_SLEIGHT_OF_HAND, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_SLEIGHT_OF_HAND, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_SLEIGHT_OF_HAND, proficiency?"1":"0");
         });
         controller.radioButtonProficiencyArcana.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasteryArcana.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ARCANA, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ARCANA, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ARCANA, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ARCANA, newValue?"1":"0");
         });
         controller.radioButtonMasteryArcana.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencyArcana.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ARCANA, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ARCANA, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ARCANA, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ARCANA, proficiency?"1":"0");
         });
         controller.radioButtonProficiencyInvestigation.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasteryInvestigation.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_INVESTIGATION, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_INVESTIGATION, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_INVESTIGATION, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_INVESTIGATION, newValue?"1":"0");
         });
         controller.radioButtonMasteryInvestigation.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencyInvestigation.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_INVESTIGATION, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_INVESTIGATION, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_INVESTIGATION, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_INVESTIGATION, proficiency?"1":"0");
         });
         controller.radioButtonProficiencyNature.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasteryNature.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_NATURE, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_NATURE, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_NATURE, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_NATURE, newValue?"1":"0");
         });
         controller.radioButtonMasteryNature.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencyNature.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_NATURE, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_NATURE, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_NATURE, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_NATURE, proficiency?"1":"0");
         });
         controller.radioButtonProficiencyReligion.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasteryReligion.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_RELIGION, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_RELIGION, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_RELIGION, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_RELIGION, newValue?"1":"0");
         });
         controller.radioButtonMasteryReligion.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencyReligion.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_RELIGION, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_RELIGION, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_RELIGION, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_RELIGION, proficiency?"1":"0");
         });
         controller.radioButtonProficiencyHistory.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasteryHistory.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_HISTORY, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_HISTORY, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_HISTORY, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_HISTORY, newValue?"1":"0");
         });
         controller.radioButtonMasteryHistory.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencyHistory.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_HISTORY, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_HISTORY, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_HISTORY, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_HISTORY, proficiency?"1":"0");
         });
         controller.radioButtonProficiencyAnimalHandling.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasteryAnimalHandling.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ANIMAL_HANDLING, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ANIMAL_HANDLING, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ANIMAL_HANDLING, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ANIMAL_HANDLING, newValue?"1":"0");
         });
         controller.radioButtonMasteryAnimalHandling.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencyAnimalHandling.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ANIMAL_HANDLING, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_ANIMAL_HANDLING, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ANIMAL_HANDLING, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_ANIMAL_HANDLING, proficiency?"1":"0");
         });
         controller.radioButtonProficiencyInsight.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasteryInsight.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_INSIGHT, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_INSIGHT, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_INSIGHT, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_INSIGHT, newValue?"1":"0");
         });
         controller.radioButtonMasteryInsight.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencyInsight.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_INSIGHT, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_INSIGHT, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_INSIGHT, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_INSIGHT, proficiency?"1":"0");
         });
         controller.radioButtonProficiencyMedicine.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasteryMedicine.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_MEDICINE, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_MEDICINE, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_MEDICINE, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_MEDICINE, newValue?"1":"0");
         });
         controller.radioButtonMasteryMedicine.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencyMedicine.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_MEDICINE, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_MEDICINE, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_MEDICINE, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_MEDICINE, proficiency?"1":"0");
         });
         controller.radioButtonProficiencyPerception.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasteryPerception.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_PERCEPTION, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_PERCEPTION, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_PERCEPTION, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_PERCEPTION, newValue?"1":"0");
         });
         controller.radioButtonMasteryPerception.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencyPerception.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_PERCEPTION, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_PERCEPTION, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_PERCEPTION, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_PERCEPTION, proficiency?"1":"0");
         });
         controller.radioButtonProficiencySurvival.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasterySurvival.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_SURVIVAL, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_SURVIVAL, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_SURVIVAL, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_SURVIVAL, newValue?"1":"0");
         });
         controller.radioButtonMasterySurvival.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencySurvival.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_SURVIVAL, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_SURVIVAL, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_SURVIVAL, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_SURVIVAL, proficiency?"1":"0");
         });
         controller.radioButtonProficiencyDeception.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasteryDeception.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_DECEPTION, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_DECEPTION, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_DECEPTION, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_DECEPTION, newValue?"1":"0");
         });
         controller.radioButtonMasteryDeception.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencyDeception.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_DECEPTION, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_DECEPTION, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_DECEPTION, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_DECEPTION, proficiency?"1":"0");
         });
         controller.radioButtonProficiencyIntimidation.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasteryIntimidation.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_INTIMIDATION, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_INTIMIDATION, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_INTIMIDATION, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_INTIMIDATION, newValue?"1":"0");
         });
         controller.radioButtonMasteryIntimidation.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencyIntimidation.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_INTIMIDATION, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_INTIMIDATION, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_INTIMIDATION, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_INTIMIDATION, proficiency?"1":"0");
         });
         controller.radioButtonProficiencyPerformance.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasteryPerformance.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_PERFORMANCE, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_PERFORMANCE, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_PERFORMANCE, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_PERFORMANCE, newValue?"1":"0");
         });
         controller.radioButtonMasteryPerformance.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencyPerformance.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_PERFORMANCE, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_PERFORMANCE, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_PERFORMANCE, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_PERFORMANCE, proficiency?"1":"0");
         });
         controller.radioButtonProficiencyPersuasion.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean mastery = controller.radioButtonMasteryPersuasion.isSelected();
-            if (mastery) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_PERSUASION, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_PERSUASION, newValue?"1":"0");
+            if (mastery) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_PERSUASION, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_PERSUASION, newValue?"1":"0");
         });
         controller.radioButtonMasteryPersuasion.selectedProperty().addListener((observable, oldValue, newValue) -> {
             boolean proficiency = controller.radioButtonProficiencyPersuasion.isSelected();
-            if (newValue) SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_PERSUASION, "2");
-            else SheetDataHandler.writeKeyParameter(KeyParameters.TabAbility.PROF_PERSUASION, proficiency?"1":"0");
+            if (newValue) SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_PERSUASION, "2");
+            else SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabAbility.PROF_PERSUASION, proficiency?"1":"0");
         });
     }
 

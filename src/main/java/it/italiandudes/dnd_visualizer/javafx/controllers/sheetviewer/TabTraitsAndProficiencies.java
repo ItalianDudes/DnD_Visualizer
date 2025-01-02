@@ -2,7 +2,7 @@ package it.italiandudes.dnd_visualizer.javafx.controllers.sheetviewer;
 
 import it.italiandudes.dnd_visualizer.javafx.controllers.ControllerSceneSheetViewer;
 import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
-import it.italiandudes.dnd_visualizer.utils.Defs;
+import it.italiandudes.dnd_visualizer.db.SheetKeyParameters;
 import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
@@ -24,11 +24,11 @@ public final class TabTraitsAndProficiencies {
                 return new Task<Void>() {
                     @Override
                     protected Void call() {
-                        String featuresAndTraits = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabTraitsAndCompetences.FEATURES_AND_TRAITS);
-                        String languages = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabTraitsAndCompetences.LANGUAGES);
-                        String armors = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabTraitsAndCompetences.ARMORS);
-                        String weapons = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabTraitsAndCompetences.WEAPONS);
-                        String tools = SheetDataHandler.readKeyParameter(Defs.KeyParameters.TabTraitsAndCompetences.TOOLS);
+                        String featuresAndTraits = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabTraitsAndCompetences.FEATURES_AND_TRAITS);
+                        String languages = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabTraitsAndCompetences.LANGUAGES);
+                        String armors = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabTraitsAndCompetences.ARMORS);
+                        String weapons = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabTraitsAndCompetences.WEAPONS);
+                        String tools = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabTraitsAndCompetences.TOOLS);
                         Platform.runLater(() -> {
                             if (featuresAndTraits != null) controller.textAreaFeaturesAndTraits.setText(featuresAndTraits);
                             if (languages != null) controller.textAreaLanguages.setText(languages);
@@ -45,11 +45,11 @@ public final class TabTraitsAndProficiencies {
 
     // OnChange Triggers Setter
     private static void setOnChangeTriggers(@NotNull final ControllerSceneSheetViewer controller) {
-        controller.textAreaFeaturesAndTraits.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabTraitsAndCompetences.FEATURES_AND_TRAITS, newValue));
-        controller.textAreaLanguages.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabTraitsAndCompetences.LANGUAGES, newValue));
-        controller.textAreaProficiencyWeapons.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabTraitsAndCompetences.WEAPONS, newValue));
-        controller.textAreaProficiencyArmors.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabTraitsAndCompetences.ARMORS, newValue));
-        controller.textAreaProficiencyTools.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(Defs.KeyParameters.TabTraitsAndCompetences.TOOLS, newValue));
+        controller.textAreaFeaturesAndTraits.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabTraitsAndCompetences.FEATURES_AND_TRAITS, newValue));
+        controller.textAreaLanguages.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabTraitsAndCompetences.LANGUAGES, newValue));
+        controller.textAreaProficiencyWeapons.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabTraitsAndCompetences.WEAPONS, newValue));
+        controller.textAreaProficiencyArmors.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabTraitsAndCompetences.ARMORS, newValue));
+        controller.textAreaProficiencyTools.textProperty().addListener((observable, oldValue, newValue) -> SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabTraitsAndCompetences.TOOLS, newValue));
     }
 
 }
