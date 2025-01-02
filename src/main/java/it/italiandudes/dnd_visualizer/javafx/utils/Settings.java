@@ -1,7 +1,7 @@
 package it.italiandudes.dnd_visualizer.javafx.utils;
 
 import it.italiandudes.dnd_visualizer.utils.Defs;
-import it.italiandudes.dnd_visualizer.utils.JSONManager;
+import it.italiandudes.idl.common.JSONManager;
 import it.italiandudes.idl.common.JarHandler;
 import it.italiandudes.idl.common.Logger;
 import org.jetbrains.annotations.NotNull;
