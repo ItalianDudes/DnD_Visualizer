@@ -155,9 +155,9 @@ public final class Entity extends StackPane {
         setAlignment(Pos.CENTER);
         if (type == EntityType.ENTITY_STRONG_ENEMY || type == EntityType.ENTITY_BOSS) {
             setBackground(new Background(new BackgroundFill(type.getColor(), new CornerRadii(5), null)));
+            getStyleClass().clear();
+            getStyleClass().add("waypoint");
         }
-        getStyleClass().clear();
-        getStyleClass().add("waypoint");
         setMinWidth(42);
         setMinHeight(42);
         setPrefWidth(42);
