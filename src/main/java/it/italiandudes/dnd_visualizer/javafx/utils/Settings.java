@@ -18,7 +18,7 @@ public final class Settings {
 
     // Settings Loader
     public static void loadSettingsFile() {
-        File settingsFile = new File(Defs.Resources.JSON.CLIENT_SETTINGS);
+        File settingsFile = new File(new File(Defs.JAR_POSITION).getParent() + File.separator + Defs.Resources.JSON.CLIENT_SETTINGS);
         if (!settingsFile.exists() || !settingsFile.isFile()) {
             try {
                 JarHandler.copyFileFromJar(new File(Defs.JAR_POSITION), Defs.Resources.JSON.DEFAULT_JSON_SETTINGS, settingsFile, true);
@@ -79,12 +79,12 @@ public final class Settings {
             SETTINGS.remove(Defs.SettingsKeys.ENABLE_TUTORIAL);
             SETTINGS.put(Defs.SettingsKeys.ENABLE_TUTORIAL, true);
         }
-        JSONManager.writeJSON(SETTINGS, new File(Defs.Resources.JSON.CLIENT_SETTINGS));
+        writeJSONSettings();
     }
 
     // Settings Writer
     public static void writeJSONSettings() throws IOException {
-        JSONManager.writeJSON(SETTINGS, new File(Defs.Resources.JSON.CLIENT_SETTINGS));
+        JSONManager.writeJSON(SETTINGS, new File(new File(Defs.JAR_POSITION).getParent() + File.separator + Defs.Resources.JSON.CLIENT_SETTINGS));
     }
 
     // Settings Getter
