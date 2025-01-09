@@ -1,6 +1,7 @@
 package it.italiandudes.dnd_visualizer.javafx.scene.inventory;
 
 import it.italiandudes.dnd_visualizer.data.item.ItemContainer;
+import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.javafx.components.SceneController;
 import it.italiandudes.dnd_visualizer.javafx.controllers.inventory.ControllerSceneInventorySpell;
@@ -15,7 +16,6 @@ import java.io.IOException;
 public final class SceneInventorySpell {
 
     // Scene Generator
-    @NotNull
     public static SceneController getScene() {
         try {
             FXMLLoader loader = new FXMLLoader(Defs.Resources.get(JFXDefs.Resources.FXML.Inventory.FXML_INVENTORY_SPELL));
@@ -25,11 +25,10 @@ public final class SceneInventorySpell {
             return new SceneController(root, controller);
         } catch (IOException e) {
             Logger.log(e, Defs.LOGGER_CONTEXT);
-            System.exit(-1);
+            Client.exit(-1);
             return null;
         }
     }
-    @NotNull
     public static SceneController getScene(@NotNull final ItemContainer container) {
         try {
             FXMLLoader loader = new FXMLLoader(Defs.Resources.get(JFXDefs.Resources.FXML.Inventory.FXML_INVENTORY_SPELL));
@@ -40,11 +39,10 @@ public final class SceneInventorySpell {
             return new SceneController(root, controller);
         } catch (IOException e) {
             Logger.log(e, Defs.LOGGER_CONTEXT);
-            System.exit(-1);
+            Client.exit(-1);
             return null;
         }
     }
-    @NotNull
     public static SceneController getScene(@NotNull final ItemContainer container, @NotNull final String spellName) {
         try {
             FXMLLoader loader = new FXMLLoader(Defs.Resources.get(JFXDefs.Resources.FXML.Inventory.FXML_INVENTORY_SPELL));
@@ -56,7 +54,7 @@ public final class SceneInventorySpell {
             return new SceneController(root, controller);
         } catch (IOException e) {
             Logger.log(e, Defs.LOGGER_CONTEXT);
-            System.exit(-1);
+            Client.exit(-1);
             return null;
         }
     }

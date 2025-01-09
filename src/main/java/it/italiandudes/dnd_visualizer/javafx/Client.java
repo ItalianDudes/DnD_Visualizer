@@ -21,6 +21,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
@@ -97,7 +98,11 @@ public final class Client extends Application {
     public static SceneController getScene() {
         return SCENE;
     }
-    public static void setScene(@NotNull final SceneController newScene) {
+    public static void setScene(@Nullable final SceneController newScene) {
+        if (newScene == null) {
+            Client.exit(-1);
+            return;
+        }
         SCENE = newScene;
         STAGE.getScene().setRoot(newScene.getParent());
     }
@@ -125,12 +130,21 @@ public final class Client extends Application {
 
     }
     public static void exit() {
-        Logger.log("Exit Method Called, exiting D&D Visualizer...", Defs.LOGGER_CONTEXT);
+        exit(0);
+    }
+    public static void exit(final int code) {
+        if (code != 0) {
+            Logger.log("Exit Method Called with non-zero code " + code + ", this probably means an error has occurred.", Defs.LOGGER_CONTEXT);
+        } else {
+            Logger.log("Exit Method Called, exiting D&D Visualizer...", Defs.LOGGER_CONTEXT);
+        }
         Platform.runLater(() -> STAGE.hide());
         DBManager.closeConnection();
         DiscordRichPresenceManager.shutdownRichPresence();
-        Logger.close();
-        Platform.exit();
-        System.exit(0);
+        if (!DnD_Visualizer.isStartedFromLauncher()) {
+            Logger.close();
+            Platform.exit();
+            System.exit(code);
+        }
     }
 }

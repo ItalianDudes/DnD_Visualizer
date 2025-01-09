@@ -23,6 +23,6 @@ public final class ControllerSceneCampaignTabSettings {
         if(!new ConfirmationAlert("CHIUSURA", "Chiusura Applicazione", "Vuoi davvero chiudere l'applicazione?\nRicorda: D&D Visualizer salva costantemente quindi i tuoi progressi sono al sicuro!").result) return;
         Client.setScene(SceneLoading.getScene());
         DBManager.closeConnection();
-        System.exit(0);
+        Client.exit();
     }
 }

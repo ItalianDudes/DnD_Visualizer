@@ -77,7 +77,7 @@ public final class ControllerSceneMainMenu {
                             Updater.downloadNewVersion(finalFileNewApp.getAbsoluteFile().getParent() + File.separator + Defs.APP_FILE_NAME+"-"+latestVersion+".jar");
                             Platform.runLater(() -> {
                                 if (new ConfirmationAlert("AGGIORNAMENTO", "Aggiornamento", "Download della nuova versione completato! Vuoi chiudere questa app?").result) {
-                                    System.exit(0);
+                                    Client.exit();
                                 } else {
                                     Client.setScene(thisScene);
                                 }
@@ -285,7 +285,7 @@ public final class ControllerSceneMainMenu {
 
         } catch (IOException e) {
             Logger.log(e, Defs.LOGGER_CONTEXT);
-            System.exit(-1);
+            Client.exit(-1);
         }
     }
     @FXML

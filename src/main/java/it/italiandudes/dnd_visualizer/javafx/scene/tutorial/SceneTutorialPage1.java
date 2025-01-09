@@ -1,5 +1,6 @@
 package it.italiandudes.dnd_visualizer.javafx.scene.tutorial;
 
+import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.javafx.components.SceneController;
 import it.italiandudes.dnd_visualizer.javafx.controllers.ControllerSceneSheetViewer;
@@ -16,7 +17,6 @@ import java.io.IOException;
 public final class SceneTutorialPage1 {
 
     // Page Generator
-    @NotNull
     public static SceneController getPage(@NotNull final ControllerSceneSheetViewer sheetController, @NotNull final AnchorPane anchorPaneTutorialPage) {
         try {
             FXMLLoader loader = new FXMLLoader(Defs.Resources.get(JFXDefs.Resources.FXML.Tutorial.FXML_TUTORIAL_PAGE1));
@@ -28,7 +28,7 @@ public final class SceneTutorialPage1 {
             return new SceneController(root, controller);
         } catch (IOException e) {
             Logger.log(e, Defs.LOGGER_CONTEXT);
-            System.exit(-1);
+            Client.exit(-1);
             return null;
         }
     }

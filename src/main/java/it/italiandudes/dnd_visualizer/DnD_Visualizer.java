@@ -57,7 +57,10 @@ public final class DnD_Visualizer {
         } catch (NoClassDefFoundError e) {
             Logger.log("ERROR: TO RUN THIS JAR YOU NEED JAVA 8 WITH BUILT-IN JAVAFX!", new InfoFlags(true, true, true, true), Defs.LOGGER_CONTEXT);
             Logger.log(e, Defs.LOGGER_CONTEXT);
-            System.exit(0);
+            if (!isStartedFromLauncher()) {
+                Logger.close();
+                System.exit(-1);
+            }
         }
     }
 }
