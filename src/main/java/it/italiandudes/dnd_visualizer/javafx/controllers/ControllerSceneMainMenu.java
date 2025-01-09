@@ -268,7 +268,7 @@ public final class ControllerSceneMainMenu {
             popupStage.setTitle(JFXDefs.AppInfo.NAME);
             popupStage.initOwner(Client.getStage());
             popupStage.initModality(Modality.WINDOW_MODAL);
-            popupStage.setScene(new Scene(FXMLLoader.load(Defs.Resources.get("/fxml/campaign/AskVaultCode.fxml"))));
+            popupStage.setScene(new Scene(FXMLLoader.load(Defs.Resources.get(Defs.Resources.PROJECT_RESOURCES_ROOT + "fxml/campaign/AskVaultCode.fxml"))));
             ThemeHandler.loadConfigTheme(popupStage.getScene());
             popupStage.setResizable(false);
             popupStage.showAndWait();
