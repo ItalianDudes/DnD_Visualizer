@@ -141,6 +141,7 @@ public final class Client extends Application {
         Platform.runLater(() -> STAGE.hide());
         DBManager.closeConnection();
         DiscordRichPresenceManager.shutdownRichPresence();
+        DnD_Visualizer.appClosed();
         if (!DnD_Visualizer.isStartedFromLauncher()) {
             Logger.close();
             Platform.exit();

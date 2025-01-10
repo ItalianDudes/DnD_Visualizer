@@ -12,6 +12,9 @@ import java.io.IOException;
 
 public final class DnD_Visualizer {
 
+    // Attributes
+    private static volatile boolean appClosed = false;
+
     // Launcher Class Loader
     @Nullable private static ClassLoader launcherClassLoader = null;
 
@@ -29,6 +32,13 @@ public final class DnD_Visualizer {
         launcherClassLoader = loader;
         if (loader != null) Thread.currentThread().setContextClassLoader(loader);
         main(args);
+    }
+    public static void appClosed() {
+        appClosed = true;
+    }
+    public static void launcherLockUntilAppClose() {
+        //noinspection StatementWithEmptyBody
+        while (!appClosed);
     }
 
     // Main Method
