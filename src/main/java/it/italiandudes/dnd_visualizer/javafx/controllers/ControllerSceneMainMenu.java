@@ -30,6 +30,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -181,6 +182,13 @@ public final class ControllerSceneMainMenu {
     }
 
     // EDT
+    @FXML
+    private void showReportBanner() {
+        ClipboardContent link = new ClipboardContent();
+        link.putString("https://github.com/ItalianDudes/DnD_Visualizer/issues");
+        Client.getSystemClipboard().setContent(link);
+        new InformationAlert("INFO", "Grazie!", "ItalianDudes e' sempre felice di ricevere segnalazioni da parte degli utenti circa le sue applicazioni.\nE' stato aggiunto alla tua clipboard di sistema il link per accedere alla pagina github per aggiungere il tuo report riguardante problemi o idee varie.\nGrazie ancora!");
+    }
     @FXML
     private void checkForUpdates() {
         SceneController thisScene = Client.getScene();
