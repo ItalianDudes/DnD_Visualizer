@@ -66,7 +66,7 @@ L'applicazione richiede Java 8 con JavaFX. In fondo è disponibile la [guida all
 - Fatto ciò cliccare su OK.
 - Chiudere l'Editor del Registro di Sistema e provare ad'eseguire il D&D Visualizer con il doppio click.
 - In alcuni casi, potrebbe essere necessario riavviare il computer per applicare effettivamente la modifica al registro di sistema.
-- Se neanche riavviando il D&D Visualizer si avvia, apri un report al seguente [link](https://github.com/ItalianDudes/DnD_Visualizer/issues).
+- Se neanche riavviando il computer il D&D Visualizer si avvia, apri un report al seguente [link](https://github.com/ItalianDudes/DnD_Visualizer/issues).
 
 ## Avviare D&D Visualizer su Linux
 - Per avviare il D&D Visualizer su Linux ci sono 2 modi:
