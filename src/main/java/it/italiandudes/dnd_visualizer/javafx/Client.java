@@ -50,7 +50,7 @@ public final class Client extends Application {
         stage.setResizable(true);
         stage.setTitle(JFXDefs.AppInfo.NAME);
         stage.getIcons().add(JFXDefs.AppInfo.LOGO);
-        SCENE = Objects.requireNonNull(SceneMainMenu.getScene());
+        SCENE = SceneMainMenu.getScene();
         stage.setScene(new Scene(SCENE.getParent()));
         Logger.log("Loading Theme...", Defs.LOGGER_CONTEXT);
         ThemeHandler.loadConfigTheme(stage.getScene());
