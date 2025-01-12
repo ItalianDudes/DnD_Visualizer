@@ -1,5 +1,6 @@
 package it.italiandudes.dnd_visualizer.javafx.controllers.campaign;
 
+import it.italiandudes.dnd_visualizer.features.DiscordRichPresenceManager;
 import it.italiandudes.dnd_visualizer.javafx.components.SceneController;
 import it.italiandudes.dnd_visualizer.javafx.controllers.campaign.tab.ControllerSceneCampaignTabMaps;
 import it.italiandudes.dnd_visualizer.javafx.controllers.campaign.tab.ControllerSceneCampaignTabSettings;
@@ -28,6 +29,7 @@ public final class ControllerSceneCampaignViewer {
     // Initialize
     @FXML
     private void initialize() {
+        DiscordRichPresenceManager.updateRichPresenceState(DiscordRichPresenceManager.States.IN_GAME);
         this.sceneMaps = SceneCampaignTabMaps.getScene();
         this.sceneSettings = SceneCampaignTabSettings.getScene();
         tabMaps.setContent(sceneMaps.getParent());

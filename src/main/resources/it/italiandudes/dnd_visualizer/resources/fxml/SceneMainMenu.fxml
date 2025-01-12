@@ -35,7 +35,6 @@
                       <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <ImageView fx:id="imageViewLogo" fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
                         <GridPane vgap="25.0">
                           <columnConstraints>
                             <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" />
@@ -95,6 +94,23 @@
                            <padding>
                               <Insets bottom="20.0" top="20.0" />
                            </padding>
+                        </GridPane>
+                        <GridPane GridPane.columnIndex="1">
+                           <columnConstraints>
+                              <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints valignment="CENTER" vgrow="SOMETIMES" />
+                              <RowConstraints valignment="CENTER" vgrow="NEVER" />
+                           </rowConstraints>
+                           <children>
+                              <ImageView fx:id="imageViewLogo" fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
+                              <Label text="Developed and Relased by ItalianDudes at https://github.com/ItalianDudes/DnD_Visualizer" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Lucida Sans Demibold" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
                         </GridPane>
                      </children>
                   </GridPane>

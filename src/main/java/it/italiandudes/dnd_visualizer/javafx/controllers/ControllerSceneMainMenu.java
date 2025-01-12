@@ -18,7 +18,7 @@ import it.italiandudes.dnd_visualizer.javafx.scene.campaign.SceneCampaignViewer;
 import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.javafx.utils.ThemeHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
-import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
+import it.italiandudes.dnd_visualizer.features.DiscordRichPresenceManager;
 import it.italiandudes.dnd_visualizer.utils.Updater;
 import it.italiandudes.idl.common.JarHandler;
 import it.italiandudes.idl.common.Logger;

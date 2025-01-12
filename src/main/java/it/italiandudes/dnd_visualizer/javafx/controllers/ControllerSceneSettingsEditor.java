@@ -7,7 +7,7 @@ import it.italiandudes.dnd_visualizer.javafx.scene.SceneMainMenu;
 import it.italiandudes.dnd_visualizer.javafx.utils.Settings;
 import it.italiandudes.dnd_visualizer.javafx.utils.ThemeHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
-import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
+import it.italiandudes.dnd_visualizer.features.DiscordRichPresenceManager;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Platform;
 import javafx.concurrent.Service;

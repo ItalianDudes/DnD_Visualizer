@@ -11,13 +11,20 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public final class SceneTutorialPage1 {
 
     // Page Generator
+    @NotNull
     public static SceneController getPage(@NotNull final ControllerSceneSheetViewer sheetController, @NotNull final AnchorPane anchorPaneTutorialPage) {
+        return Objects.requireNonNull(genPage(sheetController, anchorPaneTutorialPage));
+    }
+    @Nullable
+    private static SceneController genPage(@NotNull final ControllerSceneSheetViewer sheetController, @NotNull final AnchorPane anchorPaneTutorialPage) {
         try {
             FXMLLoader loader = new FXMLLoader(Defs.Resources.get(JFXDefs.Resources.FXML.Tutorial.FXML_TUTORIAL_PAGE1));
             Parent root = loader.load();

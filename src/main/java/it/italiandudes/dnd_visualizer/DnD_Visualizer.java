@@ -3,7 +3,7 @@ package it.italiandudes.dnd_visualizer;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.javafx.Client;
 import it.italiandudes.dnd_visualizer.utils.Defs;
-import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
+import it.italiandudes.dnd_visualizer.features.DiscordRichPresenceManager;
 import it.italiandudes.idl.common.InfoFlags;
 import it.italiandudes.idl.common.Logger;
 import org.jetbrains.annotations.Nullable;
@@ -36,6 +36,9 @@ public final class DnD_Visualizer {
     public static void appClosed() {
         appClosed = true;
     }
+
+    // Launcher Blocker
+    @SuppressWarnings("unused")
     public static void launcherLockUntilAppClose() {
         //noinspection StatementWithEmptyBody
         while (!appClosed);

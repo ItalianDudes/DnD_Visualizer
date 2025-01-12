@@ -1,9 +1,10 @@
-package it.italiandudes.dnd_visualizer.utils;
+package it.italiandudes.dnd_visualizer.features;
 
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import it.italiandudes.dnd_visualizer.javafx.utils.Settings;
+import it.italiandudes.dnd_visualizer.utils.Defs;
 import org.jetbrains.annotations.Nullable;
 
 public final class DiscordRichPresenceManager {

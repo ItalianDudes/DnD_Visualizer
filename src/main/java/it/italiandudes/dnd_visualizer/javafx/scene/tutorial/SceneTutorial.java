@@ -10,13 +10,20 @@ import it.italiandudes.idl.common.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public final class SceneTutorial {
 
     // Scene Generator
+    @NotNull
     public static SceneController getScene(@NotNull final ControllerSceneSheetViewer sheetController) {
+        return Objects.requireNonNull(genScene(sheetController));
+    }
+    @Nullable
+    private static SceneController genScene(@NotNull final ControllerSceneSheetViewer sheetController) {
         try {
             FXMLLoader loader = new FXMLLoader(Defs.Resources.get(JFXDefs.Resources.FXML.Tutorial.FXML_TUTORIAL));
             Parent root = loader.load();

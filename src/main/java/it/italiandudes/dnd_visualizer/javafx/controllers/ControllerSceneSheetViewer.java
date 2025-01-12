@@ -15,7 +15,7 @@ import it.italiandudes.dnd_visualizer.javafx.scene.tutorial.SceneTutorial;
 import it.italiandudes.dnd_visualizer.javafx.utils.Settings;
 import it.italiandudes.dnd_visualizer.utils.CalendarEventManager;
 import it.italiandudes.dnd_visualizer.utils.Defs;
-import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
+import it.italiandudes.dnd_visualizer.features.DiscordRichPresenceManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;

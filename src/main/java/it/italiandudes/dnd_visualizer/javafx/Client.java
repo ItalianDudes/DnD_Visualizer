@@ -9,7 +9,7 @@ import it.italiandudes.dnd_visualizer.javafx.scene.SceneMainMenu;
 import it.italiandudes.dnd_visualizer.javafx.utils.Settings;
 import it.italiandudes.dnd_visualizer.javafx.utils.ThemeHandler;
 import it.italiandudes.dnd_visualizer.utils.Defs;
-import it.italiandudes.dnd_visualizer.utils.DiscordRichPresenceManager;
+import it.italiandudes.dnd_visualizer.features.DiscordRichPresenceManager;
 import it.italiandudes.idl.common.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -107,7 +107,11 @@ public final class Client extends Application {
         STAGE.getScene().setRoot(newScene.getParent());
     }
     @NotNull
-    public static Stage initPopupStage(@NotNull final SceneController sceneController) {
+    public static Stage initPopupStage(@Nullable final SceneController sceneController) {
+        return genPopupStage(Objects.requireNonNull(sceneController));
+    }
+    @NotNull
+    private static Stage genPopupStage(@NotNull final SceneController sceneController) {
         Stage popupStage = new Stage();
         popupStage.setResizable(true);
         popupStage.getIcons().add(JFXDefs.AppInfo.LOGO);

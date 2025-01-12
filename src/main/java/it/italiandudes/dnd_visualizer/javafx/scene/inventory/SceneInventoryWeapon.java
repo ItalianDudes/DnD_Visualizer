@@ -10,13 +10,20 @@ import it.italiandudes.idl.common.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public final class SceneInventoryWeapon {
 
     // Scene Generator
+    @NotNull
     public static SceneController getScene() {
+        return Objects.requireNonNull(genScene());
+    }
+    @Nullable
+    private static SceneController genScene() {
         try {
             FXMLLoader loader = new FXMLLoader(Defs.Resources.get(JFXDefs.Resources.FXML.Inventory.FXML_INVENTORY_WEAPON));
             Parent root = loader.load();
@@ -29,7 +36,12 @@ public final class SceneInventoryWeapon {
             return null;
         }
     }
+    @NotNull
     public static SceneController getScene(@NotNull final ItemContainer container) {
+        return Objects.requireNonNull(genScene(container));
+    }
+    @Nullable
+    public static SceneController genScene(@NotNull final ItemContainer container) {
         try {
             FXMLLoader loader = new FXMLLoader(Defs.Resources.get(JFXDefs.Resources.FXML.Inventory.FXML_INVENTORY_WEAPON));
             Parent root = loader.load();
@@ -43,7 +55,12 @@ public final class SceneInventoryWeapon {
             return null;
         }
     }
+    @NotNull
     public static SceneController getScene(@NotNull final ItemContainer container, @NotNull final String weaponName) {
+        return Objects.requireNonNull(genScene(container, weaponName));
+    }
+    @Nullable
+    private static SceneController genScene(@NotNull final ItemContainer container, @NotNull final String weaponName) {
         try {
             FXMLLoader loader = new FXMLLoader(Defs.Resources.get(JFXDefs.Resources.FXML.Inventory.FXML_INVENTORY_WEAPON));
             Parent root = loader.load();
