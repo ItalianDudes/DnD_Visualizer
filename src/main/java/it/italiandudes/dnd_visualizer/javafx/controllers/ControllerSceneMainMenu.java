@@ -172,6 +172,7 @@ public final class ControllerSceneMainMenu {
     @FXML private Button buttonNewCampaign;
     @FXML private Button buttonOpenCampaign;
     @FXML private Button buttonUnlockCampaign;
+    @FXML private Button buttonUpdater;
 
     // Initialize
     @FXML
@@ -179,6 +180,9 @@ public final class ControllerSceneMainMenu {
         lastOperationNewSheet = false;
         imageViewLogo.setImage(JFXDefs.AppInfo.LOGO);
         DiscordRichPresenceManager.updateRichPresenceState(DiscordRichPresenceManager.States.MENU);
+        if (DnD_Visualizer.isStartedFromLauncher()) {
+            buttonUpdater.setDisable(true);
+        }
     }
 
     // EDT
