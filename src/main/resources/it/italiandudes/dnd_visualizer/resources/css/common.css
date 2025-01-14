@@ -27,3 +27,16 @@
     -fx-border-color: black;
     -fx-border-radius: 4px;
 }
+
+.chart-series-area-fill {
+    -fx-fill: #0096C9;
+}
+.chart-series-area-line, .chart-series-line {
+    -fx-stroke: #0096C9;
+}
+.xAxis {
+    -fx-border-color: #0096C9 transparent transparent transparent;
+}
+.yAxis {
+    -fx-border-color: transparent #0096C9 transparent transparent;
+}

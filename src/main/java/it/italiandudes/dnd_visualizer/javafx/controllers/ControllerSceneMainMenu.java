@@ -51,11 +51,15 @@ public final class ControllerSceneMainMenu {
 
     // Attributes
     private static boolean lastOperationNewSheet = false;
+    private static boolean campaignMode = false;
 
     // Methods
     @SuppressWarnings("unused")
     public static boolean isLastOperationNewSheet() {
         return lastOperationNewSheet;
+    }
+    public static boolean isCampaignMode() {
+        return campaignMode;
     }
     @SuppressWarnings("DuplicatedCode")
     private void updateApp(@NotNull final SceneController thisScene, @NotNull final String latestVersion) {
@@ -177,6 +181,7 @@ public final class ControllerSceneMainMenu {
     // Initialize
     @FXML
     private void initialize() {
+        campaignMode = false;
         lastOperationNewSheet = false;
         imageViewLogo.setImage(JFXDefs.AppInfo.LOGO);
         DiscordRichPresenceManager.updateRichPresenceState(DiscordRichPresenceManager.States.MENU);
@@ -380,6 +385,7 @@ public final class ControllerSceneMainMenu {
                 });
                 return;
             }
+            campaignMode = true;
             Platform.runLater(() -> Client.setScene(SceneCampaignViewer.getScene()));
         });
     }
@@ -426,6 +432,7 @@ public final class ControllerSceneMainMenu {
                 return;
             }
 
+            campaignMode = true;
             Platform.runLater(() -> Client.setScene(SceneCampaignViewer.getScene()));
         });
     }

@@ -10,6 +10,7 @@ import it.italiandudes.dnd_visualizer.javafx.JFXDefs;
 import it.italiandudes.dnd_visualizer.javafx.alerts.ConfirmationAlert;
 import it.italiandudes.dnd_visualizer.javafx.alerts.ErrorAlert;
 import it.italiandudes.dnd_visualizer.javafx.alerts.InformationAlert;
+import it.italiandudes.dnd_visualizer.javafx.controllers.ControllerSceneMainMenu;
 import it.italiandudes.dnd_visualizer.javafx.controllers.sheetviewer.TabInventory;
 import it.italiandudes.dnd_visualizer.javafx.utils.SheetDataHandler;
 import it.italiandudes.dnd_visualizer.javafx.utils.UIElementConfigurator;
@@ -95,6 +96,7 @@ public final class ControllerSceneInventoryWeapon {
     // Initialize
     @FXML @SuppressWarnings("DuplicatedCode")
     private void initialize() {
+        if (ControllerSceneMainMenu.isCampaignMode()) checkBoxEquipped.setDisable(true);
         setOnChangeTriggers();
         onLostFocusFireActionEvent();
         imageViewItem.setImage(JFXDefs.AppInfo.LOGO);

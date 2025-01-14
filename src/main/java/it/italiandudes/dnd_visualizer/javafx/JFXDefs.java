@@ -75,6 +75,7 @@ public final class JFXDefs {
                 public static final class Tab {
                     private static final String FXML_CAMPAIGN_TAB_DIR = FXML_CAMPAIGN_DIR + "tab/";
                     public static final String FXML_CAMPAIGN_TAB_MAPS = FXML_CAMPAIGN_TAB_DIR + "SceneCampaignTabMaps.fxml";
+                    public static final String FXML_CAMPAIGN_TAB_MUSIC = FXML_CAMPAIGN_TAB_DIR + "SceneCampaignTabMusic.fxml";
                     public static final String FXML_CAMPAIGN_TAB_ENTITIES = FXML_CAMPAIGN_TAB_DIR + "SceneCampaignTabEntities.fxml";
                     public static final String FXML_CAMPAIGN_TAB_ELEMENTS = FXML_CAMPAIGN_TAB_DIR + "SceneCampaignTabElements.fxml";
                     public static final String FXML_CAMPAIGN_TAB_NOTES = FXML_CAMPAIGN_TAB_DIR + "SceneCampaignTabNotes.fxml";
