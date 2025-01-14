@@ -4,8 +4,8 @@ plugins {
 }
 
 // Versioning
-def versionNumber = '1.3.9.3'
-def versionType = 'RELEASE' // RELEASE | BETA | ALPHA | DEV
+def versionNumber = '1.3.9.4'
+def versionType = 'DEV' // RELEASE | BETA | ALPHA | DEV
 def versionMarker = versionType.charAt(0)
 
 group = 'it.italiandudes'
