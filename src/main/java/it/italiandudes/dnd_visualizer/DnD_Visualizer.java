@@ -9,6 +9,8 @@ import it.italiandudes.idl.common.Logger;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 
 public final class DnD_Visualizer {
 
@@ -46,6 +48,14 @@ public final class DnD_Visualizer {
 
     // Main Method
     public static void main(String[] args) {
+
+        // Setting Charset to UTF-8
+        try {
+            System.setOut(new PrintStream(System.out, true, "UTF-8"));
+            System.setErr(new PrintStream(System.err, true, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            Logger.log("An error has occurred while setting charset to UTF-8.", Defs.LOGGER_CONTEXT);
+        }
 
         // Initializing the logger
         try {
