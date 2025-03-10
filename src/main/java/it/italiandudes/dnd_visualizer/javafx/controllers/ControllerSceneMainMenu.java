@@ -1,5 +1,6 @@
 package it.italiandudes.dnd_visualizer.javafx.controllers;
 
+import com.sun.javafx.application.HostServicesDelegate;
 import it.italiandudes.dnd_visualizer.DnD_Visualizer;
 import it.italiandudes.dnd_visualizer.db.DBManager;
 import it.italiandudes.dnd_visualizer.db.SheetKeyParameters;
@@ -194,9 +195,16 @@ public final class ControllerSceneMainMenu {
     @FXML
     private void showReportBanner() {
         ClipboardContent link = new ClipboardContent();
-        link.putString("https://github.com/ItalianDudes/DnD_Visualizer/issues");
+        String url = "https://github.com/ItalianDudes/DnD_Visualizer/issues";
+        link.putString(url);
         Client.getSystemClipboard().setContent(link);
-        new InformationAlert("INFO", "Grazie!", "ItalianDudes e' sempre felice di ricevere segnalazioni da parte degli utenti circa le sue applicazioni.\nE' stato aggiunto alla tua clipboard di sistema il link per accedere alla pagina github per aggiungere il tuo report riguardante problemi o idee varie.\nGrazie ancora!");
+        boolean result = new YesNoAlert("INFO", "Grazie!", "ItalianDudes e' sempre felice di ricevere segnalazioni da parte degli utenti circa le sue applicazioni.\nE' stato aggiunto alla tua clipboard di sistema il link per accedere alla pagina github per aggiungere il tuo report riguardante problemi o idee varie.\nPremi \"Si\" per aprire direttamente il link nel browser predefinito.\nGrazie ancora!").result;
+        try {
+            if (result && Client.getApplicationInstance() != null) HostServicesDelegate.getInstance(Client.getApplicationInstance()).showDocument(url);
+        } catch (Exception e) {
+            Logger.log(e);
+            new ErrorAlert("ERRORE", "Errore Interno", "Si e' verificato un errore durante l'apertura del browser predefinito.\nIl link alla pagina e' comunque disponibile negli appunti di sistema.");
+        }
     }
     @FXML
     private void checkForUpdates() {

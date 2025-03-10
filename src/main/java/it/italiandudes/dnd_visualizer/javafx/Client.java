@@ -28,6 +28,7 @@ import java.util.Objects;
 public final class Client extends Application {
 
     // Attributes
+    private static Application INSTANCE = null;
     private static Clipboard SYSTEM_CLIPBOARD = null;
     private static Stage STAGE = null;
     private static SceneController SCENE = null;
@@ -35,6 +36,7 @@ public final class Client extends Application {
     // JavaFX Entry Point
     @Override
     public void start(Stage stage) {
+        INSTANCE = this;
         startupApplicationStageConfiguration(stage);
     }
 
@@ -86,6 +88,10 @@ public final class Client extends Application {
     }
 
     // Methods
+    @Nullable
+    public static Application getApplicationInstance() {
+        return INSTANCE;
+    }
     @NotNull
     public static Clipboard getSystemClipboard() {
         return SYSTEM_CLIPBOARD;
