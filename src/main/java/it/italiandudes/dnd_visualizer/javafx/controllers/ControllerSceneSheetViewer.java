@@ -294,6 +294,17 @@ public final class ControllerSceneSheetViewer {
     @FXML public Label labelDiceValue;
     @FXML public TextArea textAreaDiceSum;
 
+    // TabConnection
+    @FXML public TextField textFieldUsername;
+    @FXML public TextField textFieldServerAddress;
+    @FXML public PasswordField passwordFieldServerPassword;
+    @FXML public TextField textFieldServerPort;
+    @FXML public Button buttonConnectionSwitch;
+    @FXML public Button buttonSaveServerConnectionData;
+    @FXML public ListView<String> listViewServerConnectionData;
+
+    // TabMap
+
     //Initialize
     @FXML
     private void initialize() {
@@ -492,5 +503,11 @@ public final class ControllerSceneSheetViewer {
         if (event.getCode() == KeyCode.ENTER && listViewPrivilegesAndTraits.getSelectionModel().getSelectedItem() != null) {
             TabPrivilegesAndTraits.editPrivilegesAndTraits(this);
         }
+    }
+    @FXML private void connectionSwitch() {
+        // TODO: TabConnection
+    }
+    @FXML private void saveServerConnectionData() {
+        // TODO: TabConnection
     }
 }
