@@ -4251,8 +4251,8 @@
                                                 <TextField fx:id="textFieldServerPort" promptText="Porta [0 - 65535]" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                                 <TextField fx:id="textFieldUsername" promptText="Nome Utente" />
                                                 <PasswordField fx:id="passwordFieldServerPassword" promptText="Server Password" GridPane.columnIndex="1" />
-                                                <Button fx:id="buttonConnectionSwitch" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#connectionSwitch" text="Connetti" GridPane.columnIndex="2" />
-                                                <Button fx:id="buttonSaveServerConnectionData" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveServerConnectionData" text="Salva Dati Server" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                                <Button fx:id="buttonConnectionSwitch" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#connectionSwitch" text="Connetti" GridPane.columnIndex="2" />
+                                                <Button fx:id="buttonSaveServerConnectionData" disable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#saveServerConnectionData" text="Salva Dati Server" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                                              </children>
                                           </GridPane>
                                           <Label text="CONNESSIONI RECENTI" GridPane.rowIndex="2">
