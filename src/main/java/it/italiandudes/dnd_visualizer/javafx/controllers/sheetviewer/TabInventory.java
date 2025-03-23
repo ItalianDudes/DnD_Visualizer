@@ -973,7 +973,7 @@ public final class TabInventory {
                         if (bag.isIncludeBag()) {
                             try {
                                 if (Addon.checkIfExist(DnDBag.BAG.getName())) {
-                                    Item bagItem = new Addon(DnDBag.BAG.getName());
+                                    Addon bagItem = new Addon(DnDBag.BAG.getName());
                                     bagItem.setQuantity(bagItem.getQuantity() + 1);
                                     bagItem.saveIntoDatabase(bagItem.getName());
                                 } else {
@@ -985,6 +985,8 @@ public final class TabInventory {
                                 return null;
                             }
                         }
+
+                        // Note: if bags will include not items but spells or equipments must change this code to handle ACTUAL equipment or spell
                         for (Item bagItem : bag.getItems()) {
                             try {
                                 if (Item.checkIfExist(bagItem.getName())) {
