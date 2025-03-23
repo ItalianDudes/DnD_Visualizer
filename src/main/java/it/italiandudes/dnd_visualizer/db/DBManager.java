@@ -23,6 +23,7 @@ public final class DBManager {
         dbConnection.setAutoCommit(true);
         Statement st = dbConnection.createStatement();
         st.execute("PRAGMA foreign_keys = ON;");
+        st.close();
     }
 
     // Methods
