@@ -272,7 +272,7 @@ public final class ControllerSceneMainMenu {
         SceneController thisScene = Client.getScene();
         Client.setScene(SceneLoading.getScene());
 
-        File finalSheetDB = fileSheet;
+        File finalSheetDB = fileSheet.getAbsolutePath().contains(Defs.Resources.SHEET_EXTENSION) ? fileSheet : new File(fileSheet.getAbsolutePath() + '.' + Defs.Resources.SHEET_EXTENSION);
         JFXDefs.startServiceTask(() -> {
             try {
                 DBManager.createSheet(finalSheetDB.getAbsolutePath());
@@ -294,6 +294,7 @@ public final class ControllerSceneMainMenu {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select the Sheet");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("DND5E Sheet", "*." + Defs.Resources.SHEET_EXTENSION));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Any File", "*.*"));
         fileChooser.setInitialDirectory(new File(Defs.JAR_POSITION).getParentFile());
         File fileSheet;
         try {
@@ -381,7 +382,7 @@ public final class ControllerSceneMainMenu {
         SceneController thisScene = Client.getScene();
         Client.setScene(SceneLoading.getScene());
 
-        File finalSheetDB = fileSheet;
+        File finalSheetDB = fileSheet.getAbsolutePath().contains(Defs.Resources.CAMPAIGN_EXTENSION) ? fileSheet : new File(fileSheet.getAbsolutePath() + '.' + Defs.Resources.CAMPAIGN_EXTENSION);
         JFXDefs.startServiceTask(() -> {
             try {
                 DBManager.createCampaign(finalSheetDB.getAbsolutePath());
@@ -402,6 +403,7 @@ public final class ControllerSceneMainMenu {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select the Campaign");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("DND5E Campaign", "*." + Defs.Resources.CAMPAIGN_EXTENSION));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Any File", "*.*"));
         fileChooser.setInitialDirectory(new File(Defs.JAR_POSITION).getParentFile());
         File fileSheet;
         try {
