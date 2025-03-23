@@ -272,7 +272,7 @@ public final class ControllerSceneMainMenu {
         SceneController thisScene = Client.getScene();
         Client.setScene(SceneLoading.getScene());
 
-        File finalSheetDB = fileSheet.getAbsolutePath().contains(Defs.Resources.SHEET_EXTENSION) ? fileSheet : new File(fileSheet.getAbsolutePath() + '.' + Defs.Resources.SHEET_EXTENSION);
+        File finalSheetDB = fileSheet.getAbsolutePath().endsWith(Defs.Resources.SHEET_EXTENSION) ? fileSheet : new File(fileSheet.getAbsolutePath() + '.' + Defs.Resources.SHEET_EXTENSION);
         JFXDefs.startServiceTask(() -> {
             try {
                 DBManager.createSheet(finalSheetDB.getAbsolutePath());
@@ -382,7 +382,7 @@ public final class ControllerSceneMainMenu {
         SceneController thisScene = Client.getScene();
         Client.setScene(SceneLoading.getScene());
 
-        File finalSheetDB = fileSheet.getAbsolutePath().contains(Defs.Resources.CAMPAIGN_EXTENSION) ? fileSheet : new File(fileSheet.getAbsolutePath() + '.' + Defs.Resources.CAMPAIGN_EXTENSION);
+        File finalSheetDB = fileSheet.getAbsolutePath().endsWith(Defs.Resources.CAMPAIGN_EXTENSION) ? fileSheet : new File(fileSheet.getAbsolutePath() + '.' + Defs.Resources.CAMPAIGN_EXTENSION);
         JFXDefs.startServiceTask(() -> {
             try {
                 DBManager.createCampaign(finalSheetDB.getAbsolutePath());
