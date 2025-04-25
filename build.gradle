@@ -28,8 +28,8 @@ javafx {
             'javafx.controls',
             'javafx.graphics',
             'javafx.fxml',
-            'javafx.media',
-            'javafx.swing'
+            'javafx.swing',
+            'javafx.media'
     ]
 }
 
