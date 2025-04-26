@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 public final class DnD_Visualizer {
 
@@ -42,20 +42,15 @@ public final class DnD_Visualizer {
     // Launcher Blocker
     @SuppressWarnings("unused")
     public static void launcherLockUntilAppClose() {
-        //noinspection StatementWithEmptyBody
-        while (!appClosed);
+        while (!appClosed) Thread.onSpinWait();
     }
 
     // Main Method
     public static void main(String[] args) {
 
         // Setting Charset to UTF-8
-        try {
-            System.setOut(new PrintStream(System.out, true, "UTF-8"));
-            System.setErr(new PrintStream(System.err, true, "UTF-8"));
-        } catch (UnsupportedEncodingException e) {
-            Logger.log("An error has occurred while setting charset to UTF-8.", Defs.LOGGER_CONTEXT);
-        }
+        System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
+        System.setErr(new PrintStream(System.err, true, StandardCharsets.UTF_8));
 
         // Initializing the logger
         try {
@@ -78,7 +73,7 @@ public final class DnD_Visualizer {
             Logger.log("Starting UI...", Defs.LOGGER_CONTEXT);
             Client.start(args);
         } catch (NoClassDefFoundError e) {
-            Logger.log("ERROR: TO RUN THIS JAR YOU NEED JAVA 8 WITH BUILT-IN JAVAFX!", new InfoFlags(true, true, true, true), Defs.LOGGER_CONTEXT);
+            Logger.log("ERROR: TO RUN THIS JAR YOU NEED JAVA 21 WITH JAVAFX!", new InfoFlags(true, true, true, true), Defs.LOGGER_CONTEXT);
             Logger.log(e, Defs.LOGGER_CONTEXT);
             if (!isStartedFromLauncher()) {
                 Logger.close();
