@@ -141,11 +141,10 @@ public final class ControllerSceneInventoryAddon {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
-                        //noinspection StatementWithEmptyBody
-                        while (!configurationComplete);
+                        while (!configurationComplete) Thread.onSpinWait();
 
                         if (addonName == null) addonName = TabInventory.getElementName();
                         JSONObject addonStructure = TabInventory.getElementStructure();
@@ -211,10 +210,10 @@ public final class ControllerSceneInventoryAddon {
         }
         if(imagePath!=null) {
             File finalImagePath = imagePath;
-            Service<Void> imageReaderService = new Service<Void>() {
+            Service<Void> imageReaderService = new Service<>() {
                 @Override
                 protected Task<Void> createTask() {
-                    return new Task<Void>() {
+                    return new Task<>() {
                         @Override
                         protected Void call() {
                             try {
@@ -225,7 +224,7 @@ public final class ControllerSceneInventoryAddon {
                                 }
                                 Platform.runLater(() -> imageViewItem.setImage(SwingFXUtils.toFXImage(img, null)));
                                 imageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
-                            }catch (IOException e) {
+                            } catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }
                             return null;
@@ -249,8 +248,9 @@ public final class ControllerSceneInventoryAddon {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override @SuppressWarnings("DuplicatedCode")
+                return new Task<>() {
+                    @Override
+                    @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             double weight;
@@ -301,7 +301,8 @@ public final class ControllerSceneInventoryAddon {
                                 } else {
                                     mp = Integer.parseInt(strMP);
                                 }
-                                if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0) throw new NumberFormatException("A number is negative");
+                                if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0)
+                                    throw new NumberFormatException("A number is negative");
                             } catch (NumberFormatException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Le valute devono essere dei numeri interi positivi!"));
                                 return null;
@@ -361,8 +362,8 @@ public final class ControllerSceneInventoryAddon {
                                         caEffect, otherEffects, false
                                 );
                             } else {
-                                assert addon.getEquipmentID()!=null;
-                                assert addon.getAddonID()!=null;
+                                assert addon.getEquipmentID() != null;
+                                assert addon.getAddonID() != null;
                                 oldName = addon.getName();
                                 Item item = new Item(
                                         addon.getItemID(),
@@ -415,8 +416,9 @@ public final class ControllerSceneInventoryAddon {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override @SuppressWarnings("DuplicatedCode")
+                return new Task<>() {
+                    @Override
+                    @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             double weight;
@@ -466,7 +468,8 @@ public final class ControllerSceneInventoryAddon {
                                 } else {
                                     mp = Integer.parseInt(strMP);
                                 }
-                                if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0) throw new NumberFormatException("A number is negative");
+                                if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0)
+                                    throw new NumberFormatException("A number is negative");
                             } catch (NumberFormatException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Le valute devono essere dei numeri interi positivi!"));
                                 return null;
@@ -552,8 +555,9 @@ public final class ControllerSceneInventoryAddon {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override @SuppressWarnings("DuplicatedCode")
+                return new Task<>() {
+                    @Override
+                    @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
 
                         try {
@@ -695,8 +699,9 @@ public final class ControllerSceneInventoryAddon {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override @SuppressWarnings("DuplicatedCode")
+                return new Task<>() {
+                    @Override
+                    @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             addon = new Addon(addonName);

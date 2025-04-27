@@ -110,7 +110,7 @@ public final class TabDiceRoller {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         try {
@@ -122,8 +122,10 @@ public final class TabDiceRoller {
                                     if (!diceRolling) return null;
                                     result = Randomizer.getRandomizer().nextInt(diceRepresentation.getFaces()) + 1;
                                     int finalResult = result;
-                                    if (DiceRepresentation.COIN.getFaces() != diceRepresentation.getFaces()) Platform.runLater(() -> controller.labelDiceValue.setText(String.valueOf(finalResult)));
-                                    else Platform.runLater(() -> controller.imageViewDice.setImage(finalResult == 1 ? HEAD : TAIL));
+                                    if (DiceRepresentation.COIN.getFaces() != diceRepresentation.getFaces())
+                                        Platform.runLater(() -> controller.labelDiceValue.setText(String.valueOf(finalResult)));
+                                    else
+                                        Platform.runLater(() -> controller.imageViewDice.setImage(finalResult == 1 ? HEAD : TAIL));
                                     Thread.sleep(175);
                                 }
                                 Thread.sleep(1000);
@@ -143,7 +145,8 @@ public final class TabDiceRoller {
                                 }
                                 int finalResult1 = result;
                                 Platform.runLater(() -> {
-                                    if (DiceRepresentation.COIN.getFaces() != diceRepresentation.getFaces()) controller.labelDiceValue.setText(String.valueOf(finalResult1));
+                                    if (DiceRepresentation.COIN.getFaces() != diceRepresentation.getFaces())
+                                        controller.labelDiceValue.setText(String.valueOf(finalResult1));
                                     controller.textAreaDiceSum.setText(sumBuilder.toString());
                                 });
                             }

@@ -15,7 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
 public final class MapManager {
@@ -60,9 +59,9 @@ public final class MapManager {
         return mapList;
     }
     public @Nullable Map getMap(@NotNull final String name) {
-        List<@NotNull Map> maps = mapList.stream().filter(m -> m.getName().equals(name)).collect(Collectors.toList());
+        List<@NotNull Map> maps = mapList.stream().filter(m -> m.getName().equals(name)).toList();
         if (maps.isEmpty()) return null;
-        else return maps.get(0);
+        else return maps.getFirst();
     }
     @Nullable
     public Map registerMap(@NotNull final String name, @NotNull final Image mapImage, @NotNull final String mapExtension) throws SQLException, IOException {

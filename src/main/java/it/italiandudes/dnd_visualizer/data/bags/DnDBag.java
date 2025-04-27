@@ -42,10 +42,7 @@ public final class DnDBag {
     }
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof DnDBag)) return false;
-
-        DnDBag dnDBag = (DnDBag) o;
+        if (!(o instanceof DnDBag dnDBag)) return false;
         return isIncludeBag() == dnDBag.isIncludeBag() && getName().equals(dnDBag.getName()) && getItems().equals(dnDBag.getItems());
     }
     @Override

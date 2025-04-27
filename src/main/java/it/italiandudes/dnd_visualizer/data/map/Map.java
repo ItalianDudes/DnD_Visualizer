@@ -103,9 +103,8 @@ public final class Map {
     }
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Map)) return false;
-
-        Map map = (Map) o;
+        //noinspection PatternVariableHidesField
+        if (!(o instanceof Map map)) return false;
         return getMapID() == map.getMapID() && getCreationDate() == map.getCreationDate() && getName().equals(map.getName());
     }
     @Override

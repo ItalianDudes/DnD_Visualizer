@@ -53,14 +53,14 @@ public final class TabEffects {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         try {
                             String query;
                             PreparedStatement ps;
 
-                            query = "SELECT id, name, duration, intensity, is_treatable, is_curable, is_lethal, is_active FROM effects WHERE name LIKE '%"+controller.textFieldEffectSearchBar.getText()+"%'" + (controller.checkBoxShowActiveEffects.isSelected()?" AND is_active=1;":";");
+                            query = "SELECT id, name, duration, intensity, is_treatable, is_curable, is_lethal, is_active FROM effects WHERE name LIKE '%" + controller.textFieldEffectSearchBar.getText() + "%'" + (controller.checkBoxShowActiveEffects.isSelected() ? " AND is_active=1;" : ";");
                             ps = DBManager.preparedStatement(query);
                             if (ps == null) {
                                 Platform.runLater(() -> {
@@ -80,10 +80,10 @@ public final class TabEffects {
                                                 result.getString("name"),
                                                 result.getString("duration"),
                                                 result.getInt("intensity"),
-                                                EffectKnowledge.values()[result.getInt("is_treatable")+1],
-                                                EffectKnowledge.values()[result.getInt("is_curable")+1],
-                                                EffectKnowledge.values()[result.getInt("is_lethal")+1],
-                                                result.getInt("is_active")!=0
+                                                EffectKnowledge.values()[result.getInt("is_treatable") + 1],
+                                                EffectKnowledge.values()[result.getInt("is_curable") + 1],
+                                                EffectKnowledge.values()[result.getInt("is_lethal") + 1],
+                                                result.getInt("is_active") != 0
                                         ));
                             }
 
@@ -105,7 +105,7 @@ public final class TabEffects {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         try {

@@ -162,8 +162,7 @@ public final class Note implements ISavable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Note)) return false;
-        Note note = (Note) o;
+        if (!(o instanceof Note note)) return false;
         return Objects.equals(getId(), note.getId()) && Objects.equals(getTitle(), note.getTitle()) && Objects.equals(getContent(), note.getContent()) && Objects.equals(getCreationDate(), note.getCreationDate()) && Objects.equals(getLastEdit(), note.getLastEdit());
     }
     @Override

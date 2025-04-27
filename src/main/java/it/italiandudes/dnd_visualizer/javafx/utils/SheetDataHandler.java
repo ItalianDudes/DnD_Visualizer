@@ -55,7 +55,7 @@ public final class SheetDataHandler {
             new Service<Void>() {
                 @Override
                 protected Task<Void> createTask() {
-                    return new Task<Void>() {
+                    return new Task<>() {
                         @Override
                         protected Void call() {
                             try (FileWriter writer = new FileWriter(finalElementPath)) {
@@ -88,7 +88,7 @@ public final class SheetDataHandler {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected synchronized Void call() {
                         String query;
@@ -112,9 +112,10 @@ public final class SheetDataHandler {
                         } catch (SQLException e) {
                             try {
                                 if (ps != null) ps.close();
-                            } catch (SQLException ignored) {}
+                            } catch (SQLException ignored) {
+                            }
                             Logger.log(e, Defs.LOGGER_CONTEXT);
-                            Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI SCRITTURA", "Si e' verificato un errore durante la scrittura di un parametro.\nKEY: "+KEY+"\nVALUE: "+VALUE));
+                            Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DI SCRITTURA", "Si e' verificato un errore durante la scrittura di un parametro.\nKEY: " + KEY + "\nVALUE: " + VALUE));
                         }
                         return null;
                     }

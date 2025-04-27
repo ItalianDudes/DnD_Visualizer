@@ -30,7 +30,7 @@ public final class TabAbility {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         String strength = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabAbility.STRENGTH);
@@ -89,12 +89,18 @@ public final class TabAbility {
                         int profPersuasion = strProfPersuasion != null ? Integer.parseInt(strProfPersuasion) : 0;
 
                         Platform.runLater(() -> {
-                            if (strength != null) controller.spinnerStrength.getValueFactory().setValue(Integer.parseInt(strength));
-                            if (dexterity != null) controller.spinnerDexterity.getValueFactory().setValue(Integer.parseInt(dexterity));
-                            if (constitution != null) controller.spinnerConstitution.getValueFactory().setValue(Integer.parseInt(constitution));
-                            if (intelligence != null) controller.spinnerIntelligence.getValueFactory().setValue(Integer.parseInt(intelligence));
-                            if (wisdom != null) controller.spinnerWisdom.getValueFactory().setValue(Integer.parseInt(wisdom));
-                            if (charisma != null) controller.spinnerCharisma.getValueFactory().setValue(Integer.parseInt(charisma));
+                            if (strength != null)
+                                controller.spinnerStrength.getValueFactory().setValue(Integer.parseInt(strength));
+                            if (dexterity != null)
+                                controller.spinnerDexterity.getValueFactory().setValue(Integer.parseInt(dexterity));
+                            if (constitution != null)
+                                controller.spinnerConstitution.getValueFactory().setValue(Integer.parseInt(constitution));
+                            if (intelligence != null)
+                                controller.spinnerIntelligence.getValueFactory().setValue(Integer.parseInt(intelligence));
+                            if (wisdom != null)
+                                controller.spinnerWisdom.getValueFactory().setValue(Integer.parseInt(wisdom));
+                            if (charisma != null)
+                                controller.spinnerCharisma.getValueFactory().setValue(Integer.parseInt(charisma));
 
                             controller.radioButtonSTStrengthProficiency.setSelected(profSTStrength);
                             controller.radioButtonSTDexterityProficiency.setSelected(profSTDexterity);
@@ -109,20 +115,26 @@ public final class TabAbility {
                             else if (profAcrobatics == 2) controller.radioButtonMasteryAcrobatics.setSelected(true);
                             if (profStealth == 1) controller.radioButtonProficiencyStealth.setSelected(true);
                             else if (profStealth == 2) controller.radioButtonMasteryStealth.setSelected(true);
-                            if (profSleightOfHand == 1) controller.radioButtonProficiencySleightOfHand.setSelected(true);
-                            else if (profSleightOfHand == 2) controller.radioButtonMasterySleightOfHand.setSelected(true);
+                            if (profSleightOfHand == 1)
+                                controller.radioButtonProficiencySleightOfHand.setSelected(true);
+                            else if (profSleightOfHand == 2)
+                                controller.radioButtonMasterySleightOfHand.setSelected(true);
                             if (profArcana == 1) controller.radioButtonProficiencyArcana.setSelected(true);
                             else if (profArcana == 2) controller.radioButtonMasteryArcana.setSelected(true);
-                            if (profInvestigation == 1) controller.radioButtonProficiencyInvestigation.setSelected(true);
-                            else if (profInvestigation == 2) controller.radioButtonMasteryInvestigation.setSelected(true);
+                            if (profInvestigation == 1)
+                                controller.radioButtonProficiencyInvestigation.setSelected(true);
+                            else if (profInvestigation == 2)
+                                controller.radioButtonMasteryInvestigation.setSelected(true);
                             if (profNature == 1) controller.radioButtonProficiencyNature.setSelected(true);
                             else if (profNature == 2) controller.radioButtonMasteryNature.setSelected(true);
                             if (profReligion == 1) controller.radioButtonProficiencyReligion.setSelected(true);
                             else if (profReligion == 2) controller.radioButtonMasteryReligion.setSelected(true);
                             if (profHistory == 1) controller.radioButtonProficiencyHistory.setSelected(true);
                             else if (profHistory == 2) controller.radioButtonMasteryHistory.setSelected(true);
-                            if (profAnimalHandling == 1) controller.radioButtonProficiencyAnimalHandling.setSelected(true);
-                            else if (profAnimalHandling == 2) controller.radioButtonMasteryAnimalHandling.setSelected(true);
+                            if (profAnimalHandling == 1)
+                                controller.radioButtonProficiencyAnimalHandling.setSelected(true);
+                            else if (profAnimalHandling == 2)
+                                controller.radioButtonMasteryAnimalHandling.setSelected(true);
                             if (profInsight == 1) controller.radioButtonProficiencyInsight.setSelected(true);
                             else if (profInsight == 2) controller.radioButtonMasteryInsight.setSelected(true);
                             if (profMedicine == 1) controller.radioButtonProficiencyMedicine.setSelected(true);

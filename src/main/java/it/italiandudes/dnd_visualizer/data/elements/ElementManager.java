@@ -60,9 +60,9 @@ public final class ElementManager {
 
     // Methods
     public @Nullable Element getElement(@NotNull final Map map, @NotNull final String name) {
-        List<@NotNull Element> elements = elementList.stream().filter(w -> w.getMap().equals(map) && w.getName().equals(name)).collect(Collectors.toList());
+        List<@NotNull Element> elements = elementList.stream().filter(w -> w.getMap().equals(map) && w.getName().equals(name)).toList();
         if (elements.isEmpty()) return null;
-        else return elements.get(0);
+        else return elements.getFirst();
     }
     public @NotNull HashSet<@NotNull Element> getMapElements(@NotNull final Map map) {
         return elementList.stream().filter(element -> element.getMap().equals(map)).collect(Collectors.toCollection(HashSet::new));

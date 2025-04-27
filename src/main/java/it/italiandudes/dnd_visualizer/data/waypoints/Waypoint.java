@@ -176,8 +176,7 @@ public final class Waypoint extends StackPane {
         ps.close();
     }
     public boolean waypointEquals(Object o) {
-        if (!(o instanceof Waypoint)) return false;
-        Waypoint waypoint = (Waypoint) o;
+        if (!(o instanceof Waypoint waypoint)) return false;
         return getWaypointID() == waypoint.getWaypointID() && getCreationDate() == waypoint.getCreationDate() && isVisibleToPlayers() == waypoint.isVisibleToPlayers() && getMap().equals(waypoint.getMap()) && getName().equals(waypoint.getName()) && getCenter().equals(waypoint.getCenter()) && getType() == waypoint.getType();
     }
     // NOTE: DO NOT OVERRIDE EQUALS AND HASHCODE

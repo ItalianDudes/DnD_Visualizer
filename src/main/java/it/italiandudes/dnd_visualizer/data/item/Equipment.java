@@ -237,11 +237,8 @@ public class Equipment extends Item implements ISavable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Equipment)) return false;
+        if (!(o instanceof Equipment equipment)) return false;
         if (!super.equals(o)) return false;
-
-        Equipment equipment = (Equipment) o;
-
         if (getLifeEffect() != equipment.getLifeEffect()) return false;
         if (Double.compare(equipment.getLifePercentageEffect(), getLifePercentageEffect()) != 0) return false;
         if (getCaEffect() != equipment.getCaEffect()) return false;

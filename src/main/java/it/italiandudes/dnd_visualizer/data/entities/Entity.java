@@ -332,9 +332,7 @@ public final class Entity extends StackPane {
         ps.close();
     }
     public boolean entityEquals(Object o) {
-        if (!(o instanceof Entity)) return false;
-
-        Entity entity = (Entity) o;
+        if (!(o instanceof Entity entity)) return false;
         return getEntityID() == entity.getEntityID() && getCreationDate() == entity.getCreationDate() && getLevel() == entity.getLevel() && ca == entity.ca && hp == entity.hp && getMaxHP() == entity.getMaxHP() && getTempHP() == entity.getTempHP() && isVisibleToPlayers() == entity.isVisibleToPlayers() && getMap().equals(entity.getMap()) && getName().equals(entity.getName()) && getRace().equals(entity.getRace()) && Objects.equals(getEntityClass(), entity.getEntityClass()) && getType() == entity.getType() && getCenter().equals(entity.getCenter()) && Objects.equals(getBase64image(), entity.getBase64image()) && Objects.equals(getImageExtension(), entity.getImageExtension()) && Objects.equals(getDescription(), entity.getDescription()) && Objects.equals(getOwner(), entity.getOwner());
     }
     @Override @NotNull

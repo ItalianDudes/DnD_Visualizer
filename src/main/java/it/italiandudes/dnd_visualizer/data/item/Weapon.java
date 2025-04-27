@@ -168,11 +168,8 @@ public final class Weapon extends Equipment implements ISavable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Weapon)) return false;
+        if (!(o instanceof Weapon weapon)) return false;
         if (!super.equals(o)) return false;
-
-        Weapon weapon = (Weapon) o;
-
         if (getWeaponID() != null ? !getWeaponID().equals(weapon.getWeaponID()) : weapon.getWeaponID() != null)
             return false;
         if (getWeaponCategory() != null ? !getWeaponCategory().equals(weapon.getWeaponCategory()) : weapon.getWeaponCategory() != null)

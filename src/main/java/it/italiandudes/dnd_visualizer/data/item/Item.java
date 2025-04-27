@@ -381,8 +381,7 @@ public class Item implements ISavable, ISerializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Item)) return false;
-        Item item = (Item) o;
+        if (!(o instanceof Item item)) return false;
         return getCostCopper() == item.getCostCopper() && Double.compare(getWeight(), item.getWeight()) == 0 && getQuantity() == item.getQuantity() && Objects.equals(getItemID(), item.getItemID()) && Objects.equals(getBase64image(), item.getBase64image()) && Objects.equals(getImageExtension(), item.getImageExtension()) && Objects.equals(getName(), item.getName()) && Objects.equals(getDescription(), item.getDescription()) && getRarity() == item.getRarity() && getCategory() == item.getCategory();
     }
     @Override

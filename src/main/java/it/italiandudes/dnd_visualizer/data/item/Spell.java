@@ -265,9 +265,8 @@ public final class Spell extends Item implements ISavable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Spell)) return false;
+        if (!(o instanceof Spell spell)) return false;
         if (!super.equals(o)) return false;
-        Spell spell = (Spell) o;
         return getLevel() == spell.getLevel() && Objects.equals(getSpellID(), spell.getSpellID()) && Objects.equals(getType(), spell.getType()) && Objects.equals(getCastTime(), spell.getCastTime()) && Objects.equals(getRange(), spell.getRange()) && Objects.equals(getComponents(), spell.getComponents()) && Objects.equals(getDuration(), spell.getDuration());
     }
     @Override

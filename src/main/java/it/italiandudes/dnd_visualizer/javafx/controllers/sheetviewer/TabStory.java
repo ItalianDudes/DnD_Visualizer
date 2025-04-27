@@ -44,7 +44,7 @@ public final class TabStory {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         String characterBackstory = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabStory.CHARACTER_BACKSTORY);
@@ -54,7 +54,8 @@ public final class TabStory {
                         Image cultImage = null;
                         try {
                             if (base64CultImage != null) {
-                                if (cultImageExtension == null) throw new IllegalArgumentException("Image without declared extension");
+                                if (cultImageExtension == null)
+                                    throw new IllegalArgumentException("Image without declared extension");
                                 byte[] imageBytes = Base64.getDecoder().decode(base64CultImage);
                                 ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
                                 BufferedImage bufferedImageCharacter = ImageIO.read(imageStream);
@@ -70,7 +71,8 @@ public final class TabStory {
                             if (characterBackstory != null) controller.textAreaBackstory.setText(characterBackstory);
                             if (cultDescription != null) controller.textAreaCult.setText(cultDescription);
                             if (finalCultImage != null) controller.imageViewSymbolImage.setImage(finalCultImage);
-                            if (alliesAndOrganizations != null) controller.textAreaAlliesAndOrganizations.setText(alliesAndOrganizations);
+                            if (alliesAndOrganizations != null)
+                                controller.textAreaAlliesAndOrganizations.setText(alliesAndOrganizations);
                         });
                         return null;
                     }
@@ -102,10 +104,10 @@ public final class TabStory {
         }
         if(imagePath!=null) {
             File finalImagePath = imagePath;
-            Service<Void> imageReaderService = new Service<Void>() {
+            Service<Void> imageReaderService = new Service<>() {
                 @Override
                 protected Task<Void> createTask() {
-                    return new Task<Void>() {
+                    return new Task<>() {
                         @Override
                         protected Void call() {
                             try {
@@ -117,7 +119,7 @@ public final class TabStory {
                                 Platform.runLater(() -> controller.imageViewSymbolImage.setImage(SwingFXUtils.toFXImage(img, null)));
                                 symbolImageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
                                 SheetDataHandler.writeKeyParameter(SheetKeyParameters.TabStory.CULT_IMAGE, SheetKeyParameters.TabStory.CULT_IMAGE_EXTENSION, img, symbolImageExtension);
-                            }catch (IOException e) {
+                            } catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }
                             return null;

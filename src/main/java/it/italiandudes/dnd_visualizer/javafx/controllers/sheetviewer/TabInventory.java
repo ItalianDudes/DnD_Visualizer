@@ -107,7 +107,7 @@ public final class TabInventory {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         String copperCoins = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabInventory.COPPER_COINS);
@@ -116,11 +116,16 @@ public final class TabInventory {
                         String goldCoins = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabInventory.GOLD_COINS);
                         String platinumCoins = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabInventory.PLATINUM_COINS);
                         Platform.runLater(() -> {
-                            if (copperCoins != null) controller.spinnerMR.getValueFactory().setValue(Integer.parseInt(copperCoins));
-                            if (silverCoins != null) controller.spinnerMA.getValueFactory().setValue(Integer.parseInt(silverCoins));
-                            if (electrumCoins != null) controller.spinnerME.getValueFactory().setValue(Integer.parseInt(electrumCoins));
-                            if (goldCoins != null) controller.spinnerMO.getValueFactory().setValue(Integer.parseInt(goldCoins));
-                            if (platinumCoins != null) controller.spinnerMP.getValueFactory().setValue(Integer.parseInt(platinumCoins));
+                            if (copperCoins != null)
+                                controller.spinnerMR.getValueFactory().setValue(Integer.parseInt(copperCoins));
+                            if (silverCoins != null)
+                                controller.spinnerMA.getValueFactory().setValue(Integer.parseInt(silverCoins));
+                            if (electrumCoins != null)
+                                controller.spinnerME.getValueFactory().setValue(Integer.parseInt(electrumCoins));
+                            if (goldCoins != null)
+                                controller.spinnerMO.getValueFactory().setValue(Integer.parseInt(goldCoins));
+                            if (platinumCoins != null)
+                                controller.spinnerMP.getValueFactory().setValue(Integer.parseInt(platinumCoins));
                             updateLoad(controller);
                         });
                         return null;
@@ -171,7 +176,7 @@ public final class TabInventory {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         if (!(boolean) Settings.getSettings().get("enableLoad")) {
@@ -185,17 +190,17 @@ public final class TabInventory {
                             double totalWeight;
                             if ((boolean) Settings.getSettings().get("enablePassiveLoad")) {
                                 if ((boolean) Settings.getSettings().get("coinsIncreaseLoad")) {
-                                    inventoryWeight += (controller.spinnerMR.getValueFactory().getValue()/Defs.Load.COIN_LOAD_DIVISOR) + (controller.spinnerMA.getValueFactory().getValue()/Defs.Load.COIN_LOAD_DIVISOR) + (controller.spinnerME.getValueFactory().getValue()/Defs.Load.COIN_LOAD_DIVISOR) + (controller.spinnerMO.getValueFactory().getValue()/Defs.Load.COIN_LOAD_DIVISOR) + (controller.spinnerMP.getValueFactory().getValue()/Defs.Load.COIN_LOAD_DIVISOR);
+                                    inventoryWeight += (controller.spinnerMR.getValueFactory().getValue() / Defs.Load.COIN_LOAD_DIVISOR) + (controller.spinnerMA.getValueFactory().getValue() / Defs.Load.COIN_LOAD_DIVISOR) + (controller.spinnerME.getValueFactory().getValue() / Defs.Load.COIN_LOAD_DIVISOR) + (controller.spinnerMO.getValueFactory().getValue() / Defs.Load.COIN_LOAD_DIVISOR) + (controller.spinnerMP.getValueFactory().getValue() / Defs.Load.COIN_LOAD_DIVISOR);
                                 }
                                 query = "SELECT weight, quantity FROM items WHERE quantity>0 AND weight>0;";
                                 ps = DBManager.preparedStatement(query);
                                 if (ps == null) throw new SQLException("The database connection doesn't exist");
                                 result = ps.executeQuery();
                                 while (result.next()) {
-                                    inventoryWeight += (result.getDouble("weight")*result.getInt("quantity"));
+                                    inventoryWeight += (result.getDouble("weight") * result.getInt("quantity"));
                                 }
                                 ps.close();
-                                totalWeight = controller.spinnerStrength.getValue()*Defs.Load.TOTAL_PASSIVE_LOAD_MULTIPLIER;
+                                totalWeight = controller.spinnerStrength.getValue() * Defs.Load.TOTAL_PASSIVE_LOAD_MULTIPLIER;
                             } else {
                                 query = "SELECT i.weight AS weight FROM items AS i JOIN equipments AS e ON i.id = e.item_id WHERE e.is_equipped=1;";
                                 ps = DBManager.preparedStatement(query);
@@ -205,12 +210,12 @@ public final class TabInventory {
                                     inventoryWeight += result.getDouble("weight");
                                 }
                                 ps.close();
-                                totalWeight = controller.spinnerStrength.getValue()*Defs.Load.TOTAL_ACTIVE_LOAD_MULTIPLIER;
+                                totalWeight = controller.spinnerStrength.getValue() * Defs.Load.TOTAL_ACTIVE_LOAD_MULTIPLIER;
                             }
                             totalWeight += loadEffect;
                             totalWeight += (totalWeight * loadPercentageEffect) / 100;
-                            totalWeight = totalWeight>=0?totalWeight:0;
-                            double loadPerc = (inventoryWeight/totalWeight)*100;
+                            totalWeight = totalWeight >= 0 ? totalWeight : 0;
+                            double loadPerc = (inventoryWeight / totalWeight) * 100;
                             String status;
                             if (loadPerc >= LoadCategory.LIGHT.getLoadThresholdMinPercentage() && loadPerc < LoadCategory.LIGHT.getLoadThresholdMaxPercentage()) {
                                 status = LoadCategory.LIGHT.getLoadIdentifier();
@@ -235,7 +240,8 @@ public final class TabInventory {
                         } catch (SQLException e) {
                             try {
                                 if (ps != null) ps.close();
-                            } catch (SQLException ignored) {}
+                            } catch (SQLException ignored) {
+                            }
                             Logger.log(e, Defs.LOGGER_CONTEXT);
                             new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
                         }
@@ -319,7 +325,7 @@ public final class TabInventory {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         try {
@@ -327,7 +333,7 @@ public final class TabInventory {
                             PreparedStatement ps;
                             if (selectedCategory != null) {
                                 if (selectedCategory.equals(Category.EQUIPMENT) && equipmentType != null) {
-                                    query = "SELECT i.id AS id, i.name AS name, i.category AS category, i.rarity AS rarity, i.weight AS weight, i.cost_copper AS cost_copper, i.quantity AS quantity FROM items AS i JOIN equipments AS e ON i.id = e.item_id WHERE i.name LIKE '%" + controller.textFieldSearchBar.getText() + "%' AND i.category=? AND e.type=?" + (controller.checkBoxShowOwned.isSelected()?" AND i.quantity>0;":";");
+                                    query = "SELECT i.id AS id, i.name AS name, i.category AS category, i.rarity AS rarity, i.weight AS weight, i.cost_copper AS cost_copper, i.quantity AS quantity FROM items AS i JOIN equipments AS e ON i.id = e.item_id WHERE i.name LIKE '%" + controller.textFieldSearchBar.getText() + "%' AND i.category=? AND e.type=?" + (controller.checkBoxShowOwned.isSelected() ? " AND i.quantity>0;" : ";");
                                     ps = DBManager.preparedStatement(query);
                                     if (ps == null) {
                                         Platform.runLater(() -> {
@@ -339,7 +345,7 @@ public final class TabInventory {
                                     ps.setInt(1, selectedCategory.getDatabaseValue());
                                     ps.setInt(2, equipmentType.getDatabaseValue());
                                 } else {
-                                    query = "SELECT id, name, category, rarity, weight, cost_copper, quantity FROM items WHERE name LIKE '%" + controller.textFieldSearchBar.getText() + "%' AND category=?" + (controller.checkBoxShowOwned.isSelected()?" AND quantity>0;":";");
+                                    query = "SELECT id, name, category, rarity, weight, cost_copper, quantity FROM items WHERE name LIKE '%" + controller.textFieldSearchBar.getText() + "%' AND category=?" + (controller.checkBoxShowOwned.isSelected() ? " AND quantity>0;" : ";");
                                     ps = DBManager.preparedStatement(query);
                                     if (ps == null) {
                                         Platform.runLater(() -> {
@@ -351,7 +357,7 @@ public final class TabInventory {
                                     ps.setInt(1, selectedCategory.getDatabaseValue());
                                 }
                             } else {
-                                query = "SELECT id, name, category, rarity, weight, cost_copper, quantity FROM items WHERE name LIKE '%"+controller.textFieldSearchBar.getText()+"%'" + (controller.checkBoxShowOwned.isSelected()?" AND quantity>0;":";");
+                                query = "SELECT id, name, category, rarity, weight, cost_copper, quantity FROM items WHERE name LIKE '%" + controller.textFieldSearchBar.getText() + "%'" + (controller.checkBoxShowOwned.isSelected() ? " AND quantity>0;" : ";");
                                 ps = DBManager.preparedStatement(query);
                                 if (ps == null) {
                                     Platform.runLater(() -> {
@@ -417,7 +423,7 @@ public final class TabInventory {
             new Service<Void>() {
                 @Override
                 protected Task<Void> createTask() {
-                    return new Task<Void>() {
+                    return new Task<>() {
                         @Override
                         protected Void call() {
                             if (!finalElementPath.exists() || !finalElementPath.isFile()) {
@@ -457,7 +463,7 @@ public final class TabInventory {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         try {
@@ -466,18 +472,20 @@ public final class TabInventory {
                             String dbVersion = null;
                             try {
                                 dbVersion = element.getString(ISerializable.DB_VERSION);
-                                if (!dbVersion.equals(Defs.SHEET_DB_VERSION)) throw new JSONException("DB Version Mismatch");
+                                if (!dbVersion.equals(Defs.SHEET_DB_VERSION))
+                                    throw new JSONException("DB Version Mismatch");
                             } catch (JSONException e) {
                                 String supportedVersion = Defs.SHEET_DB_VERSION;
-                                String inventoryVersion = (dbVersion!=null?dbVersion:"NA");
+                                String inventoryVersion = (dbVersion != null ? dbVersion : "NA");
                                 Platform.runLater(() -> {
-                                    new ErrorAlert("ERRORE", "Errore di Importazione", "La versione di database dell'elemento non e' supportata.\nVersione Supportata: "+supportedVersion+"\nVersione Elemento: "+inventoryVersion);
+                                    new ErrorAlert("ERRORE", "Errore di Importazione", "La versione di database dell'elemento non e' supportata.\nVersione Supportata: " + supportedVersion + "\nVersione Elemento: " + inventoryVersion);
                                     Client.setScene(thisScene);
                                 });
                                 return null;
                             }
                             Integer serializerID = (Integer) element.get(ISerializable.SERIALIZER_ID);
-                            if (serializerID == null || serializerID < 0 || serializerID >= SerializerType.values().length) throw new IllegalArgumentException("The serializerID must be an non null integer withing SerializerTypes array bounds!");
+                            if (serializerID == null || serializerID < 0 || serializerID >= SerializerType.values().length)
+                                throw new IllegalArgumentException("The serializerID must be an non null integer withing SerializerTypes array bounds!");
                             SerializerType serializerType = SerializerType.values()[serializerID];
                             if (serializerType == SerializerType.INVENTORY) {
                                 JSONArray elements = element.getJSONArray("elements");
@@ -512,7 +520,7 @@ public final class TabInventory {
                                 int finalSuccess = success;
                                 int finalErrored = errored;
                                 Platform.runLater(() -> {
-                                    new InformationAlert("IMPORTAZIONE COMPLETATA", "Importazione Inventario", "Importazione completata!\nSuccessi: "+ finalSuccess +"\nFallimenti: "+ finalErrored);
+                                    new InformationAlert("IMPORTAZIONE COMPLETATA", "Importazione Inventario", "Importazione completata!\nSuccessi: " + finalSuccess + "\nFallimenti: " + finalErrored);
                                     Client.setScene(thisScene);
                                     search(controller);
                                     updateLoad(controller);
@@ -591,7 +599,7 @@ public final class TabInventory {
             new Service<Void>() {
                 @Override
                 protected Task<Void> createTask() {
-                    return new Task<Void>() {
+                    return new Task<>() {
                         @Override
                         protected Void call() {
                             StringBuilder codeBuilder = new StringBuilder();
@@ -617,12 +625,13 @@ public final class TabInventory {
                                 String dbVersion = null;
                                 try {
                                     dbVersion = element.getString(ISerializable.DB_VERSION);
-                                    if (!dbVersion.equals(Defs.SHEET_DB_VERSION)) throw new JSONException("DB Version Mismatch");
+                                    if (!dbVersion.equals(Defs.SHEET_DB_VERSION))
+                                        throw new JSONException("DB Version Mismatch");
                                 } catch (JSONException e) {
                                     String supportedVersion = Defs.SHEET_DB_VERSION;
-                                    String inventoryVersion = (dbVersion!=null?dbVersion:"NA");
+                                    String inventoryVersion = (dbVersion != null ? dbVersion : "NA");
                                     Platform.runLater(() -> {
-                                        new ErrorAlert("ERRORE", "Errore di Importazione", "La versione di database dell'inventario non e' supportata.\nVersione Supportata: "+supportedVersion+"\nVersione Inventario: "+inventoryVersion);
+                                        new ErrorAlert("ERRORE", "Errore di Importazione", "La versione di database dell'inventario non e' supportata.\nVersione Supportata: " + supportedVersion + "\nVersione Inventario: " + inventoryVersion);
                                         Client.setScene(thisScene);
                                     });
                                     return null;
@@ -664,7 +673,7 @@ public final class TabInventory {
                                     int finalSuccess = success;
                                     int finalErrored = errored;
                                     Platform.runLater(() -> {
-                                        new InformationAlert("IMPORTAZIONE COMPLETATA", "Importazione Inventario", "Importazione completata!\nSuccessi: "+ finalSuccess +"\nFallimenti: "+ finalErrored);
+                                        new InformationAlert("IMPORTAZIONE COMPLETATA", "Importazione Inventario", "Importazione completata!\nSuccessi: " + finalSuccess + "\nFallimenti: " + finalErrored);
                                         Client.setScene(thisScene);
                                         search(controller);
                                         updateLoad(controller);
@@ -708,7 +717,7 @@ public final class TabInventory {
             new Service<Void>() {
                 @Override
                 protected Task<Void> createTask() {
-                    return new Task<Void>() {
+                    return new Task<>() {
                         @Override
                         protected Void call() {
                             String query;
@@ -847,7 +856,7 @@ public final class TabInventory {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         for (ElementPreview element : elementList) {
@@ -887,7 +896,7 @@ public final class TabInventory {
         if (!elementList.isEmpty()) {
             if (elementList.size() == 1) {
                 MenuItem editSelected = new MenuItem("Modifica Elemento");
-                editSelected.setOnAction((e) -> editElement(controller, elementList.get(0)));
+                editSelected.setOnAction((e) -> editElement(controller, elementList.getFirst()));
                 menu.getItems().add(editSelected);
             }
             MenuItem deleteSelected = new MenuItem("Elimina Elemento");
@@ -967,7 +976,7 @@ public final class TabInventory {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         if (bag.isIncludeBag()) {

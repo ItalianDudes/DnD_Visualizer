@@ -250,8 +250,7 @@ public final class CoinDeposit extends StackPane {
         ps.close();
     }
     public boolean coinDepositEquals(Object o) {
-        if (!(o instanceof CoinDeposit)) return false;
-        CoinDeposit that = (CoinDeposit) o;
+        if (!(o instanceof CoinDeposit that)) return false;
         return getCoinDepositID() == that.getCoinDepositID() && getCreationDate() == that.getCreationDate() && isVisibleToPlayers() == that.isVisibleToPlayers() && getMr() == that.getMr() && getMa() == that.getMa() && getMe() == that.getMe() && getMo() == that.getMo() && getMp() == that.getMp() && Objects.equals(getMap(), that.getMap()) && Objects.equals(getCenter(), that.getCenter());
     }
     // NOTE: DO NOT OVERRIDE EQUALS AND HASHCODE

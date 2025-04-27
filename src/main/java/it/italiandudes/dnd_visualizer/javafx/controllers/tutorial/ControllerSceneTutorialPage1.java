@@ -36,11 +36,10 @@ public final class ControllerSceneTutorialPage1 {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
-                        //noinspection StatementWithEmptyBody
-                        while (!configurationComplete);
+                        while (!configurationComplete) Thread.onSpinWait();
                         buttonNextPage.setDisable(false);
                         return null;
                     }

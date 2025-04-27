@@ -37,7 +37,7 @@ public final class TabPhysicalDescription {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         String age = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabPhysicalDescription.AGE);
@@ -54,8 +54,10 @@ public final class TabPhysicalDescription {
                             if (eyes != null) controller.textFieldEyes.setText(eyes);
                             if (skin != null) controller.textFieldSkin.setText(skin);
                             if (hair != null) controller.textFieldHair.setText(hair);
-                            if (physicalDescription != null) controller.textAreaPhysicalDescription.setText(physicalDescription);
-                            if (controller.imageViewCharacterImage.getImage() != null) controller.imageViewCharacterBodyImage.setImage(controller.imageViewCharacterImage.getImage());
+                            if (physicalDescription != null)
+                                controller.textAreaPhysicalDescription.setText(physicalDescription);
+                            if (controller.imageViewCharacterImage.getImage() != null)
+                                controller.imageViewCharacterBodyImage.setImage(controller.imageViewCharacterImage.getImage());
                         });
                         return null;
                     }
@@ -91,10 +93,10 @@ public final class TabPhysicalDescription {
         }
         if(imagePath!=null) {
             File finalImagePath = imagePath;
-            Service<Void> imageReaderService = new Service<Void>() {
+            Service<Void> imageReaderService = new Service<>() {
                 @Override
                 protected Task<Void> createTask() {
-                    return new Task<Void>() {
+                    return new Task<>() {
                         @Override
                         protected Void call() {
                             try {
@@ -110,7 +112,7 @@ public final class TabPhysicalDescription {
                                 });
                                 TabCharacter.setCharacterImageExtension(ImageHandler.getImageExtension(finalImagePath.getAbsolutePath()));
                                 SheetDataHandler.writeKeyParameter(SheetKeyParameters.CHARACTER_IMAGE, SheetKeyParameters.CHARACTER_IMAGE_EXTENSION, img, TabCharacter.getCharacterImageExtension());
-                            }catch (IOException e) {
+                            } catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }
                             return null;

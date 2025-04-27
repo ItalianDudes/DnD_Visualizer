@@ -264,8 +264,7 @@ public final class Effect implements ISavable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Effect)) return false;
-        Effect effect = (Effect) o;
+        if (!(o instanceof Effect effect)) return false;
         return getIntensity() == effect.getIntensity() && getLifeEffect() == effect.getLifeEffect() && Double.compare(getLifePercentageEffect(), effect.getLifePercentageEffect()) == 0 && getCaEffect() == effect.getCaEffect() && getLoadEffect() == effect.getLoadEffect() && Double.compare(getLoadPercentageEffect(), effect.getLoadPercentageEffect()) == 0 && isActive() == effect.isActive() && Objects.equals(getId(), effect.getId()) && Objects.equals(getName(), effect.getName()) && Objects.equals(getDuration(), effect.getDuration()) && getIsTreatable() == effect.getIsTreatable() && getIsCurable() == effect.getIsCurable() && getIsLethal() == effect.getIsLethal() && Objects.equals(getOtherEffects(), effect.getOtherEffects()) && Objects.equals(getDescription(), effect.getDescription());
     }
     @Override

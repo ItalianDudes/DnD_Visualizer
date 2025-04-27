@@ -73,7 +73,7 @@ public final class ControllerSceneCampaignTabMaps {
 
     // Initialize
     @FXML private void initialize() {
-        listViewMaps.setCellFactory(lv -> new ListCell<Map>() {
+        listViewMaps.setCellFactory(lv -> new ListCell<>() {
             @Override
             protected void updateItem(Map map, boolean empty) {
                 super.updateItem(map, empty);
@@ -94,7 +94,7 @@ public final class ControllerSceneCampaignTabMaps {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         HashSet<Map> maps = MapManager.getInstance().getMaps();
@@ -209,8 +209,7 @@ public final class ControllerSceneCampaignTabMaps {
         addCoinDeposit.setOnAction(e -> addCoinDeposit(center));
         contextMenu.getItems().add(addCoinDeposit);
 
-        if (event.getSource() instanceof Entity) {
-            Entity entity = (Entity) event.getSource();
+        if (event.getSource() instanceof Entity entity) {
 
             MenuItem editEntity = new MenuItem("Modifica Entita'");
             editEntity.setOnAction(e -> editEntity(entity));
@@ -227,8 +226,7 @@ public final class ControllerSceneCampaignTabMaps {
 
             contextMenu.getItems().addAll(editEntity, changeVisibilityMenu, removeEntity);
 
-        } else if (event.getSource() instanceof Element) {
-            Element element = (Element) event.getSource();
+        } else if (event.getSource() instanceof Element element) {
 
             MenuItem editElement = new MenuItem("Modifica Elemento");
             editElement.setOnAction(e -> editElement(element));
@@ -244,8 +242,7 @@ public final class ControllerSceneCampaignTabMaps {
             removeElement.setOnAction(e -> removeElement(element));
 
             contextMenu.getItems().addAll(editElement, changeVisibilityMenu, removeElement);
-        } else if (event.getSource() instanceof Waypoint) {
-            Waypoint waypoint = (Waypoint) event.getSource();
+        } else if (event.getSource() instanceof Waypoint waypoint) {
 
             Menu renameWaypointMenu = new Menu("Rinomina Waypoint");
             TextField renameNameField = new TextField();
@@ -266,8 +263,7 @@ public final class ControllerSceneCampaignTabMaps {
             removeWaypoint.setOnAction(e -> removeWaypoint(waypoint));
 
             contextMenu.getItems().addAll(renameWaypointMenu, changeVisibilityMenu, removeWaypoint);
-        } else if (event.getSource() instanceof CoinDeposit) {
-            CoinDeposit coinDeposit = (CoinDeposit) event.getSource();
+        } else if (event.getSource() instanceof CoinDeposit coinDeposit) {
 
             Menu editMRMenu = new Menu("Modifica Monete di Rame");
             TextField mrTextField = new TextField();

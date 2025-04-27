@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
 public final class UserManager {
@@ -37,15 +36,15 @@ public final class UserManager {
     // Methods
     @Nullable
     public RegisteredUser getRegisteredUser(@NotNull final String name) {
-        @NotNull List<RegisteredUser> users = registeredUserList.stream().filter(user -> user.getPlayerName().equals(name)).collect(Collectors.toList());
+        @NotNull List<RegisteredUser> users = registeredUserList.stream().filter(user -> user.getPlayerName().equals(name)).toList();
         if (users.isEmpty()) return null;
-        else return users.get(0);
+        else return users.getFirst();
     }
     @Nullable
     public RegisteredUser getRegisteredUser(final int playerID) {
-        @NotNull List<RegisteredUser> users = registeredUserList.stream().filter(user -> user.getPlayerID() == playerID).collect(Collectors.toList());
+        @NotNull List<RegisteredUser> users = registeredUserList.stream().filter(user -> user.getPlayerID() == playerID).toList();
         if (users.isEmpty()) return null;
-        else return users.get(0);
+        else return users.getFirst();
     }
     public boolean isRegistered(@NotNull final String name) {
         return registeredUserList.stream().anyMatch(registeredUser -> registeredUser.getPlayerName().equals(name));

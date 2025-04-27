@@ -71,8 +71,7 @@ public final class EffectPreview {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof EffectPreview)) return false;
-        EffectPreview that = (EffectPreview) o;
+        if (!(o instanceof EffectPreview that)) return false;
         return getId() == that.getId() && getIntensity() == that.getIntensity() && Objects.equals(getName(), that.getName()) && Objects.equals(getDuration(), that.getDuration()) && getIsTreatable() == that.getIsTreatable() && getIsCurable() == that.getIsCurable() && getIsLethal() == that.getIsLethal() && Objects.equals(getIsActive(), that.getIsActive());
     }
     @Override

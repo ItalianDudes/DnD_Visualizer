@@ -45,7 +45,7 @@ public final class TabPrivilegesAndTraits {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         try {
@@ -102,7 +102,7 @@ public final class TabPrivilegesAndTraits {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         try {

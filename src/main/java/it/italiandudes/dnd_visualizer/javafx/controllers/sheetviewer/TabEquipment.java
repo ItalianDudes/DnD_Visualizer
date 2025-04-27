@@ -316,7 +316,7 @@ public final class TabEquipment {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         PreparedStatement ps = null;
@@ -338,11 +338,11 @@ public final class TabEquipment {
                                         armors.add(new Armor(result.getString("name")));
                                         break;
 
-                                        case WEAPON:
+                                    case WEAPON:
                                         weapons.add(new Weapon(result.getString("name")));
                                         break;
 
-                                        case ADDON:
+                                    case ADDON:
                                         addons.add(new Addon(result.getString("name")));
                                         break;
                                 }
@@ -350,7 +350,7 @@ public final class TabEquipment {
                             ps.close();
 
                             for (Armor armor : armors) {
-                                assert armor.getArmorID()!=null;
+                                assert armor.getArmorID() != null;
                                 switch (armor.getSlot()) {
                                     case HEAD:
                                         Platform.runLater(() -> {
@@ -545,11 +545,12 @@ public final class TabEquipment {
                                 }
                             }
                             for (Weapon weapon : weapons) {
-                                assert weapon.getWeaponID()!=null;
-                                if (weapon.isEquipped()) Platform.runLater(() -> controller.listViewEquippedWeapons.getItems().add(weapon));
+                                assert weapon.getWeaponID() != null;
+                                if (weapon.isEquipped())
+                                    Platform.runLater(() -> controller.listViewEquippedWeapons.getItems().add(weapon));
                             }
                             for (Addon addon : addons) {
-                                assert addon.getAddonID()!=null;
+                                assert addon.getAddonID() != null;
                                 switch (addon.getSlot()) {
                                     case NECKLACE:
                                         Platform.runLater(() -> {
@@ -686,7 +687,8 @@ public final class TabEquipment {
                         } catch (SQLException e) {
                             try {
                                 if (ps != null) ps.close();
-                            } catch (SQLException ignored) {}
+                            } catch (SQLException ignored) {
+                            }
                             Logger.log(e, Defs.LOGGER_CONTEXT);
                             new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
                         }
@@ -702,7 +704,7 @@ public final class TabEquipment {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         String query;
@@ -713,7 +715,7 @@ public final class TabEquipment {
                             ps = DBManager.preparedStatement(query);
                             if (ps == null) throw new SQLException("The database connection doesn't exist");
                             result = ps.executeQuery();
-                            double caArmor = fleshAC*(ArmorSlot.values().length-2);
+                            double caArmor = fleshAC * (ArmorSlot.values().length - 2);
                             int slot;
                             ArmorWeightCategory weightCategory;
                             boolean fullSet = false;
@@ -724,13 +726,15 @@ public final class TabEquipment {
                                     if (slot == ArmorSlot.FULL_SET.getDatabaseValue()) {
                                         fullSet = true;
                                         caArmor = result.getInt("ca");
-                                        if (weightCategory == ArmorWeightCategory.LIGHT) caArmor+= caMods;
-                                        else if (weightCategory == ArmorWeightCategory.MEDIUM) caArmor += Math.min(2, caMods);
+                                        if (weightCategory == ArmorWeightCategory.LIGHT) caArmor += caMods;
+                                        else if (weightCategory == ArmorWeightCategory.MEDIUM)
+                                            caArmor += Math.min(2, caMods);
                                         break;
                                     } else {
-                                        caArmor += result.getInt("ca")-fleshAC;
-                                        if (weightCategory == ArmorWeightCategory.LIGHT) caArmor+= caMods;
-                                        else if (weightCategory == ArmorWeightCategory.MEDIUM) caArmor += Math.min(2, caMods);
+                                        caArmor += result.getInt("ca") - fleshAC;
+                                        if (weightCategory == ArmorWeightCategory.LIGHT) caArmor += caMods;
+                                        else if (weightCategory == ArmorWeightCategory.MEDIUM)
+                                            caArmor += Math.min(2, caMods);
                                     }
                                 }
                             }
@@ -739,7 +743,7 @@ public final class TabEquipment {
                             if (fullSet) {
                                 ca = (int) caArmor;
                             } else {
-                                ca = (int) Math.floor(caArmor / (ArmorSlot.values().length-2));
+                                ca = (int) Math.floor(caArmor / (ArmorSlot.values().length - 2));
                             }
                             query = "SELECT e.ca_effect AS ca FROM items AS i JOIN equipments AS e JOIN addons AS a ON i.id = e.item_id AND e.id = a.equipment_id WHERE e.is_equipped=1;";
                             ps = DBManager.preparedStatement(query);
@@ -776,7 +780,8 @@ public final class TabEquipment {
                         } catch (SQLException e) {
                             try {
                                 if (ps != null) ps.close();
-                            } catch (SQLException ignored) {}
+                            } catch (SQLException ignored) {
+                            }
                             Logger.log(e, Defs.LOGGER_CONTEXT);
                             new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
                         }
@@ -832,7 +837,7 @@ public final class TabEquipment {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         String query;
@@ -893,7 +898,8 @@ public final class TabEquipment {
                         } catch (SQLException e) {
                             try {
                                 if (ps != null) ps.close();
-                            } catch (SQLException ignored) {}
+                            } catch (SQLException ignored) {
+                            }
                             Logger.log(e, Defs.LOGGER_CONTEXT);
                             new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
                         }
@@ -907,7 +913,7 @@ public final class TabEquipment {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         String query;
@@ -967,7 +973,8 @@ public final class TabEquipment {
                         } catch (SQLException e) {
                             try {
                                 if (ps != null) ps.close();
-                            } catch (SQLException ignored) {}
+                            } catch (SQLException ignored) {
+                            }
                             Logger.log(e, Defs.LOGGER_CONTEXT);
                             new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
                         }

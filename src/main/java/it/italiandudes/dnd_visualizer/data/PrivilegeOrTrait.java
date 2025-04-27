@@ -143,10 +143,7 @@ public final class PrivilegeOrTrait implements ISavable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof PrivilegeOrTrait)) return false;
-
-        PrivilegeOrTrait that = (PrivilegeOrTrait) o;
-
+        if (!(o instanceof PrivilegeOrTrait that)) return false;
         if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
         if (!getName().equals(that.getName())) return false;
         if (getType() != that.getType()) return false;

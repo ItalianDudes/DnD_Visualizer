@@ -61,9 +61,9 @@ public final class CoinDepositManager {
 
     // Methods
     public @Nullable CoinDeposit getCoinDeposit(@NotNull final Map map, @NotNull final Point2D center) {
-        List<CoinDeposit> deposits = coinDepositList.stream().filter(deposit -> deposit.getMap().getMapID() == map.getMapID() && deposit.getCenter().equals(center)).collect(Collectors.toList());
+        List<CoinDeposit> deposits = coinDepositList.stream().filter(deposit -> deposit.getMap().getMapID() == map.getMapID() && deposit.getCenter().equals(center)).toList();
         if (deposits.isEmpty()) return null;
-        else return deposits.get(0);
+        else return deposits.getFirst();
     }
     public @NotNull HashSet<@NotNull CoinDeposit> getMapCoinDeposits(@NotNull final Map map) {
         return coinDepositList.stream().filter(coinDeposit -> coinDeposit.getMap().equals(map)).collect(Collectors.toCollection(HashSet::new));

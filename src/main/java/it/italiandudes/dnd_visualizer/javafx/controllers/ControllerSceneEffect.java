@@ -62,8 +62,9 @@ public final class ControllerSceneEffect {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override @SuppressWarnings("DuplicatedCode")
+                return new Task<>() {
+                    @Override
+                    @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             String oldName = null;
@@ -165,16 +166,16 @@ public final class ControllerSceneEffect {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         try {
                             effect = new Effect(name);
                             Platform.runLater(() -> {
                                 textFieldName.setText(effect.getName());
-                                comboBoxIsTreatable.getSelectionModel().select(effect.getIsTreatable().getDatabaseValue()+1);
-                                comboBoxIsCurable.getSelectionModel().select(effect.getIsCurable().getDatabaseValue()+1);
-                                comboBoxIsLethal.getSelectionModel().select(effect.getIsLethal().getDatabaseValue()+1);
+                                comboBoxIsTreatable.getSelectionModel().select(effect.getIsTreatable().getDatabaseValue() + 1);
+                                comboBoxIsCurable.getSelectionModel().select(effect.getIsCurable().getDatabaseValue() + 1);
+                                comboBoxIsLethal.getSelectionModel().select(effect.getIsLethal().getDatabaseValue() + 1);
                                 textFieldDuration.setText(effect.getDuration());
                                 spinnerIntensity.getValueFactory().setValue(effect.getIntensity());
                                 textFieldEffectLife.setText(String.valueOf(effect.getLifeEffect()));

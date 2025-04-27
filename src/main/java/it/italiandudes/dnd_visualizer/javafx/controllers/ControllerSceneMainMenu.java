@@ -41,6 +41,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -84,11 +86,11 @@ public final class ControllerSceneMainMenu {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         try {
-                            Updater.downloadNewVersion(finalFileNewApp.getAbsoluteFile().getParent() + File.separator + Defs.APP_FILE_NAME+"-"+latestVersion+".jar");
+                            Updater.downloadNewVersion(finalFileNewApp.getAbsoluteFile().getParent() + File.separator + Defs.APP_FILE_NAME + "-" + latestVersion + ".jar");
                             Platform.runLater(() -> {
                                 if (new ConfirmationAlert("AGGIORNAMENTO", "Aggiornamento", "Download della nuova versione completato! Vuoi chiudere questa app?").result) {
                                     Client.exit();
@@ -102,6 +104,12 @@ public final class ControllerSceneMainMenu {
                                 new ErrorAlert("ERRORE", "Errore di Download", "Si e' verificato un errore durante il download della nuova versione dell'app.");
                                 Client.setScene(thisScene);
                             });
+                        } catch (URISyntaxException e) {
+                            Logger.log(e, Defs.LOGGER_CONTEXT);
+                            Platform.runLater(() -> {
+                                new ErrorAlert("ERRORE", "Errore di Download", "Si e' verificato un errore durante la validazione del link per il download della nuova versione dell'app.");
+                                Client.setScene(thisScene);
+                            });
                         }
                         return null;
                     }
@@ -111,9 +119,9 @@ public final class ControllerSceneMainMenu {
     }
     private void downloadLauncher(@NotNull final SceneController thisScene) {
         JFXDefs.startServiceTask(() -> {
-            String latestVersion;
+            String latestVersion = null;
             try {
-                URL url = new URL("https://github.com/ItalianDudes/ID_Launcher/releases/latest");
+                URL url = new URI("https://github.com/ItalianDudes/ID_Launcher/releases/latest").toURL();
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.getResponseCode();
                 connection.disconnect();
@@ -125,6 +133,12 @@ public final class ControllerSceneMainMenu {
                     Client.setScene(thisScene);
                 });
                 return;
+            } catch (URISyntaxException e) {
+                Logger.log(e, Defs.LOGGER_CONTEXT);
+                Platform.runLater(() -> {
+                    new ErrorAlert("ERRORE", "Errore di Connessione", "Si e' verificato un errore durante la validazione del link a GitHub.");
+                    Client.setScene(thisScene);
+                });
             }
             if (latestVersion == null) return;
             final String finalLatestVersion = latestVersion;
@@ -150,7 +164,7 @@ public final class ControllerSceneMainMenu {
                 JFXDefs.startServiceTask(() -> {
                     String downloadURL = "https://github.com/ItalianDudes/ID_Launcher/releases/latest/download/ID_Launcher-"+ finalLatestVersion +".jar";
                     try {
-                        URL url = new URL(downloadURL);
+                        URL url = new URI(downloadURL).toURL();
                         InputStream is = url.openConnection().getInputStream();
                         Files.copy(is, Paths.get(finalLauncherDest.getAbsolutePath()), StandardCopyOption.REPLACE_EXISTING);
                         is.close();
@@ -161,6 +175,12 @@ public final class ControllerSceneMainMenu {
                             Client.setScene(thisScene);
                         });
                         return;
+                    } catch (URISyntaxException e) {
+                        Logger.log(e, Defs.LOGGER_CONTEXT);
+                        Platform.runLater(() -> {
+                            new ErrorAlert("ERRORE", "Errore di Download", "Si e' verificato un errore durante la validazione del link di download del launcher.");
+                            Client.setScene(thisScene);
+                        });
                     }
                     Platform.runLater(() -> {
                         if (new YesNoAlert("CHIUDERE?", "Chiusura App", "Il launcher e' stato scaricato. Vuoi chiudere il D&D Visualizer?").result) {

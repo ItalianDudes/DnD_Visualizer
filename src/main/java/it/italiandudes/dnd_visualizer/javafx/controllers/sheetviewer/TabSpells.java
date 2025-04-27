@@ -95,70 +95,89 @@ public final class TabSpells {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         int casterStat = -1, slot1Tot = -1, slot1Spent = -1, slot2Tot = -1, slot2Spent = -1,
-                        slot3Tot = -1, slot3Spent = -1, slot4Tot = -1, slot4Spent = -1, slot5Tot = -1,
-                        slot5Spent = -1, slot6Tot = -1, slot6Spent = -1, slot7Tot = -1, slot7Spent = -1,
-                        slot8Tot = -1, slot8Spent = -1, slot9Tot = -1, slot9Spent = -1;
+                                slot3Tot = -1, slot3Spent = -1, slot4Tot = -1, slot4Spent = -1, slot5Tot = -1,
+                                slot5Spent = -1, slot6Tot = -1, slot6Spent = -1, slot7Tot = -1, slot7Spent = -1,
+                                slot8Tot = -1, slot8Spent = -1, slot9Tot = -1, slot9Spent = -1;
                         try {
                             casterStat = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.CASTER_STAT));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot1Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_1));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot1Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_1));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot2Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_2));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot2Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_2));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot3Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_3));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot3Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_3));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot4Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_4));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot4Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_4));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot5Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_5));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot5Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_5));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot6Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_6));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot6Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_6));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot7Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_7));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot7Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_7));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot8Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_8));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot8Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_8));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot9Tot = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_TOTAL_9));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         try {
                             slot9Spent = Integer.parseInt(SheetDataHandler.readKeyParameter(SheetKeyParameters.TabSpells.SLOT_SPENT_9));
-                        } catch (NumberFormatException ignored) {}
+                        } catch (NumberFormatException ignored) {
+                        }
                         int finalSlot1Tot = slot1Tot;
                         int finalSlot1Spent = slot1Spent;
                         int finalSlot2Tot = slot2Tot;
@@ -179,25 +198,44 @@ public final class TabSpells {
                         int finalSlot9Spent = slot9Spent;
                         int finalCasterStat = casterStat;
                         Platform.runLater(() -> {
-                            if (finalCasterStat >= 0) controller.comboBoxSpellCasterStat.getSelectionModel().select(finalCasterStat);
-                            if (finalSlot1Tot >= 0) controller.spinnerSpell1SlotTot.getValueFactory().setValue(finalSlot1Tot);
-                            if (finalSlot1Spent >= 0) controller.spinnerSpell1SlotCurrent.getValueFactory().setValue(finalSlot1Spent);
-                            if (finalSlot2Tot >= 0) controller.spinnerSpell2SlotTot.getValueFactory().setValue(finalSlot2Tot);
-                            if (finalSlot2Spent >= 0) controller.spinnerSpell2SlotCurrent.getValueFactory().setValue(finalSlot2Spent);
-                            if (finalSlot3Tot >= 0) controller.spinnerSpell3SlotTot.getValueFactory().setValue(finalSlot3Tot);
-                            if (finalSlot3Spent >= 0) controller.spinnerSpell3SlotCurrent.getValueFactory().setValue(finalSlot3Spent);
-                            if (finalSlot4Tot >= 0) controller.spinnerSpell4SlotTot.getValueFactory().setValue(finalSlot4Tot);
-                            if (finalSlot4Spent >= 0) controller.spinnerSpell4SlotCurrent.getValueFactory().setValue(finalSlot4Spent);
-                            if (finalSlot5Tot >= 0) controller.spinnerSpell5SlotTot.getValueFactory().setValue(finalSlot5Tot);
-                            if (finalSlot5Spent >= 0) controller.spinnerSpell5SlotCurrent.getValueFactory().setValue(finalSlot5Spent);
-                            if (finalSlot6Tot >= 0) controller.spinnerSpell6SlotTot.getValueFactory().setValue(finalSlot6Tot);
-                            if (finalSlot6Spent >= 0) controller.spinnerSpell6SlotCurrent.getValueFactory().setValue(finalSlot6Spent);
-                            if (finalSlot7Tot >= 0) controller.spinnerSpell7SlotTot.getValueFactory().setValue(finalSlot7Tot);
-                            if (finalSlot7Spent >= 0) controller.spinnerSpell7SlotCurrent.getValueFactory().setValue(finalSlot7Spent);
-                            if (finalSlot8Tot >= 0) controller.spinnerSpell8SlotTot.getValueFactory().setValue(finalSlot8Tot);
-                            if (finalSlot8Spent >= 0) controller.spinnerSpell8SlotCurrent.getValueFactory().setValue(finalSlot8Spent);
-                            if (finalSlot9Tot >= 0) controller.spinnerSpell9SlotTot.getValueFactory().setValue(finalSlot9Tot);
-                            if (finalSlot9Spent >= 0) controller.spinnerSpell9SlotCurrent.getValueFactory().setValue(finalSlot9Spent);
+                            if (finalCasterStat >= 0)
+                                controller.comboBoxSpellCasterStat.getSelectionModel().select(finalCasterStat);
+                            if (finalSlot1Tot >= 0)
+                                controller.spinnerSpell1SlotTot.getValueFactory().setValue(finalSlot1Tot);
+                            if (finalSlot1Spent >= 0)
+                                controller.spinnerSpell1SlotCurrent.getValueFactory().setValue(finalSlot1Spent);
+                            if (finalSlot2Tot >= 0)
+                                controller.spinnerSpell2SlotTot.getValueFactory().setValue(finalSlot2Tot);
+                            if (finalSlot2Spent >= 0)
+                                controller.spinnerSpell2SlotCurrent.getValueFactory().setValue(finalSlot2Spent);
+                            if (finalSlot3Tot >= 0)
+                                controller.spinnerSpell3SlotTot.getValueFactory().setValue(finalSlot3Tot);
+                            if (finalSlot3Spent >= 0)
+                                controller.spinnerSpell3SlotCurrent.getValueFactory().setValue(finalSlot3Spent);
+                            if (finalSlot4Tot >= 0)
+                                controller.spinnerSpell4SlotTot.getValueFactory().setValue(finalSlot4Tot);
+                            if (finalSlot4Spent >= 0)
+                                controller.spinnerSpell4SlotCurrent.getValueFactory().setValue(finalSlot4Spent);
+                            if (finalSlot5Tot >= 0)
+                                controller.spinnerSpell5SlotTot.getValueFactory().setValue(finalSlot5Tot);
+                            if (finalSlot5Spent >= 0)
+                                controller.spinnerSpell5SlotCurrent.getValueFactory().setValue(finalSlot5Spent);
+                            if (finalSlot6Tot >= 0)
+                                controller.spinnerSpell6SlotTot.getValueFactory().setValue(finalSlot6Tot);
+                            if (finalSlot6Spent >= 0)
+                                controller.spinnerSpell6SlotCurrent.getValueFactory().setValue(finalSlot6Spent);
+                            if (finalSlot7Tot >= 0)
+                                controller.spinnerSpell7SlotTot.getValueFactory().setValue(finalSlot7Tot);
+                            if (finalSlot7Spent >= 0)
+                                controller.spinnerSpell7SlotCurrent.getValueFactory().setValue(finalSlot7Spent);
+                            if (finalSlot8Tot >= 0)
+                                controller.spinnerSpell8SlotTot.getValueFactory().setValue(finalSlot8Tot);
+                            if (finalSlot8Spent >= 0)
+                                controller.spinnerSpell8SlotCurrent.getValueFactory().setValue(finalSlot8Spent);
+                            if (finalSlot9Tot >= 0)
+                                controller.spinnerSpell9SlotTot.getValueFactory().setValue(finalSlot9Tot);
+                            if (finalSlot9Spent >= 0)
+                                controller.spinnerSpell9SlotCurrent.getValueFactory().setValue(finalSlot9Spent);
                         });
                         return null;
                     }
@@ -294,32 +332,14 @@ public final class TabSpells {
     public static void updateSpellModifiers(@NotNull final ControllerSceneSheetViewer controller) {
         if (controller.comboBoxSpellCasterStat.getSelectionModel().isEmpty()) return;
         Stats stat = Stats.values()[Stats.statsNames.indexOf(controller.comboBoxSpellCasterStat.getSelectionModel().getSelectedItem())];
-        String modStr = null;
-        switch (stat) {
-            case STRENGTH:
-                modStr = controller.labelModStrength.getText();
-                break;
-
-            case DEXTERITY:
-                modStr = controller.labelModDexterity.getText();
-                break;
-
-            case CONSTITUTION:
-                modStr = controller.labelModConstitution.getText();
-                break;
-
-            case INTELLIGENCE:
-                modStr = controller.labelModIntelligence.getText();
-                break;
-
-            case WISDOM:
-                modStr = controller.labelModWisdom.getText();
-                break;
-
-            case CHARISMA:
-                modStr = controller.labelModCharisma.getText();
-                break;
-        }
+        String modStr = switch (stat) {
+            case STRENGTH -> controller.labelModStrength.getText();
+            case DEXTERITY -> controller.labelModDexterity.getText();
+            case CONSTITUTION -> controller.labelModConstitution.getText();
+            case INTELLIGENCE -> controller.labelModIntelligence.getText();
+            case WISDOM -> controller.labelModWisdom.getText();
+            case CHARISMA -> controller.labelModCharisma.getText();
+        };
         int mod = Integer.parseInt(modStr);
         int profBonus = controller.spinnerProficiencyBonus.getValue();
         int spellDC = 8 + mod + profBonus;
@@ -595,7 +615,7 @@ public final class TabSpells {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         PreparedStatement ps = null;
@@ -641,7 +661,7 @@ public final class TabSpells {
                                         break;
                                     default:
                                         if (level < 0) {
-                                            Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DATI", "Incantesimo: "+name+"\nIl livello di un incantesimo non puo' essere inferiore a 0."));
+                                            Platform.runLater(() -> new ErrorAlert("ERRORE", "ERRORE DATI", "Incantesimo: " + name + "\nIl livello di un incantesimo non puo' essere inferiore a 0."));
                                             return null;
                                         }
                                 }
@@ -650,7 +670,8 @@ public final class TabSpells {
                         } catch (SQLException e) {
                             try {
                                 if (ps != null) ps.close();
-                            } catch (SQLException ignored) {}
+                            } catch (SQLException ignored) {
+                            }
                             Logger.log(e, Defs.LOGGER_CONTEXT);
                             new ErrorAlert("ERRORE", "ERRORE DI DATABASE", "Si e' verificato un errore durante la comunicazione con il database.");
                         }

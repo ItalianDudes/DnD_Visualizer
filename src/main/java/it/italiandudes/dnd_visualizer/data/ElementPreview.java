@@ -61,8 +61,7 @@ public final class ElementPreview {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ElementPreview)) return false;
-        ElementPreview that = (ElementPreview) o;
+        if (!(o instanceof ElementPreview that)) return false;
         return getId() == that.getId() && Double.compare(getWeight(), that.getWeight()) == 0 && getCostCopper() == that.getCostCopper() && getQuantity() == that.getQuantity() && Objects.equals(getName(), that.getName()) && getCategory() == that.getCategory() && getRarity() == that.getRarity();
     }
     @Override

@@ -169,11 +169,8 @@ public final class Armor extends Equipment implements ISavable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Armor)) return false;
+        if (!(o instanceof Armor armor)) return false;
         if (!super.equals(o)) return false;
-
-        Armor armor = (Armor) o;
-
         if (getArmorID() != null ? !getArmorID().equals(armor.getArmorID()) : armor.getArmorID() != null) return false;
         if (getSlot() != armor.getSlot()) return false;
         return weightCategory == armor.weightCategory;

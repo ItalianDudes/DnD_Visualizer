@@ -192,8 +192,7 @@ public final class PlayerEntity extends StackPane {
         this.owner = owner;
     }
     public boolean playerEntityEquals(Object o) {
-        if (!(o instanceof PlayerEntity)) return false;
-        PlayerEntity that = (PlayerEntity) o;
+        if (!(o instanceof PlayerEntity that)) return false;
         return getPlayerEntityID() == that.getPlayerEntityID() && getCreationDate() == that.getCreationDate() && getLevel() == that.getLevel() && ca == that.ca && hp == that.hp && Objects.equals(getMap(), that.getMap()) && Objects.equals(getName(), that.getName()) && Objects.equals(getRace(), that.getRace()) && Objects.equals(getEntityClass(), that.getEntityClass()) && Objects.equals(getCenter(), that.getCenter()) && Objects.equals(getOwner(), that.getOwner());
     }
     @Override @NotNull

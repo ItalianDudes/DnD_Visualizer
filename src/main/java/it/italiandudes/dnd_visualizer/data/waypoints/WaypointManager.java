@@ -58,9 +58,9 @@ public final class WaypointManager {
 
     // Methods
     public @Nullable Waypoint getWaypoint(@NotNull final Map map, @NotNull final String name, @NotNull final WaypointType type) {
-        List<@NotNull Waypoint> waypoints = waypointList.stream().filter(w -> w.getMap().equals(map) && w.getName().equals(name) && w.getType().equals(type)).collect(Collectors.toList());
+        List<@NotNull Waypoint> waypoints = waypointList.stream().filter(w -> w.getMap().equals(map) && w.getName().equals(name) && w.getType().equals(type)).toList();
         if (waypoints.isEmpty()) return null;
-        else return waypoints.get(0);
+        else return waypoints.getFirst();
     }
     public @NotNull HashSet<@NotNull Waypoint> getMapWaypoints(@NotNull final Map map) {
         return waypointList.stream().filter(waypoint -> waypoint.getMap().equals(map)).collect(Collectors.toCollection(HashSet::new));

@@ -144,11 +144,10 @@ public final class ControllerSceneInventoryArmor {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
-                        //noinspection StatementWithEmptyBody
-                        while (!configurationComplete);
+                        while (!configurationComplete) Thread.onSpinWait();
 
                         if (armorName == null) armorName = TabInventory.getElementName();
                         JSONObject armorStructure = TabInventory.getElementStructure();
@@ -213,10 +212,10 @@ public final class ControllerSceneInventoryArmor {
         }
         if(imagePath!=null) {
             File finalImagePath = imagePath;
-            Service<Void> imageReaderService = new Service<Void>() {
+            Service<Void> imageReaderService = new Service<>() {
                 @Override
                 protected Task<Void> createTask() {
-                    return new Task<Void>() {
+                    return new Task<>() {
                         @Override
                         protected Void call() {
                             try {
@@ -227,7 +226,7 @@ public final class ControllerSceneInventoryArmor {
                                 }
                                 Platform.runLater(() -> imageViewItem.setImage(SwingFXUtils.toFXImage(img, null)));
                                 imageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
-                            }catch (IOException e) {
+                            } catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }
                             return null;
@@ -251,8 +250,9 @@ public final class ControllerSceneInventoryArmor {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override @SuppressWarnings("DuplicatedCode")
+                return new Task<>() {
+                    @Override
+                    @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             double weight;
@@ -303,7 +303,8 @@ public final class ControllerSceneInventoryArmor {
                                 } else {
                                     mp = Integer.parseInt(strMP);
                                 }
-                                if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0) throw new NumberFormatException("A number is negative");
+                                if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0)
+                                    throw new NumberFormatException("A number is negative");
                             } catch (NumberFormatException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Le valute devono essere dei numeri interi positivi!"));
                                 return null;
@@ -384,8 +385,9 @@ public final class ControllerSceneInventoryArmor {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override @SuppressWarnings("DuplicatedCode")
+                return new Task<>() {
+                    @Override
+                    @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             double weight;
@@ -436,7 +438,8 @@ public final class ControllerSceneInventoryArmor {
                                 } else {
                                     mp = Integer.parseInt(strMP);
                                 }
-                                if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0) throw new NumberFormatException("A number is negative");
+                                if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0)
+                                    throw new NumberFormatException("A number is negative");
                             } catch (NumberFormatException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Le valute devono essere dei numeri interi positivi!"));
                                 return null;
@@ -496,8 +499,8 @@ public final class ControllerSceneInventoryArmor {
                                         caEffect, otherEffects, weightCategory, false
                                 );
                             } else {
-                                assert armor.getEquipmentID()!=null;
-                                assert armor.getArmorID()!=null;
+                                assert armor.getEquipmentID() != null;
+                                assert armor.getArmorID() != null;
                                 oldName = armor.getName();
                                 Item item = new Item(
                                         armor.getItemID(),
@@ -546,8 +549,9 @@ public final class ControllerSceneInventoryArmor {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override @SuppressWarnings("DuplicatedCode")
+                return new Task<>() {
+                    @Override
+                    @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
 
                         try {
@@ -691,8 +695,9 @@ public final class ControllerSceneInventoryArmor {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override @SuppressWarnings("DuplicatedCode")
+                return new Task<>() {
+                    @Override
+                    @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             armor = new Armor(armorName);

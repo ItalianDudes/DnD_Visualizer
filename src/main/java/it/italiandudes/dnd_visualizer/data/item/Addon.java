@@ -152,11 +152,8 @@ public final class Addon extends Equipment implements ISavable, ISerializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Addon)) return false;
+        if (!(o instanceof Addon addon)) return false;
         if (!super.equals(o)) return false;
-
-        Addon addon = (Addon) o;
-
         if (isEquipped() != addon.isEquipped()) return false;
         if (getAddonID() != null ? !getAddonID().equals(addon.getAddonID()) : addon.getAddonID() != null) return false;
         return getSlot() == addon.getSlot();

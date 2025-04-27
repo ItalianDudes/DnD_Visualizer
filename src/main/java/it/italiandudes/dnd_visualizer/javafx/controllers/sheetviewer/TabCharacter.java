@@ -87,7 +87,7 @@ public final class TabCharacter {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         String characterName = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabCharacter.CHARACTER_NAME);
@@ -103,7 +103,8 @@ public final class TabCharacter {
                         Image characterImage = null;
                         try {
                             if (base64CharacterImage != null) {
-                                if (characterImageExtension == null) throw new IllegalArgumentException("Image without declared extension");
+                                if (characterImageExtension == null)
+                                    throw new IllegalArgumentException("Image without declared extension");
                                 byte[] imageBytes = Base64.getDecoder().decode(base64CharacterImage);
                                 ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
                                 BufferedImage bufferedImageCharacter = ImageIO.read(imageStream);
@@ -165,16 +166,21 @@ public final class TabCharacter {
                             if (maxHP != null) controller.textFieldMaxHP.setText(maxHP);
                             if (currentHP != null) controller.textFieldCurrentHP.setText(currentHP);
                             if (tempHP != null) controller.textFieldTempHP.setText(tempHP);
-                            if (currentLifeDicesAmount != null) controller.textFieldCurrentLifeDiceAmount.setText(currentLifeDicesAmount);
-                            else controller.textFieldCurrentLifeDiceAmount.setText(String.valueOf(controller.spinnerLevel.getValue()));
+                            if (currentLifeDicesAmount != null)
+                                controller.textFieldCurrentLifeDiceAmount.setText(currentLifeDicesAmount);
+                            else
+                                controller.textFieldCurrentLifeDiceAmount.setText(String.valueOf(controller.spinnerLevel.getValue()));
                             if (lifeDiceFaces != null) {
                                 controller.textFieldCurrentLifeDiceFaces.setText(lifeDiceFaces);
                                 controller.textFieldTotalLifeDiceFaces.setText(lifeDiceFaces);
                             }
-                            if (proficiencyBonus != null) controller.spinnerProficiencyBonus.getValueFactory().setValue(Integer.parseInt(proficiencyBonus));
-                            if (inspiration != null) controller.spinnerInspiration.getValueFactory().setValue(Integer.parseInt(inspiration));
+                            if (proficiencyBonus != null)
+                                controller.spinnerProficiencyBonus.getValueFactory().setValue(Integer.parseInt(proficiencyBonus));
+                            if (inspiration != null)
+                                controller.spinnerInspiration.getValueFactory().setValue(Integer.parseInt(inspiration));
                             if (speed != null) controller.textFieldSpeed.setText(speed);
-                            if (personalityTraits != null) controller.textAreaPersonalityTraits.setText(personalityTraits);
+                            if (personalityTraits != null)
+                                controller.textAreaPersonalityTraits.setText(personalityTraits);
                             if (ideals != null) controller.textAreaIdeals.setText(ideals);
                             if (bonds != null) controller.textAreaBonds.setText(bonds);
                             if (flaws != null) controller.textAreaFlaws.setText(flaws);
@@ -464,10 +470,10 @@ public final class TabCharacter {
         }
         if(imagePath!=null) {
             File finalImagePath = imagePath;
-            Service<Void> imageReaderService = new Service<Void>() {
+            Service<Void> imageReaderService = new Service<>() {
                 @Override
                 protected Task<Void> createTask() {
-                    return new Task<Void>() {
+                    return new Task<>() {
                         @Override
                         protected Void call() {
                             try {
@@ -483,7 +489,7 @@ public final class TabCharacter {
                                 });
                                 characterImageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
                                 SheetDataHandler.writeKeyParameter(SheetKeyParameters.CHARACTER_IMAGE, SheetKeyParameters.CHARACTER_IMAGE_EXTENSION, img, characterImageExtension);
-                            }catch (IOException e) {
+                            } catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }
                             return null;

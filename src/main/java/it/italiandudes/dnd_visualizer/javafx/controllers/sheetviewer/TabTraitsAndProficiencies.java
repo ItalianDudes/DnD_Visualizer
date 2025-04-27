@@ -21,7 +21,7 @@ public final class TabTraitsAndProficiencies {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         String featuresAndTraits = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabTraitsAndCompetences.FEATURES_AND_TRAITS);
@@ -30,7 +30,8 @@ public final class TabTraitsAndProficiencies {
                         String weapons = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabTraitsAndCompetences.WEAPONS);
                         String tools = SheetDataHandler.readKeyParameter(SheetKeyParameters.TabTraitsAndCompetences.TOOLS);
                         Platform.runLater(() -> {
-                            if (featuresAndTraits != null) controller.textAreaFeaturesAndTraits.setText(featuresAndTraits);
+                            if (featuresAndTraits != null)
+                                controller.textAreaFeaturesAndTraits.setText(featuresAndTraits);
                             if (languages != null) controller.textAreaLanguages.setText(languages);
                             if (armors != null) controller.textAreaProficiencyArmors.setText(armors);
                             if (weapons != null) controller.textAreaProficiencyWeapons.setText(weapons);

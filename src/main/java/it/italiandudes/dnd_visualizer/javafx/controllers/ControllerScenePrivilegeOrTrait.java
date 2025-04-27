@@ -50,7 +50,7 @@ public final class ControllerScenePrivilegeOrTrait {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
 
@@ -106,7 +106,7 @@ public final class ControllerScenePrivilegeOrTrait {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
                         try {

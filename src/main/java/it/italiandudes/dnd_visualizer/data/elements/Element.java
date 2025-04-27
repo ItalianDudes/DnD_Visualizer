@@ -232,8 +232,7 @@ public final class Element extends StackPane {
         ps.close();
     }
     public boolean elementEquals(Object o) {
-        if (!(o instanceof Element)) return false;
-        Element element = (Element) o;
+        if (!(o instanceof Element element)) return false;
         return getElementID() == element.getElementID() && getCreationDate() == element.getCreationDate() && isVisibleToPlayers() == element.isVisibleToPlayers() && Objects.equals(getMap(), element.getMap()) && Objects.equals(getName(), element.getName()) && Objects.equals(getCenter(), element.getCenter()) && getType() == element.getType() && Objects.equals(getItem(), element.getItem());
     }
     // NOTE: DO NOT OVERRIDE EQUALS AND HASHCODE

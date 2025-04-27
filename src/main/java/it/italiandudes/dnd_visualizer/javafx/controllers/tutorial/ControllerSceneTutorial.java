@@ -45,11 +45,10 @@ public final class ControllerSceneTutorial {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
-                        //noinspection StatementWithEmptyBody
-                        while (!configurationComplete);
+                        while (!configurationComplete) Thread.onSpinWait();
                         Platform.runLater(() -> setTutorialPage(anchorPaneTutorialPage, SceneTutorialPage1.getPage(sheetController, anchorPaneTutorialPage)));
                         return null;
                     }

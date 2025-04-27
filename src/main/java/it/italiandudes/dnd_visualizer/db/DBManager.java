@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -58,7 +59,7 @@ public final class DBManager {
 
     // DB Creator
     private static void executeCommonSQL() throws SQLException {
-        Scanner reader = new Scanner(Defs.Resources.getAsStream(Defs.Resources.SQL.SQL_COMMON), "UTF-8");
+        Scanner reader = new Scanner(Defs.Resources.getAsStream(Defs.Resources.SQL.SQL_COMMON), StandardCharsets.UTF_8);
         String query;
         String buffer;
         StringBuilder queryReader = new StringBuilder();
@@ -81,7 +82,7 @@ public final class DBManager {
     public static void createCampaign(@NotNull final String DB_PATH) throws SQLException {
         setConnection(DB_PATH);
         executeCommonSQL();
-        Scanner reader = new Scanner(Defs.Resources.getAsStream(Defs.Resources.SQL.SQL_CAMPAIGN), "UTF-8");
+        Scanner reader = new Scanner(Defs.Resources.getAsStream(Defs.Resources.SQL.SQL_CAMPAIGN), StandardCharsets.UTF_8);
         StringBuilder queryReader = new StringBuilder();
         String query;
         String buffer;
@@ -105,7 +106,7 @@ public final class DBManager {
     public static void createSheet(@NotNull final String DB_PATH) throws SQLException {
         setConnection(DB_PATH);
         executeCommonSQL();
-        Scanner reader = new Scanner(Defs.Resources.getAsStream(Defs.Resources.SQL.SQL_SHEET), "UTF-8");
+        Scanner reader = new Scanner(Defs.Resources.getAsStream(Defs.Resources.SQL.SQL_SHEET), StandardCharsets.UTF_8);
         StringBuilder queryReader = new StringBuilder();
         String query;
         String buffer;

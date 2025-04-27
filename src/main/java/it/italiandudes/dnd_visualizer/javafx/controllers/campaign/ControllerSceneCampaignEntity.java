@@ -91,11 +91,10 @@ public final class ControllerSceneCampaignEntity {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
-                        //noinspection StatementWithEmptyBody
-                        while (!configurationComplete);
+                        while (!configurationComplete) Thread.onSpinWait();
                         Platform.runLater(() -> {
                             if (entity != null) initExistingEntity();
                             buttonSave.setDisable(false);
@@ -129,7 +128,7 @@ public final class ControllerSceneCampaignEntity {
             new Service<Void>() {
                 @Override
                 protected Task<Void> createTask() {
-                    return new Task<Void>() {
+                    return new Task<>() {
                         @Override
                         protected Void call() {
                             try {
@@ -140,7 +139,7 @@ public final class ControllerSceneCampaignEntity {
                                 }
                                 Platform.runLater(() -> imageViewEntity.setImage(SwingFXUtils.toFXImage(img, null)));
                                 imageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
-                            }catch (IOException e) {
+                            } catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }
                             return null;
@@ -165,8 +164,9 @@ public final class ControllerSceneCampaignEntity {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override @SuppressWarnings("DuplicatedCode")
+                return new Task<>() {
+                    @Override
+                    @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             EntityType type = comboBoxType.getSelectionModel().getSelectedItem();
@@ -229,8 +229,9 @@ public final class ControllerSceneCampaignEntity {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override @SuppressWarnings("DuplicatedCode")
+                return new Task<>() {
+                    @Override
+                    @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             imageExtension = entity.getImageExtension();

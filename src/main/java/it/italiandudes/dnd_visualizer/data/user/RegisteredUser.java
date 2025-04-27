@@ -73,9 +73,7 @@ public final class RegisteredUser {
     }
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof RegisteredUser)) return false;
-
-        RegisteredUser that = (RegisteredUser) o;
+        if (!(o instanceof RegisteredUser that)) return false;
         return getPlayerID() == that.getPlayerID() && getRegisterDate() == that.getRegisterDate() && getPlayerName().equals(that.getPlayerName()) && getSha512password().equals(that.getSha512password());
     }
     @Override

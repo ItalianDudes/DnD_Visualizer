@@ -126,11 +126,10 @@ public final class ControllerSceneInventorySpell {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
+                return new Task<>() {
                     @Override
                     protected Void call() {
-                        //noinspection StatementWithEmptyBody
-                        while (!configurationComplete);
+                        while (!configurationComplete) Thread.onSpinWait();
 
                         if (spellName == null) spellName = TabInventory.getElementName();
                         JSONObject spellStructure = TabInventory.getElementStructure();
@@ -171,10 +170,10 @@ public final class ControllerSceneInventorySpell {
         }
         if(imagePath!=null) {
             File finalImagePath = imagePath;
-            Service<Void> imageReaderService = new Service<Void>() {
+            Service<Void> imageReaderService = new Service<>() {
                 @Override
                 protected Task<Void> createTask() {
-                    return new Task<Void>() {
+                    return new Task<>() {
                         @Override
                         protected Void call() {
                             try {
@@ -185,7 +184,7 @@ public final class ControllerSceneInventorySpell {
                                 }
                                 Platform.runLater(() -> imageViewItem.setImage(SwingFXUtils.toFXImage(img, null)));
                                 imageExtension = ImageHandler.getImageExtension(finalImagePath.getAbsolutePath());
-                            }catch (IOException e) {
+                            } catch (IOException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Lettura", "Impossibile leggere il contenuto selezionato."));
                             }
                             return null;
@@ -206,11 +205,12 @@ public final class ControllerSceneInventorySpell {
             new ErrorAlert("ERRORE", "Errore di Inserimento", "Non e' stato assegnato un nome alla magia.");
             return;
         }
-        Service<Void> saveService = new Service<Void>() {
+        Service<Void> saveService = new Service<>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override @SuppressWarnings("DuplicatedCode")
+                return new Task<>() {
+                    @Override
+                    @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             double weight;
@@ -247,7 +247,8 @@ public final class ControllerSceneInventorySpell {
                                 } else {
                                     mp = Integer.parseInt(strMP);
                                 }
-                                if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0) throw new NumberFormatException("A number is negative");
+                                if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0)
+                                    throw new NumberFormatException("A number is negative");
                             } catch (NumberFormatException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Le valute devono essere dei numeri interi positivi!"));
                                 return null;
@@ -260,7 +261,8 @@ public final class ControllerSceneInventorySpell {
                                 } else {
                                     level = Integer.parseInt(strLevel);
                                 }
-                                if (level < 0 || level > 9) throw new NumberFormatException("The level is less than 0 or greater than 9");
+                                if (level < 0 || level > 9)
+                                    throw new NumberFormatException("The level is less than 0 or greater than 9");
                             } catch (NumberFormatException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Il livello deve essere un numero intero positivo compreso tra 0 e 9!"));
                                 return null;
@@ -353,8 +355,9 @@ public final class ControllerSceneInventorySpell {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override @SuppressWarnings("DuplicatedCode")
+                return new Task<>() {
+                    @Override
+                    @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
                         try {
                             double weight;
@@ -391,7 +394,8 @@ public final class ControllerSceneInventorySpell {
                                 } else {
                                     mp = Integer.parseInt(strMP);
                                 }
-                                if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0) throw new NumberFormatException("A number is negative");
+                                if (mr < 0 || ma < 0 || me < 0 || mo < 0 || mp < 0)
+                                    throw new NumberFormatException("A number is negative");
                             } catch (NumberFormatException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Le valute devono essere dei numeri interi positivi!"));
                                 return null;
@@ -404,7 +408,8 @@ public final class ControllerSceneInventorySpell {
                                 } else {
                                     level = Integer.parseInt(strLevel);
                                 }
-                                if (level < 0 || level > 9) throw new NumberFormatException("The level is less than 0 or greater than 9");
+                                if (level < 0 || level > 9)
+                                    throw new NumberFormatException("The level is less than 0 or greater than 9");
                             } catch (NumberFormatException e) {
                                 Platform.runLater(() -> new ErrorAlert("ERRORE", "Errore di Inserimento", "Il livello deve essere un numero intero positivo compreso tra 0 e 9!"));
                                 return null;
@@ -467,8 +472,9 @@ public final class ControllerSceneInventorySpell {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override @SuppressWarnings("DuplicatedCode")
+                return new Task<>() {
+                    @Override
+                    @SuppressWarnings("DuplicatedCode")
                     protected Void call() {
 
                         try {
@@ -607,8 +613,9 @@ public final class ControllerSceneInventorySpell {
         new Service<Void>() {
             @Override
             protected Task<Void> createTask() {
-                return new Task<Void>() {
-                    @Override @SuppressWarnings("DuplicatedCode")
+                return new Task<>() {
+                    @Override
+                    @SuppressWarnings("DuplicatedCode")
                     protected Void call() throws Exception {
                         try {
                             spell = new Spell(spellName);

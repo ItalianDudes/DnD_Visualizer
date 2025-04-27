@@ -26,8 +26,7 @@ public final class ItemContainer {
     }
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof ItemContainer)) return false;
-        ItemContainer that = (ItemContainer) o;
+        if (!(o instanceof ItemContainer that)) return false;
         return Objects.equals(item, that.item);
     }
     @Override

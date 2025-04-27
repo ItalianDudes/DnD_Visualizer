@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
 public final class PlayerEntityManager {
@@ -39,9 +38,9 @@ public final class PlayerEntityManager {
 
     // Methods
     public @Nullable PlayerEntity getPlayerEntity(@NotNull final String name) {
-        List<@NotNull PlayerEntity> playerEntities = playerEntityList.stream().filter(p -> p.getName().equals(name)).collect(Collectors.toList());
+        List<@NotNull PlayerEntity> playerEntities = playerEntityList.stream().filter(p -> p.getName().equals(name)).toList();
         if (playerEntities.isEmpty()) return null;
-        else return playerEntities.get(0);
+        else return playerEntities.getFirst();
     }
     @Nullable
     public PlayerEntity registerEntity(@NotNull final Map map, @NotNull final String name, @NotNull final String race, @NotNull final String entityClass, final int level, @NotNull final Point2D center, final int ca, final int hp, @NotNull final RegisteredUser owner) throws SQLException, IOException {
