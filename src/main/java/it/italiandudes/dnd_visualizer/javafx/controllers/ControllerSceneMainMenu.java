@@ -69,7 +69,8 @@ public final class ControllerSceneMainMenu {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Aggiornamento D&D Visualizer");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Java Executable File", "*.jar"));
-        fileChooser.setInitialFileName(Defs.APP_FILE_NAME+"-"+latestVersion+".jar");
+        assert Defs.CURRENT_PLATFORM != null;
+        fileChooser.setInitialFileName(Defs.APP_FILE_NAME+"-"+latestVersion+"-"+Defs.CURRENT_PLATFORM.getManifestTargetPlatform().toUpperCase()+".jar");
         fileChooser.setInitialDirectory(new File(Defs.JAR_POSITION).getParentFile());
         File fileNewApp;
         try {
@@ -90,7 +91,7 @@ public final class ControllerSceneMainMenu {
                     @Override
                     protected Void call() {
                         try {
-                            Updater.downloadNewVersion(finalFileNewApp.getAbsoluteFile().getParent() + File.separator + Defs.APP_FILE_NAME + "-" + latestVersion + ".jar");
+                            Updater.downloadNewVersion(finalFileNewApp.getAbsoluteFile().getParent() + File.separator + Defs.APP_FILE_NAME + "-" + latestVersion + "-" + Defs.CURRENT_PLATFORM.getManifestTargetPlatform().toUpperCase() + ".jar");
                             Platform.runLater(() -> {
                                 if (new ConfirmationAlert("AGGIORNAMENTO", "Aggiornamento", "Download della nuova versione completato! Vuoi chiudere questa app?").result) {
                                     Client.exit();
@@ -228,6 +229,20 @@ public final class ControllerSceneMainMenu {
     }
     @FXML
     private void checkForUpdates() {
+        if (Defs.CURRENT_PLATFORM == null) {
+            boolean result = new YesNoAlert("ERRORE", "Errore di Validazione","Impossibile aggiornare l'app poiche' non e' possibile riconoscere la piattaforma corrente.\nPuoi scaricare la versione corretta al tuo dispositivo al link " + Updater.LATEST_PAGE + ".\nSe vuoi andare ora alla pagina per l'aggiornamento tramite browser predefinito clicca \"Si\".").result;
+            if (!result) return;
+            ClipboardContent link = new ClipboardContent();
+            link.putString(Updater.LATEST_PAGE);
+            Client.getSystemClipboard().setContent(link);
+            try {
+                HostServicesDelegate.getInstance(Client.getApplicationInstance()).showDocument(Updater.LATEST_PAGE);
+            } catch (Exception e) {
+                Logger.log(e);
+                new ErrorAlert("ERRORE", "Errore Interno", "Si e' verificato un errore durante l'apertura del browser predefinito.\nIl link alla pagina e' comunque disponibile negli appunti di sistema.");
+            }
+        }
+
         SceneController thisScene = Client.getScene();
         Client.setScene(SceneLoading.getScene());
         if (!DnD_Visualizer.isStartedFromLauncher()) {

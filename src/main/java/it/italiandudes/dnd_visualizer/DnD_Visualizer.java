@@ -85,9 +85,8 @@ public final class DnD_Visualizer {
         Logger.log("Verifying OS...", Defs.LOGGER_CONTEXT);
         Logger.log("OS Name: " + SystemUtils.OS_NAME, Defs.LOGGER_CONTEXT);
         Logger.log("OS Arch: " + SystemUtils.OS_ARCH, Defs.LOGGER_CONTEXT);
-        TargetPlatform currentPlatform = TargetPlatform.getCurrentPlatform();
-        Logger.log("Current OS Platform: " + (currentPlatform != null ? currentPlatform.getName() : "NOT RECOGNIZED"), Defs.LOGGER_CONTEXT);
-        if (currentPlatform == null) {
+        Logger.log("Current OS Platform: " + (Defs.CURRENT_PLATFORM != null ? Defs.CURRENT_PLATFORM.getName() : "NOT RECOGNIZED"), Defs.LOGGER_CONTEXT);
+        if (Defs.CURRENT_PLATFORM == null) {
             Logger.log("WARNING: Current OS Platform not recognized! An attempt to start the app will be done anyway.", new InfoFlags(true, false, false, true), Defs.LOGGER_CONTEXT);
         }
         try {
@@ -101,7 +100,7 @@ public final class DnD_Visualizer {
                     Logger.log("Target-Platform provided \"" + manifestTargetPlatform + "\" not recognized, this jar shouldn't be used for release.", new InfoFlags(false, false, false, true), Defs.LOGGER_CONTEXT);
                 } else {
                     Logger.log("Jar Target-Platform: " + targetPlatform.getName(), Defs.LOGGER_CONTEXT);
-                    if (currentPlatform != null && !targetPlatform.isCurrentOS()) {
+                    if (Defs.CURRENT_PLATFORM != null && !targetPlatform.isCurrentOS()) {
                         Logger.log("Target-Platform \"" + targetPlatform.getName() + "\" incompatible with the current OS Platform!", new InfoFlags(true, true, true, true), Defs.LOGGER_CONTEXT);
                         if (!isStartedFromLauncher()) {
                             Logger.close();

@@ -1,7 +1,9 @@
 package it.italiandudes.dnd_visualizer.utils;
 
 import it.italiandudes.dnd_visualizer.DnD_Visualizer;
+import it.italiandudes.idl.common.TargetPlatform;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.InputStream;
@@ -13,6 +15,9 @@ public final class Defs {
 
     // App File Name
     public static final String APP_FILE_NAME = "DnD_Visualizer";
+
+    // Current Platform
+    @Nullable public static final TargetPlatform CURRENT_PLATFORM = TargetPlatform.getCurrentPlatform();
 
     // Logger Context
     public static final String LOGGER_CONTEXT = "D&D Visualizer";
