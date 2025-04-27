@@ -13,6 +13,7 @@ def versionMarker = versionType.charAt(0)
 group = 'it.italiandudes'
 version = versionNumber+versionMarker
 
+// Repository List
 repositories {
     mavenCentral()
     flatDir {
@@ -20,6 +21,7 @@ repositories {
     }
 }
 
+// JavaFX Configuration
 javafx {
     version = "21.0.7"
     modules = [
@@ -32,17 +34,19 @@ javafx {
     ]
 }
 
+// Dependencies
 dependencies {
     compileOnly 'org.jetbrains:annotations:26.0.1'
     implementation 'commons-io:commons-io:2.18.0'
     implementation 'commons-codec:commons-codec:1.17.1'
-    implementation 'it.italiandudes:idl:1.0.9'
+    implementation 'it.italiandudes:idl:1.2'
     implementation 'org.json:json:20240303'
     implementation 'club.minnced:java-discord-rpc:2.0.1'
     implementation 'org.xerial:sqlite-jdbc:3.47.1.0'
     implementation 'org.slf4j:slf4j-nop:2.0.16'
 }
 
+// Main Build Configuration
 shadowJar {
     mainClassName = 'it.italiandudes.dnd_visualizer.DnD_Visualizer'
     manifest {
@@ -56,19 +60,78 @@ shadowJar {
         attributes "Timestamp" : new Date().format("dd/MM/yyyy HH:mm:ss.sss")
         attributes "ID-Launcher-Enabled" : true
     }
-    archiveFileName = getRootDir().getName()+"-"+archiveVersion.get()+".jar"
+    archiveFileName = getRootDir().getName() + "-" + archiveVersion.get() + ".jar"
 }
 
+// Dev Tasks
 tasks.register('buildJar') {
     dependsOn shadowJar
     group = "Build"
-    description = "Build and assemble DnD_Visualizer"
+    description = "Build and assemble DnD_Visualizer for the current platform"
 }
 
 tasks.register('runClient', Exec) {
-    dependsOn shadowJar
+    dependsOn buildJar
     group = "Execution"
-    description = "Build, assemble and run DnD_Visualizer"
+    description = "Build, assemble and run DnD_Visualizer for the current platform"
     standardInput = System.in
     commandLine "java", "-jar", jar.archiveFile.get()
+}
+
+
+// Deployment Tasks
+tasks.register('deployJarForLinux') {
+    def platform = 'linux'
+    javafx.platform = platform
+    shadowJar {
+        manifest {
+            attributes "Target-Platform": platform
+        }
+        archiveFileName = getRootDir().getName() + "-" + archiveVersion.get() + "-" + platform.toUpperCase() + ".jar"
+    }
+    dependsOn shadowJar
+    group = "Build"
+    description = "Deploy for " + platform
+}
+
+tasks.register('deployJarForWindows') {
+    def platform = 'windows'
+    javafx.platform = platform
+    shadowJar {
+        manifest {
+            attributes "Target-Platform": platform
+        }
+        archiveFileName = getRootDir().getName() + "-" + archiveVersion.get() + "-" + platform.toUpperCase() + ".jar"
+    }
+    dependsOn shadowJar
+    group = "Build"
+    description = "Deploy for " + platform
+}
+
+tasks.register('deployJarForMac') {
+    def platform = 'mac'
+    javafx.platform = platform
+    shadowJar {
+        manifest {
+            attributes "Target-Platform": platform
+        }
+        archiveFileName = getRootDir().getName() + "-" + archiveVersion.get() + "-" + platform.toUpperCase() + ".jar"
+    }
+    dependsOn shadowJar
+    group = "Build"
+    description = "Deploy for " + platform
+}
+
+tasks.register('deployJarForMacAArch64') {
+    def platform = 'mac-aarch64'
+    javafx.platform = platform
+    shadowJar {
+        manifest {
+            attributes "Target-Platform": platform
+        }
+        archiveFileName = getRootDir().getName() + "-" + archiveVersion.get() + "-" + platform.toUpperCase() + ".jar"
+    }
+    dependsOn shadowJar
+    group = "Build"
+    description = "Deploy for " + platform
 }
