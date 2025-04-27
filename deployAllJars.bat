@@ -1,5 +1,8 @@
 @echo off
 
+echo Cleaning before Deployment
+call ./gradlew.bat clean
+
 echo Deploying Linux Jar
 call ./gradlew.bat deployJarForLinux
 

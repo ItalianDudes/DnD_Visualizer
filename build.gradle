@@ -37,9 +37,10 @@ javafx {
 // Dependencies
 dependencies {
     compileOnly 'org.jetbrains:annotations:26.0.1'
+    implementation 'org.apache.commons:commons-lang3:3.17.0'
     implementation 'commons-io:commons-io:2.18.0'
     implementation 'commons-codec:commons-codec:1.17.1'
-    implementation 'it.italiandudes:idl:1.2'
+    implementation 'it.italiandudes:idl:1.2.2'
     implementation 'org.json:json:20240303'
     implementation 'club.minnced:java-discord-rpc:2.0.1'
     implementation 'org.xerial:sqlite-jdbc:3.47.1.0'
