@@ -68,8 +68,8 @@ public final class TabCharacter {
     // Initialize
     public static void initialize(@NotNull final ControllerSceneSheetViewer controller) {
         controller.imageViewCharacterImage.setImage(JFXDefs.AppInfo.LOGO);
-        controller.spinnerLevel.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 20, 1, 1));
-        controller.spinnerProficiencyBonus.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 6, 2, 1));
+        controller.spinnerLevel.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE, 1, 1));
+        controller.spinnerProficiencyBonus.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(2, Integer.MAX_VALUE, 2, 1));
         controller.spinnerInspiration.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0, 1));
         onLostFocusFireActionEvent(controller);
         setOnChangeTriggers(controller);
